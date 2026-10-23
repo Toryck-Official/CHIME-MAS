@@ -13,8 +13,8 @@
    "stage": "plan",
    "scenario": "When a user requests a cancellation/refund that depends on multiple policy conditions (booking window, cabin class, insurance, airline cancellation, flown status).",
    "experience": "Verify reservation ownership and gather all eligibility facts (including cancellation reason) before deciding; if ineligible, state the specific failing conditions, deny the refund, and offer transfer to a human agent rather than promising exceptions.",
-   "value": 0.55,
-   "n": 5,
+   "value": 0.4583333333333333,
+   "n": 6,
    "id": "adc988f9",
    "origin_task": "28"
   },
@@ -49,8 +49,8 @@
    "stage": "plan",
    "scenario": "When a user asks for the cause of a flight delay and compensation without wanting to change or cancel the reservation.",
    "experience": "Verify the user and locate the specific reservation by matching flight number and route, then confirm the delay status via tools and avoid speculating on the cause if tools cannot provide it. Explain that delay compensation requires a change or cancellation first. Offer transfer to a human agent if the user insists on cause details or out-of-policy compensation.",
-   "value": 0.6000000000000001,
-   "n": 12,
+   "value": 0.5538461538461539,
+   "n": 13,
    "id": "ff3ae8b2",
    "origin_task": "27"
   },
@@ -103,8 +103,8 @@
    "stage": "plan",
    "scenario": "When a user wants to cancel/refund only the travel insurance on a reservation while keeping the flight.",
    "experience": "Plan to verify the user and locate the specific insured reservation, then check whether any policy provision allows removing or refunding insurance post-booking while retaining the flight. If no rule permits it, deny with the specific policy basis and offer transfer to a human agent for escalation, without modifying the reservation or processing any refund.",
-   "value": 0.27499999999999997,
-   "n": 4,
+   "value": 0.21999999999999997,
+   "n": 5,
    "id": "4096fadd",
    "origin_task": "46"
   },
@@ -186,8 +186,8 @@
    "stage": "exec",
    "scenario": "When a user asks to cancel a reservation and eligibility/refund depends on time-sensitive conditions like the 24-hour booking window.",
    "experience": "Explicitly compute and compare the reservation's created_at timestamp against the current time before claiming eligibility; do not assume 'within 24 hours' from a partial date. Verify the refund amount and destination from payment_history rather than asserting a figure, and only promise a refund after confirming the policy condition is actually met.",
-   "value": 0.7142857142857145,
-   "n": 14,
+   "value": 0.6666666666666669,
+   "n": 15,
    "id": "2221da8a",
    "origin_task": "1"
   },
@@ -195,8 +195,8 @@
    "stage": "exec",
    "scenario": "When executing a cancellation eligibility check and the user pushes for exceptions or partial refunds after denial.",
    "experience": "Retrieve reservation and user details, explicitly check each eligibility condition (booking age vs. the 24-hour window, cabin class, insurance-covered reasons, airline cancellation, flown status), and state the specific failing conditions. When the user insists on exceptions or partial refunds after denial, firmly and consistently reiterate the policy and offer a transfer to a human agent rather than improvising refunds or vouchers.",
-   "value": 0.6875,
-   "n": 4,
+   "value": 0.55,
+   "n": 5,
    "id": "bf1afed6",
    "origin_task": "28"
   },
@@ -240,8 +240,8 @@
    "stage": "exec",
    "scenario": "When cancelling a reservation under travel insurance based on a user-stated reason (e.g., illness), before calling the cancel API.",
    "experience": "Verify from the reservation's insurance details that the specific stated reason is a covered condition, and confirm no segment has already flown, before executing the cancellation; do not treat the mere presence of insurance plus a user assertion as sufficient. Only state refund amount and timing after these checks pass.",
-   "value": 0.6000000000000001,
-   "n": 9,
+   "value": 0.54,
+   "n": 10,
    "id": "bd079100",
    "origin_task": "7"
   },
@@ -397,6 +397,15 @@
    "n": 0,
    "id": "95e5cf0c",
    "origin_task": "17"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When presenting flight options and booking a new reservation after searching availability with a tool.",
+   "experience": "Only quote flight numbers, times, and prices that appear verbatim in the search tool results; never invent or infer fares. Re-verify the selected flights and total against the tool output before calling the booking API, and confirm the booking result matches the quoted summary.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fbd8a3b5",
+   "origin_task": "45"
   }
  ]
 }

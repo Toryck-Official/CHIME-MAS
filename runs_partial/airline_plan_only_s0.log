@@ -1,0 +1,50 @@
+[train 1/35] 43 reward=1.0 mem=None attr= 26s
+[train 2/35] 1 reward=0.0 mem=None attr= 18s
+[train 3/35] 28 reward=1.0 mem=None attr= 21s
+[train 4/35] 14 reward=0.0 mem=None attr= 35s
+[train 5/35] 36 reward=1.0 mem=None attr= 11s
+[train 6/35] 12 reward=1.0 mem=None attr= 22s
+[train 7/35] 0 reward=1.0 mem=None attr= 16s
+[train 8/35] 27 reward=1.0 mem=None attr= 16s
+[train 9/35] 47 reward=1.0 mem=None attr= 25s
+[train 10/35] 7 reward=0.0 mem=None attr= 32s
+[train 11/35] 33 reward=0.0 mem=None attr= 39s
+[train 12/35] 34 reward=1.0 mem=None attr= 27s
+[train 13/35] 20 reward=1.0 mem=None attr= 29s
+[train 14/35] 49 reward=1.0 mem=None attr= 17s
+[train 15/35] 5 reward=1.0 mem=None attr= 23s
+[train 16/35] 38 reward=1.0 mem=None attr= 28s
+[train 17/35] 11 reward=1.0 mem=None attr= 26s
+[train 18/35] 23 reward=1.0 mem=None attr= 51s
+[train 19/35] 40 reward=1.0 mem=None attr= 16s
+[train 20/35] 15 reward=1.0 mem=None attr= 27s
+[train 21/35] 10 reward=1.0 mem=None attr= 36s
+[train 22/35] 21 reward=0.0 mem=None attr= 29s
+[train 23/35] 46 reward=1.0 mem=None attr= 15s
+[train 24/35] 3 reward=1.0 mem=None attr= 17s
+[train 25/35] 9 reward=1.0 mem=None attr= 25s
+Traceback (most recent call last):
+  File "/home/claude/chime/run_stream.py", line 157, in <module>
+    main()
+  File "/home/claude/chime/run_stream.py", line 115, in main
+    agent, sim, reward, secs = run_one(args.domain, task, args.variant, memory)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/chime/run_stream.py", line 69, in run_one
+    sim = run_simulation(orch, evaluation_type=EvaluationType.ALL, communicate_scoring=COMM_SCORING)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/refs/tau2/src/tau2/runner/simulation.py", line 117, in run_simulation
+    simulation = orchestrator.run()
+                 ^^^^^^^^^^^^^^^^^^
+  File "/home/claude/refs/tau2/src/tau2/orchestrator/orchestrator.py", line 294, in run
+    self.step()
+  File "/home/claude/refs/tau2/src/tau2/orchestrator/orchestrator.py", line 879, in step
+    agent_msg, self.agent_state = self.agent.generate_next_message(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/chime/chime/tau2_agent.py", line 84, in generate_next_message
+    self._prepare(str(message.content), state)
+  File "/home/claude/chime/chime/tau2_agent.py", line 72, in _prepare
+    self.plan = chat([{"role": "system", "content": PLANNER_SYSTEM},
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/chime/chime/llm.py", line 48, in chat
+    raise RuntimeError(f"DeepSeek {r.status_code}: {r.text[:300]}")
+RuntimeError: DeepSeek 402: {"error":{"message":"Insufficient Balance (request_id: 728778b2-9d79-4f08-9b83-21af864357e7)","type":"unknown_error","param":null,"code":"invalid_request_error"}}

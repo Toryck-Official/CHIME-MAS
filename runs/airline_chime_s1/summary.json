@@ -1,0 +1,15 @@
+{
+ "domain": "airline",
+ "variant": "chime",
+ "order_seed": 1,
+ "n_train": 35,
+ "n_eval": 15,
+ "train_acc": 80.0,
+ "eval_acc": 86.67,
+ "memory_size": 46,
+ "usage_our_calls": {
+  "calls": 97,
+  "prompt_tokens": 271221,
+  "completion_tokens": 22892
+ }
+}

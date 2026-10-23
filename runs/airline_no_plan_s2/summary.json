@@ -1,11 +1,11 @@
 {
  "domain": "airline",
  "variant": "no_plan",
- "order_seed": 0,
+ "order_seed": 2,
  "n_train": 35,
  "n_eval": 15,
- "train_acc": 68.57,
- "eval_acc": 86.67,
+ "train_acc": 80.0,
+ "eval_acc": 100.0,
  "memory_size": null,
  "usage_our_calls": {
   "calls": 0,

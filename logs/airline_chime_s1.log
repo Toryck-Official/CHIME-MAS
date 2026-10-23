@@ -1,0 +1,51 @@
+[train 1/35] 2 reward=1.0 mem=1 attr=execution 29s
+[train 2/35] 15 reward=1.0 mem=3 attr=both 44s
+[train 3/35] 47 reward=1.0 mem=5 attr=both 30s
+[train 4/35] 9 reward=1.0 mem=7 attr=both 24s
+[train 5/35] 21 reward=1.0 mem=8 attr=execution 39s
+[train 6/35] 29 reward=0.0 mem=9 attr=execution 35s
+[train 7/35] 48 reward=1.0 mem=10 attr=both 20s
+[train 8/35] 5 reward=1.0 mem=11 attr=execution 28s
+[train 9/35] 46 reward=1.0 mem=13 attr=both 19s
+[train 10/35] 14 reward=0.0 mem=13 attr=execution 36s
+[train 11/35] 11 reward=1.0 mem=15 attr=both 28s
+[train 12/35] 32 reward=0.0 mem=16 attr=planning 25s
+[train 13/35] 34 reward=1.0 mem=18 attr=both 33s
+[train 14/35] 26 reward=1.0 mem=18 attr=both 21s
+[train 15/35] 49 reward=1.0 mem=20 attr=both 21s
+[train 16/35] 19 reward=1.0 mem=22 attr=both 28s
+[train 17/35] 39 reward=0.0 mem=23 attr=planning 29s
+[train 18/35] 38 reward=1.0 mem=24 attr=execution 27s
+[train 19/35] 12 reward=1.0 mem=26 attr=both 24s
+[train 20/35] 22 reward=1.0 mem=28 attr=both 30s
+[train 21/35] 37 reward=1.0 mem=28 attr=both 34s
+[train 22/35] 20 reward=0.0 mem=28 attr=execution 44s
+[train 23/35] 42 reward=1.0 mem=30 attr=both 30s
+[train 24/35] 35 reward=1.0 mem=32 attr=both 39s
+[train 25/35] 33 reward=1.0 mem=33 attr=both 38s
+[train 26/35] 10 reward=1.0 mem=34 attr=both 45s
+[train 27/35] 3 reward=1.0 mem=36 attr=both 20s
+[train 28/35] 18 reward=0.0 mem=37 attr=execution 44s
+[train 29/35] 45 reward=1.0 mem=37 attr=both 28s
+[train 30/35] 25 reward=1.0 mem=39 attr=both 29s
+[train 31/35] 23 reward=1.0 mem=41 attr=both 49s
+[train 32/35] 17 reward=0.0 mem=42 attr=planning 39s
+[train 33/35] 43 reward=1.0 mem=44 attr=both 25s
+[train 34/35] 0 reward=1.0 mem=45 attr=both 21s
+[train 35/35] 27 reward=1.0 mem=46 attr=both 24s
+[eval] 40 reward=1.0 17s
+[eval] 1 reward=1.0 25s
+[eval] 44 reward=0.0 42s
+[eval] 6 reward=1.0 22s
+[eval] 13 reward=1.0 13s
+[eval] 24 reward=1.0 35s
+[eval] 41 reward=1.0 29s
+[eval] 30 reward=1.0 34s
+[eval] 28 reward=1.0 24s
+[eval] 31 reward=1.0 20s
+[eval] 7 reward=0.0 33s
+[eval] 16 reward=1.0 24s
+[eval] 4 reward=1.0 24s
+[eval] 36 reward=1.0 17s
+[eval] 8 reward=1.0 26s
+{"domain": "airline", "variant": "chime", "order_seed": 1, "n_train": 35, "n_eval": 15, "train_acc": 80.0, "eval_acc": 86.67, "memory_size": 46, "usage_our_calls": {"calls": 97, "prompt_tokens": 271221, "completion_tokens": 22892}}

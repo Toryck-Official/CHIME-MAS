@@ -1,0 +1,15 @@
+{
+ "domain": "airline",
+ "variant": "chime_nogate",
+ "order_seed": 1,
+ "n_train": 35,
+ "n_eval": 15,
+ "train_acc": 74.29,
+ "eval_acc": 80.0,
+ "memory_size": 49,
+ "usage_our_calls": {
+  "calls": 91,
+  "prompt_tokens": 256523,
+  "completion_tokens": 21395
+ }
+}

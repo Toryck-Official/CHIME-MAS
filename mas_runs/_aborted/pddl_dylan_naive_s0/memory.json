@@ -1,0 +1,62 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When a manipulation plan requires multiple sequential physical actions and the environment warns against over-thinking.",
+   "experience": "Stop emitting repeated 'think' actions; after at most one brief planning thought, immediately execute a concrete valid action (grasp, fill, pour, leave) and use 'check valid actions' to resolve format errors rather than looping on deliberation.",
+   "value": -0.8,
+   "n": 1,
+   "id": "32bdea3b",
+   "origin_task": "12"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-object transport task must be completed within a fixed step budget and each round-trip cycle costs several actions.",
+   "experience": "Minimize deliberation actions and budget steps explicitly: count the actions each pickup-move-drop cycle requires, avoid any redundant 'think' emissions, and prioritize completing all required transfers before the step limit rather than narrating progress.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3faa6e66",
+   "origin_task": "33"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When the proposer keeps emitting repeated think/no-op actions instead of concrete manipulation actions, or when a proposed action is invalid due to both hands being occupied.",
+   "experience": "Stop supporting repeated think actions; instead push for a concrete valid action. When an action is invalid, immediately act on the check-valid-actions output (e.g., free a hand by leaving an object) rather than re-thinking the same plan.",
+   "value": 0.0,
+   "n": 1,
+   "id": "05c1ccf0",
+   "origin_task": "12"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a repetitive pick-carry-drop loop is nearly complete and the proposer emits think/no-op actions instead of the final concrete manipulation steps.",
+   "experience": "Stop supporting think actions once the plan is clear; push for the concrete next action (pick, move, drop) so the remaining objects get delivered before the step limit.",
+   "value": 0.0,
+   "n": 0,
+   "id": "9dfe17ec",
+   "origin_task": "33"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When both hands are occupied and the valid-action check shows only 'leave' options, the next step must be to actually leave an object rather than continue deliberating.",
+   "experience": "After checking valid actions, immediately execute the listed valid action (e.g., leave an object) instead of repeating 'think'; do not loop on planning when a concrete valid action is available.",
+   "value": -0.8,
+   "n": 1,
+   "id": "c11a7758",
+   "origin_task": "12"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a repetitive multi-object transport task requires cycling through pick, move, and drop actions across many items.",
+   "experience": "Minimize or eliminate 'think' steps between action cycles; after confirming a working pick-move-drop pattern, immediately execute the next cycle's actions without re-deliberating, to conserve steps within the limit.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ef54e455",
+   "origin_task": "33"
+  }
+ ]
+}

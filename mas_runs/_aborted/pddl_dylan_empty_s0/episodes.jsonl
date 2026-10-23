@@ -1,0 +1,2 @@
+{"phase": "train", "k": 0, "task_index": 12, "game": "barman", "problem": 12, "difficulty": "easy", "success": false, "progress": 0.0, "secs": 125.0, "usage": {"calls": 110, "prompt_tokens": 244972, "cache_hit_tokens": 203776, "completion_tokens": 1901, "cost_cny_offpeak": 0.0529}}
+{"phase": "train", "k": 1, "task_index": 33, "game": "gripper", "problem": 3, "difficulty": "hard", "success": false, "progress": 0.4, "secs": 125.0, "usage": {"calls": 226, "prompt_tokens": 600992, "cache_hit_tokens": 507519, "completion_tokens": 3535, "cost_cny_offpeak": 0.1178}}

@@ -1,0 +1,53 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When the next step requires a concrete manipulation action (grasp, pour, shake) after a state change has been observed, the agent must emit an executable action rather than a repeated planning statement.",
+   "experience": "Repeatedly outputting 'think' text instead of an action wastes steps and prevents task completion; after observing a state change, immediately commit to the specific next action.",
+   "value": 0.0,
+   "n": 1,
+   "id": "7a3a95b1",
+   "origin_task": "12"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a state change has just been observed and the next step requires a concrete manipulation action, the agent must emit an executable action rather than a repeated planning statement.",
+   "experience": "Repeatedly outputting planning text instead of an action wastes steps and prevents task completion; after observing a state change, immediately commit to the specific next action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f6e0a714",
+   "origin_task": "33"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When a proposed step contains only a planning/think statement with no executable action, the checker should reject it and demand a concrete action.",
+   "experience": "Verify that each proposal is an executable action, not a bare 'think' statement; flag repeated no-op proposals as a loop that will exhaust the step budget.",
+   "value": 0.0,
+   "n": 1,
+   "id": "e589e295",
+   "origin_task": "12"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When reviewing a proposed step, verify that it is an executable action rather than a bare planning statement, and reject no-op proposals that would loop and exhaust the step budget.",
+   "experience": "Supporting think-only proposals lets the team stall; the checker must flag non-executable proposals and demand a concrete action consistent with the observed state.",
+   "value": 0.0,
+   "n": 0,
+   "id": "23940262",
+   "origin_task": "33"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When upstream proposals are non-executable 'think' statements, the finalizer should substitute a concrete action consistent with the observed state instead of echoing the plan.",
+   "experience": "Do not pass through think-only proposals, as doing so wastes steps; instead, convert them into the concrete next action implied by the current observation.",
+   "value": 0.0,
+   "n": 1,
+   "id": "bf169ece",
+   "origin_task": "12"
+  }
+ ]
+}

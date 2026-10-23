@@ -68,9 +68,25 @@ def main():
         tasks = tasks[: a.limit]
     cut = int(round(len(tasks) * 0.7))
 
-    log = open(os.path.join(outdir, "episodes.jsonl"), "w")
-    results = {"train": [], "eval": []}
+    # 断点续跑：读回已完成的题目、最近一次保存的记忆和累计花费
+    ep_path = os.path.join(outdir, "episodes.jsonl")
+    done_recs = [json.loads(l) for l in open(ep_path)] if os.path.exists(ep_path) else []
+    base_usage = dict(done_recs[-1]["usage"]) if done_recs else {}
+    if done_recs and chime is not None and os.path.exists(os.path.join(outdir, "memory.json")):
+        chime.mem.load_json(open(os.path.join(outdir, "memory.json")).read())
+    if done_recs:
+        print(f"RESUME from task {len(done_recs)} (cost so far {base_usage.get('cost_cny_offpeak', 0):.3f} CNY)", flush=True)
+
+    def usage_now():
+        u = get_usage()
+        return {k: round(u[k] + base_usage.get(k, 0), 4) for k in u}
+
+    log = open(ep_path, "a")
+    results = {"train": [r for r in done_recs if r["phase"] == "train"],
+               "eval": [r for r in done_recs if r["phase"] == "eval"]}
     for k, cfg in enumerate(tasks):
+        if k < len(done_recs):
+            continue
         phase = "train" if k < cut else "eval"
         if chime is not None:
             chime.frozen = phase == "eval"
@@ -90,7 +106,7 @@ def main():
             rec["chime"] = chime.finish(bool(done), task_id=str(cfg["task_index"]))
             with open(os.path.join(outdir, "memory.json"), "w") as f:
                 f.write(chime.mem.to_json())
-        rec["usage"] = get_usage()
+        rec["usage"] = usage_now()
         log.write(dumps(rec) + "\n")
         log.flush()
         results[phase].append(rec)
@@ -109,7 +125,7 @@ def main():
             "train_success": acc(results["train"], "success"), "eval_success": acc(results["eval"], "success"),
             "train_progress": acc(results["train"], "progress"), "eval_progress": acc(results["eval"], "progress"),
             "memory_size": {r: len(b) for r, b in chime.mem.banks.items()} if chime else None,
-            "usage": get_usage()}
+            "usage": usage_now()}
     with open(os.path.join(outdir, "summary.json"), "w") as f:
         json.dump(summ, f, ensure_ascii=False, indent=1)
     print("SUMMARY " + json.dumps(summ, ensure_ascii=False), flush=True)

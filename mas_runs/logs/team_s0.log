@@ -72,7 +72,7 @@ Here is your initial observation: Cocktail1 part1 ingredient is ingredient2.  Co
 >
 
 CHIME-MAS insights: {'proposer': [], 'checker': [], 'finalizer': []}
-Act 1: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 with the right hand.
+Act 1: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 with my right hand.
 Obs 1: Ok. But you should not think too much!
 0.0
 Act 2: right grasp shot1
@@ -83,12 +83,5 @@ Obs 3: Pour shot1 from a shot glass to a used shaker ingredient2 Shot1 contains 
 Act 4: think: Shot1 now has ingredient2. I need to pour it into the clean shaker, then clean shot1 and add ingredient1.
 Obs 4: Ok. But you should not think too much!
 0.0
-Act 5: pour-shot-to-clean-shaker shot1 ingredient2 shaker1 right l0 l1
-Obs 5: Shaker1 contains ingredient2.  Shaker1 is at level l1.  Shaker1 is unshaked.  Shot1 is empty. 
-Act 6: think: Shot1 is empty and shaker1 has ingredient2. I need to clean shot1, then fill it with ingredient1 and pour into the shaker.
-Obs 6: Ok. But you should not think too much!
-0.0
-Act 7: clean-shot shot1 ingredient2 right left
-Obs 7: Shot1 is clean. 
-Act 8: think: Shot1 is clean. Now fill it with ingredient1 and pour into the used shaker.
-Obs 8: Ok. But you should not think too much!
+Act 5: right grasp shaker1
+Obs 5: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!

@@ -1,0 +1,24 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step plan requires several sequential physical actions and the agent has already identified the next concrete action",
+   "experience": "emit the concrete action command immediately instead of restating the plan in repeated 'think' steps; repeated thinking without acting stalls progress and burns the step budget",
+   "value": -0.85,
+   "n": 1,
+   "id": "30a7f29b",
+   "origin_task": "12"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step physical plan is underway and the next concrete action is already known",
+   "experience": "emit the concrete action command immediately instead of restating the plan in repeated 'think' steps; repeated thinking without acting stalls progress and burns the step budget",
+   "value": 0.0,
+   "n": 0,
+   "id": "2c5b5a8b",
+   "origin_task": "33"
+  }
+ ],
+ "checker": [],
+ "finalizer": []
+}

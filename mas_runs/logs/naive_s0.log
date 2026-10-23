@@ -74,18 +74,20 @@ Here is your initial observation: Cocktail1 part1 ingredient is ingredient2.  Co
 CHIME-MAS insights: {'proposer': [], 'checker': [], 'finalizer': []}
 Act 1: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and also fill shot7 with ingredient3. Let me start by grasping a shot glass and the shaker.
 Obs 1: Ok. But you should not think too much!
-Act 2: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Start by grasping shot1 and shaker1.
+Act 2: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
 Obs 2: Ok. But you should not think too much!
-Act 3: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Start by grasping shot1 and shaker1.
+Act 3: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
 Obs 3: Ok. But you should not think too much!
-Act 4: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Start by grasping shot1 and shaker1.
+Act 4: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
 Obs 4: Ok. But you should not think too much!
-Act 5: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Start by grasping shot1 and shaker1.
+Act 5: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
 Obs 5: Ok. But you should not think too much!
-Act 6: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Start by grasping shot1 and shaker1.
+Act 6: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
 Obs 6: Ok. But you should not think too much!
-Act 7: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Start by grasping shot1 and shaker1.
+Act 7: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
 Obs 7: Ok. But you should not think too much!
+Act 8: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 and the shaker.
+Obs 8: Ok. But you should not think too much!
 0.0
-Act 8: right grasp shot1
-Obs 8: You are holding right. 
+Act 9: right grasp shot1
+Obs 9: You are holding right. 

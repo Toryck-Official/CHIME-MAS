@@ -85,3 +85,10 @@ Obs 4: Ok. But you should not think too much!
 0.0
 Act 5: right grasp shaker1
 Obs 5: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!
+Act 6: check valid actions.
+Obs 6: Valid actions are: left grasp shaker1. , left grasp shot4. , right leave shot1. , pour-shot-to-clean-shaker from a shot glass shot1 with ingredient2 to a clean shaker shaker1 with hand right from level l0 to level l1, left grasp shot8. , left grasp shot7. , left grasp shot2. , use hand right to empty-shot glass shot1 with beverage ingredient2. , left grasp shot6. , left grasp shot3. , left grasp shot5. , check valid actions, look around
+0.0
+Act 7: pour-shot-to-clean-shaker shot1 ingredient2 shaker1 right l0 l1
+Obs 7: Shaker1 contains ingredient2.  Shaker1 is at level l1.  Shaker1 is unshaked.  Shot1 is empty. 
+Act 8: think: Shot1 is empty after pouring ingredient2 into shaker1. Now I need to clean shot1, fill it with ingredient1, and pour into the shaker.
+Obs 8: Ok. But you should not think too much!

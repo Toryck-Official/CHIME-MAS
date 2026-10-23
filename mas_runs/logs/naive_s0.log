@@ -91,3 +91,5 @@ Obs 8: Ok. But you should not think too much!
 0.0
 Act 9: right grasp shot1
 Obs 9: You are holding right. 
+Act 10: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. I have shot1 in my right hand. Now I need to fill it with ingredient2 from dispenser2.
+Obs 10: Ok. But you should not think too much!

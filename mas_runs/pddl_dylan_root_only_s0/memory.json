@@ -1,0 +1,24 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step manipulation plan is underway and the next concrete action is already determined",
+   "experience": "emit the executable action immediately instead of inserting deliberation steps, since each 'think' step consumes the step budget without changing the world and can cause the plan to run out of steps before completion.",
+   "value": 0.0,
+   "n": 1,
+   "id": "959e69cb",
+   "origin_task": "39"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when the next concrete manipulation action is already determined and the environment is waiting for an executable command",
+   "experience": "emit the executable action immediately rather than inserting deliberation steps, since each 'think' consumes the step budget without changing the world and can exhaust the plan before completion",
+   "value": 0.0,
+   "n": 0,
+   "id": "20b0cad6",
+   "origin_task": "6"
+  }
+ ],
+ "checker": [],
+ "finalizer": []
+}

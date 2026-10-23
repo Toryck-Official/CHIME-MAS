@@ -26,6 +26,8 @@ rows = {}
 for m in MODES:
     for f in sorted(glob.glob(f"{OUT}/pddl_dylan_{m}_s*/episodes.jsonl")):
         seed = int(f.split("_s")[-1].split("/")[0])
+        if not os.path.exists(os.path.join(os.path.dirname(f), "summary.json")):
+            continue  # 只统计完整跑完的组
         rows[(m, seed)] = [json.loads(l) for l in open(f)]
 
 out = {"per_mode": {}, "credit": {}, "team_verdicts": {}}

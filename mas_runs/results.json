@@ -1,0 +1,152 @@
+{
+ "per_mode": {
+  "empty": {
+   "seeds": [
+    0
+   ],
+   "n_train_eval": [
+    [
+     42,
+     18
+    ]
+   ],
+   "train_success": "19.0",
+   "eval_success": "33.3",
+   "train_progress": "32.9",
+   "eval_progress": "49.5",
+   "cost_cny": [
+    3.12
+   ],
+   "memory_last": []
+  },
+  "naive": {
+   "seeds": [
+    0
+   ],
+   "n_train_eval": [
+    [
+     42,
+     18
+    ]
+   ],
+   "train_success": "42.9",
+   "eval_success": "83.3",
+   "train_progress": "67.8",
+   "eval_progress": "86.4",
+   "cost_cny": [
+    3.71
+   ],
+   "memory_last": [
+    {
+     "proposer": 35,
+     "checker": 18,
+     "finalizer": 10
+    }
+   ]
+  },
+  "root_only": {
+   "seeds": [
+    0
+   ],
+   "n_train_eval": [
+    [
+     42,
+     18
+    ]
+   ],
+   "train_success": "45.2",
+   "eval_success": "83.3",
+   "train_progress": "70.9",
+   "eval_progress": "89.2",
+   "cost_cny": [
+    2.86
+   ],
+   "memory_last": [
+    {
+     "proposer": 2,
+     "checker": 0,
+     "finalizer": 0
+    }
+   ]
+  },
+  "team": {
+   "seeds": [
+    0
+   ],
+   "n_train_eval": [
+    [
+     42,
+     18
+    ]
+   ],
+   "train_success": "40.5",
+   "eval_success": "77.8",
+   "train_progress": "64.6",
+   "eval_progress": "81.5",
+   "cost_cny": [
+    4.04
+   ],
+   "memory_last": [
+    {
+     "proposer": 5,
+     "checker": 5,
+     "finalizer": 4
+    }
+   ]
+  }
+ },
+ "credit": {
+  "naive": {
+   "mean_roles_credited_per_success": 3,
+   "n_success": 18,
+   "mean_roles_written_per_failure": 3,
+   "n_failure": 24
+  },
+  "root_only": {
+   "mean_roles_credited_per_success": 0,
+   "n_success": 19,
+   "mean_roles_written_per_failure": 1,
+   "n_failure": 23
+  },
+  "team": {
+   "mean_roles_credited_per_success": 2.06,
+   "n_success": 17,
+   "mean_roles_written_per_failure": 2.88,
+   "n_failure": 25
+  }
+ },
+ "team_verdicts": {
+  "root_only": {
+   "failure/checker/missed_check": 23,
+   "failure/finalizer/compounded": 22,
+   "failure/finalizer/faithful": 1,
+   "failure/proposer/root": 23,
+   "success/checker/decisive": 3,
+   "success/checker/incidental": 14,
+   "success/checker/missed_check": 2,
+   "success/finalizer/decisive": 3,
+   "success/finalizer/incidental": 16,
+   "success/proposer/compounded": 2,
+   "success/proposer/decisive": 17
+  },
+  "team": {
+   "failure/checker/coordination": 2,
+   "failure/checker/faithful": 1,
+   "failure/checker/missed_check": 22,
+   "failure/finalizer/compounded": 23,
+   "failure/finalizer/faithful": 2,
+   "failure/proposer/root": 25,
+   "success/checker/coordination": 1,
+   "success/checker/decisive": 11,
+   "success/checker/incidental": 2,
+   "success/checker/missed_check": 2,
+   "success/checker/none": 1,
+   "success/finalizer/decisive": 13,
+   "success/finalizer/incidental": 3,
+   "success/finalizer/none": 1,
+   "success/proposer/compounded": 5,
+   "success/proposer/decisive": 11,
+   "success/proposer/incidental": 1
+  }
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "when a tower must be dismantled and rebuilt into a different target configuration",
+   "experience": "Systematically clear blocks from the top down, place held blocks on the table to free the arm, then rebuild the target stack bottom-up, verifying each placement against the goal.",
+   "value": 0.17,
+   "n": 10,
+   "id": "57eb9af7",
+   "origin_task": "26"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step physical assembly task requires sequential concrete actions and the agent has already gathered tools",
+   "experience": "Emit an executable command each turn rather than repeated internal reasoning; if a prerequisite is needed, immediately issue the fetch/inflate/fill command instead of restating the plan.",
+   "value": 0.19444444444444445,
+   "n": 9,
+   "id": "104b6d21",
+   "origin_task": "59"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step manipulation task requires filling multiple containers with different ingredients in sequence",
+   "experience": "Emit concrete executable commands (grasp, fill, leave) each turn rather than repeated think-only reasoning; after completing one subgoal, immediately issue the leave/grasp command for the next container instead of restating the plan.",
+   "value": 0.425,
+   "n": 4,
+   "id": "41157e37",
+   "origin_task": "18"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step pick-and-place task requires moving several objects between locations with a two-gripper robot",
+   "experience": "Emit a concrete executable command every turn (pick, move, drop) rather than restating the plan; after each subgoal completes, immediately issue the next command instead of a think step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c302417d",
+   "origin_task": "47"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step manipulation task requires sequential concrete actions and the agent has already identified the plan",
+   "experience": "Emit an executable command each turn rather than repeated internal reasoning; after clearing the stack, immediately issue the concrete placement and pickup commands that build the target configuration bottom-up.",
+   "value": 0.0,
+   "n": 0,
+   "id": "bb28604d",
+   "origin_task": "22"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step physical manipulation task requires sequential concrete actions and prerequisites are already satisfied",
+   "experience": "Emit an executable command each turn rather than repeated internal reasoning; after completing one subgoal, immediately issue the next concrete command instead of restating the plan.",
+   "value": 0.0,
+   "n": 0,
+   "id": "0af16282",
+   "origin_task": "57"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "when reviewing a proposed action that is a reasoning statement rather than an executable command",
+   "experience": "Verify that the proposal is a concrete command matching the current holding state and goal; reject think-only proposals, require the next actionable step, support concrete commands that advance the goal, and flag repeated identical proposals as a loop.",
+   "value": 0.19444444444444445,
+   "n": 9,
+   "id": "d41efd7a",
+   "origin_task": "59"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when reviewing proposals in a sequential manipulation task where the agent must alternate between moving and grasping",
+   "experience": "Reject any think-only proposal and require a concrete command consistent with the current holding state; also flag repeated identical proposals as a loop and demand the next actionable step.",
+   "value": 0.425,
+   "n": 2,
+   "id": "fec30467",
+   "origin_task": "47"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the executed action",
+   "experience": "Select the concrete action that matches the current holding state and goal progress, and ensure the executed action is an actual command rather than a think step.",
+   "value": 0.345,
+   "n": 10,
+   "id": "1d568961",
+   "origin_task": "26"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the executed action during a sequential manipulation task",
+   "experience": "Select a concrete executable command consistent with the current holding state and goal progress, never output a think step, and resolve disagreements by choosing the action that advances the goal rather than an unrelated fetch.",
+   "value": 0.38333333333333336,
+   "n": 9,
+   "id": "a269b6bd",
+   "origin_task": "59"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the executed action during a sequential pick-and-place task",
+   "experience": "Never output a think step as the executed action; always select a concrete executable command that matches the current holding state and advances the goal, resolving disagreements toward the actionable step.",
+   "value": 0.425,
+   "n": 2,
+   "id": "d85688cb",
+   "origin_task": "47"
+  }
+ ]
+}

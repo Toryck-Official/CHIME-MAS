@@ -1,0 +1,19 @@
+{
+ "tag": "pddl_dylan_empty_s0",
+ "mode": "empty",
+ "order_seed": 0,
+ "n_train": 42,
+ "n_eval": 18,
+ "train_success": 19.05,
+ "eval_success": 33.33,
+ "train_progress": 32.86,
+ "eval_progress": 49.54,
+ "memory_size": null,
+ "usage": {
+  "calls": 5571,
+  "prompt_tokens": 12215878,
+  "cache_hit_tokens": 9736544,
+  "completion_tokens": 110660,
+  "cost_cny_offpeak": 3.1167
+ }
+}

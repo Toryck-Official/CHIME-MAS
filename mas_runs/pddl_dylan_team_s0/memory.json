@@ -1,0 +1,134 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When a plan is already known and the environment is waiting for an executable action, the agent must emit a concrete tool action rather than another internal reasoning step.",
+   "experience": "Repeatedly outputting 'think' instead of an executable action wastes steps and causes task failure; after forming a plan, immediately translate it into the next valid action.",
+   "value": 0.12142857142857141,
+   "n": 14,
+   "id": "28de60f0",
+   "origin_task": "12"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a plan is already established and the environment awaits an executable action",
+   "experience": "When a plan is established and the environment awaits an executable action, immediately emit the concrete tool action instead of another internal reasoning step, since repeated 'think' outputs waste steps and exhaust the limit before the goal is reached.",
+   "value": 0.2337499999999999,
+   "n": 40,
+   "id": "ca1db9a4",
+   "origin_task": "33"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step stacking plan is already established and the environment awaits an executable action",
+   "experience": "Once a multi-step plan is established and the environment awaits an executable action, emit the concrete tool action immediately instead of repeating internal reasoning, since repeated 'think' outputs waste steps and can cause failure.",
+   "value": 0.0,
+   "n": 5,
+   "id": "2bfde183",
+   "origin_task": "29"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step relocation plan is already established and the environment awaits an executable action",
+   "experience": "When a multi-step relocation plan is established and the environment awaits an executable action, emit the concrete tool action immediately instead of another internal reasoning step, since redundant 'think' outputs waste steps and can exhaust the limit before the goal is reached.",
+   "value": 0.29310344827586204,
+   "n": 29,
+   "id": "86473d29",
+   "origin_task": "44"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "when a multi-step manipulation plan is already established and the environment awaits an executable action",
+   "experience": "When a multi-step plan is established and the environment awaits an executable action, immediately emit the concrete tool action instead of another internal reasoning step, since redundant 'think' outputs waste steps and can exhaust the limit before the goal is reached.",
+   "value": 0.2390625,
+   "n": 32,
+   "id": "3cba66e4",
+   "origin_task": "50"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When reviewing a proposed action, verify that it is an executable action rather than a pure reasoning/no-op step, especially when the same reasoning has already been repeated.",
+   "experience": "Supporting a proposal that is only a 'think' statement lets the team loop without progress; checkers should reject non-executable proposals and demand a concrete action.",
+   "value": 0.23658536585365855,
+   "n": 41,
+   "id": "6bda4aa2",
+   "origin_task": "12"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when reviewing a proposed action that is only a reasoning/no-op statement rather than an executable action",
+   "experience": "Reject proposals that are merely reasoning or no-op statements and demand a concrete, currently valid, executable tool action; verify it against the latest valid-actions output (e.g., not re-filling an already-satisfied container) before supporting it, since supporting a \"think\" statement lets the team loop without progress.",
+   "value": 0.24250000000000002,
+   "n": 40,
+   "id": "4cde8783",
+   "origin_task": "33"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when reviewing a finalizer's decision that is a pure reasoning/no-op statement rather than an executable action",
+   "experience": "Reject non-executable reasoning outputs at the decision stage too, not just at the proposal stage; verify the chosen action is a concrete, currently valid tool action before supporting it, since supporting a 'think' statement lets the team loop without progress.",
+   "value": 0.14722222222222223,
+   "n": 18,
+   "id": "7026f268",
+   "origin_task": "51"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when reviewing a proposed action that is a concrete tool action but whose argument format may be invalid for the current state",
+   "experience": "Verify not only that the proposal is executable but that its argument format is currently valid (e.g., check valid actions when a prior attempt of the same action failed), rather than supporting a repeated invalid action.",
+   "value": 0.0,
+   "n": 1,
+   "id": "6d46d9b2",
+   "origin_task": "3"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when reviewing proposals that are pure reasoning/no-op statements rather than executable actions",
+   "experience": "Reject non-executable 'think' proposals and demand a concrete, currently valid tool action; also verify the finalizer's chosen action is executable, since supporting or allowing 'think' steps lets the team loop without progress.",
+   "value": 0.0,
+   "n": 0,
+   "id": "6af2609e",
+   "origin_task": "4"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the action actually executed during a sequential stacking task",
+   "experience": "Select the concrete executable action that advances the established plan, first verifying the current gripper state and action validity, and never emit a pure reasoning step when an action is available.",
+   "value": 0.24871794871794875,
+   "n": 39,
+   "id": "a8297ce0",
+   "origin_task": "29"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the action actually executed during a sequential relocation task",
+   "experience": "Select the concrete executable action that advances the established plan, first verifying the agent's current location and gripper state, and never emit a pure reasoning step when an action is available.",
+   "value": 0.23289473684210527,
+   "n": 38,
+   "id": "8b4d6939",
+   "origin_task": "36"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the action actually executed during a sequential manipulation task",
+   "experience": "Select the concrete executable action that advances the established plan, verifying gripper state and action validity before choosing it, and never emit a pure reasoning step or repeat an already-completed action when an action is available.",
+   "value": 0.2073529411764707,
+   "n": 34,
+   "id": "ee3494a2",
+   "origin_task": "5"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when combining proposals and critiques into the action actually executed",
+   "experience": "Select the concrete executable action that advances the established plan and never emit a pure reasoning step when an action is available; when a prior action failed, choose a different valid action rather than repeating it.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b4a42044",
+   "origin_task": "3"
+  }
+ ]
+}

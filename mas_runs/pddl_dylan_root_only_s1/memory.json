@@ -1,0 +1,15 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "when the agent has already decided the next manipulation and is holding the needed tool, it must emit the concrete action command instead of a reasoning statement",
+   "experience": "Convert the intended next move into an executable action command immediately; bare reasoning turns consume steps without changing the world and can exhaust the budget before the goal is reached.",
+   "value": 0.0,
+   "n": 2,
+   "id": "55d7b07c",
+   "origin_task": "59"
+  }
+ ],
+ "checker": [],
+ "finalizer": []
+}

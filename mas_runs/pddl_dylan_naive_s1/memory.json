@@ -1,0 +1,305 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When rearranging blocks into a target configuration where a block must be freed before it can be moved and later re-stacked.",
+   "experience": "Decompose the goal into ordered subgoals: clear the needed support block by unstacking its occupants to the table, place the target block, then rebuild the required stack in the correct order.",
+   "value": 0.5590909090909091,
+   "n": 11,
+   "id": "d25840b5",
+   "origin_task": "26"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step physical task requires a sequence of tool fetches and manipulations, and the environment warns against excessive thinking.",
+   "experience": "After each observation, immediately emit the next concrete executable action (fetch, loosen, jack, etc.) rather than another 'think' step; only think once per subgoal and act on it.",
+   "value": 0.024999999999999967,
+   "n": 4,
+   "id": "aed7fc6b",
+   "origin_task": "59"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When rearranging objects into a target configuration where a support object must be freed before a target object can be placed on it, and later occupants must be re-stacked.",
+   "experience": "Decompose the task into ordered subgoals: unstack occupants off the needed support onto the table, place the target object on the support, then rebuild the remaining stack in the correct order. After each observation, emit the next concrete executable action rather than extra think steps. If an action is invalid, re-check valid actions and re-plan.",
+   "value": 0.588888888888889,
+   "n": 9,
+   "id": "191a19b2",
+   "origin_task": "23"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step physical task requires combining ingredients in a container, transferring between vessels, and cleaning/reusing a vessel before the final pour.",
+   "experience": "Decompose into ordered subgoals: add each ingredient to the mixing container, clean the target vessel, shake the mixture, then pour into the target; after each observation emit the next concrete executable action instead of extra think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2d26ecb3",
+   "origin_task": "9"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When executing a multi-step physical manipulation task with a limited step budget and an environment that warns against excessive thinking.",
+   "experience": "After each observation, immediately emit the next concrete executable action rather than another think step; before attempting a non-obvious action like shaking, check valid actions to confirm the exact syntax, and act on the result promptly.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c084fc11",
+   "origin_task": "2"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step physical manipulation task requires combining ingredients in a specific order and an action fails as invalid.",
+   "experience": "After an invalid action, immediately run 'check valid actions' and copy the exact valid action syntax rather than guessing or emitting repeated think steps; also verify ingredient order before shaking since order determines the resulting cocktail.",
+   "value": 0.7416666666666667,
+   "n": 6,
+   "id": "a97919f6",
+   "origin_task": "5"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a task requires filling multiple containers each with a distinct ingredient in a specified assignment.",
+   "experience": "Grasp each target container, fill it with its assigned ingredient, then leave it on the table before moving to the next; emit concrete executable actions instead of repeated think steps, and verify each container's ingredient matches its target before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f2ec6700",
+   "origin_task": "18"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When multiple objects must be relocated between two locations, with some objects needing to move in each direction.",
+   "experience": "Decompose into per-object subgoals: pick up the object, move to the destination, drop it, then return for the next object. Emit concrete executable actions directly rather than extra think steps, and verify each object's location after dropping before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4872a931",
+   "origin_task": "43"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When all target objects are in one location and must be transported to another location, with a robot that has two grippers and can carry one object per gripper.",
+   "experience": "Move to the source location, pick up two objects (one per gripper), move to the destination, drop both, and repeat until all objects are transferred; avoid emitting redundant think steps between actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8ad44ab6",
+   "origin_task": "47"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When rearranging stacked objects into a target configuration where a support object is buried under occupants and must be freed before a target object can be placed on it.",
+   "experience": "Decompose into ordered subgoals: unstack occupants off the needed support onto the table, place the target object on the support, then rebuild the remaining stack in the correct order; emit concrete executable actions after each observation rather than extra think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b559388d",
+   "origin_task": "22"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step physical manipulation task requires fetching a replacement part from a container before installing it, and an install action fails as invalid.",
+   "experience": "After an invalid action, immediately run 'check valid actions' and follow the exact valid syntax; ensure the replacement part is fetched from its container before attempting to install it, and avoid redundant think steps that consume the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "43e2d084",
+   "origin_task": "57"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "when a goal requires rearranging a stack where target blocks are buried under other blocks that must be temporarily cleared and later restored",
+   "experience": "Before placing a block on a target, verify the target is clear; if a block needed for a later goal sits on the target, unstack it to a temporary location, complete the placement, then restore it. Support plans that follow this clear-then-place-then-restore ordering.",
+   "value": 0.540909090909091,
+   "n": 11,
+   "id": "404112cd",
+   "origin_task": "26"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a plan is stuck repeating a no-op action (like repeated thinking) instead of executing the next concrete step toward the goal.",
+   "experience": "Detect repeated identical no-op actions and immediately reject them, forcing the proposer to execute the next concrete action toward the goal rather than supporting the loop.",
+   "value": 0.43500000000000005,
+   "n": 10,
+   "id": "110ccf54",
+   "origin_task": "59"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a plan requires picking up a block that may still be covered by another block",
+   "experience": "Before supporting a pickup action, verify the target block is clear (nothing stacked on it); if it is buried, require unstacking the covering block first, then proceed with the pickup and placement.",
+   "value": 0.5722222222222223,
+   "n": 9,
+   "id": "e631b5fe",
+   "origin_task": "23"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a multi-step plan requires combining ingredients in a container, then shaking and pouring into a target vessel",
+   "experience": "Support concrete manipulation steps that advance the plan (fill, pour, clean, grasp, shake, pour-to-target) and reject repeated no-op thinking; verify each intermediate state (container contents, cleanliness, hand state) before supporting the next step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f818ed34",
+   "origin_task": "9"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a plan has produced an incorrect intermediate result (e.g. wrong contents/order in a container) and the agent must recover by emptying or rebuilding it",
+   "experience": "When a wrong intermediate result is detected, do not support repeated think/no-op actions; immediately require a concrete recovery step such as checking valid actions to learn the correct command format, then executing the empty/rebuild action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "63e9731f",
+   "origin_task": "5"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a multi-step task requires filling several containers with specific contents and the proposer stalls on repeated no-op thinking instead of executing the next concrete grasp/fill/leave action",
+   "experience": "Reject repeated no-op think steps and push the proposer to execute the next concrete action (grasp, fill, then leave) for each remaining container until all conditions are met.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f7673c01",
+   "origin_task": "18"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a task requires relocating multiple objects between two locations using a single gripper, one object at a time",
+   "experience": "Support sequential pick-move-drop cycles that handle one object per trip and verify each object's placement before starting the next; avoid supporting repeated no-op thinking steps and push for the next concrete action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5cecdf70",
+   "origin_task": "43"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a transport task requires ferrying multiple items between two locations with limited carrying capacity",
+   "experience": "Support the efficient ferry pattern (move to source, pick up to capacity, move to destination, drop, repeat), and reject redundant think steps that merely restate the obvious next concrete action so the plan proceeds without delay.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3507cfad",
+   "origin_task": "47"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when rearranging stacked objects where a target object is buried under others that must be temporarily cleared and later restored",
+   "experience": "Verify the target is clear before each placement; if a needed object sits on the target, unstack it to a temporary location, complete the placement, then restore it. Reject repeated no-op think steps and force the next concrete action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "97ccb949",
+   "origin_task": "22"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a goal specifies that certain objects must end up in a container (e.g. in the boot), and the plan instead removes or relocates those objects away from the container",
+   "experience": "Before supporting actions, verify each action moves the goal objects toward the required end-state; if the goal is to have objects in a container, reject plans that remove them from it, and reject repeated no-op think steps to force concrete goal-directed actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fe217409",
+   "origin_task": "57"
+  },
+  {
+   "stage": "checker",
+   "scenario": "when a target block is buried under a stack of blocks that must be cleared before a required block can be placed on it",
+   "experience": "Support unstacking each covering block to a temporary location until the target is clear, then pick up the required block and stack it on the target; reject repeated no-op thinking and push for the next concrete action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e33c3140",
+   "origin_task": "25"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "when a goal requires rearranging a stack where a block must be placed on another that is currently supporting or supported by other blocks",
+   "experience": "Before placing a block onto a target, clear the target by moving any blocks resting on it to a temporary location, then place the required block and restore the displaced blocks in the correct order. Once the next action is unambiguous, execute it immediately instead of repeating think steps.",
+   "value": 0.5681818181818183,
+   "n": 11,
+   "id": "9d871ccd",
+   "origin_task": "26"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step physical task requires a sequence of tool actions, and the next action is already known and unambiguous.",
+   "experience": "Stop deliberating once the next action is clear; immediately execute the concrete action (e.g., fetch, loosen, jack up) rather than repeating think steps, to conserve the limited step budget.",
+   "value": 0.3849999999999999,
+   "n": 10,
+   "id": "b0b551a2",
+   "origin_task": "59"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when a goal requires stacking one block onto another that is currently supporting or blocked by other blocks",
+   "experience": "Before picking up or placing a block, verify the target and the block to be moved are clear; unstack any blocking block to a temporary location first, then perform the placement, and finally restore displaced blocks in the correct order. Once the next concrete action is unambiguous, execute it immediately instead of repeating think steps.",
+   "value": 0.25,
+   "n": 4,
+   "id": "3ccd66ee",
+   "origin_task": "23"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step physical task requires combining ingredients in a container, shaking, and pouring into a target vessel, and the next concrete action is already clear.",
+   "experience": "Execute the next unambiguous concrete action immediately instead of repeating think steps; keep the sequence fill-transfer-clean-shake-pour tight to conserve the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "05adaf42",
+   "origin_task": "9"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when a multi-step physical task requires chaining tool actions and the next concrete action is known",
+   "experience": "Execute the concrete action immediately rather than emitting repeated think steps; when an action fails, run check valid actions once and use the exact returned syntax before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "433eb298",
+   "origin_task": "2"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When building a multi-ingredient mixture in a container where the order of ingredients determines the resulting product, and the container already holds an incorrect mixture.",
+   "experience": "Verify the required ingredient order before adding anything, and if the container already holds the wrong mixture, check valid actions to find the correct empty/reset command before rebuilding; also stop repeating think steps and execute concrete actions immediately.",
+   "value": 0.72,
+   "n": 5,
+   "id": "b85be011",
+   "origin_task": "5"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a task requires filling multiple containers each with a specific distinct ingredient, and the mapping of container to ingredient is already known.",
+   "experience": "Execute the concrete grasp-fill-place sequence for each container immediately without repeated deliberation; verify each container's ingredient after filling before moving to the next.",
+   "value": 0.0,
+   "n": 0,
+   "id": "400cb791",
+   "origin_task": "18"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a task requires relocating multiple objects between two locations with a single gripper, one object at a time.",
+   "experience": "Pick up one object, move to the destination, drop it, then return empty to fetch the next; repeat until all objects are relocated, and skip redundant think steps to conserve the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3d7a2750",
+   "origin_task": "43"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a transport task requires moving multiple objects from one location to another and the agent has two grippers, batch objects in pairs to minimize trips.",
+   "experience": "Pick up two objects at a time (one per gripper), move to the destination, drop both, then return for the next pair; avoid redundant think steps and execute the known next action immediately to conserve the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8367ae1a",
+   "origin_task": "47"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step physical assembly task requires fetching a part from a container before installing it, and an install action fails as invalid.",
+   "experience": "Immediately run `check valid actions` after any invalid action to learn the true preconditions (e.g., the part must be fetched from its container first), then execute the concrete steps without repeating think actions, and budget remaining steps to complete all required sub-tasks.",
+   "value": 0.0,
+   "n": 0,
+   "id": "849e478f",
+   "origin_task": "57"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when a goal requires placing one block onto another that is buried under or supporting other blocks",
+   "experience": "Clear the target block by unstacking any blocks resting on it to a temporary location, then place the required block onto the now-clear target, and once the next action is unambiguous execute it immediately rather than repeating think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "88c57657",
+   "origin_task": "25"
+  }
+ ]
+}

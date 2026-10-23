@@ -1,19 +1,817 @@
-From 25653265ed12b22246fe5f2dd0136d3221fc4954 Mon Sep 17 00:00:00 2001
-From: Claude <noreply@anthropic.com>
-Date: Fri, 23 Oct 2026 09:08:51 -0600
-Subject: [PATCH] CHIME-MAS: PDDL-only loader, Qwen ONNX embeddings, DeepSeek
- cost accounting, probe options
-
-Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_013aP4g57cQQS4uEWrxa7Zsp
----
- mas/llm.py             | 19 ++++++---
- mas/utils.py           | 16 ++++----
- tasks/envs/__init__.py | 88 +++++-------------------------------------
- tasks/run.py           | 19 ++++++++-
- tasks/utils.py         |  3 +-
- 5 files changed, 51 insertions(+), 94 deletions(-)
-
+diff --git a/.db/chime_mas/pddl_dylan_team_s0/total_task.log b/.db/chime_mas/pddl_dylan_team_s0/total_task.log
+new file mode 100644
+index 0000000..1be75d5
+--- /dev/null
++++ b/.db/chime_mas/pddl_dylan_team_s0/total_task.log
+@@ -0,0 +1,153 @@
++2026-10-23 09:59:13 - Configuration Loaded:
++2026-10-23 09:59:13 - Node Number       : 2
++2026-10-23 09:59:13 - Round Number      : 2
++2026-10-23 09:59:13 - Learning Rate     : 0.01
++2026-10-23 09:59:13 - Roles             : ['solver']
++2026-10-23 09:59:13 - Use Critic        : True
++2026-10-23 09:59:13 - Successful Topk   : 0
++2026-10-23 09:59:13 - Failed Topk       : 0
++2026-10-23 09:59:13 - Insights Topk     : 0
++2026-10-23 09:59:13 - Retrieve Threshold: 0.0
++2026-10-23 09:59:13 - Use Role Projector: False
++2026-10-23 09:59:13 - 
++## Successful Examples (Reference Cases)
++Below are some examples of similar tasks that were successfully completed.  
++Please use these as references to guide your thinking and approach to the current task:
++
++The goal is to satisfy the following conditions: shot1 contains cocktail1. 
++Observation: Cocktail1 part1 ingredient is ingredient1. Cocktail1 part2 ingredient is ingredient3. Cocktail2 part1 ingredient is ingredient2. Cocktail2 part2 ingredient is ingredient3. Cocktail3 part1 ingredient is ingredient1. Cocktail3 part2 ingredient is ingredient2. Dispenser1 dispenses ingredient1. Dispenser2 dispenses ingredient2. Dispenser3 dispenses ingredient3. Left hand is empty. Level l0 is next to level l1. Level l1 is next to level l2. Right hand is empty. Shaker1 is at empty level l0. Shaker1 is at level l0. Shaker1 is clean. Shaker1 is empty. Shaker1 is on the table. Shot1 is clean. Shot1 is empty. Shot1 is on the table. Shot2 is clean. Shot2 is empty. Shot2 is on the table. Shot3 is clean. Shot3 is empty. Shot3 is on the table. Shot4 is clean. Shot4 is empty. Shot4 is on the table.
++Action: check valid actions
++Observation: Valid actions are: right grasp shot1. , left grasp shot3. , left grasp shot1. , left grasp shot2. , right grasp shaker1. , right grasp shot4. , right grasp shot3. , right grasp shot2. , left grasp shaker1. , left grasp shot4. , check valid actions
++Action: right grasp shot1.
++Observation: You are holding right.
++Action: fill-shot glass shot1 with ingredient3 with right and left holding dispenser3
++Observation: Shot1 contains ingredient3. 
++Action: check valid actions
++Observation: Valid actions are: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1, left grasp shot3. , left grasp shot2. , use hand right to empty-shot glass shot1 with beverage ingredient3. , right leave shot1. , left grasp shaker1. , left grasp shot4. , check valid actions
++Action: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1
++Observation:  Pour shot1 from a shot glass to a used shaker ingredient3 Shaker1 contains ingredient3. 
++Action: clean-shot glass shot1 with ingredient3 with hand right holding shot glass and left
++Observation:  Shot1 is clean. 
++Action: fill-shot glass shot1 with ingredient1 with right and left holding dispenser1
++Observation: Shot1 contains ingredient1.
++Action: pour-shot-to-used-shaker from a shot glass shot1 with ingredient1 to a used shaker shaker1 with hand right from level l1 to level l2
++Observation: Pour shot1 from a shot glass to a used shaker ingredient1 Shaker1 contains ingredient1. Shaker1 contains ingredient3. Shaker1 is at empty level l0. Shaker1 is at level l2. Shaker1 is on the table. Shaker1 is unshaked.
++Action: clean-shot glass shot1 with ingredient1 with hand right holding shot glass and left
++Observation: Shot1 is clean. 
++Action: right leave shot1
++Observation: Right hand is empty.
++Action: right grasp shaker1
++Observation: You are holding right.
++Action: shake a cocktail cocktail1 with ingredient ingredient1 and ingredient ingredient3 in a shaker shaker1 with hand right and hand left
++Observation: Shaker1 is shaked.
++Action: pour-shaker-to-shot to a shot glass cocktail1 the ingredient shot1 with hand right from shaker shaker1 from level l2 to level l1
++Observation: Shot1 contains cocktail1. The task is completed.
++---
++
++## Your Own Past Successes (Execution Patterns)
++Here are examples of successful execution processes you've previously used on similar tasks.  
++Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
++
++
++---
++
++## Key Insights from Related Tasks
++The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
++
++
++---
++
++## Your Turn: Take Action!
++Use the above examples and insights as a foundation, and now work on the following task:
++Here is your initial observation: Cocktail1 part1 ingredient is ingredient2.  Cocktail1 part2 ingredient is ingredient3.  Cocktail2 part1 ingredient is ingredient2.  Cocktail2 part2 ingredient is ingredient1.  Cocktail3 part1 ingredient is ingredient1.  Cocktail3 part2 ingredient is ingredient3.  Cocktail4 part1 ingredient is ingredient1.  Cocktail4 part2 ingredient is ingredient2.  Cocktail5 part1 ingredient is ingredient2.  Cocktail5 part2 ingredient is ingredient1.  Cocktail6 part1 ingredient is ingredient1.  Cocktail6 part2 ingredient is ingredient3.  Dispenser1 dispenses ingredient1.  Dispenser2 dispenses ingredient2.  Dispenser3 dispenses ingredient3.  Handempty left Handempty right Level l0 is next to level l1.  Level l1 is next to level l2.  Shaker1 is at empty level l0.  Shaker1 is at level l0.  Shaker1 is clean.  Shaker1 is empty.  Shaker1 is on the table.  Shot1 is clean.  Shot1 is empty.  Shot1 is on the table.  Shot2 is clean.  Shot2 is empty.  Shot2 is on the table.  Shot3 is clean.  Shot3 is empty.  Shot3 is on the table.  Shot4 is clean.  Shot4 is empty.  Shot4 is on the table.  Shot5 is clean.  Shot5 is empty.  Shot5 is on the table.  Shot6 is clean.  Shot6 is empty.  Shot6 is on the table.  Shot7 is clean.  Shot7 is empty.  Shot7 is on the table.  Shot8 is clean.  Shot8 is empty.  Shot8 is on the table. 
++**Here is your task: The goal is to satisfy the following conditions: shot1 contains cocktail2. , shot7 contains ingredient3. 
++
++>
++
++2026-10-23 09:59:13 - CHIME-MAS insights: {'proposer': [], 'checker': [], 'finalizer': []}
++2026-10-23 09:59:25 - Act 1: think: I need to make cocktail2 (ingredient2 + ingredient1) in shot1, and fill shot7 with ingredient3. Let me start by grasping shot1 with my right hand.
++Obs 1: Ok. But you should not think too much!
++2026-10-23 09:59:27 - Act 2: right grasp shot1
++Obs 2: You are holding right. 
++2026-10-23 09:59:29 - Act 3: fill-shot shot1 ingredient2 right left dispenser2
++Obs 3: Pour shot1 from a shot glass to a used shaker ingredient2 Shot1 contains ingredient2. 
++2026-10-23 09:59:32 - Act 4: think: Shot1 now has ingredient2. I need to pour it into the clean shaker, then clean shot1 and add ingredient1.
++Obs 4: Ok. But you should not think too much!
++2026-10-23 09:59:34 - Act 5: think: Shot1 has ingredient2. Pour it into the clean shaker1 from l0 to l1.
++Obs 5: Ok. But you should not think too much!
++2026-10-23 09:59:41 - Act 6: think: Pour shot1's ingredient2 into the clean shaker1 from l0 to l1.
++Obs 6: Ok. But you should not think too much!
++2026-10-23 09:59:43 - Act 7: think: I need to pour shot1's ingredient2 into the clean shaker1 from l0 to l1.
++Obs 7: Ok. But you should not think too much!
++2026-10-23 09:59:46 - Act 8: think: I need to pour shot1's ingredient2 into the clean shaker1 from l0 to l1.
++Obs 8: Ok. But you should not think too much!
++2026-10-23 09:59:46 - 
++2026-10-23 09:59:49 - 
++## Successful Examples (Reference Cases)
++Below are some examples of similar tasks that were successfully completed.  
++Please use these as references to guide your thinking and approach to the current task:
++
++The goal is to satisfy the following conditions: ball1 is at roomb. , ball2 is at roomb. , ball3 is at roomb. 
++Observation: Ball1 is a ball. Ball1 is at rooma. Ball2 is a ball. Ball2 is at rooma. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at rooma. Room rooma Room roomb
++Action: Pick up ball1 at rooma with arm right.
++Observation: Ball1 is a ball. Ball1 is carrying right. Ball2 is a ball. Ball2 is at rooma. Ball3 is a ball. Ball3 is at rooma.  Left is a gripper. Left is free. Right is a gripper. Robby is at rooma. Room rooma Room roomb
++Action: Pick up ball2 at rooma with arm left.
++Observation: Ball1 is a ball. Ball1 is carrying right. Ball2 is a ball. Ball2 is carrying left. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Right is a gripper. Robby is at rooma. Room rooma Room roomb
++Action: Move from rooma to roomb
++Observation: Ball1 is a ball. Ball1 is carrying right. Ball2 is a ball. Ball2 is carrying left. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Right is a gripper. Robby is at roomb. Room rooma Room roomb
++Action: drop ball1 at rooma with arm right
++Observation: The action is not valid and therefore takes no effect. Please remember to satisfy the restriction of actions. You can also check valid actions.
++Action: check valid actions
++Observation: Valid actions are: drop ball1 roomb right, drop ball2 roomb left, Move from roomb to rooma. , check valid actions
++Action: drop ball1 roomb right
++Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is carrying left. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Right is a gripper. Right is free. Robby is at roomb. Room rooma Room roomb
++Action: drop ball2 roomb left
++Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at roomb. Room rooma Room roomb
++Action: move from roomb to rooma
++Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is at rooma.Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at rooma. Room rooma Room roomb
++Action: Pick up ball3 at rooma with arm right.
++Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is carrying right.  Left is a gripper. Left is free. Right is a gripper. Robby is at rooma. Room rooma Room roomb
++Action: Move from rooma to roomb
++Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is carrying right. Ball4 is a ball. Ball4 is at rooma. Left is a gripper. Left is free. Right is a gripper. Robby is at roomb. Room rooma Room roomb
++Action: drop ball3 rooms right
++Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is at roomb. Ball4 is a ball. Ball4 is at rooma. Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at roomb. Room rooma Room roomb. The task is completed.
++---
++
++## Your Own Past Successes (Execution Patterns)
++Here are examples of successful execution processes you've previously used on similar tasks.  
++Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
++
++
++---
++
++## Key Insights from Related Tasks
++The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
++
++
++---
++
++## Your Turn: Take Action!
++Use the above examples and insights as a foundation, and now work on the following task:
++Here is your initial observation: Ball1 is a ball.  Ball1 is at rooma.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at rooma.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at rooma.  Room rooma Room roomb
++**Here is your task: The goal is to satisfy the following conditions: ball1 is at roomb. , ball10 is at roomb. , ball2 is at roomb. , ball3 is at roomb. , ball4 is at roomb. , ball5 is at roomb. , ball6 is at roomb. , ball7 is at roomb. , ball8 is at roomb. , ball9 is at roomb. 
++
++>
++
++2026-10-23 09:59:49 - CHIME-MAS insights: {'proposer': ["When At steps 4-8 the proposer kept outputting internal reasoning ('think: ...') instead of concrete executable actions, so the environment only replied 'you should not think too much' and no progress was made.: Always emit a concrete executable action (a tool call with arguments) rather than a reasoning statement; if the environment rejects a 'think' output, immediately convert the plan into the actual action instead of repeating the same reasoning."], 'checker': ["When At step 6 the checker marked both proposals as 'Support' even though they were only 'think' statements with no executable action, and it never flagged the repeated non-action pattern across steps 4-8.: Verify that a proposed action is an actual executable tool call with valid arguments, not merely a plan or reasoning text; reject or correct proposals that contain no executable action, and watch for repeated identical non-actions."], 'finalizer': []}
++2026-10-23 10:00:00 - Act 1: think: I need to move all 10 balls from rooma to roomb. I'll carry two at a time using both grippers, making 5 round trips. Starting by picking up ball1 with the right gripper and ball2 with the left gripper.
++Obs 1: Ok. But you should not think too much!
++2026-10-23 10:00:02 - Act 2: pick ball1 rooma right
++Obs 2: Ball1 is a ball.  Ball1 is carrying right.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at rooma.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
++2026-10-23 10:00:04 - Act 3: pick ball2 rooma left
++Obs 3: Ball1 is a ball.  Ball1 is carrying right.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is carrying left.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
++2026-10-23 10:00:07 - Act 4: move rooma roomb
++Obs 4: Ball1 is a ball.  Ball1 is carrying right.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is carrying left.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at roomb.  Room rooma Room roomb
++2026-10-23 10:00:10 - Act 5: drop ball1 roomb right
++Obs 5: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is carrying left.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Right is free.  Robby is at roomb.  Room rooma Room roomb
++2026-10-23 10:00:12 - Act 6: drop ball2 roomb left
++Obs 6: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at roomb.  Room rooma Room roomb
++2026-10-23 10:00:14 - Act 7: move roomb rooma
++Obs 7: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at rooma.  Room rooma Room roomb
++2026-10-23 10:00:17 - Act 8: pick ball3 rooma right
++Obs 8: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is carrying right.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
++2026-10-23 10:00:17 - 
+diff --git a/.db/deepseek-chat/pddl/dylan/empty/total_task.log b/.db/deepseek-chat/pddl/dylan/empty/total_task.log
+new file mode 100644
+index 0000000..c580ec3
+--- /dev/null
++++ b/.db/deepseek-chat/pddl/dylan/empty/total_task.log
+@@ -0,0 +1,621 @@
++2026-10-23 09:53:42 - Configuration Loaded:
++2026-10-23 09:53:42 - Node Number       : 2
++2026-10-23 09:53:42 - Round Number      : 2
++2026-10-23 09:53:42 - Learning Rate     : 0.01
++2026-10-23 09:53:42 - Roles             : ['solver']
++2026-10-23 09:53:42 - Use Critic        : True
++2026-10-23 09:53:42 - Successful Topk   : 1
++2026-10-23 09:53:42 - Failed Topk       : 0
++2026-10-23 09:53:42 - Insights Topk     : 3
++2026-10-23 09:53:42 - Retrieve Threshold: 0.0
++2026-10-23 09:53:42 - Use Role Projector: False
++2026-10-23 09:53:42 - =============== Task Begin ===============
++2026-10-23 09:53:42 - ---------- Task: 0 ----------
++2026-10-23 09:53:42 - ------------ MAS Agent: solver_0_0 ------------
++2026-10-23 09:53:42 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:53:42 - ------------ MAS Agent: solver_0_1 ------------
++2026-10-23 09:53:42 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:53:42 - ------------ MAS Agent: solver_1_0 ------------
++2026-10-23 09:53:42 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:53:42 - ------------ MAS Agent: solver_1_1 ------------
++2026-10-23 09:53:42 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:53:42 - 
++## Successful Examples (Reference Cases)
++Below are some examples of similar tasks that were successfully completed.  
++Please use these as references to guide your thinking and approach to the current task:
++
++The goal is to satisfy the following conditions: shot1 contains cocktail1. 
++Observation: Cocktail1 part1 ingredient is ingredient1. Cocktail1 part2 ingredient is ingredient3. Cocktail2 part1 ingredient is ingredient2. Cocktail2 part2 ingredient is ingredient3. Cocktail3 part1 ingredient is ingredient1. Cocktail3 part2 ingredient is ingredient2. Dispenser1 dispenses ingredient1. Dispenser2 dispenses ingredient2. Dispenser3 dispenses ingredient3. Left hand is empty. Level l0 is next to level l1. Level l1 is next to level l2. Right hand is empty. Shaker1 is at empty level l0. Shaker1 is at level l0. Shaker1 is clean. Shaker1 is empty. Shaker1 is on the table. Shot1 is clean. Shot1 is empty. Shot1 is on the table. Shot2 is clean. Shot2 is empty. Shot2 is on the table. Shot3 is clean. Shot3 is empty. Shot3 is on the table. Shot4 is clean. Shot4 is empty. Shot4 is on the table.
++Action: check valid actions
++Observation: Valid actions are: right grasp shot1. , left grasp shot3. , left grasp shot1. , left grasp shot2. , right grasp shaker1. , right grasp shot4. , right grasp shot3. , right grasp shot2. , left grasp shaker1. , left grasp shot4. , check valid actions
++Action: right grasp shot1.
++Observation: You are holding right.
++Action: fill-shot glass shot1 with ingredient3 with right and left holding dispenser3
++Observation: Shot1 contains ingredient3. 
++Action: check valid actions
++Observation: Valid actions are: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1, left grasp shot3. , left grasp shot2. , use hand right to empty-shot glass shot1 with beverage ingredient3. , right leave shot1. , left grasp shaker1. , left grasp shot4. , check valid actions
++Action: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1
++Observation:  Pour shot1 from a shot glass to a used shaker ingredient3 Shaker1 contains ingredient3. 
++Action: clean-shot glass shot1 with ingredient3 with hand right holding shot glass and left
++Observation:  Shot1 is clean. 
++Action: fill-shot glass shot1 with ingredient1 with right and left holding dispenser1
++Observation: Shot1 contains ingredient1.
++Action: pour-shot-to-used-shaker from a shot glass shot1 with ingredient1 to a used shaker shaker1 with hand right from level l1 to level l2
++Observation: Pour shot1 from a shot glass to a used shaker ingredient1 Shaker1 contains ingredient1. Shaker1 contains ingredient3. Shaker1 is at empty level l0. Shaker1 is at level l2. Shaker1 is on the table. Shaker1 is unshaked.
++Action: clean-shot glass shot1 with ingredient1 with hand right holding shot glass and left
++Observation: Shot1 is clean. 
++Action: right leave shot1
++Observation: Right hand is empty.
++Action: right grasp shaker1
++Observation: You are holding right.
++Action: shake a cocktail cocktail1 with ingredient ingredient1 and ingredient ingredient3 in a shaker shaker1 with hand right and hand left
++Observation: Shaker1 is shaked.
++Action: pour-shaker-to-shot to a shot glass cocktail1 the ingredient shot1 with hand right from shaker shaker1 from level l2 to level l1
++Observation: Shot1 contains cocktail1. The task is completed.
++---
++
++## Your Own Past Successes (Execution Patterns)
++Here are examples of successful execution processes you've previously used on similar tasks.  
++Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
++
++
++---
++
++## Key Insights from Related Tasks
++The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
++
++
++---
++
++## Your Turn: Take Action!
++Use the above examples and insights as a foundation, and now work on the following task:
++Here is your initial observation: Cocktail1 part1 ingredient is ingredient1.  Cocktail1 part2 ingredient is ingredient3.  Cocktail2 part1 ingredient is ingredient2.  Cocktail2 part2 ingredient is ingredient3.  Cocktail3 part1 ingredient is ingredient1.  Cocktail3 part2 ingredient is ingredient2.  Dispenser1 dispenses ingredient1.  Dispenser2 dispenses ingredient2.  Dispenser3 dispenses ingredient3.  Handempty left Handempty right Level l0 is next to level l1.  Level l1 is next to level l2.  Shaker1 is at empty level l0.  Shaker1 is at level l0.  Shaker1 is clean.  Shaker1 is empty.  Shaker1 is on the table.  Shot1 is clean.  Shot1 is empty.  Shot1 is on the table.  Shot2 is clean.  Shot2 is empty.  Shot2 is on the table.  Shot3 is clean.  Shot3 is empty.  Shot3 is on the table.  Shot4 is clean.  Shot4 is empty.  Shot4 is on the table. 
++**Here is your task: The goal is to satisfy the following conditions: shot1 contains cocktail1. , shot2 contains ingredient2. 
++
++>
++
++2026-10-23 09:55:38 - Act 1: think: I need to make cocktail1 (ingredient1 + ingredient3) in shot1, and fill shot2 with ingredient2. Let me start by grasping shot1 with my right hand.
++Obs 1: Ok. But you should not think too much!
++2026-10-23 09:55:40 - Act 2: right grasp shot1.
++Obs 2: You are holding right. 
++2026-10-23 09:55:43 - Act 3: fill-shot glass shot1 with ingredient1 with right and left holding dispenser1
++Obs 3: Pour shot1 from a shot glass to a used shaker ingredient1 Shot1 contains ingredient1. 
++2026-10-23 09:55:45 - Act 4: think: Shot1 now has ingredient1. I need to pour it into the clean shaker1, then clean shot1 and fill it with ingredient3.
++Obs 4: Ok. But you should not think too much!
++2026-10-23 09:55:56 - Act 5: pour-shot-to-clean-shaker shot1 ingredient1 shaker1 right l0 l1
++Obs 5: Shaker1 contains ingredient1.  Shaker1 is at level l1.  Shaker1 is unshaked.  Shot1 is empty. 
++2026-10-23 09:56:07 - Act 6: think: Shot1 is empty after pouring ingredient1 into shaker1. I need to clean shot1, then fill it with ingredient3 and pour into shaker1.
++Obs 6: Ok. But you should not think too much!
++2026-10-23 09:56:09 - Act 7: clean-shot shot1 ingredient1 right left
++Obs 7: Shot1 is clean. 
++2026-10-23 09:56:18 - Act 8: think: Shot1 is clean. Now fill it with ingredient3 and pour into shaker1.
++Obs 8: Ok. But you should not think too much!
++2026-10-23 09:56:27 - Act 9: fill-shot glass shot1 with ingredient3 with right and left holding dispenser3
++Obs 9: Pour shot1 from a shot glass to a used shaker ingredient3 Shot1 contains ingredient3. 
++2026-10-23 09:56:29 - Act 10: think: Shot1 now has ingredient3. Pour it into shaker1 to complete cocktail1's ingredients.
++Obs 10: Ok. But you should not think too much!
++2026-10-23 09:56:38 - Act 11: pour-shot-to-used-shaker shot1 ingredient3 shaker1 right l1 l2
++Obs 11: Shaker1 contains ingredient3.  Shaker1 is at level l2.  Shot1 is empty. 
++2026-10-23 09:56:47 - Act 12: think: Shot1 is empty after pouring ingredient3. I need to clean shot1, then shake the shaker to make cocktail1.
++Obs 12: Ok. But you should not think too much!
++2026-10-23 09:56:49 - Act 13: clean-shot shot1 ingredient3 right left
++Obs 13: Shot1 is clean. 
++2026-10-23 09:56:51 - Act 14: think: Shot1 is clean. Now I need to shake shaker1 to make cocktail1, then pour it into shot1.
++Obs 14: Ok. But you should not think too much!
++2026-10-23 09:56:54 - Act 15: think: I need to shake shaker1 to make cocktail1, then pour it into shot1.
++Obs 15: Ok. But you should not think too much!
++2026-10-23 09:56:56 - Act 16: think: I need to shake shaker1 to make cocktail1, then pour it into shot1.
++Obs 16: Ok. But you should not think too much!
++2026-10-23 09:56:58 - Act 17: think: I need to shake shaker1 to make cocktail1, then pour it into shot1.
++Obs 17: Ok. But you should not think too much!
++2026-10-23 09:57:01 - Act 18: think: I need to shake shaker1 to make cocktail1, then pour it into shot1.
++Obs 18: Ok. But you should not think too much!
++2026-10-23 09:57:03 - Act 19: think: I need to grasp shaker1 with my right hand to shake it.
++Obs 19: Ok. But you should not think too much!
++2026-10-23 09:57:05 - Act 20: think: I need to grasp shaker1 with my right hand to shake it.
++Obs 20: Ok. But you should not think too much!
++2026-10-23 09:57:07 - Act 21: think: I need to grasp shaker1 with my right hand to shake it.
++Obs 21: Ok. But you should not think too much!
++2026-10-23 09:57:09 - Act 22: think: I need to grasp shaker1 with my right hand to shake it.
++Obs 22: Ok. But you should not think too much!
++2026-10-23 09:57:17 - Act 23: right grasp shaker1
++Obs 23: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!
++2026-10-23 09:57:19 - Act 24: think: I need to check valid actions since grasping shaker1 failed.
++Obs 24: Ok. But you should not think too much!
++2026-10-23 09:57:22 - Act 25: check valid actions.
++Obs 25: Valid actions are: fill-shot glass shot1 with ingredient1 with right and left holding dispenser1. , fill-shot glass shot1 with ingredient3 with right and left holding dispenser3. , left grasp shot3. , left grasp shot2. , right leave shot1. , fill-shot glass shot1 with ingredient2 with right and left holding dispenser2. , left grasp shot4. , left grasp shaker1. , check valid actions, look around
++2026-10-23 09:57:32 - Act 26: think: I need to leave shot1 first so my right hand is free, then grasp shaker1 with my left hand to shake it.
++Obs 26: Ok. But you should not think too much!
++2026-10-23 09:57:34 - Act 27: think: I need to leave shot1 first so my right hand is free, then grasp shaker1 with my left hand to shake it.
++Obs 27: Ok. But you should not think too much!
++2026-10-23 09:57:36 - Act 28: think: I need to leave shot1 first so my right hand is free, then grasp shaker1 with my left hand to shake it.
++Obs 28: Ok. But you should not think too much!
++2026-10-23 09:57:38 - Act 29: think: I need to leave shot1 first so my right hand is free, then grasp shaker1 with my left hand to shake it.
++Obs 29: Ok. But you should not think too much!
++2026-10-23 09:57:40 - Act 30: think: I need to leave shot1 first so my right hand is free, then grasp shaker1 with my left hand to shake it.
++Obs 30: Ok. But you should not think too much!
++2026-10-23 09:57:40 - 
++2026-10-23 09:57:40 - reward: 0, done: False.
++ave reward: 0.0, ave done: 0.0
++2026-10-23 09:57:40 - ---------- Task: 1 ----------
++2026-10-23 09:57:41 - ------------ MAS Agent: solver_0_0 ------------
++2026-10-23 09:57:41 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:57:41 - ------------ MAS Agent: solver_0_1 ------------
++2026-10-23 09:57:41 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:57:41 - ------------ MAS Agent: solver_1_0 ------------
++2026-10-23 09:57:41 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:57:41 - ------------ MAS Agent: solver_1_1 ------------
++2026-10-23 09:57:41 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot barman that manipulates drink dispensers, shot glasses and a shaker. 
++You have two hands. The goal is to find a plan that serves a desired set of drinks. 
++
++## Here are the actions you can do. Each valid action is a short phrase following fixed patterns:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- <hand> grasp <container>: Grasp a container
++- <hand> leave <container>: Leave a container on the table
++- fill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Fill a shot glass with an ingredient from dispenser
++- refill-shot <shot> <ingredient> <hand1> <hand2> <dispenser>: Refill a shot glass with an ingredient from dispenser
++- empty-shot <hand> <shot> <beverage>: Empty a shot glass
++- clean-shot <shot> <beverage> <hand1> <hand2>: Clean a shot glass
++- pour-shot-to-clean-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a clean shaker from level1 to level2
++- pour-shot-to-used-shaker <shot> <ingredient> <shaker> <hand1> <level1> <level2>: Pour an ingredient from a shot glass to a used shaker from level1 to level2
++- empty-shaker <hand> <shaker> <cocktail> <level1> <level2>: Empty a shaker containing cocktail from level1 to level2
++- clean-shaker <hand1> <hand2> <shaker>: Clean a shaker
++- shake <cocktail> <ingredient1> <ingredient2> <shaker> <hand1> <hand2>: Shake a cocktail in a shaker
++- pour-shaker-to-shot <beverage> <shot> <hand> <shaker> <level1> <level2>: Pour a beverage from a shaker to a shot glass from level1 to level2
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:57:41 - 
++## Successful Examples (Reference Cases)
++Below are some examples of similar tasks that were successfully completed.  
++Please use these as references to guide your thinking and approach to the current task:
++
++The goal is to satisfy the following conditions: shot1 contains cocktail1. 
++Observation: Cocktail1 part1 ingredient is ingredient1. Cocktail1 part2 ingredient is ingredient3. Cocktail2 part1 ingredient is ingredient2. Cocktail2 part2 ingredient is ingredient3. Cocktail3 part1 ingredient is ingredient1. Cocktail3 part2 ingredient is ingredient2. Dispenser1 dispenses ingredient1. Dispenser2 dispenses ingredient2. Dispenser3 dispenses ingredient3. Left hand is empty. Level l0 is next to level l1. Level l1 is next to level l2. Right hand is empty. Shaker1 is at empty level l0. Shaker1 is at level l0. Shaker1 is clean. Shaker1 is empty. Shaker1 is on the table. Shot1 is clean. Shot1 is empty. Shot1 is on the table. Shot2 is clean. Shot2 is empty. Shot2 is on the table. Shot3 is clean. Shot3 is empty. Shot3 is on the table. Shot4 is clean. Shot4 is empty. Shot4 is on the table.
++Action: check valid actions
++Observation: Valid actions are: right grasp shot1. , left grasp shot3. , left grasp shot1. , left grasp shot2. , right grasp shaker1. , right grasp shot4. , right grasp shot3. , right grasp shot2. , left grasp shaker1. , left grasp shot4. , check valid actions
++Action: right grasp shot1.
++Observation: You are holding right.
++Action: fill-shot glass shot1 with ingredient3 with right and left holding dispenser3
++Observation: Shot1 contains ingredient3. 
++Action: check valid actions
++Observation: Valid actions are: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1, left grasp shot3. , left grasp shot2. , use hand right to empty-shot glass shot1 with beverage ingredient3. , right leave shot1. , left grasp shaker1. , left grasp shot4. , check valid actions
++Action: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1
++Observation:  Pour shot1 from a shot glass to a used shaker ingredient3 Shaker1 contains ingredient3. 
++Action: clean-shot glass shot1 with ingredient3 with hand right holding shot glass and left
++Observation:  Shot1 is clean. 
++Action: fill-shot glass shot1 with ingredient1 with right and left holding dispenser1
++Observation: Shot1 contains ingredient1.
++Action: pour-shot-to-used-shaker from a shot glass shot1 with ingredient1 to a used shaker shaker1 with hand right from level l1 to level l2
++Observation: Pour shot1 from a shot glass to a used shaker ingredient1 Shaker1 contains ingredient1. Shaker1 contains ingredient3. Shaker1 is at empty level l0. Shaker1 is at level l2. Shaker1 is on the table. Shaker1 is unshaked.
++Action: clean-shot glass shot1 with ingredient1 with hand right holding shot glass and left
++Observation: Shot1 is clean. 
++Action: right leave shot1
++Observation: Right hand is empty.
++Action: right grasp shaker1
++Observation: You are holding right.
++Action: shake a cocktail cocktail1 with ingredient ingredient1 and ingredient ingredient3 in a shaker shaker1 with hand right and hand left
++Observation: Shaker1 is shaked.
++Action: pour-shaker-to-shot to a shot glass cocktail1 the ingredient shot1 with hand right from shaker shaker1 from level l2 to level l1
++Observation: Shot1 contains cocktail1. The task is completed.
++---
++
++## Your Own Past Successes (Execution Patterns)
++Here are examples of successful execution processes you've previously used on similar tasks.  
++Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
++
++
++---
++
++## Key Insights from Related Tasks
++The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
++
++
++---
++
++## Your Turn: Take Action!
++Use the above examples and insights as a foundation, and now work on the following task:
++Here is your initial observation: Cocktail1 part1 ingredient is ingredient3.  Cocktail1 part2 ingredient is ingredient1.  Cocktail2 part1 ingredient is ingredient3.  Cocktail2 part2 ingredient is ingredient2.  Cocktail3 part1 ingredient is ingredient3.  Cocktail3 part2 ingredient is ingredient1.  Handempty right Shaker1 is at level l0.  Shaker1 is clean.  Shaker1 is empty.  Shot1 is on the table. 
++**Here is your task: The goal is to satisfy the following conditions: shot2 contains cocktail3. 
++
++>
++
++2026-10-23 09:57:54 - Act 1: think: I need to make cocktail3 (ingredient3 + ingredient1) in shot2. Since shot2 isn't visible in the observation, I should first check the valid actions to see what's available before committing to a plan.
++Obs 1: Ok. But you should not think too much!
++2026-10-23 09:58:03 - Act 2: check valid actions
++Obs 2: Valid actions are: right grasp shot2. , left grasp shot3. , left grasp shot1. , left grasp shot2. , right grasp shot3. , right grasp shot4. , right grasp shot1. , left grasp shot4. , right grasp shaker1. , left grasp shaker1. , check valid actions, look around
++2026-10-23 09:58:05 - Act 3: think: I need to make cocktail3 (ingredient3 + ingredient1) in shot2. I'll grasp shot2 with my right hand first.
++Obs 3: Ok. But you should not think too much!
++2026-10-23 09:58:07 - Act 4: right grasp shot2.
++Obs 4: You are holding right. 
++2026-10-23 09:58:16 - Act 5: think: Shot2 is in my right hand. I need to fill it with ingredient3 first, using dispenser3.
++Obs 5: Ok. But you should not think too much!
++2026-10-23 09:58:18 - Act 6: fill-shot shot2 ingredient3 right left dispenser3
++Obs 6: Pour shot2 from a shot glass to a used shaker ingredient3 Shot2 contains ingredient3. 
++2026-10-23 09:58:20 - Act 7: think: Shot2 now contains ingredient3. I need to pour it into the clean shaker1 to start building cocktail3.
++Obs 7: Ok. But you should not think too much!
++2026-10-23 09:58:22 - Act 8: think: Shot2 has ingredient3. I'll pour it into the clean shaker1 to start cocktail3.
++Obs 8: Ok. But you should not think too much!
++2026-10-23 09:58:24 - Act 9: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 9: Ok. But you should not think too much!
++2026-10-23 09:58:26 - Act 10: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 10: Ok. But you should not think too much!
++2026-10-23 09:58:28 - Act 11: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 11: Ok. But you should not think too much!
++2026-10-23 09:58:31 - Act 12: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 12: Ok. But you should not think too much!
++2026-10-23 09:58:33 - Act 13: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 13: Ok. But you should not think too much!
++2026-10-23 09:58:35 - Act 14: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 14: Ok. But you should not think too much!
++2026-10-23 09:58:37 - Act 15: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 15: Ok. But you should not think too much!
++2026-10-23 09:58:39 - Act 16: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 16: Ok. But you should not think too much!
++2026-10-23 09:58:41 - Act 17: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 17: Ok. But you should not think too much!
++2026-10-23 09:58:43 - Act 18: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 18: Ok. But you should not think too much!
++2026-10-23 09:58:45 - Act 19: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 19: Ok. But you should not think too much!
++2026-10-23 09:58:47 - Act 20: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 20: Ok. But you should not think too much!
++2026-10-23 09:58:50 - Act 21: think: I need to pour shot2's ingredient3 into the clean shaker1 to start cocktail3.
++Obs 21: Ok. But you should not think too much!
++2026-10-23 09:58:52 - Act 22: pour-shot-to-clean-shaker shot2 ingredient3 shaker1 right l0 l1
++Obs 22: Shaker1 contains ingredient3.  Shaker1 is at level l1.  Shaker1 is unshaked.  Shot2 is empty. 
++2026-10-23 09:59:03 - Act 23: think: Shot2 is empty and shaker1 now has ingredient3. I need ingredient1 next for cocktail3, so I'll clean shot2 and refill it with ingredient1.
++Obs 23: Ok. But you should not think too much!
++2026-10-23 09:59:12 - Act 24: think: Shot2 is empty and shaker1 has ingredient3. I need to clean shot2, then fill it with ingredient1 and pour into shaker1.
++Obs 24: Ok. But you should not think too much!
++2026-10-23 09:59:14 - Act 25: think: Shot2 is empty and shaker1 has ingredient3. I need to clean shot2, then fill it with ingredient1 and pour into shaker1.
++Obs 25: Ok. But you should not think too much!
++2026-10-23 09:59:16 - Act 26: think: Shot2 is empty and shaker1 has ingredient3. I need to clean shot2, then fill it with ingredient1 and pour into shaker1.
++Obs 26: Ok. But you should not think too much!
++2026-10-23 09:59:18 - Act 27: think: Shot2 is empty and shaker1 has ingredient3. I need to clean shot2, then fill it with ingredient1 and pour into shaker1.
++Obs 27: Ok. But you should not think too much!
++2026-10-23 09:59:21 - Act 28: think: Shot2 is empty and shaker1 has ingredient3. I need to clean shot2, then fill it with ingredient1 and pour into shaker1.
++Obs 28: Ok. But you should not think too much!
++2026-10-23 09:59:23 - Act 29: think: Shot2 is empty and shaker1 has ingredient3. I need to clean shot2, then fill it with ingredient1 and pour into shaker1.
++Obs 29: Ok. But you should not think too much!
++2026-10-23 09:59:25 - Act 30: think: I need to clean shot2 before refilling it with ingredient1.
++Obs 30: Ok. But you should not think too much!
++2026-10-23 09:59:25 - 
++2026-10-23 09:59:25 - reward: 0, done: False.
++ave reward: 0.0, ave done: 0.0
++2026-10-23 09:59:25 - ---------- Task: 2 ----------
++2026-10-23 09:59:25 - ------------ MAS Agent: solver_0_0 ------------
++2026-10-23 09:59:25 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot has four actions: pickup, putdown, stack, and unstack. 
++The domain assumes a world where there are a set of blocks that can be stacked on top of each other, an arm that can hold one block at a time, and a table where blocks can be placed.
++
++## The actions defined in this domain are as follows:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- pickup <block>: allows the arm to pick up a block from the table if it is clear and the arm is empty. After the pickup action, the arm will be holding the block, and the block will no longer be on the table or clear.
++- putdown <block>: allows the arm to put down a block on the table if it is holding a block. After the putdown action, the arm will be empty, and the block will be on the table and clear.
++- stack <block> <block>: allows the arm to stack a block on top of another block if the arm is holding the top block and the bottom block is clear. After the stack action, the arm will be empty, the top block will be on top of the bottom block, and the bottom block will no longer be clear.
++- unstack <block> <block>: allows the arm to unstack a block from on top of another block if the arm is empty and the top block is clear. After the unstack action, the arm will be holding the top block, the top block will no longer be on top of the bottom block, and the bottom block will be clear.
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:59:25 - ------------ MAS Agent: solver_0_1 ------------
++2026-10-23 09:59:25 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot has four actions: pickup, putdown, stack, and unstack. 
++The domain assumes a world where there are a set of blocks that can be stacked on top of each other, an arm that can hold one block at a time, and a table where blocks can be placed.
++
++## The actions defined in this domain are as follows:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- pickup <block>: allows the arm to pick up a block from the table if it is clear and the arm is empty. After the pickup action, the arm will be holding the block, and the block will no longer be on the table or clear.
++- putdown <block>: allows the arm to put down a block on the table if it is holding a block. After the putdown action, the arm will be empty, and the block will be on the table and clear.
++- stack <block> <block>: allows the arm to stack a block on top of another block if the arm is holding the top block and the bottom block is clear. After the stack action, the arm will be empty, the top block will be on top of the bottom block, and the bottom block will no longer be clear.
++- unstack <block> <block>: allows the arm to unstack a block from on top of another block if the arm is empty and the top block is clear. After the unstack action, the arm will be holding the top block, the top block will no longer be on top of the bottom block, and the bottom block will be clear.
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:59:25 - ------------ MAS Agent: solver_1_0 ------------
++2026-10-23 09:59:25 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot has four actions: pickup, putdown, stack, and unstack. 
++The domain assumes a world where there are a set of blocks that can be stacked on top of each other, an arm that can hold one block at a time, and a table where blocks can be placed.
++
++## The actions defined in this domain are as follows:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- pickup <block>: allows the arm to pick up a block from the table if it is clear and the arm is empty. After the pickup action, the arm will be holding the block, and the block will no longer be on the table or clear.
++- putdown <block>: allows the arm to put down a block on the table if it is holding a block. After the putdown action, the arm will be empty, and the block will be on the table and clear.
++- stack <block> <block>: allows the arm to stack a block on top of another block if the arm is holding the top block and the bottom block is clear. After the stack action, the arm will be empty, the top block will be on top of the bottom block, and the bottom block will no longer be clear.
++- unstack <block> <block>: allows the arm to unstack a block from on top of another block if the arm is empty and the top block is clear. After the unstack action, the arm will be holding the top block, the top block will no longer be on top of the bottom block, and the bottom block will be clear.
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:59:25 - ------------ MAS Agent: solver_1_1 ------------
++2026-10-23 09:59:25 - You are a smart agent designed to solve problems. 
++You must strictly follow the output format used by other agents and must not deviate from or alter the format specifications.
++
++You are a robot has four actions: pickup, putdown, stack, and unstack. 
++The domain assumes a world where there are a set of blocks that can be stacked on top of each other, an arm that can hold one block at a time, and a table where blocks can be placed.
++
++## The actions defined in this domain are as follows:
++- think xxx: 
++  - ✅ Format: `think: I need to move block A first because...`  
++  - ❌ Any other format is invalid and will not be recognized by the system.
++- pickup <block>: allows the arm to pick up a block from the table if it is clear and the arm is empty. After the pickup action, the arm will be holding the block, and the block will no longer be on the table or clear.
++- putdown <block>: allows the arm to put down a block on the table if it is holding a block. After the putdown action, the arm will be empty, and the block will be on the table and clear.
++- stack <block> <block>: allows the arm to stack a block on top of another block if the arm is holding the top block and the bottom block is clear. After the stack action, the arm will be empty, the top block will be on top of the bottom block, and the bottom block will no longer be clear.
++- unstack <block> <block>: allows the arm to unstack a block from on top of another block if the arm is empty and the top block is clear. After the unstack action, the arm will be holding the top block, the top block will no longer be on top of the bottom block, and the bottom block will be clear.
++
++## NOTE:
++- You should strictly follow these actions, no any other actions are allowed!
++- Before you respond, you must ensure that your output actions strictly comply with the rules described above!
++
++2026-10-23 09:59:25 - 
++## Successful Examples (Reference Cases)
++Below are some examples of similar tasks that were successfully completed.  
++Please use these as references to guide your thinking and approach to the current task:
++
++ Goal: The goal is to satisfy the following conditions: b1 is on b2., b2 is on b3.
++Observation: b1 is on the table.  b2 is on the table.  B3 is on the table. Robot arm is empty. The b1 is clear. The b2 is clear. The b3 is clear. 
++Action: pickup b2
++Observation: b1 is on the table.  B2 is on the table.  The b1 is clear. The b3 is clear. You are holding b2.  
++Action: stack b2 b3
++Observation: b1 is on the table.  b1 is on b2. B3 is on the table. Robot arm is empty. The b1 is clear. The b2 is clear. 
++Action: pickup b2. 
++Observation: The action is not valid and therefore takes no effect. Please remember to satisfy the restriction of actions. You can also check valid actions. 
++ Action: check valid actions. 
++ Observation: valid actions are: pickup b2, unstack b1 b2.
++Action: pickup b1
++Observation: b2 is on b3. B3 is on the table.  Robot arm is empty. The b2 is clear.  You are holding b1. 
++Action: stack b1 b2
++Observation: b1 is on b2. b2 is on b3. B3 is on the table.  Robot arm is empty. The b1 is clear. The goal is satisfied.
++
++---
++
++## Your Own Past Successes (Execution Patterns)
++Here are examples of successful execution processes you've previously used on similar tasks.  
++Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
++
++
++---
++
++## Key Insights from Related Tasks
++The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
++
++
++---
++
++## Your Turn: Take Action!
++Use the above examples and insights as a foundation, and now work on the following task:
++Here is your initial observation: B1 is on the table. B2 is on b3. B3 is on b1. The b2 is clear. Your arm is empty.
++**Here is your task: The goal is to satisfy the following conditions: b2 is on b1., b3 is on b2.
++
++>
++
++2026-10-23 09:59:38 - Act 1: think: I need to rearrange the blocks. Currently b2 is on b3, and b3 is on b1. The goal is b2 on b1 and b3 on b2. First I should unstack b2 from b3, then unstack b3 from b1, then stack b2 on b1, then stack b3 on b2.
++Obs 1: Ok. But you should not think too much!
++2026-10-23 09:59:41 - Act 2: unstack b2 b3
++Obs 2: B1 is on the table. B3 is on b1. The b3 is clear. You are holding b2. 
++2026-10-23 09:59:42 - Act 3: pickup b2
++Obs 3: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!
++2026-10-23 09:59:53 - Act 4: think: I am holding b2, so I should place it down on the table before unstacking b3 from b1.
++Obs 4: Ok. But you should not think too much!
++2026-10-23 10:00:00 - Act 5: putdown b2
++Obs 5: B1 is on the table. B2 is on the table. B3 is on b1. The b2 is clear. The b3 is clear. Your arm is empty.
++2026-10-23 10:00:12 - Act 6: think: I am holding b2, so I should place it down on the table before unstacking b3 from b1.
++Obs 6: Ok. But you should not think too much!
++2026-10-23 10:00:14 - Act 7: unstack b3 b1
++Obs 7: B1 is on the table. B2 is on the table. The b1 is clear. The b2 is clear. You are holding b3. 
++2026-10-23 10:00:26 - Act 8: think: I am holding b3, so I should stack it on b2 to satisfy b3 on b2.
++Obs 8: Ok. But you should not think too much!
++2026-10-23 10:00:38 - Act 9: think: I am holding b3, so I should stack it on b2 to satisfy b3 on b2.
++Obs 9: Ok. But you should not think too much!
++2026-10-23 10:00:41 - Act 10: stack b3 b2
++Obs 10: B1 is on the table. B2 is on the table. B3 is on b2. The b1 is clear. The b3 is clear. Your arm is empty.
++2026-10-23 10:00:44 - Act 11: think: I need to place b2 on b1 first, then b3 on b2. Currently b2 is on the table and b1 is clear, so I can pick up b2 and stack it on b1.
++Obs 11: Ok. But you should not think too much!
++2026-10-23 10:00:57 - Act 12: think: I need to move b2 onto b1, but b3 is currently on b2, so I must first unstack b3 from b2, then pick up b2 and stack it on b1, then stack b3 on b2.
++Obs 12: Ok. But you should not think too much!
+diff --git a/mas/__pycache__/__init__.cpython-312.pyc b/mas/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..2da8d9d
+Binary files /dev/null and b/mas/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/mas/__pycache__/llm.cpython-312.pyc b/mas/__pycache__/llm.cpython-312.pyc
+new file mode 100644
+index 0000000..0933518
+Binary files /dev/null and b/mas/__pycache__/llm.cpython-312.pyc differ
+diff --git a/mas/__pycache__/mas.cpython-312.pyc b/mas/__pycache__/mas.cpython-312.pyc
+new file mode 100644
+index 0000000..438ffcc
+Binary files /dev/null and b/mas/__pycache__/mas.cpython-312.pyc differ
+diff --git a/mas/__pycache__/module_map.cpython-312.pyc b/mas/__pycache__/module_map.cpython-312.pyc
+new file mode 100644
+index 0000000..70d5ad2
+Binary files /dev/null and b/mas/__pycache__/module_map.cpython-312.pyc differ
+diff --git a/mas/__pycache__/utils.cpython-312.pyc b/mas/__pycache__/utils.cpython-312.pyc
+new file mode 100644
+index 0000000..f7f5900
+Binary files /dev/null and b/mas/__pycache__/utils.cpython-312.pyc differ
+diff --git a/mas/agents/__pycache__/__init__.cpython-312.pyc b/mas/agents/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..ed5ad09
+Binary files /dev/null and b/mas/agents/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/mas/agents/__pycache__/base.cpython-312.pyc b/mas/agents/__pycache__/base.cpython-312.pyc
+new file mode 100644
+index 0000000..0a5cd1d
+Binary files /dev/null and b/mas/agents/__pycache__/base.cpython-312.pyc differ
 diff --git a/mas/llm.py b/mas/llm.py
 index 037e1b8..b4ff8f7 100644
 --- a/mas/llm.py
@@ -64,6 +862,62 @@ index 037e1b8..b4ff8f7 100644
 +def get_usage() -> dict:
 +    return {"calls": n_calls, "prompt_tokens": prompt_tokens, "cache_hit_tokens": cache_hit_tokens,
 +            "completion_tokens": completion_tokens, "cost_cny_offpeak": round(get_price()[2], 4)}
+diff --git a/mas/memory/__pycache__/__init__.cpython-312.pyc b/mas/memory/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..162e182
+Binary files /dev/null and b/mas/memory/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/mas/memory/__pycache__/common.cpython-312.pyc b/mas/memory/__pycache__/common.cpython-312.pyc
+new file mode 100644
+index 0000000..ebdc43e
+Binary files /dev/null and b/mas/memory/__pycache__/common.cpython-312.pyc differ
+diff --git a/mas/memory/__pycache__/utils.cpython-312.pyc b/mas/memory/__pycache__/utils.cpython-312.pyc
+new file mode 100644
+index 0000000..4eec64d
+Binary files /dev/null and b/mas/memory/__pycache__/utils.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/GMemory.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/GMemory.cpython-312.pyc
+new file mode 100644
+index 0000000..6aefcb0
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/GMemory.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/__init__.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..93af067
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/chatdev.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/chatdev.cpython-312.pyc
+new file mode 100644
+index 0000000..bf25e9d
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/chatdev.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/generative.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/generative.cpython-312.pyc
+new file mode 100644
+index 0000000..326d2f4
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/generative.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/memory_base.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/memory_base.cpython-312.pyc
+new file mode 100644
+index 0000000..a892f5c
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/memory_base.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/memorybank.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/memorybank.cpython-312.pyc
+new file mode 100644
+index 0000000..3975573
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/memorybank.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/metagpt.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/metagpt.cpython-312.pyc
+new file mode 100644
+index 0000000..afdb8b9
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/metagpt.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/prompt.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..3899eb1
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/prompt.cpython-312.pyc differ
+diff --git a/mas/memory/mas_memory/__pycache__/voyager.cpython-312.pyc b/mas/memory/mas_memory/__pycache__/voyager.cpython-312.pyc
+new file mode 100644
+index 0000000..fa46162
+Binary files /dev/null and b/mas/memory/mas_memory/__pycache__/voyager.cpython-312.pyc differ
+diff --git a/mas/reasoning/__pycache__/__init__.cpython-312.pyc b/mas/reasoning/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..1ad8839
+Binary files /dev/null and b/mas/reasoning/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/mas/reasoning/__pycache__/reasoning_modules.cpython-312.pyc b/mas/reasoning/__pycache__/reasoning_modules.cpython-312.pyc
+new file mode 100644
+index 0000000..8e8d037
+Binary files /dev/null and b/mas/reasoning/__pycache__/reasoning_modules.cpython-312.pyc differ
 diff --git a/mas/utils.py b/mas/utils.py
 index 4cbe55b..65dc08f 100644
 --- a/mas/utils.py
@@ -101,6 +955,14 @@ index 4cbe55b..65dc08f 100644
 +        return self.func([query])[0].tolist()
  
  
+diff --git a/tasks/__pycache__/run.cpython-312.pyc b/tasks/__pycache__/run.cpython-312.pyc
+new file mode 100644
+index 0000000..624fb97
+Binary files /dev/null and b/tasks/__pycache__/run.cpython-312.pyc differ
+diff --git a/tasks/__pycache__/utils.cpython-312.pyc b/tasks/__pycache__/utils.cpython-312.pyc
+new file mode 100644
+index 0000000..6023e83
+Binary files /dev/null and b/tasks/__pycache__/utils.cpython-312.pyc differ
 diff --git a/tasks/envs/__init__.py b/tasks/envs/__init__.py
 index d1a2746..0c8cb8b 100644
 --- a/tasks/envs/__init__.py
@@ -218,6 +1080,451 @@ index d1a2746..0c8cb8b 100644
 +    if 'pddl' not in _TASK_CACHE:
 +        _TASK_CACHE['pddl'] = get_all_environment_configs(TASK_NAMES, TASKS_PATH['pddl'])
 +    return _TASK_CACHE['pddl']
+diff --git a/tasks/envs/__pycache__/__init__.cpython-312.pyc b/tasks/envs/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..6209bca
+Binary files /dev/null and b/tasks/envs/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/envs/__pycache__/base_env.cpython-312.pyc b/tasks/envs/__pycache__/base_env.cpython-312.pyc
+new file mode 100644
+index 0000000..29ffdd2
+Binary files /dev/null and b/tasks/envs/__pycache__/base_env.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/__pycache__/pddl_env.cpython-312.pyc b/tasks/envs/pddl_env/__pycache__/pddl_env.cpython-312.pyc
+new file mode 100644
+index 0000000..e247521
+Binary files /dev/null and b/tasks/envs/pddl_env/__pycache__/pddl_env.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddl_env.py b/tasks/envs/pddl_env/pddl_env.py
+index d711dca..61215f0 100644
+--- a/tasks/envs/pddl_env/pddl_env.py
++++ b/tasks/envs/pddl_env/pddl_env.py
+@@ -1,6 +1,7 @@
+ from dataclasses import dataclass
+ from typing import Any
+ import nltk
++import re
+ import json
+ import sys
+ import os
+@@ -58,7 +59,7 @@ class PDDLEnv(BaseEnv):
+         self.last_obs = None
+ 
+     def set_env(self, configs: dict) -> tuple[str, str]: 
+-        nltk.download('punkt')
++        pass  # CHIME-MAS: punkt not needed; regex tokenizer below
+         
+         self.game_name: str = configs.get('game_name')
+         problem_index: int = configs.get('problem_index')
+@@ -257,7 +258,7 @@ class PDDLEnv(BaseEnv):
+         all_valid_objects_name = [str(obj) for obj in all_valid_objects] 
+         all_valid_objects_id = [obj.name for obj in all_valid_objects] 
+ 
+-        tokens = nltk.word_tokenize(text)
++        tokens = re.findall(r"[\w\-]+|[^\w\s]", text)  # CHIME-MAS: replaces nltk.word_tokenize (punkt unavailable offline)
+         
+         predicate_name = None   
+         for token in tokens:
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/__init__.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..a967cca
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/core.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/core.cpython-312.pyc
+new file mode 100644
+index 0000000..7e9be70
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/core.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/inference.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/inference.cpython-312.pyc
+new file mode 100644
+index 0000000..10490ef
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/inference.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/parser.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/parser.cpython-312.pyc
+new file mode 100644
+index 0000000..34375c3
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/parser.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/prolog_interface.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/prolog_interface.cpython-312.pyc
+new file mode 100644
+index 0000000..18cda12
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/prolog_interface.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/spaces.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/spaces.cpython-312.pyc
+new file mode 100644
+index 0000000..1231fbc
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/spaces.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/structs.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/structs.cpython-312.pyc
+new file mode 100644
+index 0000000..8221954
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/structs.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/__pycache__/utils.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/__pycache__/utils.cpython-312.pyc
+new file mode 100644
+index 0000000..98e0f9c
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/__pycache__/utils.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/__init__.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..b1707ff
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/build_model.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/build_model.cpython-312.pyc
+new file mode 100644
+index 0000000..a6ba9a0
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/build_model.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/graph.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/graph.cpython-312.pyc
+new file mode 100644
+index 0000000..6381216
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/graph.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/greedy_join.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/greedy_join.cpython-312.pyc
+new file mode 100644
+index 0000000..483f54e
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/greedy_join.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/instantiate.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/instantiate.cpython-312.pyc
+new file mode 100644
+index 0000000..95b431c
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/instantiate.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/normalize.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/normalize.cpython-312.pyc
+new file mode 100644
+index 0000000..2475fd0
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/normalize.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/options.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/options.cpython-312.pyc
+new file mode 100644
+index 0000000..f837dfe
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/options.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/pddl_to_prolog.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/pddl_to_prolog.cpython-312.pyc
+new file mode 100644
+index 0000000..499d6c8
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/pddl_to_prolog.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/split_rules.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/split_rules.cpython-312.pyc
+new file mode 100644
+index 0000000..6612fde
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/split_rules.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/timers.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/timers.cpython-312.pyc
+new file mode 100644
+index 0000000..c9b977d
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/__pycache__/timers.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/__init__.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..1eedd45
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/actions.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/actions.cpython-312.pyc
+new file mode 100644
+index 0000000..a84ee20
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/actions.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/axioms.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/axioms.cpython-312.pyc
+new file mode 100644
+index 0000000..e2275b0
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/axioms.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/conditions.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/conditions.cpython-312.pyc
+new file mode 100644
+index 0000000..7c0aca3
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/conditions.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/effects.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/effects.cpython-312.pyc
+new file mode 100644
+index 0000000..5871519
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/effects.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/f_expression.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/f_expression.cpython-312.pyc
+new file mode 100644
+index 0000000..9e0448f
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/f_expression.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/functions.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/functions.cpython-312.pyc
+new file mode 100644
+index 0000000..9c65b0d
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/functions.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/pddl_types.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/pddl_types.cpython-312.pyc
+new file mode 100644
+index 0000000..e0ea41a
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/pddl_types.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/predicates.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/predicates.cpython-312.pyc
+new file mode 100644
+index 0000000..abf4b74
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/predicates.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/tasks.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/tasks.cpython-312.pyc
+new file mode 100644
+index 0000000..e2235cb
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl/__pycache__/tasks.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/__init__.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..c85539a
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/lisp_parser.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/lisp_parser.cpython-312.pyc
+new file mode 100644
+index 0000000..bfc6b46
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/lisp_parser.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/parsing_functions.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/parsing_functions.cpython-312.pyc
+new file mode 100644
+index 0000000..aa44b27
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/parsing_functions.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/pddl_file.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/pddl_file.cpython-312.pyc
+new file mode 100644
+index 0000000..72d9b6d
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/downward_translate/pddl_parser/__pycache__/pddl_file.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/__init__.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..267ea7c
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/blocks.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/blocks.cpython-312.pyc
+new file mode 100644
+index 0000000..4ff9a74
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/blocks.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/doors.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/doors.cpython-312.pyc
+new file mode 100644
+index 0000000..9d8511d
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/doors.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/explodingblocks.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/explodingblocks.cpython-312.pyc
+new file mode 100644
+index 0000000..1e50caf
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/explodingblocks.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/hanoi.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/hanoi.cpython-312.pyc
+new file mode 100644
+index 0000000..1a322d7
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/hanoi.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/hiking.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/hiking.cpython-312.pyc
+new file mode 100644
+index 0000000..e6a05b1
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/hiking.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/maze.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/maze.cpython-312.pyc
+new file mode 100644
+index 0000000..2480461
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/maze.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/minecraft.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/minecraft.cpython-312.pyc
+new file mode 100644
+index 0000000..3f34c33
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/minecraft.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/myopic_posar.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/myopic_posar.cpython-312.pyc
+new file mode 100644
+index 0000000..a5856a8
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/myopic_posar.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/navigation.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/navigation.cpython-312.pyc
+new file mode 100644
+index 0000000..dd0c3d8
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/navigation.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/posar.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/posar.cpython-312.pyc
+new file mode 100644
+index 0000000..42fc5a8
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/posar.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/rearrangement.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/rearrangement.cpython-312.pyc
+new file mode 100644
+index 0000000..1482327
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/rearrangement.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/sar_render_from_string_grid.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/sar_render_from_string_grid.cpython-312.pyc
+new file mode 100644
+index 0000000..366a746
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/sar_render_from_string_grid.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/searchandrescue.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/searchandrescue.cpython-312.pyc
+new file mode 100644
+index 0000000..4aed6bf
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/searchandrescue.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/slidetile.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/slidetile.cpython-312.pyc
+new file mode 100644
+index 0000000..d95b889
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/slidetile.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/slow_searchandrescue.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/slow_searchandrescue.cpython-312.pyc
+new file mode 100644
+index 0000000..9d171e0
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/slow_searchandrescue.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/snake.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/snake.cpython-312.pyc
+new file mode 100644
+index 0000000..1d744aa
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/snake.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/sokoban.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/sokoban.cpython-312.pyc
+new file mode 100644
+index 0000000..3136e14
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/sokoban.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/tireworld.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/tireworld.cpython-312.pyc
+new file mode 100644
+index 0000000..b013020
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/tireworld.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/tsp.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/tsp.cpython-312.pyc
+new file mode 100644
+index 0000000..145adb9
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/tsp.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/utils.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/utils.cpython-312.pyc
+new file mode 100644
+index 0000000..42732ab
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/utils.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/visit_all.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/visit_all.cpython-312.pyc
+new file mode 100644
+index 0000000..4a7ff86
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/rendering/__pycache__/visit_all.cpython-312.pyc differ
+diff --git a/tasks/envs/pddl_env/pddlgym/tests/__pycache__/__init__.cpython-312.pyc b/tasks/envs/pddl_env/pddlgym/tests/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..b6cbec1
+Binary files /dev/null and b/tasks/envs/pddl_env/pddlgym/tests/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/__pycache__/__init__.cpython-312.pyc b/tasks/mas_workflow/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..e058b17
+Binary files /dev/null and b/tasks/mas_workflow/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/__pycache__/format.cpython-312.pyc b/tasks/mas_workflow/__pycache__/format.cpython-312.pyc
+new file mode 100644
+index 0000000..250d886
+Binary files /dev/null and b/tasks/mas_workflow/__pycache__/format.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/autogen/__pycache__/__init__.cpython-312.pyc b/tasks/mas_workflow/autogen/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..d766619
+Binary files /dev/null and b/tasks/mas_workflow/autogen/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/autogen/__pycache__/autogen.cpython-312.pyc b/tasks/mas_workflow/autogen/__pycache__/autogen.cpython-312.pyc
+new file mode 100644
+index 0000000..b474440
+Binary files /dev/null and b/tasks/mas_workflow/autogen/__pycache__/autogen.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/autogen/__pycache__/autogen_prompt.cpython-312.pyc b/tasks/mas_workflow/autogen/__pycache__/autogen_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..c4a9e90
+Binary files /dev/null and b/tasks/mas_workflow/autogen/__pycache__/autogen_prompt.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/dylan/__pycache__/__init__.cpython-312.pyc b/tasks/mas_workflow/dylan/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..1f2e67b
+Binary files /dev/null and b/tasks/mas_workflow/dylan/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/dylan/__pycache__/dylan.cpython-312.pyc b/tasks/mas_workflow/dylan/__pycache__/dylan.cpython-312.pyc
+new file mode 100644
+index 0000000..f159bb1
+Binary files /dev/null and b/tasks/mas_workflow/dylan/__pycache__/dylan.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/dylan/__pycache__/dylan_prompt.cpython-312.pyc b/tasks/mas_workflow/dylan/__pycache__/dylan_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..00566ee
+Binary files /dev/null and b/tasks/mas_workflow/dylan/__pycache__/dylan_prompt.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/dylan/__pycache__/neuron.cpython-312.pyc b/tasks/mas_workflow/dylan/__pycache__/neuron.cpython-312.pyc
+new file mode 100644
+index 0000000..bbff86f
+Binary files /dev/null and b/tasks/mas_workflow/dylan/__pycache__/neuron.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/dylan/dylan.py b/tasks/mas_workflow/dylan/dylan.py
+index 31c6bbd..9b46ab4 100644
+--- a/tasks/mas_workflow/dylan/dylan.py
++++ b/tasks/mas_workflow/dylan/dylan.py
+@@ -197,6 +197,18 @@ class DyLAN(MetaMAS):
+             task_description=self.meta_memory.summarize()
+         )
+         self.notify_observers(user_prompt)
++
++        # CHIME-MAS：每个角色在任务开始时检索自己的记忆（CHIME 每个任务检索一次）
++        chime = getattr(self, 'chime', None)
++        role_ins: dict = {}
++        if chime is not None:
++            chime.reset(task_main)
++            role_ins = {r: chime.insights(r, task_main) for r in ('proposer', 'checker', 'finalizer')}
++            self.notify_observers('CHIME-MAS insights: ' + str(role_ins))
++            for col in range(self._width):
++                for row in range(self._height):
++                    self._neurons.get(col, row).critic_insights = role_ins['checker']
++            self._finalizer_ins = role_ins['finalizer']
+         
+         # Main loop for task execution
+         for i in range(env.max_trials):
+@@ -211,7 +223,8 @@ class DyLAN(MetaMAS):
+                     user_prompt: str = format_task_prompt_with_insights(
+                         few_shots=few_shots, 
+                         memory_few_shots=successful_shots,
+-                        insights=roles_rules.get(curr_neuron._agent.profile, raw_rules),
++                        insights=(role_ins['proposer'] if w == 0 else role_ins['finalizer']) if chime is not None
++                                 else roles_rules.get(curr_neuron._agent.profile, raw_rules),
+                         task_description=self.meta_memory.summarize()
+                     )
+                     while tries < max_trials:
+@@ -234,6 +247,10 @@ class DyLAN(MetaMAS):
+                     current_id: str = self.meta_memory.add_agent_node( 
+                         agent_message, upstream_agent_ids=get_state_graph_upstream_neuron_ids(curr_neuron, upstream_neuron_ids)
+                     )
++                    if chime is not None:
++                        for up_id, crit in curr_neuron.last_critiques:
++                            chime.record('checker', f'critic@{curr_neuron.id}->{up_id}', crit)
++                        chime.record('proposer' if w == 0 else 'finalizer', curr_neuron.id, action)
+                     upstream_neuron_ids[curr_neuron.id] = current_id
+                     
+                     if self._reach_consensus(w):
+@@ -249,6 +266,8 @@ class DyLAN(MetaMAS):
+             raw_final_action: str = self._summary_response(w)
+             final_action = env.process_action(raw_final_action)
+             observation, reward, done = env.step(final_action)
++            if chime is not None:
++                chime.step_done(final_action, observation)
+             step_message: str = f'Act {i + 1}: {final_action}\nObs {i + 1}: {observation}'
+             self.notify_observers(step_message)
+             self.meta_memory.move_memory_state(final_action, observation, reward=reward) 
+@@ -332,7 +351,12 @@ class DyLAN(MetaMAS):
+             for i, answer in enumerate(answers):
+                 upstream_responses += f"Agent{i+1}: {answer}\n"
+             user_prompt: str = decision_user_prompt.format(agents_responses=upstream_responses)
++            chime = getattr(self, 'chime', None)
++            if chime is not None and getattr(self, '_finalizer_ins', None):
++                user_prompt = "## Lessons from past tasks\n" + "\n".join(f"- {r}" for r in self._finalizer_ins) + "\n\n" + user_prompt
+             final_response = self._decision_neuron.execute(user_prompt, use_critic=False)  
++            if chime is not None:
++                chime.record('finalizer', 'final_decision', final_response)
+             return final_response
+ 
+     def _rank_neurons(self, col: int) -> None:
+diff --git a/tasks/mas_workflow/dylan/neuron.py b/tasks/mas_workflow/dylan/neuron.py
+index c46b925..d8fcb9a 100644
+--- a/tasks/mas_workflow/dylan/neuron.py
++++ b/tasks/mas_workflow/dylan/neuron.py
+@@ -19,12 +19,15 @@ class LLMNeuron:
+ 
+         self.reasoning_config = ReasoningConfig(temperature=0, stop_strs=['\n'])
+         self.embedding_func = EmbeddingFunc()
++        # CHIME-MAS：检查者记忆与本轮 critic 输出
++        self.critic_insights: list[str] = []
++        self.last_critiques: list[tuple[str, str]] = []
+ 
+     def execute(self, user_prompt: str, use_critic: bool) -> str:
+ 
+         if not self.is_active():
+             return None
+-        
++        self.last_critiques = []
+         user_prompt = self._process_inputs(user_prompt, use_critic=use_critic)
+         answer = self._agent.response(user_prompt, reason_config=self.reasoning_config)
+         self._cached_answer = answer
+@@ -86,6 +89,7 @@ class LLMNeuron:
+             upstream_message += f"## Agent {upstream_neuron.id}, role is {upstream_neuron.role}, importance score is {upstream_neuron.importance}, output is:\n\n {upstream_neuron.cached_answer}\n"
+             if use_critic:
+                 critic_message: str = self._critic_upstream_agent(user_prompt, upstream_neuron.cached_answer)
++                self.last_critiques.append((upstream_neuron.id, critic_message))
+                 upstream_message += f"## Critic's Suggestions for Improvement: {critic_message}\n\n"
+         
+         final_prompt = ''
+@@ -101,7 +105,10 @@ class LLMNeuron:
+         from .dylan_prompt import critic_system_prompt, critic_user_prompt
+ 
+         user_prompt: str = critic_user_prompt.format(task=task, agent_answer=agent_response)
+-        messages: list[Message] = [Message('system', critic_system_prompt),
++        system_prompt: str = critic_system_prompt
++        if self.critic_insights:  # CHIME-MAS：检查者自己的经验
++            system_prompt += "\n## Lessons from your past reviews\n" + "\n".join(f"- {r}" for r in self.critic_insights)
++        messages: list[Message] = [Message('system', system_prompt),
+                                    Message('user', user_prompt)]
+         
+         return self._agent.reasoning(messages, self.reasoning_config)  
+diff --git a/tasks/mas_workflow/macnet/__pycache__/__init__.cpython-312.pyc b/tasks/mas_workflow/macnet/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..0d6dea1
+Binary files /dev/null and b/tasks/mas_workflow/macnet/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/macnet/__pycache__/graph.cpython-312.pyc b/tasks/mas_workflow/macnet/__pycache__/graph.cpython-312.pyc
+new file mode 100644
+index 0000000..6d25d84
+Binary files /dev/null and b/tasks/mas_workflow/macnet/__pycache__/graph.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/macnet/__pycache__/graph_mas.cpython-312.pyc b/tasks/mas_workflow/macnet/__pycache__/graph_mas.cpython-312.pyc
+new file mode 100644
+index 0000000..c25b4d9
+Binary files /dev/null and b/tasks/mas_workflow/macnet/__pycache__/graph_mas.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/macnet/__pycache__/graph_prompt.cpython-312.pyc b/tasks/mas_workflow/macnet/__pycache__/graph_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..7fef003
+Binary files /dev/null and b/tasks/mas_workflow/macnet/__pycache__/graph_prompt.cpython-312.pyc differ
+diff --git a/tasks/mas_workflow/macnet/__pycache__/node.cpython-312.pyc b/tasks/mas_workflow/macnet/__pycache__/node.cpython-312.pyc
+new file mode 100644
+index 0000000..ce0ba01
+Binary files /dev/null and b/tasks/mas_workflow/macnet/__pycache__/node.cpython-312.pyc differ
+diff --git a/tasks/prompts/__pycache__/__init__.cpython-312.pyc b/tasks/prompts/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000..30b36c6
+Binary files /dev/null and b/tasks/prompts/__pycache__/__init__.cpython-312.pyc differ
+diff --git a/tasks/prompts/__pycache__/alfworld_prompt.cpython-312.pyc b/tasks/prompts/__pycache__/alfworld_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..8ead0e5
+Binary files /dev/null and b/tasks/prompts/__pycache__/alfworld_prompt.cpython-312.pyc differ
+diff --git a/tasks/prompts/__pycache__/fever_prompt.cpython-312.pyc b/tasks/prompts/__pycache__/fever_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..b60c573
+Binary files /dev/null and b/tasks/prompts/__pycache__/fever_prompt.cpython-312.pyc differ
+diff --git a/tasks/prompts/__pycache__/pddl_prompt.cpython-312.pyc b/tasks/prompts/__pycache__/pddl_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..2eba785
+Binary files /dev/null and b/tasks/prompts/__pycache__/pddl_prompt.cpython-312.pyc differ
+diff --git a/tasks/prompts/__pycache__/sciworld_prompt.cpython-312.pyc b/tasks/prompts/__pycache__/sciworld_prompt.cpython-312.pyc
+new file mode 100644
+index 0000000..d9a70cb
+Binary files /dev/null and b/tasks/prompts/__pycache__/sciworld_prompt.cpython-312.pyc differ
 diff --git a/tasks/run.py b/tasks/run.py
 index ffd2931..5e67e1c 100644
 --- a/tasks/run.py
@@ -273,6 +1580,3 @@ index 56c89df..67ab375 100644
      ]
  
      for model_type in valid_model_types:
--- 
-2.43.0
-

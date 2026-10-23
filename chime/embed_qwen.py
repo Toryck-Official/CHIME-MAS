@@ -12,6 +12,8 @@ from functools import lru_cache
 import numpy as np
 
 MODEL_DIR = os.environ.get("QWEN_EMB_DIR", "/home/claude/models/qwen3-emb")
+# 多智能体实验用 int8 版（约 0.6 GB），8 GB 内存下可并行多个进程：QWEN_EMB_FILE=model_int8.onnx
+MODEL_FILE = os.environ.get("QWEN_EMB_FILE", "model.onnx")
 _lock = threading.Lock()
 
 
@@ -22,7 +24,7 @@ def _load():
     tok = Tokenizer.from_file(os.path.join(MODEL_DIR, "tokenizer.json"))
     opts = ort.SessionOptions()
     opts.intra_op_num_threads = os.cpu_count() or 2
-    sess = ort.InferenceSession(os.path.join(MODEL_DIR, "onnx", "model.onnx"), opts, providers=["CPUExecutionProvider"])
+    sess = ort.InferenceSession(os.path.join(MODEL_DIR, "onnx", MODEL_FILE), opts, providers=["CPUExecutionProvider"])
     kv = [i for i in sess.get_inputs() if i.name.startswith("past_key_values")]
     return tok, sess, kv
 

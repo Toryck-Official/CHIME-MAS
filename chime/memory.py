@@ -71,11 +71,13 @@ def default_merger(old: MemoryItem, scenario: str, experience: str) -> tuple[str
 class HierarchicalMemory:
     """Eq.2：M_t = (M_plan, M_exec)。"""
 
-    def __init__(self, embed: Embedder, config: Config | None = None, merger: Merger = default_merger):
+    def __init__(self, embed: Embedder, config: Config | None = None, merger: Merger = default_merger,
+                 stages: tuple[str, ...] = STAGES):
         self.embed = embed
         self.cfg = config or Config()
         self.merger = merger
-        self.banks: dict[str, list[MemoryItem]] = {s: [] for s in STAGES}
+        self.stages = tuple(stages)  # 多智能体时为各角色名，一个角色一个记忆库
+        self.banks: dict[str, list[MemoryItem]] = {s: [] for s in self.stages}
         self._emb: dict[str, np.ndarray] = {}
 
     # ---------- 基础 ----------
@@ -123,10 +125,11 @@ class HierarchicalMemory:
         return scored[: c.top_k]
 
     # ---------- Eq.7/8/9 + 剪枝 + 内容演化 ----------
-    def update(self, g: Attribution, success: bool, retrieved: Iterable[MemoryItem], task_id: str = "") -> dict:
+    def update(self, g: Attribution, success: bool, retrieved: Iterable[MemoryItem], task_id: str = "",
+               targets: tuple[str, ...] | None = None) -> dict:
         """一次任务结束后的记忆更新，返回本次变更的日志。"""
         c = self.cfg
-        L = stages_of(g.label)
+        L = targets if targets is not None else stages_of(g.label)  # 多智能体：由团队归因直接给出要更新的角色
         mis = set(g.misleading)
         log = {"value": [], "pruned": [], "merged": [], "inserted": [], "discarded": []}
 
@@ -150,7 +153,7 @@ class HierarchicalMemory:
             log["value"].append({"id": m.id, "stage": m.stage, "delta": round(delta, 3), "v": [round(old, 3), round(m.value, 3)], "n": m.n})
 
         # 剪枝：n ≥ n_min 且 v < θ_prune
-        for s in STAGES:
+        for s in self.stages:
             keep = []
             for m in self.banks[s]:
                 if m.n >= c.n_min and m.value < c.theta_prune:
@@ -184,5 +187,5 @@ class HierarchicalMemory:
 
     def load_json(self, text: str) -> None:
         data = json.loads(text)
-        self.banks = {s: [MemoryItem(**d) for d in data.get(s, [])] for s in STAGES}
+        self.banks = {s: [MemoryItem(**d) for d in data.get(s, [])] for s in self.stages}
         self._emb = {}

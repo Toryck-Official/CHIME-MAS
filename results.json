@@ -1,0 +1,107 @@
+{
+ "per_variant": {
+  "no_plan": {
+   "train": "73.3 ± 7.2",
+   "eval": "82.2 ± 15.4",
+   "eval_pooled_45": 82.2,
+   "memory": null,
+   "train_by_seed": [
+    65.71,
+    74.29,
+    80.0
+   ],
+   "eval_by_seed": [
+    73.33,
+    73.33,
+    100.0
+   ]
+  },
+  "plan_only": {
+   "train": "77.1 ± 2.9",
+   "eval": "82.2 ± 10.2",
+   "eval_pooled_45": 82.2,
+   "memory": null,
+   "train_by_seed": [
+    80.0,
+    74.29,
+    77.14
+   ],
+   "eval_by_seed": [
+    80.0,
+    73.33,
+    93.33
+   ]
+  },
+  "chime": {
+   "train": "77.1 ± 7.6",
+   "eval": "84.4 ± 10.2",
+   "eval_pooled_45": 84.4,
+   "memory": "45.0 ± 3.6",
+   "train_by_seed": [
+    68.57,
+    80.0,
+    82.86
+   ],
+   "eval_by_seed": [
+    73.33,
+    86.67,
+    93.33
+   ]
+  },
+  "chime_nogate": {
+   "train": "70.5 ± 3.3",
+   "eval": "84.4 ± 7.7",
+   "eval_pooled_45": 84.4,
+   "memory": "49.7 ± 0.6",
+   "train_by_seed": [
+    68.57,
+    74.29,
+    68.57
+   ],
+   "eval_by_seed": [
+    80.0,
+    80.0,
+    93.33
+   ]
+  }
+ },
+ "paired_eval_vs_chime": {
+  "no_plan": {
+   "chime_wins": 4,
+   "chime_losses": 3,
+   "ties": 38
+  },
+  "plan_only": {
+   "chime_wins": 4,
+   "chime_losses": 3,
+   "ties": 38
+  },
+  "chime_nogate": {
+   "chime_wins": 3,
+   "chime_losses": 3,
+   "ties": 39
+  }
+ },
+ "chime_gate": {
+  "labels": {
+   "both": 68,
+   "execution": 18,
+   "planning": 16,
+   "none": 3
+  },
+  "by_outcome": {
+   "failure/execution": 13,
+   "failure/none": 3,
+   "failure/planning": 8,
+   "success/both": 68,
+   "success/execution": 5,
+   "success/planning": 8
+  },
+  "mean_confidence": 0.859,
+  "inserted": 135,
+  "merged": 34,
+  "pruned": 0,
+  "discarded_low_conf": 1,
+  "misleading_flags": 12
+ }
+}

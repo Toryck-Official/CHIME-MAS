@@ -1,0 +1,51 @@
+[train 1/35] 43 reward=1.0 mem=None attr= 25s
+[train 2/35] 1 reward=0.0 mem=None attr= 25s
+[train 3/35] 28 reward=1.0 mem=None attr= 18s
+[train 4/35] 14 reward=0.0 mem=None attr= 52s
+[train 5/35] 36 reward=1.0 mem=None attr= 16s
+[train 6/35] 12 reward=1.0 mem=None attr= 20s
+[train 7/35] 0 reward=1.0 mem=None attr= 13s
+[train 8/35] 27 reward=1.0 mem=None attr= 24s
+[train 9/35] 47 reward=0.0 mem=None attr= 14s
+[train 10/35] 7 reward=0.0 mem=None attr= 27s
+[train 11/35] 33 reward=1.0 mem=None attr= 32s
+[train 12/35] 34 reward=1.0 mem=None attr= 23s
+[train 13/35] 20 reward=1.0 mem=None attr= 33s
+[train 14/35] 49 reward=1.0 mem=None attr= 17s
+[train 15/35] 5 reward=1.0 mem=None attr= 24s
+[train 16/35] 38 reward=1.0 mem=None attr= 27s
+[train 17/35] 11 reward=1.0 mem=None attr= 21s
+[train 18/35] 23 reward=1.0 mem=None attr= 55s
+[train 19/35] 40 reward=1.0 mem=None attr= 14s
+[train 20/35] 15 reward=1.0 mem=None attr= 23s
+[train 21/35] 10 reward=0.0 mem=None attr= 33s
+[train 22/35] 21 reward=0.0 mem=None attr= 36s
+[train 23/35] 46 reward=1.0 mem=None attr= 12s
+[train 24/35] 3 reward=1.0 mem=None attr= 18s
+[train 25/35] 9 reward=0.0 mem=None attr= 54s
+[train 26/35] 4 reward=1.0 mem=None attr= 18s
+[train 27/35] 41 reward=1.0 mem=None attr= 23s
+[train 28/35] 42 reward=1.0 mem=None attr= 29s
+[train 29/35] 39 reward=0.0 mem=None attr= 19s
+[train 30/35] 17 reward=0.0 mem=None attr= 22s
+[train 31/35] 29 reward=0.0 mem=None attr= 20s
+[train 32/35] 45 reward=0.0 mem=None attr= 31s
+[train 33/35] 6 reward=1.0 mem=None attr= 31s
+[train 34/35] 35 reward=1.0 mem=None attr= 35s
+[train 35/35] 18 reward=0.0 mem=None attr= 34s
+[eval] 8 reward=1.0 22s
+[eval] 44 reward=0.0 17s
+[eval] 13 reward=1.0 11s
+[eval] 37 reward=1.0 32s
+[eval] 22 reward=0.0 12s
+[eval] 30 reward=1.0 20s
+[eval] 19 reward=1.0 20s
+[eval] 25 reward=1.0 21s
+[eval] 31 reward=1.0 13s
+[eval] 32 reward=0.0 20s
+[eval] 16 reward=1.0 20s
+[eval] 2 reward=0.0 26s
+[eval] 26 reward=1.0 15s
+[eval] 48 reward=1.0 16s
+[eval] 24 reward=1.0 25s
+{"domain": "airline", "variant": "no_plan", "order_seed": 0, "n_train": 35, "n_eval": 15, "train_acc": 65.71, "eval_acc": 73.33, "memory_size": null, "usage_our_calls": {"calls": 0, "prompt_tokens": 0, "completion_tokens": 0}}

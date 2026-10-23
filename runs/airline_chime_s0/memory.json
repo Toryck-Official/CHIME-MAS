@@ -1,0 +1,438 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a user requests cancellation of a flight reservation and eligibility depends on multiple conditions (booking time, fare class, airline cancellation, insurance).",
+   "experience": "Before deciding on cancellation, verify reservation ownership and gather the cancellation reason plus all eligibility-relevant attributes (created_at, cabin, insurance, flight status), then enumerate the exact policy conditions so the decision is grounded in policy rather than user persuasion. Handle pushback (loyalty status, goodwill exceptions, vouchers, partial refunds) by reaffirming that these do not alter eligibility. Transfer to a human agent if the user requests an exception rather than granting unauthorized exceptions.",
+   "value": 0.6166666666666667,
+   "n": 18,
+   "id": "eadc7b8f",
+   "origin_task": "43"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a date change on a reservation and the fare class may prohibit modifications.",
+   "experience": "Plan to first retrieve reservation details to determine fare class and flown status, then apply the modification policy (e.g., basic economy cannot be modified). If the policy blocks the change and the user requests an exception, plan to escalate to a human agent rather than granting unauthorized exceptions, while acknowledging the user's circumstances with empathy.",
+   "value": 0.4433333333333333,
+   "n": 15,
+   "id": "f584e01e",
+   "origin_task": "36"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a cabin upgrade for all passengers plus ancillary changes (e.g., checked bags) on an existing reservation.",
+   "experience": "Plan to first retrieve reservation and user details, verify no segment has flown, confirm the cabin is uniform across all segments, check business availability and price per segment, compute the total difference for all passengers, verify the user's loyalty status and baggage allowance, and confirm a valid payment method exists in the profile. Include a step to enforce the policy that all passengers must share the same cabin, and require explicit user confirmation before any update.",
+   "value": 0.5736842105263159,
+   "n": 19,
+   "id": "7ecbb6ac",
+   "origin_task": "12"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user reports a delayed flight and asks for the cause plus compensation but refuses to change or cancel the reservation.",
+   "experience": "Gather user and reservation details and confirm flight status, then state upfront that delay causes cannot be explained (no data/tool) and that compensation requires a change or cancellation. If the user insists on an exception, refund to original payment, or formal complaint, escalate to a human agent rather than granting unauthorized compensation.",
+   "value": 0.7441176470588234,
+   "n": 17,
+   "id": "f62277ea",
+   "origin_task": "27"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a full refund for a flight cancellation and eligibility depends on multiple policy conditions (booking window, cabin class, airline cancellation, insurance coverage).",
+   "experience": "Before deciding on a full refund for a flight cancellation, gather all eligibility-relevant attributes (created_at, cabin, insurance, flight status) and the cancellation reason, then explicitly enumerate each policy condition and deny if none apply. Handle repeated pushback by reaffirming the policy without granting exceptions, and escalate to a human agent only when the user requests verification, an exception, or a transfer.",
+   "value": 0.7714285714285715,
+   "n": 7,
+   "id": "ae3b6d80",
+   "origin_task": "47"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a bundled multi-part reservation change (flight dates, cabin, baggage) and imposes a budget or conditional constraint.",
+   "experience": "Plan to retrieve reservation and user details first, verify no segment has flown, apply all policy gates (fare class modifiability, uniform cabin, baggage add-only, insurance limits), compute the full package price difference, and explicitly include a step to honor the user's stated budget or conditional constraint by declining the entire package if the total exceeds it, without making partial or unauthorized changes.",
+   "value": 0.0,
+   "n": 0,
+   "id": "11ed7f82",
+   "origin_task": "34"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a one-way flight booking with flexible origin airports and constraints like departure time, cabin, bags, and payment split.",
+   "experience": "Plan to confirm ambiguous airports and cabin early, gather passenger details from profile, search all candidate origin airports for both direct and one-stop options, present only bookable options meeting user constraints (time, seat availability), then collect insurance/bags and payment methods from profile, and require explicit confirmation of full details before the booking call.",
+   "value": 0.5718750000000001,
+   "n": 16,
+   "id": "2d4c42a4",
+   "origin_task": "20"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user reports a delayed flight and requests compensation or escalation, but the system shows no delay and the user disputes the record.",
+   "experience": "Plan to verify the specific flight status via tools before discussing compensation, explicitly avoid stating delay causes (no data/tool), and plan to transfer to a human agent if the user disputes the system record or requests an exception/goodwill gesture not covered by policy.",
+   "value": 0.85,
+   "n": 1,
+   "id": "75ffd31a",
+   "origin_task": "38"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests an action that is prohibited by policy (e.g., removing a passenger) and then pivots to a permitted alternative (e.g., cabin downgrade with refund).",
+   "experience": "Plan to first verify the policy constraint and clearly deny the prohibited action, then handle the permitted alternative by retrieving reservation details, checking flight availability and prices, computing the refund, and requiring explicit user confirmation before any update.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ee278a28",
+   "origin_task": "11"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a passenger name change on an existing reservation but cannot or will not provide all required fields (e.g., date of birth).",
+   "experience": "Plan explicitly for missing required data: determine whether the name change can be processed with the existing passenger record's DOB (name-only change) versus requiring a new DOB, and specify the policy outcome (proceed with name-only change, or deny with a clear policy reason) rather than defaulting to escalation. Include a step to check whether DOB is actually a required input for a name-only modification before demanding it.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1a256a71",
+   "origin_task": "40"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user wants to switch an existing reservation to a cheaper fare/cabin via cancel-and-rebook, and the new fare must be paid from profile payment methods.",
+   "experience": "Before planning a cancel-and-rebook, verify that the user's currently available payment methods (excluding pending refunds) can cover the new fare in full. If there is a shortfall, plan to either book the replacement first (if allowed) or warn the user that cancellation will leave them unbooked and that refunds may not post immediately; do not sequence cancellation before confirming payment feasibility.",
+   "value": 0.0,
+   "n": 0,
+   "id": "24e88efc",
+   "origin_task": "15"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a cabin upgrade or date change on an existing reservation with a cost ceiling and conditional constraints (e.g., only proceed if price is under a threshold).",
+   "experience": "Plan to retrieve reservation and user details, verify no segment has flown, enforce uniform-cabin-across-all-segments and no origin/destination/trip-type change, search both direct and one-stop options for all affected segments, compute total fare difference for all passengers, and treat the user's cost ceiling as a hard gate: if the cheapest valid option exceeds it, present the floor and do not proceed without explicit confirmation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "9ea8f9d6",
+   "origin_task": "10"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests changing a return segment of an existing round-trip reservation, possibly with ancillary changes like adding bags.",
+   "experience": "Plan to retrieve user and reservation details, confirm which segment is the return, enforce policy gates (fare class modifiable, origin/destination/trip type unchanged, no flown segment for cabin changes), search availability for the requested date, rank candidate itineraries by total elapsed time including stopovers, compute price difference, select a valid payment method from the profile, and require explicit confirmation before each modify call; handle ancillary changes (bags) as a separate confirmed step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e3e7c093",
+   "origin_task": "21"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a refund of a single component (e.g., insurance) of a reservation without cancelling the underlying booking.",
+   "experience": "Plan to verify the reservation details, then check whether the requested component is refundable independently; if policy only allows it as part of a full cancellation, inform the user and offer the full-cancellation path, and escalate to a human agent only if the user explicitly requests an exception or verification.",
+   "value": 0.0,
+   "n": 0,
+   "id": "15dbb79a",
+   "origin_task": "46"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user asks for the total number of checked bags allowed on an existing reservation.",
+   "experience": "Plan to retrieve both user membership details and reservation details (cabin, passenger count, existing bags), then compute total allowance as free bags per passenger × number of passengers, and state the result in digits. Include a step to handle membership disputes by double-checking the profile and escalating to a human if the user insists.",
+   "value": 0.0,
+   "n": 0,
+   "id": "d261094c",
+   "origin_task": "3"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests multiple simultaneous actions (cancellations plus a change) on several reservations with eligibility depending on policy conditions.",
+   "experience": "First resolve the user and enumerate all named reservations, filter to the requested subset, then for each candidate gather eligibility-relevant attributes (booking window, cabin, airline-cancellation/flown status, insurance, fare class) and explicitly enumerate policy conditions before deciding; for changes, also search nonstop availability across requested and alternate dates. Deny ineligible actions even under user pressure, obtain explicit confirmation before any update, and escalate or offer human transfer when a policy block requires an exception or waiver.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7c37ad38",
+   "origin_task": "9"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user claims a canceled flight caused a missed meeting and demands compensation for the meeting and inconvenience, but cannot provide a flight number or reservation ID.",
+   "experience": "Plan to verify the claimed reservation against the user's actual bookings, explicitly state that missed-meeting/inconvenience compensation is outside policy, apply the eligibility gate (membership tier, insurance, cabin class), and route to a human agent when the user insists on exceptions or cannot substantiate the claim.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f365cf2b",
+   "origin_task": "4"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user reports possible duplicate or overlapping same-day bookings and asks to reconcile them with stated travel plans.",
+   "experience": "Plan to retrieve the profile and all reservations, enumerate same-day overlaps, explicitly exclude reservations involving other passengers per user instruction, map each overlapping itinerary against the user's stated origin/destination/date plans to identify which bookings fit and which do not, then run cancellation eligibility checks (flown segments, 24-hour window, cabin, airline cancellation, insurance) before presenting exact actions and requiring explicit confirmation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3475d81b",
+   "origin_task": "42"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests changing the destination airport on an existing roundtrip reservation (e.g., a different airport in the same metro area) along with ancillary changes like adding a checked bag.",
+   "experience": "Plan to retrieve reservation and user details, verify fare class and flown status, and evaluate whether the airport change is permitted under policy—distinguish between a true destination change and a same-metro airport substitution that may be allowed. If permitted, search nonstop options on the same dates in the same cabin, compute price difference and bag cost, and require explicit confirmation before updating; only escalate if policy genuinely prohibits the change.",
+   "value": 0.0,
+   "n": 0,
+   "id": "dae3b70c",
+   "origin_task": "29"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a full refund or other exception (date change, adding insurance) for a flight cancellation due to a personal emergency, and eligibility depends on multiple policy conditions.",
+   "experience": "Plan to gather all eligibility-relevant attributes (booking creation time, cabin class, flight status, insurance coverage) and the cancellation reason, then explicitly evaluate each policy condition. If none apply, deny the request and explain the policy; do not grant exceptions. Offer a human transfer only if the user explicitly requests it. Handle repeated pushback by reaffirming the policy without deviation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b906cb57",
+   "origin_task": "45"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user asks to add travel insurance to an existing reservation after booking, possibly citing that other family members have it.",
+   "experience": "Plan to first obtain the user id and locate all reservations, confirm which reservation lacks insurance, then state upfront that insurance cannot be added post-booking. Enumerate cancellation/rebooking eligibility conditions (24-hour window, airline cancellation, business cabin, insurance-covered reason) and deny if none apply; require explicit confirmation before any modification and escalate only if the user requests it.",
+   "value": 0.0,
+   "n": 0,
+   "id": "79453160",
+   "origin_task": "6"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a cabin downgrade (e.g., business to economy) across multiple reservations without changing flights or passengers.",
+   "experience": "Plan to retrieve all reservations for the user, filter to those in the target cabin, verify no segment has flown, confirm cabin is uniform across segments, look up economy availability and price per segment for the same flights/dates, compute the price difference per passenger, identify the original payment method per reservation for refunds, and require explicit user confirmation before calling the update API for each reservation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "cf9eaeb1",
+   "origin_task": "18"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When evaluating cancellation eligibility for one or more reservations after the user requests it.",
+   "experience": "Retrieve reservation details and flight status for each candidate reservation, then explicitly compare booking date against the 24-hour window, cabin class, airline cancellation status, and insurance coverage against the stated reason. When the user pivots to a different reservation, repeat the full eligibility check for that reservation rather than assuming the prior result applies.",
+   "value": 0.5312500000000001,
+   "n": 16,
+   "id": "ce4fb79e",
+   "origin_task": "43"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When checking cancellation eligibility that depends on whether the booking was made within the last 24 hours.",
+   "experience": "Explicitly compute the elapsed time between the reservation's created_at timestamp and the current time before claiming the 24-hour window applies; do not infer eligibility from a date alone. If the booking is outside the window and no other condition (airline cancellation, eligible cabin, insurance covering the reason) is met, deny the refund and do not call the cancel API.",
+   "value": 0.5125,
+   "n": 4,
+   "id": "0570480a",
+   "origin_task": "1"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cancellation-eligibility check and the user pushes back after a policy-based denial.",
+   "experience": "Retrieve reservation details, compare booking date against the 24-hour window, cabin class, airline cancellation status, and insurance coverage against the stated reason. If none apply, deny without calling the cancel API. When the user insists on exceptions or escalation, do not grant unauthorized refunds/vouchers; instead transfer to a human agent with a clear summary of the request and denial rationale.",
+   "value": -0.7,
+   "n": 1,
+   "id": "1ff522b2",
+   "origin_task": "28"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user asks to cancel and rebook a reservation into a different cabin, with payment split across certificates, gift cards, and a credit card.",
+   "experience": "Before cancelling, verify the fare class's cancellation/refund policy and eligibility (booking window, cabin, insurance) rather than assuming eligibility from flight status alone; recompute the cheapest itinerary strictly from the returned tool prices and re-verify the total and per-passenger math before booking; confirm the payment split sums exactly to the quoted total and that the credit-card remainder matches the user's stated limit.",
+   "value": 0.5874999999999998,
+   "n": 28,
+   "id": "b8cab5d3",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user requests a date change but the reservation is in a non-modifiable fare class and the user asks for an exception.",
+   "experience": "Retrieve reservation details to confirm fare class and segment status, clearly explain the policy limitation, and when the user requests an exception, transfer to a human agent with a concise summary of the reservation and the request rather than attempting an unauthorized change.",
+   "value": 0.5100000000000001,
+   "n": 15,
+   "id": "d45ce6e5",
+   "origin_task": "36"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cabin upgrade request and/or baggage addition after eligibility checks.",
+   "experience": "Retrieve reservation and user details, check flight status for each segment, search business availability and prices, compute the total price difference for all passengers, and verify loyalty status for baggage allowances. When the user requests a partial upgrade, explain the uniform-cabin policy and do not proceed. For baggage updates, use the correct total_baggages and nonfree_baggages values based on the allowance, and only call the update tool after explicit user confirmation.",
+   "value": 0.6166666666666667,
+   "n": 3,
+   "id": "257cda47",
+   "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cancellation request after the plan has established the eligibility conditions.",
+   "experience": "Retrieve reservation details, confirm the user ID matches, ask for the cancellation reason, then explicitly compare booking date against the 24-hour window, cabin class, airline cancellation status, and insurance coverage against the stated reason. If none apply, deny per policy; if the user pushes for an exception, transfer to a human agent with a concise summary of the reservation and request.",
+   "value": 0.0,
+   "n": 0,
+   "id": "abcdf8a0",
+   "origin_task": "0"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user references a flight number but no reservation id, and the profile has many reservations.",
+   "experience": "Retrieve the user's reservations and match the referenced flight number (and origin/destination across segments) to identify the correct reservation, then confirm the flight status. Explain the applicable policy limit, and if the user insists on an out-of-policy exception, transfer to a human agent with a concise summary of reservation facts and the request.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3f93d526",
+   "origin_task": "27"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When evaluating cancellation/refund eligibility after retrieving reservation details and flight status.",
+   "experience": "Explicitly compare the booking creation time against the 24-hour window, cabin class, airline cancellation status, and insurance coverage against the stated reason. If none of the conditions are met, deny the refund and do not call the cancel API, even under repeated user pressure; offer a human transfer only if the user asks.",
+   "value": 0.5666666666666667,
+   "n": 21,
+   "id": "df6f9e52",
+   "origin_task": "47"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user asks to list their other upcoming reservations and compute a total cost after a cancellation request.",
+   "experience": "Retrieve all reservations for the user, filter to those with at least one future-dated segment (compare each flight date against the current date, not just the first segment), include reservations regardless of whether the primary passenger is the user, and sum the correct cost field (e.g., payment_history amount or sum of segment prices) for each upcoming reservation. Present the itemized list and the total before or alongside any escalation, so the informational request is fully answered even when another part of the request is escalated.",
+   "value": 0.0,
+   "n": 0,
+   "id": "be31d097",
+   "origin_task": "7"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user asks about fee waivers tied to insurance or loyalty status, or requests a cabin upgrade plus baggage changes with a budget cap.",
+   "experience": "Verify the user's actual loyalty tier and insurance coverage from retrieved profile/reservation data before quoting baggage allowances or fee waivers; do not assume status-based benefits. Recompute upgrade price differences strictly from returned tool prices per segment and confirm the total against the user's budget before presenting options.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2b48ce06",
+   "origin_task": "33"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user requests a bundled change with a budget cap and cites a policy (e.g., insurance waiver) that does not actually apply.",
+   "experience": "Search for the requested replacement flights, compute the total fare difference strictly from tool-returned prices, clearly explain any policy the user misinterprets (e.g., insurance covers cancellation refunds, not fare-difference waivers), and if the total exceeds the user's stated budget, decline the entire package and confirm the reservation remains unchanged rather than applying partial changes.",
+   "value": 0.0,
+   "n": 0,
+   "id": "cc638573",
+   "origin_task": "34"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When booking a flight where the user has time constraints and multiple payment methods, and some search results show zero seats in the requested cabin.",
+   "experience": "Search all candidate origins for both direct and one-stop flights, filter results against user constraints (e.g., departure time) and exclude itineraries with zero seats in the requested cabin; recompute totals from returned prices, verify the payment split sums exactly to the total, and pass correct bag counts (free vs nonfree) and insurance flag to the booking API.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b36a3ac0",
+   "origin_task": "20"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When evaluating cancellation/refund eligibility after retrieving reservation details and the user insists on a fact (e.g., insurance) that the record contradicts.",
+   "experience": "Re-verify the disputed attribute by re-fetching reservation details and explicitly compare the booking creation time against the 24-hour window, cabin class, airline cancellation status, and insurance coverage against the stated reason; if none of the conditions are met, deny the refund and other prohibited requests (e.g., date change, adding insurance) without calling the cancel API, even under repeated user pressure. Transfer to a human agent with a concise summary of the facts and the user's claim only if the user explicitly requests escalation or verification by another team.",
+   "value": 0.55,
+   "n": 5,
+   "id": "ac264676",
+   "origin_task": "49"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user claims a flight was delayed but the flight status tool returns 'available' and the user disputes the record or requests escalation.",
+   "experience": "Re-check the flight status to confirm, clearly state the system record without speculating on causes, correct any user-provided details (e.g., passenger count) using the reservation data, deny compensation not supported by policy, and transfer to a human agent with a concise summary when the user requests escalation or an exception.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8768dc45",
+   "origin_task": "38"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cabin downgrade with refund on an existing reservation after user confirmation.",
+   "experience": "Retrieve reservation details and verify flight status for every segment (confirming none flown) and availability/prices for the new cabin using tool-returned prices; compute the new fare and refund (economy price × passenger count) to the original payment method from payment_history. Present the full change details and breakdown, including payment method, and obtain explicit confirmation. Then call the update API (update_reservation_flights) with the correct reservation ID, cabin, flights, and payment ID for each reservation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f692b4e0",
+   "origin_task": "11"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When booking a reservation with a payment split across certificates, gift cards, and a specific credit card the user named.",
+   "experience": "Before calling the booking API, map the user's stated card (e.g., brand/last-four) to the exact payment_method id from the profile and pass that id; never substitute a different card id. Re-verify the payment split sums exactly to the quoted total and that the credit-card remainder matches the confirmed amount before submitting.",
+   "value": 0.0,
+   "n": 0,
+   "id": "edd1b2e6",
+   "origin_task": "23"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user pushes for discounts, waivers, alternate airports, or hidden fare buckets to meet a price target on a reservation change.",
+   "experience": "Exhaust legitimate search options (direct and one-stop, flexible times within fixed dates), recompute totals strictly from returned tool prices, and clearly state which levers are unavailable (promo codes, loyalty redemption, goodwill waivers, alternate airports that would change origin/destination). Report the absolute lowest valid extra cost and let the user decide; never fabricate discounts or proceed past a stated budget without explicit confirmation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f3c8db97",
+   "origin_task": "10"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When changing flights and adding bags on a reservation, with candidate itineraries and multiple payment methods available.",
+   "experience": "Rank itineraries by true total travel time (arrival minus departure), not by departure time; when a modify call fails due to insufficient seats or insufficient gift-card balance, do not retry blindly—present the next-best option or a payment method with sufficient balance and re-confirm before retrying; verify loyalty status and baggage allowance before charging for bags.",
+   "value": 0.6083333333333333,
+   "n": 6,
+   "id": "33ed9709",
+   "origin_task": "21"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user requests a standalone refund of a non-refundable component and then explicitly asks to escalate for an exception.",
+   "experience": "Retrieve reservation details to confirm the component status, state the policy-based denial clearly, and when the user explicitly requests escalation or exception review, transfer to a human agent with a concise summary rather than granting the exception yourself.",
+   "value": 0.0,
+   "n": 0,
+   "id": "735347f0",
+   "origin_task": "46"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When computing baggage allowance from user membership and reservation details.",
+   "experience": "Call get_user_details and get_reservation_details in parallel, extract membership level and cabin class to determine free bags per passenger, multiply by passenger count, and present the total in digits. If the user disputes the membership level, re-verify from the retrieved profile and transfer to a human agent if they request escalation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c415fc7c",
+   "origin_task": "3"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When processing multiple cancellations and a nonstop change request across several reservations.",
+   "experience": "Retrieve reservation details and flight status for each candidate, explicitly compare booking date against the 24-hour window, cabin, airline-cancellation status, and insurance against the stated reason; deny ineligible cancellations without calling the cancel API. For the change, search direct flights on the requested date and any user-specified alternate dates, and transfer to a human agent when the user requests it or a policy block requires escalation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e36b602f",
+   "origin_task": "9"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cancellation request where eligibility must be checked against policy conditions and the user pushes for an exception.",
+   "experience": "Retrieve details for each candidate reservation, filter strictly by the user's stated criterion (passenger count, upcoming dates), and compare each against every policy condition. If none are met, do not call the cancel API regardless of user insistence on forfeiting the fare; explain the policy, and transfer to a human agent with a concise summary when the user asks for an exception or waiver.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1d6d9596",
+   "origin_task": "41"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When cancelling multiple overlapping reservations after matching them to the user's stated travel plans.",
+   "experience": "For each candidate reservation, compare the actual segment origin/destination/date against the user's stated plan rather than just the reservation's overall origin/destination; exclude reservations with other passengers as instructed; verify no segment has flown and that at least one cancellation condition (24-hour window, business cabin, airline cancellation, insurance-covered reason) holds; state refund amounts and payment method, obtain explicit 'yes', then call cancel for each confirmed reservation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "72ea257b",
+   "origin_task": "42"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When cancelling multiple reservations after an eligibility check, especially when some flight dates may already have passed.",
+   "experience": "Before calling cancel_reservation on any reservation, verify flight status for every segment of that reservation (not just the ones that look obviously past-dated). Treat any segment with status 'landed' as already flown and refuse cancellation/transfer instead, even if the reservation otherwise meets cabin/insurance/24-hour eligibility. Do not infer 'upcoming' from the user's phrasing; confirm each segment's status explicitly.",
+   "value": 0.0,
+   "n": 0,
+   "id": "83026f51",
+   "origin_task": "39"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user insists on a prohibited post-booking change (e.g., adding insurance) and pressures for an exception or workaround.",
+   "experience": "Re-fetch the reservation to confirm the disputed attribute, explicitly compare booking creation time against the 24-hour window, cabin class, airline cancellation status, and insurance coverage, then deny the prohibited request without calling any modification API even under repeated pressure. Be transparent about tool limitations (e.g., no note-logging capability), summarize the request in-conversation for the user's records, and offer practical alternatives like independent insurance.",
+   "value": 0.0,
+   "n": 0,
+   "id": "0dc4a5e7",
+   "origin_task": "6"
+  }
+ ]
+}

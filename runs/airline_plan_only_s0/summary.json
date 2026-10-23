@@ -1,0 +1,15 @@
+{
+ "domain": "airline",
+ "variant": "plan_only",
+ "order_seed": 0,
+ "n_train": 35,
+ "n_eval": 15,
+ "train_acc": 80.0,
+ "eval_acc": 80.0,
+ "memory_size": null,
+ "usage_our_calls": {
+  "calls": 50,
+  "prompt_tokens": 90828,
+  "completion_tokens": 10130
+ }
+}

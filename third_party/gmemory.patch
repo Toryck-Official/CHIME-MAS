@@ -1,0 +1,278 @@
+From 25653265ed12b22246fe5f2dd0136d3221fc4954 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 23 Oct 2026 09:08:51 -0600
+Subject: [PATCH] CHIME-MAS: PDDL-only loader, Qwen ONNX embeddings, DeepSeek
+ cost accounting, probe options
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_013aP4g57cQQS4uEWrxa7Zsp
+---
+ mas/llm.py             | 19 ++++++---
+ mas/utils.py           | 16 ++++----
+ tasks/envs/__init__.py | 88 +++++-------------------------------------
+ tasks/run.py           | 19 ++++++++-
+ tasks/utils.py         |  3 +-
+ 5 files changed, 51 insertions(+), 94 deletions(-)
+
+diff --git a/mas/llm.py b/mas/llm.py
+index 037e1b8..b4ff8f7 100644
+--- a/mas/llm.py
++++ b/mas/llm.py
+@@ -23,10 +23,10 @@ NUM_COMPS = LLM_CONFIG.get("num_comps", 1)
+ URL = os.environ["OPENAI_API_BASE"]
+ KEY = os.environ["OPENAI_API_KEY"]
+ print('# api url: ', URL)
+-print('# api key: ', KEY)
++# api key not printed
+ 
+ 
+-completion_tokens, prompt_tokens = 0, 0
++completion_tokens, prompt_tokens, cache_hit_tokens, n_calls = 0, 0, 0, 0
+ 
+ @dataclass(frozen=True)
+ class Message:
+@@ -79,7 +79,7 @@ class GPTChat(LLM):
+         num_comps: int = NUM_COMPS
+     ) -> str:
+         import time
+-        global prompt_tokens, completion_tokens
++        global prompt_tokens, completion_tokens, cache_hit_tokens, n_calls
+         
+         messages = [{"role": msg.role, "content": msg.content} for msg in messages]
+ 
+@@ -100,6 +100,8 @@ class GPTChat(LLM):
+                 answer = response.choices[0].message.content
+                 prompt_tokens += response.usage.prompt_tokens
+                 completion_tokens += response.usage.completion_tokens
++                cache_hit_tokens += getattr(response.usage, 'prompt_cache_hit_tokens', 0) or 0
++                n_calls += 1
+                 
+                 if answer is None:
+                     print("Error: LLM returned None")
+@@ -118,5 +120,12 @@ class GPTChat(LLM):
+ 
+ 
+ def get_price():
+-    global completion_tokens, prompt_tokens
+-    return completion_tokens, prompt_tokens, completion_tokens*60/1000000+prompt_tokens*30/1000000
++    """CHIME-MAS 改动：按 DeepSeek-V4.1-Flash 空闲时段价格计费（元）：命中 0.02、未命中 1、输出 4（每百万 token）。"""
++    global completion_tokens, prompt_tokens, cache_hit_tokens
++    miss = prompt_tokens - cache_hit_tokens
++    return completion_tokens, prompt_tokens, (cache_hit_tokens * 0.02 + miss * 1 + completion_tokens * 4) / 1e6
++
++
++def get_usage() -> dict:
++    return {"calls": n_calls, "prompt_tokens": prompt_tokens, "cache_hit_tokens": cache_hit_tokens,
++            "completion_tokens": completion_tokens, "cost_cny_offpeak": round(get_price()[2], 4)}
+diff --git a/mas/utils.py b/mas/utils.py
+index 4cbe55b..65dc08f 100644
+--- a/mas/utils.py
++++ b/mas/utils.py
+@@ -1,4 +1,3 @@
+-from sentence_transformers import SentenceTransformer
+ import yaml
+ import os
+ from typing import Union, Any
+@@ -53,19 +52,20 @@ _EMBEDDING_MODEL_CACHE = {}
+ 
+ @dataclass
+ class EmbeddingFunc:
++    """CHIME-MAS 改动：用 Qwen3-Embedding-0.6B（ONNX，CPU）替代 sentence-transformers，避免安装 PyTorch。"""
+ 
+-    model_type: str = "sentence-transformers/all-MiniLM-L6-v2"
++    model_type: str = "qwen3-embedding-0.6b-onnx"
+ 
+     def __post_init__(self):
+-        if self.model_type not in _EMBEDDING_MODEL_CACHE:
+-            _EMBEDDING_MODEL_CACHE[self.model_type] = SentenceTransformer(self.model_type)
+-
+-        self.func: SentenceTransformer = _EMBEDDING_MODEL_CACHE[self.model_type]
++        import sys
++        sys.path.insert(0, "/home/claude/chime")
++        from chime.embed_qwen import qwen_embed
++        self.func = qwen_embed
+ 
+     def embed_documents(self, texts: list[str]) -> list[list]:
+-        return [self.func.encode(text).tolist() for text in texts]
++        return [v.tolist() for v in self.func(list(texts))]
+ 
+     def embed_query(self, query: str) -> list:
+-        return self.func.encode(query).tolist()
++        return self.func([query])[0].tolist()
+ 
+ 
+diff --git a/tasks/envs/__init__.py b/tasks/envs/__init__.py
+index d1a2746..0c8cb8b 100644
+--- a/tasks/envs/__init__.py
++++ b/tasks/envs/__init__.py
+@@ -1,101 +1,33 @@
+-import json
+-import jsonlines
+-
++"""环境注册（CHIME-MAS 改动：只加载 PDDL，其余环境依赖 Java/外网，在本工作区不可用）。"""
+ from .base_env import BaseEnv, BaseRecorder
+-from .alfworld_env import AlfworldEnv, AlfworldRecorder, get_env_name_from_gamefile, prefixes
+-from .sciworld_env import SciworldEnv, SciworldRecorder, build_simplification_str
+-from .fever_env import FeverEnv, FeverRecorder
+ from .pddl_env.pddl_env import PDDLEnv, PDDLRecorder, get_all_environment_configs
+ 
+ TASKS_PATH = {
+-    'alfworld': 'data/alfworld/alfworld_tasks_suffix.json',
+-    'fever': 'data/fever/fever_dev.jsonl',
+     'pddl': 'data/pddl/test.jsonl',
+-    'sciworld': 'data/sciworld/test.jsonl',
+ }
+ 
+-## Tasks
+-alfworld_tasks: list[dict] = [
+-    {
+-        'task': f'{row["goal"]}',
+-        'env_kwargs': {
+-            'config': 'alfworld',
+-            "gamefile": row["gamefile"],
+-        },
+-        'task_type': prefixes[get_env_name_from_gamefile(row["gamefile"])],
+-        'env_name': get_env_name_from_gamefile(row["gamefile"])
+-    } for row in json.load(open(TASKS_PATH['alfworld'], "r")) 
+-]
+-
+-sciworld_tasks: list = []
+-with open(TASKS_PATH['sciworld'], 'r+', encoding='utf-8') as f:
+-    for item in jsonlines.Reader(f):
+-        task_name = item["additional_info"]["env_name"]
+-        var = item["additional_info"]["var"]
+-        sciworld_tasks.append({
+-            "id": item['id'],
+-            "task_name": task_name,
+-            "var": var,
+-            "modified_goal": item["goal"],
+-            "subgoals": item['subgoals'],
+-            "difficulty": item["difficulty"],
+-            "simplification_str": build_simplification_str()
+-        })
+-
+-with open(TASKS_PATH['fever'], 'r') as f:
+-    fever_tasks = [
+-        {
+-            'task': row['claim'],
+-            'answer': row['label'],
+-            'env_name': 'fever',
+-        }
+-        for row in (json.loads(line) for line in f) 
+-    ][:100]
+-
+-
+ TASK_NAMES = ["barman", "blockworld", "gripper", "tyreworld"]
+-pddl_tasks: list[dict] = get_all_environment_configs(TASK_NAMES, TASKS_PATH['pddl'])
+-
+-
+-TASK_DATA = {
+-    'alfworld': alfworld_tasks,
+-    'sciworld': sciworld_tasks,
+-    'fever': fever_tasks,
+-    'pddl': pddl_tasks
+-}
+-
+-ENVS = {
+-    'alfworld': AlfworldEnv,
+-    'sciworld': SciworldEnv,
+-    'fever': FeverEnv,
+-    'pddl': PDDLEnv
+-}
++_TASK_CACHE: dict = {}
+ 
+-RECORDERS = {
+-    'alfworld': AlfworldRecorder,
+-    'sciworld': SciworldRecorder,
+-    'fever': FeverRecorder,
+-    'pddl': PDDLRecorder
+-}
++ENVS = {'pddl': PDDLEnv}
++RECORDERS = {'pddl': PDDLRecorder}
+ 
+ 
+ def get_env(task: str, env_config: dict, max_trials: int) -> BaseEnv:
+-    
+     if ENVS.get(task) is None:
+         raise ValueError(f'Unsupported task type: {task}')
+-    
+     return ENVS.get(task)(env_config, max_trials)
+ 
++
+ def get_recorder(task: str, working_dir: str, namespace: str) -> BaseRecorder:
+-    
+     if RECORDERS.get(task) is None:
+         raise ValueError(f'Unsupported task type: {task}')
+-    
+     return RECORDERS.get(task)(working_dir=working_dir, namespace=namespace)
+ 
+-def get_task(task: str) -> list[dict]:
+ 
+-    if TASK_DATA.get(task) is None:
++def get_task(task: str) -> list[dict]:
++    if task != 'pddl':
+         raise ValueError(f'Unsupported task type: {task}')
+-    
+-    return TASK_DATA.get(task)
+\ No newline at end of file
++    if 'pddl' not in _TASK_CACHE:
++        _TASK_CACHE['pddl'] = get_all_environment_configs(TASK_NAMES, TASKS_PATH['pddl'])
++    return _TASK_CACHE['pddl']
+diff --git a/tasks/run.py b/tasks/run.py
+index ffd2931..5e67e1c 100644
+--- a/tasks/run.py
++++ b/tasks/run.py
+@@ -131,6 +131,8 @@ if __name__ == '__main__':
+     parser.add_argument('--threshold', type=float, default=0.0, help='threshold for traj similarity.')
+     parser.add_argument('--use_projector', action='store_true', help='whether to use role projector.')
+     parser.add_argument('--hop', type=int, default=1, help='hop for traj similarity.')
++    parser.add_argument('--per_game', type=int, default=0, help='CHIME-MAS: only run the first N problems of each PDDL game (probe).')
++    parser.add_argument('--use_critic', action='store_true', help='CHIME-MAS: enable the critic (checker) role.')
+ 
+     args = parser.parse_args()
+ 
+@@ -149,6 +151,16 @@ if __name__ == '__main__':
+     
+     # run tasks
+     task_configs: TaskManager = build_task(task, mas_type, mas_memory_type, max_trials)
++    if args.per_game:
++        seen = {}
++        keep = []
++        for t in task_configs.tasks:
++            g = t.get('game_name')
++            if seen.get(g, 0) < args.per_game:
++                keep.append(t); seen[g] = seen.get(g, 0) + 1
++        task_configs.tasks = keep
++    if args.use_critic:
++        task_configs.mas_config['use_critic'] = True
+     task_configs.mas_config['successful_topk'] = args.successful_topk
+     task_configs.mas_config['failed_topk'] = args.failed_topk
+     task_configs.mas_config['insights_topk'] = args.insights_topk
+@@ -163,5 +175,8 @@ if __name__ == '__main__':
+     run_task(task_configs)
+ 
+     # postprocess
+-    completion_tokens, prompt_tokens, _ = get_price()
+-    task_configs.recorder.log(f'completion_tokens:{completion_tokens}, prompt_tokens:{prompt_tokens}, price={completion_tokens*15/1000000+prompt_tokens*5/1000000}')
++    from mas.llm import get_usage
++    import json as _json
++    usage = get_usage()
++    task_configs.recorder.log('USAGE ' + _json.dumps(usage))
++    print('USAGE ' + _json.dumps(usage))
+diff --git a/tasks/utils.py b/tasks/utils.py
+index 56c89df..67ab375 100644
+--- a/tasks/utils.py
++++ b/tasks/utils.py
+@@ -7,7 +7,8 @@ def get_model_type(model_name: str) -> str:
+         'qwen2.5-32b', 
+         'qwen2.5-72b',
+         'intern', 
+-        'deepseek-v3'
++        'deepseek-v3',
++        'deepseek-chat'
+     ]
+ 
+     for model_type in valid_model_types:
+-- 
+2.43.0
+

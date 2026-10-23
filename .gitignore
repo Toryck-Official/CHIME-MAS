@@ -1,0 +1,4 @@
+.env
+__pycache__/
+*.pyc
+logs_run_all.txt

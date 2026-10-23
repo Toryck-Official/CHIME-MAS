@@ -1,0 +1,33 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a user requests cancellation of a flight reservation, especially citing a booking mistake or duplicate booking.",
+   "experience": "Look up and confirm the matching reservation and cancellation reason, then verify all eligibility conditions (24-hour window, airline cancellation, cabin class, insurance coverage, whether any segment has flown) before agreeing to cancel. Explain that membership status does not override cancellation policy, and escalate to a human agent when the user asserts a prior approval or exception that cannot be verified rather than denying outright.",
+   "value": 0.925,
+   "n": 2,
+   "id": "e443a6ed",
+   "origin_task": "43"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests cancellation and refund of a flight reservation, especially when they may not meet standard eligibility criteria.",
+   "experience": "Plan to verify reservation ownership, collect the cancellation reason, check all eligibility conditions (24-hour booking window, airline cancellation, cabin class, insurance coverage, whether any segment has flown), deny clearly if none are met, and escalate to a human agent when the user insists on an unverifiable exception or goodwill gesture rather than overriding policy.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2fc4dee3",
+   "origin_task": "28"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When executing a flight cancellation request and checking eligibility.",
+   "experience": "Retrieve full reservation details and call get_flight_status for each flight to confirm airline cancellation status, then apply cancellation conditions strictly—explicitly explaining each unmet condition and denying if none hold. If the user cites insurance, verify the reason falls under covered categories (health/weather) before accepting. If the user cites a prior approval or requests an exception that cannot be verified or authorized, transfer to a human agent with a clear summary rather than overriding policy, denying outright, or improvising a partial refund.",
+   "value": 0.925,
+   "n": 2,
+   "id": "9e4ccd83",
+   "origin_task": "43"
+  }
+ ]
+}

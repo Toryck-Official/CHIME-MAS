@@ -1,0 +1,132 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a user wants to cancel a flight reservation and eligibility depends on multiple conditions (time since booking, cabin class, insurance, airline cancellation, flown status).",
+   "experience": "First retrieve and identify the specific reservation(s) and ask the cancellation reason, then systematically gather all eligibility-relevant facts (booking creation time vs. 24-hour window, cabin class, travel insurance presence and covered reasons, whether any segment has flown, whether the airline cancelled) before deciding. If ineligible, clearly explain the denial with the specific failing conditions and offer alternatives or transfer to a human agent when out of policy scope.",
+   "value": 0.6111111111111112,
+   "n": 9,
+   "id": "ccf0412d",
+   "origin_task": "43"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a cancellation/refund that depends on multiple policy conditions (booking window, cabin class, insurance, airline cancellation, flown status).",
+   "experience": "Verify reservation ownership and gather all eligibility facts (including cancellation reason) before deciding; if ineligible, state the specific failing conditions, deny the refund, and offer transfer to a human agent rather than promising exceptions.",
+   "value": 0.31666666666666665,
+   "n": 3,
+   "id": "adc988f9",
+   "origin_task": "28"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user asks to change or replace a reservation and the plan may involve cancellation, rebooking, or splitting into multiple reservations to optimize payment methods.",
+   "experience": "Plan to explicitly verify cancellation eligibility (booking age vs 24-hour window, cabin class, insurance, flown status) before proposing any rebooking, and to check payment-method constraints (e.g., max number of certificates/gift cards per reservation) before designing a split-reservation strategy. Include a step to confirm the final payment allocation against those constraints and to obtain explicit confirmation of the full action set, including whether the original reservation will remain active.",
+   "value": 0.9099999999999999,
+   "n": 5,
+   "id": "cd10f7bc",
+   "origin_task": "14"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a date change on a flight reservation and eligibility depends on cabin class and other policy conditions.",
+   "experience": "Plan to first retrieve the reservation details to determine cabin class and other eligibility factors (e.g., basic economy cannot be modified, no segment may have flown). Include a step to clearly explain the denial reason and offer alternatives or transfer to a human agent when the request is out of policy scope.",
+   "value": 0.72,
+   "n": 5,
+   "id": "79263f78",
+   "origin_task": "36"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a cabin upgrade and/or baggage addition on an existing reservation, with eligibility depending on cabin class, membership tier, passenger count, and payment methods.",
+   "experience": "Plan to retrieve reservation and user details first, then explicitly check: (1) cabin-change eligibility including whether any segment has flown and whether cabin must be uniform across all segments/passengers; (2) baggage allowance based on membership tier and cabin class per passenger; (3) payment/refund method constraints (single card or gift card on profile). Include a step to present full cost breakdown and obtain explicit confirmation before any database update, and to handle partial requests (e.g., upgrade only one passenger) by explaining policy constraints and offering alternatives.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7c19d99e",
+   "origin_task": "12"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user asks for the cause of a flight delay and compensation without wanting to change or cancel the reservation.",
+   "experience": "Plan to first verify the user and locate the specific reservation (searching candidate reservations by matching flight number and route), confirm the delay status via tools, and explicitly avoid speculating on the cause when tools cannot provide it. Include a step to explain the policy that delay compensation requires a change or cancellation, and to offer transfer to a human agent when the user insists on cause details or compensation outside policy scope.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ff3ae8b2",
+   "origin_task": "27"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When checking cancellation eligibility for a reservation with multiple conditions and possibly multiple candidate bookings.",
+   "experience": "Retrieve full reservation details for all candidate reservations to compare dates and identify same-day duplicates, then evaluate each condition explicitly (booking age, cabin, insurance coverage reason, flown status) and state the specific failing conditions to the user. Do not treat membership tier as an eligibility override unless policy explicitly says so.",
+   "value": 0.5444444444444445,
+   "n": 9,
+   "id": "45616a9e",
+   "origin_task": "43"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user asks to cancel a reservation and eligibility/refund depends on time-sensitive conditions like the 24-hour booking window.",
+   "experience": "Explicitly compute and compare the reservation's created_at timestamp against the current time before claiming eligibility; do not assume 'within 24 hours' from a partial date. Verify the refund amount and destination from payment_history rather than asserting a figure, and only promise a refund after confirming the policy condition is actually met.",
+   "value": 0.6875000000000001,
+   "n": 8,
+   "id": "2221da8a",
+   "origin_task": "1"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cancellation eligibility check and the user pushes for exceptions or partial refunds after denial.",
+   "experience": "Retrieve reservation and user details, explicitly check each eligibility condition (booking age vs. the 24-hour window, cabin class, insurance-covered reasons, airline cancellation, flown status), and state the specific failing conditions. When the user insists on exceptions or partial refunds after denial, firmly and consistently reiterate the policy and offer a transfer to a human agent rather than improvising refunds or vouchers.",
+   "value": 0.6166666666666667,
+   "n": 3,
+   "id": "bf1afed6",
+   "origin_task": "28"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a flight change request and the reservation is found to be ineligible (e.g., basic economy).",
+   "experience": "Retrieve reservation and user details, explicitly check the eligibility condition (e.g., cabin class), state the specific policy reason for denial, and when the user requests escalation, transfer to a human agent with a concise summary of the situation and policy constraint.",
+   "value": 0.675,
+   "n": 4,
+   "id": "20c2322e",
+   "origin_task": "36"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cabin upgrade or baggage addition after eligibility checks and user confirmation.",
+   "experience": "Retrieve reservation and user details, compute price differences using available flight prices and passenger count, clearly state the additional payment and payment method. If a partial upgrade is requested, explain that cabin class must be uniform across all passengers/segments and deny it. For baggage, compute free allowance from membership tier and cabin class, then call update_reservation_baggages with correct total_baggages and nonfree_baggages only after explicit user confirmation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "848512fe",
+   "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cancellation request that turns out to be ineligible under policy and the user pushes for an exception.",
+   "experience": "State the specific policy conditions that fail, decline to make exceptions not supported by policy, and when the user requests escalation, transfer to a human agent with a concise summary including reservation details, reason, and the policy constraints that blocked the cancellation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b7a9effa",
+   "origin_task": "0"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When locating a specific reservation among many candidates and handling a delay-compensation request that falls outside policy scope.",
+   "experience": "Retrieve all candidate reservations and match on flight number and origin/destination to identify the correct one, confirm the flight status via the status tool, state plainly that cause details are unavailable rather than guessing, explain the specific policy restriction, and when the user requests escalation, transfer to a human agent with a concise summary including reservation details, confirmed status, and the policy constraint.",
+   "value": 0.0,
+   "n": 0,
+   "id": "10ed5ecc",
+   "origin_task": "27"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When cancelling a reservation under travel insurance based on a user-stated reason (e.g., illness), before calling the cancel API.",
+   "experience": "Verify from the reservation's insurance details that the specific stated reason is a covered condition, and confirm no segment has already flown, before executing the cancellation; do not treat the mere presence of insurance plus a user assertion as sufficient. Only state refund amount and timing after these checks pass.",
+   "value": 0.0,
+   "n": 0,
+   "id": "bd079100",
+   "origin_task": "7"
+  }
+ ]
+}

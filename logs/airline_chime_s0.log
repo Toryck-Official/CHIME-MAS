@@ -1,0 +1,10 @@
+[train 1/35] 43 reward=1.0 mem=2 attr=both 22s
+[train 2/35] 1 reward=0.0 mem=3 attr=execution 24s
+[train 3/35] 28 reward=1.0 mem=5 attr=both 24s
+[train 4/35] 14 reward=0.0 mem=6 attr=planning 48s
+[train 5/35] 36 reward=1.0 mem=8 attr=both 17s
+[train 6/35] 12 reward=1.0 mem=10 attr=both 23s
+[train 7/35] 0 reward=1.0 mem=11 attr=both 20s
+[train 8/35] 27 reward=1.0 mem=13 attr=both 20s
+[train 9/35] 47 reward=1.0 mem=13 attr=both 27s
+[train 10/35] 7 reward=0.0 mem=14 attr=execution 28s

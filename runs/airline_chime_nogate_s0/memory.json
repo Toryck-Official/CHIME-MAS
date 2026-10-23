@@ -1,0 +1,141 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a user wants to cancel a flight reservation and asks for help with bookings",
+   "experience": "Gather and verify the user's reservations and full booking details, then systematically check each candidate against all cancellation eligibility conditions (booked within 24 hours, airline cancelled, business cabin, or insurance covering the stated reason) before denying ineligible requests with clear reasons or proceeding. Require explicit user confirmation before calling any cancel API, explain refund timelines afterward, and refuse unauthorized exceptions, vouchers, or partial refunds while offering human-agent transfer if the user insists on escalation.",
+   "value": 0.6666666666666666,
+   "n": 9,
+   "id": "0bdceab1",
+   "origin_task": "43"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a flight date change on a reservation that may be in a non-modifiable fare class or has special circumstances (e.g., bereavement).",
+   "experience": "Plan to first retrieve full reservation details (fare class, segments, whether any flight has flown), then apply modification policy gates (basic economy cannot be modified; flown segments cannot be modified). If ineligible, deny clearly and offer human-agent transfer for exception/escalation requests rather than promising changes.",
+   "value": 0.75,
+   "n": 4,
+   "id": "3ccdba3b",
+   "origin_task": "36"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests a cabin upgrade for all passengers plus baggage additions on an existing reservation.",
+   "experience": "Plan to retrieve reservation and user details first, verify membership level and passenger count, check that no segment has flown and that cabin changes apply uniformly to all passengers and segments, compute the price difference, verify baggage allowance and fees, and require explicit confirmation before any update. If the user's budget is below the full-upgrade cost, offer compliant alternatives such as keeping the current cabin and adding bags, or checking other flights.",
+   "value": 1.0,
+   "n": 2,
+   "id": "46cbd202",
+   "origin_task": "12"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests cancellation of a flight reservation and asks whether a refund is available.",
+   "experience": "Plan to retrieve full reservation details, ask for the cancellation reason, then check every refund-eligibility condition (booking age, airline cancellation, cabin class, insurance coverage for the stated reason) before deciding. Require explicit confirmation before any cancel call, and if ineligible, clearly deny and offer human-agent transfer without promising exceptions.",
+   "value": 0.5,
+   "n": 2,
+   "id": "11c9b8bf",
+   "origin_task": "0"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user asks for the reason behind a flight delay and/or compensation, and the available tools may only return status without a reason.",
+   "experience": "Plan to first check whether a flight-status tool exists and query it for the specific flight and date; if the tool returns only status without a reason, explicitly plan to state that the reason is unavailable through agent tools and offer human-agent transfer. Do not invent a cause. For compensation, plan to confirm facts and apply policy gates only if the user asks, and avoid proactively promising vouchers or refunds.",
+   "value": 1.0,
+   "n": 1,
+   "id": "964dfa64",
+   "origin_task": "27"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a user requests flight cancellation with a refund and the request may be ineligible.",
+   "experience": "Plan to collect user id and reservation id, obtain the cancellation reason, retrieve full reservation details, and systematically check every eligibility condition (booked within 24 hours, airline cancelled, business cabin, insurance covering the stated reason) before deciding. Plan to deny ineligible requests with specific failing conditions, refuse exceptions uniformly, offer human-agent transfer if the user insists, and never call the cancel API without eligibility and explicit confirmation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "27060edb",
+   "origin_task": "47"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When checking cancellation eligibility for one or more reservations",
+   "experience": "Retrieve full reservation details for all candidate bookings and explicitly evaluate each against every cancellation condition using the actual booking date, cabin class, insurance status, and stated reason. If ineligible, state the specific failing conditions, do not cancel, explain that eligibility rules apply uniformly without exceptions, and respect the user's decision to keep the reservation; if the first choice is ineligible, offer to check the alternative booking the user identifies, and offer escalation only if the user insists.",
+   "value": 0.6666666666666666,
+   "n": 9,
+   "id": "33944228",
+   "origin_task": "43"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When evaluating time-based eligibility conditions such as a 24-hour cancellation window",
+   "experience": "Explicitly compute the elapsed time between the booking timestamp and the current time before claiming a time-based condition is met; do not assume 'booked recently' means within the window. If the condition fails and no other condition (airline cancellation, eligible cabin, insurance) holds, deny the cancellation instead of proceeding.",
+   "value": 0.75,
+   "n": 4,
+   "id": "74cfaa65",
+   "origin_task": "1"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user pushes for exceptions, vouchers, or partial refunds after an ineligible cancellation is denied",
+   "experience": "Hold the policy line: do not issue vouchers, gift cards, partial or goodwill refunds, and do not claim supervisor overrides; explain rules apply uniformly, then offer and perform a transfer to a human agent if the user requests escalation.",
+   "value": 0.0,
+   "n": 1,
+   "id": "a4a4773e",
+   "origin_task": "28"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When booking a reservation with a specified payment method (e.g., a particular card brand) after applying stored credits/certificates",
+   "experience": "Before calling book_reservation, verify the exact payment_method id matches the user's stated card (brand/last four) from the profile; do not substitute a different stored card. Confirm the payment breakdown and card identity with the user, then pass the correct payment_id and amount.",
+   "value": 0.8,
+   "n": 5,
+   "id": "b487ac68",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user requests a modification that policy forbids but pleads for an exception due to hardship.",
+   "experience": "Retrieve reservation details to confirm the fare class and eligibility, explain the specific policy reason for denial, and when the user insists on an exception, transfer to a human agent with a summary including reservation id, route, fare class, passenger count, and the stated reason—without calling any modify API.",
+   "value": 1.0,
+   "n": 1,
+   "id": "6e5892de",
+   "origin_task": "36"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user asks to upgrade only one passenger or otherwise partially change cabin class on a multi-passenger reservation.",
+   "experience": "Enforce the policy that cabin class must be uniform across all passengers and segments; deny partial cabin changes clearly and explain the reason. Then offer compliant alternatives (e.g., keep economy and add bags, or search other flights) and proceed only after explicit user confirmation, using the correct update tool with the confirmed parameters.",
+   "value": 0.75,
+   "n": 4,
+   "id": "00550548",
+   "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user reports a delayed flight and asks why it happened, and the status tool returns only a status value.",
+   "experience": "Call the flight-status tool with the flight number and date, report exactly what the tool returns, and clearly state that the reason is not available if the tool does not provide it. Offer a human-agent transfer for the reason. If the user also requests compensation, transfer with a summary of the request rather than promising any compensation yourself.",
+   "value": 0.0,
+   "n": 0,
+   "id": "cd879a72",
+   "origin_task": "27"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a cancellation-eligibility check and the user repeatedly demands an exception or full refund.",
+   "experience": "Retrieve reservation and user details, evaluate each eligibility condition against actual booking date, cabin class, insurance status, and stated reason, then state the specific failing conditions. Do not cancel or issue refunds when ineligible; hold the denial consistently across repeated requests, explain rules apply uniformly without exceptions, respect the user's choice not to be transferred, and leave the reservation unchanged.",
+   "value": 0.0,
+   "n": 0,
+   "id": "43ea5985",
+   "origin_task": "47"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a user asks to list their other upcoming flights or total costs after a cancellation/escalation request",
+   "experience": "Before reporting reservations as belonging to the user, confirm each reservation's user_id matches the verified user (and that passengers are the user or their companions); only include reservations that pass ownership verification, and exclude already-flown segments from 'upcoming' totals. If ownership cannot be confirmed, state that rather than presenting the bookings as the user's.",
+   "value": 0.0,
+   "n": 0,
+   "id": "9f8accc9",
+   "origin_task": "7"
+  }
+ ]
+}

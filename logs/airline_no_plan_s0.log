@@ -1,0 +1,13 @@
+[train 1/35] 43 reward=1.0 mem=None attr= 21s
+[train 2/35] 1 reward=0.0 mem=None attr= 16s
+[train 3/35] 28 reward=1.0 mem=None attr= 13s
+[train 4/35] 14 reward=0.0 mem=None attr= 41s
+[train 5/35] 36 reward=1.0 mem=None attr= 12s
+[train 6/35] 12 reward=1.0 mem=None attr= 24s
+[train 7/35] 0 reward=1.0 mem=None attr= 17s
+[train 8/35] 27 reward=1.0 mem=None attr= 13s
+[train 9/35] 47 reward=1.0 mem=None attr= 24s
+[train 10/35] 7 reward=0.0 mem=None attr= 19s
+[train 11/35] 33 reward=1.0 mem=None attr= 35s
+[train 12/35] 34 reward=1.0 mem=None attr= 31s
+[train 13/35] 20 reward=1.0 mem=None attr= 45s

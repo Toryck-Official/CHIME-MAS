@@ -1,0 +1,89 @@
+{
+ "all": {
+  "n": 42,
+  "local_mean_roles": 3.0,
+  "central_mean_roles": 2.12,
+  "local_all_three_pct": 100.0,
+  "exact_agreement_pct": 16.7,
+  "over_claims_per_episode": 0.88,
+  "under_claims_per_episode": 0.0,
+  "per_role": {
+   "proposer": {
+    "local_claims": 42,
+    "central_attributed": 41,
+    "local_only": 1,
+    "central_only": 0
+   },
+   "checker": {
+    "local_claims": 42,
+    "central_attributed": 7,
+    "local_only": 35,
+    "central_only": 0
+   },
+   "finalizer": {
+    "local_claims": 42,
+    "central_attributed": 41,
+    "local_only": 1,
+    "central_only": 0
+   }
+  }
+ },
+ "success": {
+  "n": 18,
+  "local_mean_roles": 3.0,
+  "central_mean_roles": 2.17,
+  "local_all_three_pct": 100.0,
+  "exact_agreement_pct": 16.7,
+  "over_claims_per_episode": 0.83,
+  "under_claims_per_episode": 0.0,
+  "per_role": {
+   "proposer": {
+    "local_claims": 18,
+    "central_attributed": 18,
+    "local_only": 0,
+    "central_only": 0
+   },
+   "checker": {
+    "local_claims": 18,
+    "central_attributed": 3,
+    "local_only": 15,
+    "central_only": 0
+   },
+   "finalizer": {
+    "local_claims": 18,
+    "central_attributed": 18,
+    "local_only": 0,
+    "central_only": 0
+   }
+  }
+ },
+ "failure": {
+  "n": 24,
+  "local_mean_roles": 3.0,
+  "central_mean_roles": 2.08,
+  "local_all_three_pct": 100.0,
+  "exact_agreement_pct": 16.7,
+  "over_claims_per_episode": 0.92,
+  "under_claims_per_episode": 0.0,
+  "per_role": {
+   "proposer": {
+    "local_claims": 24,
+    "central_attributed": 23,
+    "local_only": 1,
+    "central_only": 0
+   },
+   "checker": {
+    "local_claims": 24,
+    "central_attributed": 4,
+    "local_only": 20,
+    "central_only": 0
+   },
+   "finalizer": {
+    "local_claims": 24,
+    "central_attributed": 23,
+    "local_only": 1,
+    "central_only": 0
+   }
+  }
+ }
+}

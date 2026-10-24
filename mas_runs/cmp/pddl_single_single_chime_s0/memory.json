@@ -1,23 +1,330 @@
 {
- "plan": [],
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a goal requires rearranging blocks that are currently stacked in a conflicting order, with some goal blocks already on the table.",
+   "experience": "Decompose the task into two phases: first clear all blocks in the way by unstacking them to the table (removing upper blocks before lower ones), then build the goal stack bottom-up in the exact goal order. Before each stack action, verify the target block is clear and the arm is empty.",
+   "value": 0.33461538461538465,
+   "n": 39,
+   "id": "ddbaf99d",
+   "origin_task": "29"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires moving multiple objects between two locations in opposite directions, with a limited carrying capacity.",
+   "experience": "Plan a batched transport loop that carries as many objects as capacity allows in one direction per trip, then handles reverse-direction objects, repeating until all are delivered. Explicitly verify each object's source and destination to avoid direction errors, and ensure grippers are free before each pickup.",
+   "value": 0.35517241379310344,
+   "n": 29,
+   "id": "7aa78385",
+   "origin_task": "42"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires swapping a wheel on a hub while also inflating it and stowing the old wheel, with tools stored in a boot.",
+   "experience": "Plan the full dependency chain: open the boot first, fetch and use the pump to inflate the target wheel, then unfasten the hub (loosen nut, jack up, undo nut), remove the old wheel to the boot, and finally mount the inflated wheel on the now-clear hub. Ensure each precondition (boot open, hand free, hub clear) is satisfied before the dependent action.",
+   "value": 0.3340000000000001,
+   "n": 25,
+   "id": "98469cc1",
+   "origin_task": "50"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires using a tool stored in a container to perform an action on multiple objects.",
+   "experience": "Plan the dependency chain: first open the container, then retrieve the tool, then apply the tool to each target object in any order, ensuring the tool is held before each use.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ce7ae23c",
+   "origin_task": "55"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires moving multiple objects from one location to another with a robot that has two grippers and limited carrying capacity.",
+   "experience": "Plan a batched transport loop that carries as many objects as grippers allow per trip, explicitly verifying source and destination locations and ensuring grippers are free before each pickup. Repeat the pick-move-drop-return cycle until all objects are delivered.",
+   "value": 0.0,
+   "n": 0,
+   "id": "dae8c500",
+   "origin_task": "41"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires filling multiple containers with different ingredients from separate dispensers, with each fill depending only on its own container being held.",
+   "experience": "Decompose into independent per-container sequences (pick up, fill at the matching dispenser, place back), and note that the sequences can be executed in any order since they do not share resources; include a final verification step for each condition.",
+   "value": -0.85,
+   "n": 1,
+   "id": "5c7f56f0",
+   "origin_task": "14"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a goal references an undefined or ambiguous object (e.g., a cocktail not defined in the observation) and the plan must infer its recipe or properties.",
+   "experience": "Before committing to a multi-step plan, explicitly resolve undefined goal objects by checking valid actions or observation details; if the recipe cannot be determined, plan to query the environment (e.g., 'check valid actions') early rather than guessing and proceeding with a candidate that may be wrong.",
+   "value": 0.55,
+   "n": 5,
+   "id": "388a64c7",
+   "origin_task": "17"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a goal requires creating a mixed substance (e.g., a cocktail) from multiple ingredients in a container and then transferring it to a target container.",
+   "experience": "Resolve the recipe first, then add each ingredient to the mixing container (using intermediate containers if needed), shake to combine, and pour into a clean, empty target container.",
+   "value": 0.22499999999999998,
+   "n": 4,
+   "id": "8baf70fd",
+   "origin_task": "4"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a goal requires moving multiple objects between two rooms with a two-gripper robot, where some objects must go one way and others the opposite way.",
+   "experience": "Plan to first relocate the object(s) that must move in the minority direction, then batch the remaining objects in the opposite direction using both grippers (two per trip) to minimize trips; verify each pick/drop precondition before acting.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f9a97fc4",
+   "origin_task": "43"
+  }
+ ],
  "exec": [
   {
    "stage": "exec",
-   "scenario": "When a fill-shot action is invalid due to hand constraints or wrong argument order, and the agent is stuck in a think loop.",
-   "experience": "If a fill-shot action fails, check valid actions to learn the correct hand order and required free hands. Then execute the necessary leave/grasp actions immediately instead of repeatedly thinking. Avoid infinite think loops by committing to the next concrete action.",
-   "value": 0.0,
-   "n": 1,
-   "id": "9f662cfe",
-   "origin_task": "12"
+   "scenario": "When executing a multi-trip transport plan that carries two objects per trip using both grippers.",
+   "experience": "Carry two objects per trip using both grippers, executing each pick, move, and drop immediately without repeated think steps and always completing every drop before moving on. Continue the pick-move-drop-return loop while tracking the remaining undelivered count until it reaches zero.",
+   "value": 0.2583333333333333,
+   "n": 30,
+   "id": "70462c5f",
+   "origin_task": "33"
   },
   {
    "stage": "exec",
-   "scenario": "When executing a multi-trip transport plan that carries two objects per trip using both grippers.",
-   "experience": "Track the remaining objects after each drop and continue the pick-move-drop-return loop until every object has been delivered; do not stop mid-trip after dropping only one of the two carried objects.",
+   "scenario": "When executing a plan that alternates unstacking and stacking actions in a block-stacking domain.",
+   "experience": "Follow the plan's dependency order, but you may reorder independent unstack operations (e.g., removing a top block before a lower one) as long as prerequisites like a clear block and empty arm are met. After each action, confirm the observation matches the expected state before proceeding to the next step.",
+   "value": 0.45999999999999996,
+   "n": 10,
+   "id": "ff197b2e",
+   "origin_task": "29"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan with both grippers and the agent starts repeating the same think action without acting.",
+   "experience": "After picking up objects, immediately issue the move action rather than re-thinking; if a think action repeats, commit to the next concrete tool call (move/drop) to avoid infinite think loops and finish the remaining deliveries.",
+   "value": 0.10454545454545454,
+   "n": 11,
+   "id": "99fc0345",
+   "origin_task": "36"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan that requires delivering more objects than can be carried in one trip, with a fixed number of objects to move between rooms.",
+   "experience": "After each drop, immediately continue the pick-move-drop-return cycle without redundant reasoning, tracking the remaining undelivered count until it reaches zero.",
+   "value": 0.1791666666666667,
+   "n": 12,
+   "id": "b7fec6aa",
+   "origin_task": "44"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan with limited carrying capacity and the agent starts repeating think actions without acting.",
+   "experience": "After picking up objects, immediately issue the move action rather than re-thinking; if a think action repeats, commit to the next concrete tool call (pick/move/drop) to avoid infinite think loops and finish the remaining deliveries.",
    "value": 0.0,
    "n": 0,
-   "id": "70462c5f",
-   "origin_task": "33"
+   "id": "cba015d2",
+   "origin_task": "47"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step manipulation plan and the agent has both a source container and a target container in hand, ready to pour.",
+   "experience": "Immediately issue the pour/transfer action instead of repeating think actions; if a think action repeats, commit to the next concrete tool call to avoid infinite loops. Also, before grasping, verify hand assignments via 'check valid actions' to avoid needing to leave and re-grasp objects.",
+   "value": -0.9,
+   "n": 1,
+   "id": "9f308af9",
+   "origin_task": "5"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step manipulation plan and the agent finds itself repeatedly issuing think actions or stuck after a tool call fails.",
+   "experience": "Stop issuing think actions after one or two; immediately commit to the next concrete tool call. If an action is invalid, use 'check valid actions' once, then execute the listed valid action (e.g., leave held objects) rather than deliberating repeatedly.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8cfd408b",
+   "origin_task": "7"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a wheel-swap plan that involves inflating a wheel, unfastening a hub, and moving wheels between the hub and the boot.",
+   "experience": "Follow the planned order strictly: inflate the target wheel before mounting, unfasten the hub (loosen nut, jack up, undo nut) before removing the old wheel, and place the old wheel in the boot before fetching and mounting the new one. Avoid unnecessary think steps between concrete tool calls to keep the sequence efficient.",
+   "value": 0.24999999999999994,
+   "n": 19,
+   "id": "6e4387d3",
+   "origin_task": "50"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that involves opening a container, fetching a tool, and using it on multiple objects.",
+   "experience": "Follow the planned order strictly: open the container, fetch the tool, then use it on each object. Avoid unnecessary think steps between concrete tool calls to keep the sequence efficient.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3a445d10",
+   "origin_task": "55"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step manipulation plan and the agent begins repeating the same think action without issuing a concrete tool call.",
+   "experience": "After a think step, immediately commit to the next concrete tool action (fetch, loosen, jack-up, pick, place) rather than re-thinking; if a think action repeats, break the loop by issuing the next required tool call.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c021526e",
+   "origin_task": "58"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a block-stacking plan and an action is rejected as invalid.",
+   "experience": "Use the 'check valid actions' command to identify legal moves, then proceed with the plan's dependency order, confirming each observation matches the expected state before continuing.",
+   "value": 0.6166666666666667,
+   "n": 3,
+   "id": "22bb0b97",
+   "origin_task": "27"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step plan where the next action is a concrete tool call (e.g., fetching a tool) after a state change.",
+   "experience": "Do not repeat identical 'think' steps; once the next action is determined, immediately execute the concrete tool call. If a think step yields no new information, proceed to the planned action rather than re-thinking.",
+   "value": 0.0,
+   "n": 1,
+   "id": "881cf4f2",
+   "origin_task": "59"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that requires shaking a shaker and then grasping a new object, after a pour or shake action leaves the hand occupied.",
+   "experience": "Before shaking, ensure the shaker is grasped and the other hand is free; if an action is rejected as invalid, immediately run 'check valid actions' to learn the correct syntax, and remember to release held objects (e.g., leave the shaker) before grasping a new one.",
+   "value": -0.9,
+   "n": 1,
+   "id": "b0e4ff55",
+   "origin_task": "0"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan and the agent begins repeating think actions without issuing tool calls.",
+   "experience": "After a think action, immediately commit to the next concrete tool call (move/pick/drop); if the same think repeats, stop thinking and execute the pending action to avoid infinite loops and finish all deliveries.",
+   "value": 0.0,
+   "n": 0,
+   "id": "9908b860",
+   "origin_task": "38"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that fills multiple containers one after another using a single hand.",
+   "experience": "For each container, grasp it, move to the correct dispenser and fill, then release it before starting the next container; avoid unnecessary think steps and proceed directly through the pick-fill-place loop.",
+   "value": 0.37,
+   "n": 5,
+   "id": "cef61d51",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a wheel-swap plan that requires mounting an inflated wheel onto a hub after removing the old wheel.",
+   "experience": "Before mounting a wheel, ensure it is in hand by fetching it from the boot if necessary. After completing one hub, immediately proceed to the next hub's concrete actions (loosen nut, jack up, undo nut, remove wheel, stow wheel, fetch new wheel, mount, tighten) without repeated think steps.",
+   "value": -0.425,
+   "n": 2,
+   "id": "f5cf68c3",
+   "origin_task": "51"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a block-stacking plan that involves unstacking and restacking blocks.",
+   "experience": "Follow the plan's dependency order, but you may reorder independent unstack operations as long as prerequisites like a clear block and empty arm are met. After each action, confirm the observation matches the expected state before proceeding to the next step.",
+   "value": 0.0,
+   "n": 1,
+   "id": "91768c27",
+   "origin_task": "20"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that requires cleaning a container before reuse, and the container is already empty.",
+   "experience": "After emptying a container, immediately grasp it and perform the clean action; do not repeat think steps. Each think step must be followed by a concrete tool action, not another think.",
+   "value": 0.0,
+   "n": 0,
+   "id": "13ff7643",
+   "origin_task": "11"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that requires holding a container while filling another container from a dispenser.",
+   "experience": "Before issuing a grasp or fill action, check which hand is already occupied and use 'check valid actions' to confirm the required hand assignment; do not repeat identical think steps—after determining the next concrete action, execute it immediately.",
+   "value": 0.15833333333333335,
+   "n": 6,
+   "id": "1f1086fa",
+   "origin_task": "3"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-hub wheel removal plan where each hub requires loosening, jacking, undoing the nut, removing the wheel, and stowing it in the boot.",
+   "experience": "After completing one hub's stow action, immediately begin the next hub's concrete tool calls (loosen nut, jack up, undo nut, remove wheel, put-away) without inserting repeated think steps; each think step should be followed by an actual tool action.",
+   "value": 0.0,
+   "n": 1,
+   "id": "7849855b",
+   "origin_task": "57"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a block-stacking plan and the next action is clear, but the agent repeatedly emits 'think' actions instead of acting.",
+   "experience": "After confirming the current state matches expectations, immediately execute the next planned action (e.g., pickup or stack) rather than emitting repeated 'think' commands. If a think action is used, follow it with the corresponding tool action in the same step or the next step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4b9396c9",
+   "origin_task": "21"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that involves filling a container with multiple ingredients via intermediate shot glasses and then shaking and pouring.",
+   "experience": "After pouring each ingredient from a shot glass into the shaker, clean the shot glass before reusing it for the next ingredient. Before shaking, ensure the shaker is grasped and the other hand is free. Pour the shaken mixture directly into the target container.",
+   "value": 0.44999999999999996,
+   "n": 4,
+   "id": "3aa9217e",
+   "origin_task": "4"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan that requires delivering a fixed number of objects using both grippers, with the final trip potentially carrying fewer than full capacity.",
+   "experience": "Track the remaining undelivered objects explicitly and continue the pick-move-drop-return loop until every object is at the target location, including a final partial trip if the count is not a multiple of carrying capacity. Do not stop after a full batch; verify all goal objects are delivered before ending.",
+   "value": 0.0,
+   "n": 0,
+   "id": "19b8b1e5",
+   "origin_task": "40"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan that moves objects between two rooms in both directions with limited carrying capacity.",
+   "experience": "Track the full set of required object placements and continue the pick-move-drop-return loop until every object is at its target location; do not stop after a fixed number of trips or when the remaining objects are not yet delivered.",
+   "value": 0.0,
+   "n": 0,
+   "id": "27cfa473",
+   "origin_task": "49"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan and the agent has just returned to the source location to fetch the next pair of objects.",
+   "experience": "After arriving at the source, immediately issue the pick actions for the next objects rather than emitting a think step; if a think step is emitted, follow it with the concrete pick/move/drop actions in the same turn to avoid stalling before the final deliveries.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a692e140",
+   "origin_task": "34"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a wheel-swap where a nut must be fastened after mounting a wheel, and the fasten action leaves the nut loose.",
+   "experience": "After mounting a wheel and running the fasten/do-up action, check the observation: if the nut is still reported loose, use the wrench to tighten it (or jack down first if required) rather than repeating think steps or issuing an invalid 'tighten' action. Use 'check valid actions' immediately when an action is rejected, and follow the returned valid action list.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2017c1e1",
+   "origin_task": "53"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that requires cleaning a container before reuse and the clean action is rejected as invalid.",
+   "experience": "Do not loop on repeated 'think' steps. After a failed action, immediately run 'check valid actions' to discover the correct action signature, then execute the valid action (e.g., leave the object first if required) instead of re-thinking the same step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "6c35ee6f",
+   "origin_task": "6"
   }
  ]
 }

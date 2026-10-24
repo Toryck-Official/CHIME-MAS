@@ -1,0 +1,22 @@
+{
+ "tag": "pddl_single_single_nomem_s0",
+ "mode": "single_nomem",
+ "order_seed": 0,
+ "n_train": 42,
+ "n_eval": 18,
+ "train_success": 16.67,
+ "eval_success": 33.33,
+ "train_progress": 29.88,
+ "eval_progress": 44.91,
+ "memory_size": {
+  "plan": 0,
+  "exec": 0
+ },
+ "usage": {
+  "calls": 1710,
+  "prompt_tokens": 4308569,
+  "cache_hit_tokens": 3932416,
+  "completion_tokens": 48147,
+  "cost_cny_offpeak": 0.6474
+ }
+}

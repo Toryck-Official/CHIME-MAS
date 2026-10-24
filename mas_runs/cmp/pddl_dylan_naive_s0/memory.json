@@ -1,0 +1,800 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When a manipulation task requires a sequence of physical actions and the environment warns that thinking is excessive or an action is invalid.",
+   "experience": "Stop emitting 'think' actions after the first planning step; immediately execute concrete actions (grasp, fill, pour, leave) and use 'check valid actions' to discover the correct action format rather than deliberating repeatedly.",
+   "value": 0.1477272727272728,
+   "n": 22,
+   "id": "c30927dd",
+   "origin_task": "12"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a repetitive transport task requires moving many objects in pairs between two locations under a step limit.",
+   "experience": "Plan once, then continuously execute the pick-move-drop cycle with concrete actions, verifying before each pickup that the object isn't already at its target and avoiding duplicates. Before starting, confirm the step budget (roughly 3*ceil(N/2) plus travel for N objects with 2 grippers) suffices to drop the final pair before the limit. If a think is ignored or an action is rejected, immediately switch to the next concrete action (using 'check valid actions' to recover) rather than re-thinking.",
+   "value": 0.16500000000000006,
+   "n": 30,
+   "id": "c58507de",
+   "origin_task": "33"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a block-stacking task requires rearranging objects into a target tower configuration and the environment warns against excessive thinking or invalid actions.",
+   "experience": "Emit at most one planning think, then immediately use 'check valid actions' to learn the correct action format and proceed with concrete unstack/pickup/stack actions; avoid redundant think steps and verify each action is valid before executing.",
+   "value": 0.19605263157894742,
+   "n": 38,
+   "id": "4bcc428d",
+   "origin_task": "29"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a transport task requires moving multiple objects between two locations with two grippers under a step limit.",
+   "experience": "Plan once to map each object to its destination, then execute continuous pick-move-drop cycles in pairs—picking both objects before moving and dropping both after arriving—without redundant think steps, verifying each object's location before acting to avoid duplicates.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c2d86970",
+   "origin_task": "42"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task requires a sequence of concrete physical actions and the environment warns against excessive thinking.",
+   "experience": "Emit at most one planning think, then immediately execute concrete actions without further deliberation; if a think is ignored or an action is rejected, use 'check valid actions' to learn the exact valid format and switch to the next concrete action rather than re-thinking repeatedly.",
+   "value": 0.0,
+   "n": 0,
+   "id": "36d02ece",
+   "origin_task": "5"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a manipulation task requires assembling a component onto a fixture and an action is rejected as invalid.",
+   "experience": "After a rejected action, immediately run 'check valid actions' to learn the correct format, then verify the component is in hand (fetch it from its storage location if needed) before attempting the assembly action again; avoid repeated think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "08f552f1",
+   "origin_task": "50"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a task requires inflating or processing multiple objects that must be fetched from a container, one at a time, and returned afterward.",
+   "experience": "Plan once at the start, then execute the fetch-process-put-away cycle for each object continuously without extra think steps; avoid duplicate actions and verify each object is processed before moving to the next.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e4e46865",
+   "origin_task": "55"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a task requires moving multiple objects into a container and some objects are not yet accessible, under a step limit with warnings against excessive thinking.",
+   "experience": "After the first planning think, immediately use 'check valid actions' to discover how to access missing objects, then execute concrete fetch/move/put-away actions continuously; never repeat think steps, and verify the goal objects' locations early so the final placement completes within budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "40722328",
+   "origin_task": "58"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a block-rearrangement task requires unstacking and restacking objects into a target configuration and the environment warns against excessive thinking or rejects an action as invalid.",
+   "experience": "Emit at most one planning think, then immediately run 'check valid actions' to learn valid action formats; avoid duplicate think/action emissions, and after any rejected action recover with 'check valid actions' before proceeding with concrete unstack/pickup/stack steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "d16c3ff8",
+   "origin_task": "23"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a block-stacking task requires building a target tower from blocks that are currently buried under or supporting other blocks.",
+   "experience": "Plan once to identify the unstack order needed to free the target blocks, then execute concrete unstack/putdown/pickup/stack actions without redundant think steps, verifying each move frees the needed block; if a stack action is rejected, immediately use 'check valid actions' to find the correct target and continue.",
+   "value": 0.22500000000000003,
+   "n": 18,
+   "id": "fc3a01ab",
+   "origin_task": "27"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a block-stacking task requires rearranging blocks into a target tower configuration under a step limit.",
+   "experience": "Plan once, then execute concrete unstack/pickup/stack actions without repeated think steps; before each stack, verify the destination is clear (unstack any block on it first) and use 'check valid actions' immediately after any rejected action to recover.",
+   "value": 0.13333333333333333,
+   "n": 6,
+   "id": "0e9d02dc",
+   "origin_task": "28"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step repair task requires a long sequence of concrete tool-use actions under a step limit and the environment warns against excessive thinking.",
+   "experience": "Plan once, then immediately execute each concrete action (fetch, loosen, jack-up, undo, remove, put-on, do-up, jack-down, move) without redundant think steps; if unsure of action format, use 'check valid actions' once and proceed, reserving steps for actual manipulation.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3d13d89d",
+   "origin_task": "59"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a transport task requires moving multiple objects in pairs between two locations using a two-gripper robot.",
+   "experience": "Plan once, then execute the pick-move-drop cycle continuously: pick one object per gripper at the source, move to the destination, and drop both before returning for the next pair; avoid redundant think steps and verify each object's location before acting.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1d1701b4",
+   "origin_task": "41"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a task requires filling multiple separate containers each with a specific ingredient from its own dispenser.",
+   "experience": "Plan once, then execute a clean per-container loop: grasp the target container, fill it from the matching dispenser, and leave it before moving to the next container; avoid redundant think steps.",
+   "value": -0.85,
+   "n": 1,
+   "id": "0055eaba",
+   "origin_task": "14"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task requires building a mixture in a container and then shaking and pouring it into a target container.",
+   "experience": "Plan once, then immediately execute the concrete action sequence (grasp, fill, pour into mixing container, grasp the mixing container, shake, pour into target) without redundant think steps; if an action is rejected, call 'check valid actions' once and continue with the corrected concrete action.",
+   "value": -0.8,
+   "n": 1,
+   "id": "8389ac6f",
+   "origin_task": "15"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step physical manipulation task has a step limit and the environment warns against excessive thinking or rejects an action as invalid.",
+   "experience": "Emit at most one planning think, then immediately execute concrete actions; when an action is rejected, use 'check valid actions' to learn the correct format and continue with real actions instead of re-thinking, and verify preconditions (e.g., object must be fetched before placing) before acting.",
+   "value": 0.0,
+   "n": 0,
+   "id": "657854db",
+   "origin_task": "51"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a manipulation task requires pouring from a held container into a target container, and the environment warns against excessive thinking or rejects an action as invalid.",
+   "experience": "Emit at most one planning think, then immediately run 'check valid actions' to learn the exact action syntax and required hand/container states; execute concrete actions (leave, grasp, pour) directly and copy the valid action string verbatim rather than re-deliberating or guessing formats.",
+   "value": -0.85,
+   "n": 1,
+   "id": "c557a092",
+   "origin_task": "11"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a manipulation task requires a multi-step sequence (fill, pour, shake, pour back) and the environment warns against excessive thinking or rejects an action as invalid.",
+   "experience": "Emit at most one planning think, then immediately use 'check valid actions' to learn the exact action format and required parameters, and execute concrete actions one at a time. After any rejection, re-check valid actions and proceed without repeated deliberation or guessing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "bc5b2578",
+   "origin_task": "3"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step container-manipulation task requires building a target mixture whose exact ingredient composition is unknown and the environment warns against excessive thinking.",
+   "experience": "Emit at most one planning think, then immediately call 'check valid actions' to learn both the target recipe and exact action syntax; copy valid action strings verbatim, execute concrete actions without re-deliberating, and verify the mixture matches the goal before shaking/pouring.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a47de0b2",
+   "origin_task": "17"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step mechanical repair task requires a fixed sequence of concrete tool/wheel actions under a step limit and the environment warns against excessive thinking.",
+   "experience": "Emit at most one planning think, then immediately execute concrete actions (fetch, loosen, jack-up, undo, remove, put-away, do-up, tighten, jack-down) one per step; never repeat a think that was already stated, and if an action is rejected use 'check valid actions' once then proceed with the next concrete action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "84664b93",
+   "origin_task": "57"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a block-stacking task requires freeing buried blocks and rebuilding a target tower, and the environment warns against excessive thinking or rejects an action.",
+   "experience": "Emit at most one planning think, then immediately switch to concrete unstack/putdown/pickup/stack actions; if an action is rejected, use 'check valid actions' to recover rather than repeating think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "dabcbde2",
+   "origin_task": "21"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a repetitive multi-object transport task requires cycling pick-move-drop actions under a step limit and the environment warns against excessive thinking.",
+   "experience": "Emit at most one planning think at the start, then execute concrete actions (move/pick/drop) back-to-back without re-thinking between cycles; if a think is ignored or repeated, immediately issue the next concrete action rather than re-planning, and budget steps so all objects are delivered before the limit.",
+   "value": 0.0,
+   "n": 0,
+   "id": "691eeb22",
+   "origin_task": "40"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step mixing task requires combining ingredients in a container and the environment warns against excessive thinking or rejects an action as invalid.",
+   "experience": "Emit at most one planning think, then execute concrete grasp/fill/pour/shake actions directly; when an action is rejected, immediately use 'check valid actions' to find the correct format and continue rather than repeating the same action or adding more think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "83e26fb1",
+   "origin_task": "9"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a transport task requires moving many objects between locations under a step limit and the environment warns against excessive thinking.",
+   "experience": "Plan once with at most one think step, then execute concrete pick/move/drop actions back-to-back in a tight loop without redundant re-planning, reserving steps for actions and only re-planning if an action is rejected.",
+   "value": 0.0,
+   "n": 0,
+   "id": "efce131d",
+   "origin_task": "34"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step task requires many concrete actions under a step limit and the environment warns against excessive thinking.",
+   "experience": "Emit at most one planning think, then immediately execute concrete actions (fetch, inflate, put-away, etc.) one after another without re-thinking; if a think is ignored, switch directly to the next concrete action rather than repeating the same think.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f691a00e",
+   "origin_task": "53"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a transport task requires moving multiple objects between two locations and the agent has two grippers available.",
+   "experience": "Plan once, then execute concrete pick/move/drop actions without redundant think steps; use both grippers to carry two objects per trip to reduce travel, and verify each drop before proceeding to the next batch.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fe9cad12",
+   "origin_task": "43"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When the proposer keeps emitting only 'think' statements or repeats an action that the environment rejects, and when both hands are occupied blocking the needed manipulation.",
+   "experience": "Stop supporting repeated no-op 'think' proposals; demand a concrete executable action. After an invalid action, immediately run 'check valid actions' and act on it (e.g., free a hand by leaving an object) instead of looping on planning text.",
+   "value": 0.35625,
+   "n": 32,
+   "id": "77e2db9c",
+   "origin_task": "12"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the proposer emits planning-only 'think' statements or repeats actions instead of executing the needed manipulation, especially near the end of a multi-object transfer.",
+   "experience": "Stop supporting 'think' proposals; demand and verify a concrete executable action each step, and if progress stalls, run 'check valid actions' and act on it rather than looping on planning text.",
+   "value": 0.53,
+   "n": 10,
+   "id": "79f4aa98",
+   "origin_task": "33"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When building a multi-block tower where some blocks start stacked on others and must be rearranged into a target configuration.",
+   "experience": "Keep endorsing concrete executable actions, and when an action is rejected, immediately query valid actions and proceed with a real manipulation rather than looping on planning text.",
+   "value": 0.3057692307692307,
+   "n": 26,
+   "id": "5494fc7a",
+   "origin_task": "29"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When transferring multiple objects between two locations with two grippers and one hand is already holding an object from the source location.",
+   "experience": "Before endorsing a pick, verify the target object is actually in the robot's current room and that the chosen gripper is free; if an action is rejected, immediately run 'check valid actions' and act on it rather than continuing to plan.",
+   "value": 0.0,
+   "n": 0,
+   "id": "763bbddf",
+   "origin_task": "36"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a task requires moving many objects between two locations within a limited step budget using a two-handed agent.",
+   "experience": "Track the remaining step budget against the number of objects left; if the per-object transfer cycle is too slow, push the proposer to optimize (e.g., verify whether more than two objects can be carried or whether travel can be reduced) rather than endorsing the same slow cycle.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2c934dd6",
+   "origin_task": "44"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-object transfer task requires moving several objects between locations using limited grippers, and the proposer emits planning-only 'think' statements instead of concrete actions.",
+   "experience": "Keep endorsing concrete executable actions (pick, move, drop) and refuse to support repeated no-op 'think' proposals; demand a real manipulation each step so progress continues toward the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "464d6a46",
+   "origin_task": "42"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When transferring multiple objects between locations using a two-gripper agent, with objects needing to be carried in pairs.",
+   "experience": "Keep endorsing concrete executable actions (move, pick, drop) and reject planning-only 'think' proposals; if a step stalls, demand a real manipulation action rather than looping on planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "10358045",
+   "origin_task": "47"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a container holds the correct ingredients and only a shake/pour manipulation remains, but the proposer keeps emitting planning-only 'think' statements.",
+   "experience": "Stop endorsing 'think' proposals entirely; require and verify a concrete executable action each step, and if the environment rejects an action or progress stalls, immediately run 'check valid actions' and execute the real manipulation (e.g., shake then pour) rather than allowing further planning text.",
+   "value": 0.2769230769230769,
+   "n": 13,
+   "id": "71ddf7ea",
+   "origin_task": "5"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a container already holds the correct ingredients and only a shake/pour manipulation remains, but the proposer keeps emitting planning-only statements instead of concrete actions.",
+   "experience": "Once the required ingredients are in place and only a manipulation remains, never endorse \"think\" proposals—require and verify a concrete executable action at each step. If an action is rejected or progress stalls, immediately check valid actions and execute the real manipulation (e.g., free a hand, grasp, shake, pour) instead of allowing further planning text.",
+   "value": 0.11875,
+   "n": 8,
+   "id": "0987016d",
+   "origin_task": "7"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a wheel must be inflated and mounted on a hub, and the wheel is stored in a container rather than already in hand.",
+   "experience": "Before mounting a wheel, ensure it is actually in hand by fetching it from its storage location; if a put-on action is rejected, immediately run 'check valid actions' and fetch the needed object rather than looping on planning text.",
+   "value": 0.18,
+   "n": 5,
+   "id": "d6acf4c4",
+   "origin_task": "50"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When multiple objects stored in a container must each be retrieved, operated on, and returned, with a tool needed from the same container.",
+   "experience": "Endorse concrete executable actions that open the container, fetch the tool and each object, perform the required operation, and put objects back; avoid looping on planning text and proceed step by step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f6e70eb3",
+   "origin_task": "55"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a required object is not in its expected storage location and the goal needs it placed there, and the proposer keeps emitting only planning 'think' statements.",
+   "experience": "Stop endorsing repeated 'think' proposals; immediately run 'check valid actions' to locate the missing object, then execute concrete fetch/manipulation actions to bring it to the target location.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b35e6c8e",
+   "origin_task": "58"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When rearranging stacked objects into a target configuration and a proposed action is rejected as invalid.",
+   "experience": "Endorse only concrete executable actions, never repeated think-only proposals; after any rejected action, immediately run 'check valid actions' and proceed with a valid manipulation instead of looping on planning text.",
+   "value": 0.2409090909090909,
+   "n": 22,
+   "id": "535a3754",
+   "origin_task": "23"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When rearranging stacked objects into a target configuration and the proposer emits planning-only statements instead of concrete actions.",
+   "experience": "Do not support 'think' proposals; require a concrete executable action each step, and if progress stalls, query valid actions and proceed with real manipulation rather than looping on planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b6fa9bdb",
+   "origin_task": "27"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposer emits planning-only 'think' statements or repeats rejected actions instead of executing real manipulations.",
+   "experience": "Refuse to support 'think'-only proposals; require a concrete executable action each step, and after any invalid action immediately run 'check valid actions' and act on it rather than endorsing more planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "dd0991ce",
+   "origin_task": "28"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the proposer emits repeated 'think' statements or planning text instead of concrete executable actions during a multi-step manipulation task.",
+   "experience": "Stop supporting no-op 'think' proposals immediately; demand and endorse a concrete executable action each turn, and if an action is rejected, query valid actions and proceed with a real manipulation rather than letting planning text loop.",
+   "value": 0.0,
+   "n": 0,
+   "id": "be49ea09",
+   "origin_task": "59"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When transporting multiple objects between locations with a two-handed gripper and the goal requires all objects relocated.",
+   "experience": "Keep endorsing concrete executable actions (move, pick, drop) and ignore prompts to over-plan; batch objects two at a time per trip and verify each drop before returning for the next load.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a9144ad9",
+   "origin_task": "41"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposer keeps emitting planning-only 'think' statements instead of concrete manipulation actions during a rearrangement task.",
+   "experience": "Stop endorsing repeated 'think' proposals; immediately demand and support a concrete executable action (pick/move/drop) to break the loop and make progress.",
+   "value": 0.0,
+   "n": 0,
+   "id": "97169394",
+   "origin_task": "38"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a container must be filled with a specific ingredient and a concrete grasp/fill/leave action sequence is proposed.",
+   "experience": "Endorse concrete executable manipulation actions and verify each produces the expected observation (container holds the correct ingredient); avoid endorsing planning-only 'think' proposals.",
+   "value": 0.0,
+   "n": 1,
+   "id": "bb1ac662",
+   "origin_task": "14"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step manipulation task requires a sequence of concrete actions and the proposer emits planning-only statements instead of executable actions.",
+   "experience": "Endorse only concrete executable actions and reject any planning-only \"think\" proposals outright, requiring the next real manipulation step (e.g., fetch, inflate, put-away, mount) instead of letting planning text consume the step budget. If an action is rejected or progress stalls, immediately run \"check valid actions\" and execute the real manipulation rather than allowing further planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7c56aa27",
+   "origin_task": "51"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-object rearrangement task has a step limit and the proposer keeps emitting planning-only 'think' actions or deviates from the stated plan by grabbing extra objects.",
+   "experience": "Stop endorsing 'think' proposals; require concrete executable actions each step, and verify each pick matches the plan (correct object and destination) so no steps are wasted on unnecessary objects before the step limit is hit.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fde9b9b6",
+   "origin_task": "46"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When rearranging objects between two locations using both grippers, requiring a two-way swap of items.",
+   "experience": "Keep endorsing concrete executable pick/move/drop actions; ignore no-op 'think' proposals and proceed directly with real manipulations to complete the swap.",
+   "value": -0.8,
+   "n": 1,
+   "id": "df044095",
+   "origin_task": "35"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a container already holds the correct ingredients and only a shake/pour manipulation remains, but proposals keep being planning-only text instead of concrete actions.",
+   "experience": "Stop endorsing 'think' proposals entirely; require and verify a concrete executable action each step. If an action is rejected or progress stalls, immediately run 'check valid actions' and execute the real manipulation (e.g., free a hand, then shake and pour) rather than allowing further planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b6e85014",
+   "origin_task": "10"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposer emits repeated planning-only 'think' statements instead of concrete executable actions during a multi-object transport task.",
+   "experience": "Stop endorsing repeated 'think' proposals; require an immediate concrete executable action (pick/move/drop) and, after any rejected or no-op action, query valid actions and proceed with real manipulation rather than looping on planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "84a72296",
+   "origin_task": "45"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a container already holds the correct ingredients and only a shake/pour manipulation remains, but proposals keep being planning-only 'think' statements or repeated invalid actions.",
+   "experience": "Stop endorsing 'think' proposals entirely and require a concrete executable action each step; after any rejected action or stalled progress, immediately run 'check valid actions' and execute the real manipulation (free the hand, grasp the container, then shake/pour) instead of allowing further planning text.",
+   "value": 0.0,
+   "n": 2,
+   "id": "e7d505db",
+   "origin_task": "11"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step manipulation task stalls because proposals are repeated planning-only 'think' statements or an action was rejected as invalid.",
+   "experience": "Stop endorsing 'think' proposals entirely; require a concrete executable action each step. After any rejected action, immediately run 'check valid actions' and execute a valid manipulation (e.g., free a hand or fetch the needed object) instead of allowing further planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "d2285bb4",
+   "origin_task": "57"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When rearranging stacked objects into a target configuration and the proposer emits repeated think-only proposals or an action gets rejected.",
+   "experience": "Stop endorsing repeated no-op 'think' proposals; demand a concrete executable action, and after any rejected action immediately run 'check valid actions' and proceed with a valid manipulation instead of looping on planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b2bd5166",
+   "origin_task": "21"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a transport/rearrangement task requires repeated cycles of move-pick-move-drop and the proposer starts emitting repeated planning-only 'think' statements instead of executable actions.",
+   "experience": "Stop endorsing repeated think-only proposals; require the next concrete executable action (move/pick/drop) and if the proposer loops on planning text, immediately push for a real manipulation to keep the cycle advancing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "13cc04b7",
+   "origin_task": "40"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When rearranging objects between two locations using both grippers and a proposed action is a think-only/no-op proposal.",
+   "experience": "Endorse only concrete executable pick/move/drop actions; when a think-only proposal appears, reject it and immediately require a valid manipulation (e.g. query valid actions) rather than allowing repeated planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fb3350f5",
+   "origin_task": "49"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a container already holds the correct ingredients and only a shake/pour manipulation remains, but the proposer keeps emitting planning-only 'think' statements or repeats an action the environment rejects.",
+   "experience": "Stop supporting repeated no-op 'think' proposals; require a concrete executable action each step. After any rejected action, immediately run 'check valid actions' and execute the real manipulation (shake then pour) instead of looping on planning text.",
+   "value": 0.0,
+   "n": 0,
+   "id": "77c7a8fb",
+   "origin_task": "9"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a repetitive transport task is nearly complete and the proposer keeps emitting planning-only 'think' steps instead of concrete actions.",
+   "experience": "Stop endorsing repeated think-only proposals; require concrete executable actions (pick/move/drop) and drive the remaining items to completion rather than allowing planning loops to consume the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "40ed5950",
+   "origin_task": "34"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposer keeps emitting only planning/think statements or repeats no-op actions instead of concrete manipulation, especially mid-task with remaining objects to relocate.",
+   "experience": "Stop endorsing think-only proposals immediately; demand and endorse only concrete executable actions (pick/move/drop), and if the agent loops, explicitly instruct it to execute the next real manipulation step rather than re-planning.",
+   "value": 0.0,
+   "n": 0,
+   "id": "866537eb",
+   "origin_task": "39"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When rearranging multiple objects between locations and some must be carried two at a time using both hands.",
+   "experience": "Keep endorsing concrete executable actions; batch pickups into both hands before moving to reduce trips, and drop each object at the target before returning for the rest.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1f76839f",
+   "origin_task": "43"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When both hands are occupied and the valid-action check shows only leave actions are available, further planning is useless until a hand is freed.",
+   "experience": "After checking valid actions, immediately execute the listed leave action rather than emitting more think steps; do not repeat planning once the next concrete action is known.",
+   "value": 0.4217391304347827,
+   "n": 23,
+   "id": "dfe8c401",
+   "origin_task": "12"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a repetitive multi-object transfer task has a known, working action pattern and the step budget is limited.",
+   "experience": "Once the transfer pattern is established, execute the concrete pick/move/drop actions directly and continuously without redundant think steps or duplicate moves, tracking remaining objects and cycling until all are delivered, since each redundant action consumes limited budget needed for the final transfers.",
+   "value": 0.6900000000000001,
+   "n": 10,
+   "id": "3220f440",
+   "origin_task": "33"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a block-stacking goal requires rearranging an existing tower whose base must be freed and rebuilt in a specific order.",
+   "experience": "Identify the movable block via valid actions, then immediately execute concrete unstack/putdown/pickup/stack actions to clear the base and rebuild the tower bottom-up, checking valid actions only when a move actually fails and avoiding redundant think steps that waste the step budget.",
+   "value": 0.3696969696969698,
+   "n": 33,
+   "id": "f1bc1317",
+   "origin_task": "29"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-object transfer task requires moving objects between two locations in batches and one hand is already holding an object.",
+   "experience": "Track which objects are already at their target and avoid re-picking them; when an action is invalid, immediately run check valid actions and execute the listed concrete action instead of emitting more think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2b462277",
+   "origin_task": "36"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-object transfer task has a known working pick/move/drop pattern and the step budget is limited.",
+   "experience": "Once the transfer pattern is confirmed, execute concrete pick/move/drop actions directly and continuously without redundant think steps or duplicate actions, tracking remaining objects and cycling until all are delivered.",
+   "value": 0.0,
+   "n": 0,
+   "id": "0b5c7e30",
+   "origin_task": "42"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step manipulation plan is already known and the next concrete action is identified, but the step budget is limited.",
+   "experience": "Once the next concrete action is known, stop emitting think steps and immediately execute the valid action to conserve budget; if an action fails, run check valid actions to obtain the correct concrete command rather than repeating the invalid action or doing more planning.",
+   "value": 0.0,
+   "n": 1,
+   "id": "098f0ed9",
+   "origin_task": "5"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a put-on/attach action is rejected as invalid because the target object is still stored elsewhere and must be fetched first.",
+   "experience": "After an invalid action, run check valid actions to see what is actually permitted, then fetch the required object from its storage location before attempting the attach action again.",
+   "value": 0.0,
+   "n": 1,
+   "id": "d4a5fdbe",
+   "origin_task": "50"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a task requires using a tool stored in a container to process multiple objects held in that same container.",
+   "experience": "Open the container first, fetch the tool, then for each object fetch it, apply the tool action, and put it away before moving to the next; execute these concrete actions directly without redundant think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a9a8f599",
+   "origin_task": "55"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires moving a specific object into a container but that object is not yet in the container and its location is unknown.",
+   "experience": "After a fetch-from-container action fails because the object isn't there, immediately run check valid actions to discover where the object can be obtained, then execute the concrete fetch/move action rather than emitting repeated think steps.",
+   "value": 0.25833333333333336,
+   "n": 24,
+   "id": "0df85185",
+   "origin_task": "58"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a block-stacking goal requires freeing a base block by clearing blocks above it, then rebuilding a target tower bottom-up in a specific order.",
+   "experience": "After identifying the movable block via valid actions, immediately execute concrete unstack/putdown/pickup/stack actions to clear the base and rebuild the tower bottom-up, avoiding repeated think steps. Only re-check valid actions when a move actually fails.",
+   "value": 0.18,
+   "n": 5,
+   "id": "da8b596e",
+   "origin_task": "27"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step physical procedure has a known next concrete action available and the environment keeps accepting think steps, the step budget can be exhausted by redundant planning.",
+   "experience": "Once the next concrete action is known, execute it immediately instead of emitting think steps; only re-plan when an action fails or valid-action checks reveal a blocker.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2a95e641",
+   "origin_task": "59"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step goal requires a known sequence of concrete actions and the next action is already determined.",
+   "experience": "Immediately execute the next concrete action once it is determined; never emit repeated think steps or re-plan, and reserve valid-action checks only for when an action actually fails.",
+   "value": 0.2235294117647059,
+   "n": 17,
+   "id": "68a9ebb1",
+   "origin_task": "0"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires transporting multiple objects from one location to another using a two-gripper agent, and the pickup/drop sequence is already known.",
+   "experience": "Execute the concrete move/pick/drop actions directly in sequence without emitting redundant think steps; only re-plan or check valid actions if an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7aa04bad",
+   "origin_task": "41"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step rearrangement goal has a known next concrete action (pick, move, drop) already determined.",
+   "experience": "Immediately execute the next concrete action once it is known; never emit repeated think steps or re-plan, and only check valid actions when an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "010ea5e6",
+   "origin_task": "38"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step manipulation goal has a known sequence of concrete actions and the next action is already determined from prior observations.",
+   "experience": "Execute the next concrete action immediately after determining it; never emit repeated think steps or re-plan once the next action is known, and reserve valid-action checks only for actual action failures.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e8466ce2",
+   "origin_task": "15"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step manipulation goal requires installing an object that is currently stored in a container, and the next concrete action is already known.",
+   "experience": "Execute the concrete fetch-then-install sequence immediately instead of emitting repeated think steps; if an install action fails, run check valid actions once to discover the object must first be fetched from its container, then fetch and retry rather than re-planning.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7204c47c",
+   "origin_task": "51"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a transport goal requires moving many objects between two locations with a two-handed gripper and a limited step budget.",
+   "experience": "Minimize think steps entirely and batch concrete pick-move-drop cycles back-to-back; track which objects remain and immediately execute the next transfer without pausing to re-plan.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fdb0587f",
+   "origin_task": "46"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires swapping the locations of two groups of objects between two rooms using dual grippers.",
+   "experience": "Pick up both objects destined for the other room with both grippers, move to the destination room, drop them, then pick up the objects to be returned and move back—avoid redundant think steps and execute the concrete pick/move/drop sequence directly.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5d580d47",
+   "origin_task": "35"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step manipulation task requires a known sequence of concrete actions and the next action is already determined, but repeated think steps or an invalid action interrupt progress.",
+   "experience": "Execute the next concrete action immediately once it is determined; avoid emitting repeated think steps, and only run check valid actions after an action actually fails, then resume the concrete sequence.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a3e6cc80",
+   "origin_task": "10"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-object transport goal requires a known repeating cycle of pick-move-drop actions and the next concrete action is already determined.",
+   "experience": "Immediately execute the next concrete action (pick, move, or drop) once it is known; never emit repeated think steps or re-plan between actions, and reserve valid-action checks only for when an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ae5f1778",
+   "origin_task": "45"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When pouring from a held container into a target container, and the pour action keeps being rejected as invalid.",
+   "experience": "After a pour action fails, immediately check the valid-action list to read the exact required hand/container/level parameters (the target must be held in the hand opposite the pouring hand), then grasp the target in the free hand if needed and execute the concrete pour in one step—never repeat think steps, re-plan, or guess the format.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a3f4f26e",
+   "origin_task": "11"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a held container must be shaken but the shake action is rejected as invalid, and the valid-action list shows no shake option.",
+   "experience": "After a shake action fails, immediately run check valid actions and inspect the full list for the correct shake format or prerequisite (e.g., needing both hands free or a specific grasp); do not emit repeated think steps, and execute the concrete corrective action as soon as it is identified.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2261900e",
+   "origin_task": "3"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires producing a specific named mixture in a container but the mixture's required components are unknown, and the next concrete action is already determined.",
+   "experience": "Before building any mixture, run check valid actions to learn the target's required components; once the next concrete action is known, execute it immediately instead of looping on think steps, and only re-check valid actions after an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "10ba8f66",
+   "origin_task": "17"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step task has a known next concrete action (e.g. fetching a needed object) and the plan is already clear.",
+   "experience": "Immediately execute the next concrete action once it is determined; never emit repeated think steps or re-plan when the next action is already known.",
+   "value": 0.0,
+   "n": 0,
+   "id": "38965009",
+   "origin_task": "57"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a repetitive transport cycle (move, pick, move, drop) must be repeated multiple times to relocate many objects between locations.",
+   "experience": "After confirming the cycle works once, immediately execute the concrete move/pick/drop actions for each remaining pair without emitting redundant think steps; only think once per cycle or when an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4abb3081",
+   "origin_task": "40"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires swapping the locations of many objects between two rooms and the step budget is limited.",
+   "experience": "Minimize think steps and batch moves efficiently: pick up two objects, move, drop both, and immediately proceed to the next pair without emitting separate think actions between every phase.",
+   "value": 0.45,
+   "n": 2,
+   "id": "b09c75b0",
+   "origin_task": "49"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step construction task requires a known sequence of concrete actions and the next action is already determined.",
+   "experience": "Execute the next concrete action immediately after determining it; avoid repeated think steps or re-planning once the next action is known, and only run check valid actions when an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b312c9d5",
+   "origin_task": "9"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires transporting multiple objects between two locations with limited carrying capacity, using a repeated pick-move-drop cycle.",
+   "experience": "Execute the concrete pick/move/drop actions directly in a tight loop without inserting think steps or duplicate actions between iterations; only pause to re-plan if an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "6fc697c2",
+   "origin_task": "34"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a goal requires relocating many objects between two locations under a limited step budget.",
+   "experience": "Minimize think steps by batching moves efficiently: after each drop, immediately execute the next concrete pick/move/drop sequence without emitting separate think actions between phases, and only pause to reason if an action actually fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "37b776f4",
+   "origin_task": "39"
+  }
+ ]
+}

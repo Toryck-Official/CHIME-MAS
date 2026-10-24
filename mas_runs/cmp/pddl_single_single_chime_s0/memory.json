@@ -6,9 +6,18 @@
    "scenario": "When a fill-shot action is invalid due to hand constraints or wrong argument order, and the agent is stuck in a think loop.",
    "experience": "If a fill-shot action fails, check valid actions to learn the correct hand order and required free hands. Then execute the necessary leave/grasp actions immediately instead of repeatedly thinking. Avoid infinite think loops by committing to the next concrete action.",
    "value": 0.0,
-   "n": 0,
+   "n": 1,
    "id": "9f662cfe",
    "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-trip transport plan that carries two objects per trip using both grippers.",
+   "experience": "Track the remaining objects after each drop and continue the pick-move-drop-return loop until every object has been delivered; do not stop mid-trip after dropping only one of the two carried objects.",
+   "value": 0.0,
+   "n": 0,
+   "id": "70462c5f",
+   "origin_task": "33"
   }
  ]
 }

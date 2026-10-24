@@ -100,3 +100,9 @@ Act 12: think: I have shot1 in right hand and shaker1 in left hand. Now I need t
 Obs 12: Ok. But you should not think too much!
 Act 13: fill-shot shot1 ingredient2 right left dispenser2
 Obs 13: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!
+Act 14: check valid actions.
+Obs 14: Valid actions are: right leave shot1. , left leave shaker1. , check valid actions, look around
+Act 15: think: I need to check valid actions to understand what's possible with both hands occupied.
+Obs 15: Ok. But you should not think too much!
+Act 16: think: Both hands are occupied, so I need to free a hand. Leave shaker1 first, then fill shot1 with ingredient2.
+Obs 16: Ok. But you should not think too much!

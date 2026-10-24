@@ -55,17 +55,19 @@ def format_memories(items: list[MemoryItem]) -> str:
     return "\n".join(f"[{m.id}] ({m.stage}) when: {m.scenario} -> {m.experience}" for m in items)
 
 
-def run_gate(task: str, plan: str, trajectory: str, success: bool, reward: float,
-             retrieved: list[MemoryItem], model: str = "deepseek-chat") -> tuple[Attribution, dict]:
+def gate_messages(task: str, plan: str, trajectory: str, success: bool, reward: float,
+                  retrieved: list[MemoryItem]) -> list[dict]:
     outcome = f"{'SUCCESS' if success else 'FAILURE'} (reward={reward})"
-    msg = [{"role": "system", "content": GATE_SYSTEM},
-           {"role": "user", "content": GATE_USER.format(task=task, plan=plan, trajectory=trajectory,
-                                                         outcome=outcome, memories=format_memories(retrieved))}]
-    raw = chat(msg, model=model, json_mode=True)
-    d = parse_json(raw)
+    return [{"role": "system", "content": GATE_SYSTEM},
+            {"role": "user", "content": GATE_USER.format(task=task, plan=plan, trajectory=trajectory,
+                                                          outcome=outcome, memories=format_memories(retrieved))}]
+
+
+def parse_gate(d: dict, retrieved: list[MemoryItem]) -> Attribution:
     label = str(d.get("attribution", "none")).strip().lower()
     if label not in ("planning", "execution", "both", "none"):
         label = "none"
+
     def pair(k):
         x = d.get(k) or {}
         return (str(x.get("scenario", "")).strip(), str(x.get("experience", "")).strip())
@@ -75,6 +77,12 @@ def run_gate(task: str, plan: str, trajectory: str, success: bool, reward: float
         conf = 0.0
     valid_ids = {m.id for m in retrieved}
     mis = [i for i in d.get("misleading_memory_ids", []) or [] if i in valid_ids]
-    g = Attribution(label=label, new={"plan": pair("planning_experience"), "exec": pair("execution_experience")},
-                    confidence=max(0.0, min(1.0, conf)), misleading=mis)
-    return g, d
+    return Attribution(label=label, new={"plan": pair("planning_experience"), "exec": pair("execution_experience")},
+                       confidence=max(0.0, min(1.0, conf)), misleading=mis)
+
+
+def run_gate(task: str, plan: str, trajectory: str, success: bool, reward: float,
+             retrieved: list[MemoryItem], model: str = "deepseek-chat") -> tuple[Attribution, dict]:
+    raw = chat(gate_messages(task, plan, trajectory, success, reward, retrieved), model=model, json_mode=True)
+    d = parse_json(raw)
+    return parse_gate(d, retrieved), d

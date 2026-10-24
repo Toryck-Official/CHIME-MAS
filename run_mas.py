@@ -2,7 +2,7 @@
 
 用法（经 gm.sh 在 G-Memory 目录运行）：
   /home/claude/chime/gm.sh /home/claude/chime/run_mas.py --mode team --order-seed 0
-mode: empty | naive | root_only | team
+mode: empty | naive | root_only | team（DyLAN 2×2 + critic）；single_nomem | single_chime（同框架 1×1，先规划后执行）
 训练段（前 70%）顺序执行并更新记忆；评估段冻结记忆。每题记录成功与否、进度分、累计花费。
 """
 import argparse
@@ -18,12 +18,12 @@ from mas.llm import Message, get_usage
 from prompts import get_dataset_system_prompt, get_task_few_shots
 
 from chime.embed_qwen import qwen_embed
-from chime.mas_memory import ChimeMAS, dumps
+from chime.mas_memory import ChimeMAS, ChimeSingle, dumps
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--mode", required=True, choices=["empty", "naive", "root_only", "team"])
+    ap.add_argument("--mode", required=True, choices=["empty", "naive", "root_only", "team", "single_nomem", "single_chime"])
     ap.add_argument("--order-seed", type=int, default=0)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--max-steps", type=int, default=30)
@@ -31,14 +31,17 @@ def main():
     ap.add_argument("--out", default="/home/claude/chime/mas_runs")
     a = ap.parse_args()
 
-    tag = f"pddl_dylan_{a.mode}_s{a.order_seed}"
+    single = a.mode.startswith("single")
+    tag = f"pddl_{'single' if single else 'dylan'}_{a.mode}_s{a.order_seed}"
     outdir = os.path.join(a.out, tag)
     os.makedirs(outdir, exist_ok=True)
     R.WORKING_DIR = os.path.join("./.db", "chime_mas", tag)
     os.makedirs(R.WORKING_DIR, exist_ok=True)
 
     tm = R.build_task("pddl", "dylan", "empty", a.max_steps)
-    tm.mas_config.update(use_critic=True, successful_topk=0, failed_topk=0, insights_topk=0, threshold=0.0,
+    if single:  # 同一框架缩成一个 agent：1 个节点、1 轮、无 critic
+        tm.mas_config.update(node_num=1, round_num=1)
+    tm.mas_config.update(use_critic=not single, successful_topk=0, failed_topk=0, insights_topk=0, threshold=0.0,
                          use_projector=False)
     tm.mem_config.update(working_dir=R.WORKING_DIR, hop=1)
     R.build_mas(tm, "io", "empty", "deepseek-chat")
@@ -56,7 +59,10 @@ def main():
         return old.scenario, (out or old.experience).strip()
 
     chime = None
-    if a.mode != "empty":
+    if single:
+        chime = ChimeSingle(a.mode, embed=qwen_embed, llm_call=llm_call, merger=merger)
+        tm.mas.chime = chime
+    elif a.mode != "empty":
         chime = ChimeMAS(a.mode, embed=qwen_embed, llm_call=llm_call, merger=merger)
         tm.mas.chime = chime
 
@@ -98,8 +104,10 @@ def main():
         instruction = get_dataset_system_prompt("pddl", task_config=cfg)
         for agent in tm.mas.agents_team.values():
             agent.add_task_instruction(instruction)
+        if single:
+            chime.context = task_description
         reward, done = tm.mas.schedule(cfg)
-        rec = {"phase": phase, "k": k, "task_index": cfg["task_index"], "game": cfg.get("game_name"),
+        rec = {"phase": phase, "k": k, "task_index": cfg["task_index"], "task_main": task_main, "game": cfg.get("game_name"),
                "problem": cfg.get("problem_index"), "difficulty": cfg.get("difficulty"),
                "success": bool(done), "progress": float(reward), "secs": round(time.time() - t0, 1)}
         if chime is not None:

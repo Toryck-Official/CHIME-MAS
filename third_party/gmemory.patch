@@ -243,7 +243,7 @@ index d711dca..61215f0 100644
          predicate_name = None   
          for token in tokens:
 diff --git a/tasks/mas_workflow/dylan/dylan.py b/tasks/mas_workflow/dylan/dylan.py
-index 31c6bbd..9b46ab4 100644
+index 31c6bbd..3b86b71 100644
 --- a/tasks/mas_workflow/dylan/dylan.py
 +++ b/tasks/mas_workflow/dylan/dylan.py
 @@ -197,6 +197,18 @@ class DyLAN(MetaMAS):
@@ -295,7 +295,16 @@ index 31c6bbd..9b46ab4 100644
              step_message: str = f'Act {i + 1}: {final_action}\nObs {i + 1}: {observation}'
              self.notify_observers(step_message)
              self.meta_memory.move_memory_state(final_action, observation, reward=reward) 
-@@ -332,7 +351,12 @@ class DyLAN(MetaMAS):
+@@ -320,6 +339,8 @@ class DyLAN(MetaMAS):
+ 
+         if not answers:
+             return "No active response."
++        if len(answers) == 1 and self._height * self._width == 1:  # CHIME-MAS：单智能体（1×1）直接执行自己的输出
++            return answers[0]
+         
+         # If consensus is reached, use the majority answer.
+         if self._reach_consensus(col=col):
+@@ -332,7 +353,12 @@ class DyLAN(MetaMAS):
              for i, answer in enumerate(answers):
                  upstream_responses += f"Agent{i+1}: {answer}\n"
              user_prompt: str = decision_user_prompt.format(agents_responses=upstream_responses)

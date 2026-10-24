@@ -1,0 +1,245 @@
+# api url:  https://api.deepseek.com
+/home/claude/refs/gmemory/.venv/lib/python3.12/site-packages/finch/finch.py:12: UserWarning: pynndescent is not installed: No module named 'pynndescent'
+  warnings.warn('pynndescent is not installed: {}'.format(e))
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Configuration Loaded:
+Node Number       : 1
+Round Number      : 1
+Learning Rate     : 0.01
+Roles             : ['solver']
+Use Critic        : False
+Successful Topk   : 0
+Failed Topk       : 0
+Insights Topk     : 0
+Retrieve Threshold: 0.0
+Use Role Projector: False
+
+## Successful Examples (Reference Cases)
+Below are some examples of similar tasks that were successfully completed.  
+Please use these as references to guide your thinking and approach to the current task:
+
+The goal is to satisfy the following conditions: shot1 contains cocktail1. 
+Observation: Cocktail1 part1 ingredient is ingredient1. Cocktail1 part2 ingredient is ingredient3. Cocktail2 part1 ingredient is ingredient2. Cocktail2 part2 ingredient is ingredient3. Cocktail3 part1 ingredient is ingredient1. Cocktail3 part2 ingredient is ingredient2. Dispenser1 dispenses ingredient1. Dispenser2 dispenses ingredient2. Dispenser3 dispenses ingredient3. Left hand is empty. Level l0 is next to level l1. Level l1 is next to level l2. Right hand is empty. Shaker1 is at empty level l0. Shaker1 is at level l0. Shaker1 is clean. Shaker1 is empty. Shaker1 is on the table. Shot1 is clean. Shot1 is empty. Shot1 is on the table. Shot2 is clean. Shot2 is empty. Shot2 is on the table. Shot3 is clean. Shot3 is empty. Shot3 is on the table. Shot4 is clean. Shot4 is empty. Shot4 is on the table.
+Action: check valid actions
+Observation: Valid actions are: right grasp shot1. , left grasp shot3. , left grasp shot1. , left grasp shot2. , right grasp shaker1. , right grasp shot4. , right grasp shot3. , right grasp shot2. , left grasp shaker1. , left grasp shot4. , check valid actions
+Action: right grasp shot1.
+Observation: You are holding right.
+Action: fill-shot glass shot1 with ingredient3 with right and left holding dispenser3
+Observation: Shot1 contains ingredient3. 
+Action: check valid actions
+Observation: Valid actions are: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1, left grasp shot3. , left grasp shot2. , use hand right to empty-shot glass shot1 with beverage ingredient3. , right leave shot1. , left grasp shaker1. , left grasp shot4. , check valid actions
+Action: pour-shot-to-clean-shaker from a shot glass shot1 with ingredient3 to a clean shaker shaker1 with hand right from level l0 to level l1
+Observation:  Pour shot1 from a shot glass to a used shaker ingredient3 Shaker1 contains ingredient3. 
+Action: clean-shot glass shot1 with ingredient3 with hand right holding shot glass and left
+Observation:  Shot1 is clean. 
+Action: fill-shot glass shot1 with ingredient1 with right and left holding dispenser1
+Observation: Shot1 contains ingredient1.
+Action: pour-shot-to-used-shaker from a shot glass shot1 with ingredient1 to a used shaker shaker1 with hand right from level l1 to level l2
+Observation: Pour shot1 from a shot glass to a used shaker ingredient1 Shaker1 contains ingredient1. Shaker1 contains ingredient3. Shaker1 is at empty level l0. Shaker1 is at level l2. Shaker1 is on the table. Shaker1 is unshaked.
+Action: clean-shot glass shot1 with ingredient1 with hand right holding shot glass and left
+Observation: Shot1 is clean. 
+Action: right leave shot1
+Observation: Right hand is empty.
+Action: right grasp shaker1
+Observation: You are holding right.
+Action: shake a cocktail cocktail1 with ingredient ingredient1 and ingredient ingredient3 in a shaker shaker1 with hand right and hand left
+Observation: Shaker1 is shaked.
+Action: pour-shaker-to-shot to a shot glass cocktail1 the ingredient shot1 with hand right from shaker shaker1 from level l2 to level l1
+Observation: Shot1 contains cocktail1. The task is completed.
+---
+
+## Your Own Past Successes (Execution Patterns)
+Here are examples of successful execution processes you've previously used on similar tasks.  
+Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
+
+
+---
+
+## Key Insights from Related Tasks
+The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
+
+
+---
+
+## Your Turn: Take Action!
+Use the above examples and insights as a foundation, and now work on the following task:
+Here is your initial observation: Cocktail1 part1 ingredient is ingredient2.  Cocktail1 part2 ingredient is ingredient3.  Cocktail2 part1 ingredient is ingredient2.  Cocktail2 part2 ingredient is ingredient1.  Cocktail3 part1 ingredient is ingredient1.  Cocktail3 part2 ingredient is ingredient3.  Cocktail4 part1 ingredient is ingredient1.  Cocktail4 part2 ingredient is ingredient2.  Cocktail5 part1 ingredient is ingredient2.  Cocktail5 part2 ingredient is ingredient1.  Cocktail6 part1 ingredient is ingredient1.  Cocktail6 part2 ingredient is ingredient3.  Dispenser1 dispenses ingredient1.  Dispenser2 dispenses ingredient2.  Dispenser3 dispenses ingredient3.  Handempty left Handempty right Level l0 is next to level l1.  Level l1 is next to level l2.  Shaker1 is at empty level l0.  Shaker1 is at level l0.  Shaker1 is clean.  Shaker1 is empty.  Shaker1 is on the table.  Shot1 is clean.  Shot1 is empty.  Shot1 is on the table.  Shot2 is clean.  Shot2 is empty.  Shot2 is on the table.  Shot3 is clean.  Shot3 is empty.  Shot3 is on the table.  Shot4 is clean.  Shot4 is empty.  Shot4 is on the table.  Shot5 is clean.  Shot5 is empty.  Shot5 is on the table.  Shot6 is clean.  Shot6 is empty.  Shot6 is on the table.  Shot7 is clean.  Shot7 is empty.  Shot7 is on the table.  Shot8 is clean.  Shot8 is empty.  Shot8 is on the table. 
+**Here is your task: The goal is to satisfy the following conditions: shot1 contains cocktail2. , shot7 contains ingredient3. 
+
+>
+
+CHIME-MAS insights: {'proposer': ['Plan for this task (follow it unless observations show it is wrong):\n1. Pick up Shaker1 (needs free hand; Shaker1 clean, empty, on table).\n2. Add ingredient2 to Shaker1 (needs Shaker1 held; dispenser1/2/3 available).\n3. Add ingredient1 to Shaker1 (needs Shaker1 held; makes Cocktail2).\n4. Shake Shaker1 (needs Shaker1 held with both ingredients).\n5. Pour Shaker1 into Shot1 (needs Shot1 clean/empty on table; Shaker1 held).\n6. Pick up Shot7 (needs free hand; Shot7 clean/empty on table).\n7. Fill Shot7 with ingredient3 from Dispenser3 (needs Shot7 held).\n8. Place Shot7 back on table (needs Shot7 held).\n9. Verify shot1 contains cocktail2 and shot7 contains ingredient3.'], 'checker': [], 'finalizer': []}
+Act 1: think: I need to make cocktail2 (ingredient2 + ingredient1) in shaker1 and pour it into shot1, then fill shot7 with ingredient3. First, grasp shaker1 with the right hand.
+Obs 1: Ok. But you should not think too much!
+0.0
+Act 2: right grasp shaker1
+Obs 2: You are holding right. 
+Act 3: think: Shaker1 is held. Now I need to add ingredient2 first, so grasp shot1 to measure ingredient2 from dispenser2.
+Obs 3: Ok. But you should not think too much!
+0.0
+Act 4: right grasp shot1
+Obs 4: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!
+Act 5: check valid actions.
+Obs 5: Valid actions are: left grasp shot1. , left grasp shot3. , left grasp shot6. , right leave shaker1. , left grasp shot4. , left grasp shot8. , left grasp shot7. , left grasp shot2. , left grasp shot5. , use hand right and hand left to clean-shaker shaker1, check valid actions, look around
+Act 6: think: Right hand holds shaker1, so I must use left hand to grasp shot1.
+Obs 6: Ok. But you should not think too much!
+0.0
+Act 7: left grasp shot1
+Obs 7: You are holding left. 
+Act 8: think: Left hand holds shot1. Now fill shot1 with ingredient2 from dispenser2 using right hand holding shaker1 and left hand holding shot1.
+Obs 8: Ok. But you should not think too much!
+Act 9: think: Left hand holds shot1, right holds shaker1. Fill shot1 with ingredient2 from dispenser2.
+Obs 9: Ok. But you should not think too much!
+Act 10: fill-shot shot1 ingredient2 left right dispenser2
+Obs 10: The action is not valid and therefore takes no effect. You should use `check valid actions.` command to get some clues!
+Act 11: think: The fill-shot action needs the correct hand order. Let me check valid actions to see the exact format.
+Obs 11: Ok. But you should not think too much!
+Act 12: check valid actions.
+Obs 12: Valid actions are: right leave shaker1. , left leave shot1. , check valid actions, look around
+Act 13: think: I need to free the right hand or use the correct fill format. Since shaker1 is held in right and shot1 in left, I should leave shaker1 first, then fill shot1 with ingredient2.
+Obs 13: Ok. But you should not think too much!
+Act 14: think: I need to free the right hand by leaving shaker1, then fill shot1 with ingredient2.
+Obs 14: Ok. But you should not think too much!
+Act 15: think: I need to leave shaker1 first so I can use the right hand to operate the dispenser while filling shot1.
+Obs 15: Ok. But you should not think too much!
+Act 16: think: I need to leave shaker1 first to free the right hand, then fill shot1 with ingredient2.
+Obs 16: Ok. But you should not think too much!
+Act 17: think: I need to leave shaker1 first to free the right hand, then fill shot1 with ingredient2.
+Obs 17: Ok. But you should not think too much!
+Act 18: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 18: Ok. But you should not think too much!
+Act 19: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 19: Ok. But you should not think too much!
+Act 20: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 20: Ok. But you should not think too much!
+Act 21: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 21: Ok. But you should not think too much!
+Act 22: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 22: Ok. But you should not think too much!
+Act 23: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 23: Ok. But you should not think too much!
+Act 24: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 24: Ok. But you should not think too much!
+Act 25: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 25: Ok. But you should not think too much!
+Act 26: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 26: Ok. But you should not think too much!
+Act 27: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 27: Ok. But you should not think too much!
+Act 28: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 28: Ok. But you should not think too much!
+Act 29: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 29: Ok. But you should not think too much!
+Act 30: think: I need to leave shaker1 to free the right hand, then fill shot1 with ingredient2.
+Obs 30: Ok. But you should not think too much!
+
+[train 1/60] barman#12 success=False progress=0.00 cost=0.014 30s
+
+## Successful Examples (Reference Cases)
+Below are some examples of similar tasks that were successfully completed.  
+Please use these as references to guide your thinking and approach to the current task:
+
+The goal is to satisfy the following conditions: ball1 is at roomb. , ball2 is at roomb. , ball3 is at roomb. 
+Observation: Ball1 is a ball. Ball1 is at rooma. Ball2 is a ball. Ball2 is at rooma. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at rooma. Room rooma Room roomb
+Action: Pick up ball1 at rooma with arm right.
+Observation: Ball1 is a ball. Ball1 is carrying right. Ball2 is a ball. Ball2 is at rooma. Ball3 is a ball. Ball3 is at rooma.  Left is a gripper. Left is free. Right is a gripper. Robby is at rooma. Room rooma Room roomb
+Action: Pick up ball2 at rooma with arm left.
+Observation: Ball1 is a ball. Ball1 is carrying right. Ball2 is a ball. Ball2 is carrying left. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Right is a gripper. Robby is at rooma. Room rooma Room roomb
+Action: Move from rooma to roomb
+Observation: Ball1 is a ball. Ball1 is carrying right. Ball2 is a ball. Ball2 is carrying left. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Right is a gripper. Robby is at roomb. Room rooma Room roomb
+Action: drop ball1 at rooma with arm right
+Observation: The action is not valid and therefore takes no effect. Please remember to satisfy the restriction of actions. You can also check valid actions.
+Action: check valid actions
+Observation: Valid actions are: drop ball1 roomb right, drop ball2 roomb left, Move from roomb to rooma. , check valid actions
+Action: drop ball1 roomb right
+Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is carrying left. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Right is a gripper. Right is free. Robby is at roomb. Room rooma Room roomb
+Action: drop ball2 roomb left
+Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is at rooma. Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at roomb. Room rooma Room roomb
+Action: move from roomb to rooma
+Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is at rooma.Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at rooma. Room rooma Room roomb
+Action: Pick up ball3 at rooma with arm right.
+Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is carrying right.  Left is a gripper. Left is free. Right is a gripper. Robby is at rooma. Room rooma Room roomb
+Action: Move from rooma to roomb
+Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is carrying right. Ball4 is a ball. Ball4 is at rooma. Left is a gripper. Left is free. Right is a gripper. Robby is at roomb. Room rooma Room roomb
+Action: drop ball3 rooms right
+Observation: Ball1 is a ball. Ball1 is at roomb. Ball2 is a ball. Ball2 is at roomb. Ball3 is a ball. Ball3 is at roomb. Ball4 is a ball. Ball4 is at rooma. Left is a gripper. Left is free. Right is a gripper. Right is free. Robby is at roomb. Room rooma Room roomb. The task is completed.
+---
+
+## Your Own Past Successes (Execution Patterns)
+Here are examples of successful execution processes you've previously used on similar tasks.  
+Pay special attention to the step-by-step procedures and strategies, especially when encountering obstacles:
+
+
+---
+
+## Key Insights from Related Tasks
+The following are insights gathered during the execution of similar tasks. You may refer to them during your task execution to improve problem-solving accuracy.
+
+
+---
+
+## Your Turn: Take Action!
+Use the above examples and insights as a foundation, and now work on the following task:
+Here is your initial observation: Ball1 is a ball.  Ball1 is at rooma.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at rooma.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at rooma.  Room rooma Room roomb
+**Here is your task: The goal is to satisfy the following conditions: ball1 is at roomb. , ball10 is at roomb. , ball2 is at roomb. , ball3 is at roomb. , ball4 is at roomb. , ball5 is at roomb. , ball6 is at roomb. , ball7 is at roomb. , ball8 is at roomb. , ball9 is at roomb. 
+
+>
+
+CHIME-MAS insights: {'proposer': ['Plan for this task (follow it unless observations show it is wrong):\n1. Move Robby from rooma to roomb (precondition: Robby at rooma; no carried balls needed).\n2. Return to rooma (precondition: Robby at roomb).\n3. Pick up ball1 with a free gripper (precondition: Robby at rooma, ball1 at rooma, gripper free).\n4. Move to roomb and drop ball1 (precondition: holding ball1, Robby at rooma).\n5. Return to rooma (precondition: Robby at roomb, gripper free).\n6. Repeat steps 3–5 for ball2, ball3, ball4, ball5, ball6, ball7, ball8, ball9, ball10 in order.\n7. After each drop, ensure gripper is free before picking the next ball.\n8. Ordering constraint: each ball must be picked up only while at rooma and dropped only while at roomb.\n9. Final check: all balls 1–10 at roomb, Robby at roomb, both grippers free.', 'When When a fill-shot action is invalid due to hand constraints or wrong argument order, and the agent is stuck in a think loop.: If a fill-shot action fails, check valid actions to learn the correct hand order and required free hands. Then execute the necessary leave/grasp actions immediately instead of repeatedly thinking. Avoid infinite think loops by committing to the next concrete action.'], 'checker': [], 'finalizer': []}
+Act 1: think: I need to move all 10 balls from rooma to roomb. I'll use both grippers to carry two balls per trip. First, pick up ball1 with right and ball2 with left while at rooma.
+Obs 1: Ok. But you should not think too much!
+Act 2: think: I need to move all 10 balls from rooma to roomb. I'll use both grippers to carry two balls per trip. First, pick up ball1 with right and ball2 with left while at rooma.
+Obs 2: Ok. But you should not think too much!
+0.0
+Act 3: pick ball1 rooma right
+Obs 3: Ball1 is a ball.  Ball1 is carrying right.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at rooma.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
+0.0
+Act 4: pick ball2 rooma left
+Obs 4: Ball1 is a ball.  Ball1 is carrying right.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is carrying left.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
+0.0
+Act 5: move rooma roomb
+Obs 5: Ball1 is a ball.  Ball1 is carrying right.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is carrying left.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at roomb.  Room rooma Room roomb
+0.0
+Act 6: drop ball1 roomb right
+Obs 6: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is carrying left.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Right is free.  Robby is at roomb.  Room rooma Room roomb
+0.0
+Act 7: drop ball2 roomb left
+Obs 7: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at roomb.  Room rooma Room roomb
+Act 8: think: Balls 1 and 2 are at roomb. I need to return to rooma to pick up the next pair.
+Obs 8: Ok. But you should not think too much!
+0.0
+Act 9: move roomb rooma
+Obs 9: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at rooma.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at rooma.  Room rooma Room roomb
+Act 10: think: Balls 1 and 2 are at roomb. Now at rooma, I'll pick up ball3 with right and ball4 with left.
+Obs 10: Ok. But you should not think too much!
+0.0
+Act 11: pick ball3 rooma right
+Obs 11: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is carrying right.  Ball4 is a ball.  Ball4 is at rooma.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
+0.0
+Act 12: pick ball4 rooma left
+Obs 12: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is carrying right.  Ball4 is a ball.  Ball4 is carrying left.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
+0.0
+Act 13: move rooma roomb
+Obs 13: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is carrying right.  Ball4 is a ball.  Ball4 is carrying left.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at roomb.  Room rooma Room roomb
+0.0
+Act 14: drop ball3 roomb right
+Obs 14: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at roomb.  Ball4 is a ball.  Ball4 is carrying left.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Right is free.  Robby is at roomb.  Room rooma Room roomb
+0.0
+Act 15: drop ball4 roomb left
+Obs 15: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at roomb.  Ball4 is a ball.  Ball4 is at roomb.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at roomb.  Room rooma Room roomb
+Act 16: think: Balls 1-4 are at roomb. Returning to rooma to pick up ball5 and ball6.
+Obs 16: Ok. But you should not think too much!
+0.0
+Act 17: move roomb rooma
+Obs 17: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at roomb.  Ball4 is a ball.  Ball4 is at roomb.  Ball5 is a ball.  Ball5 is at rooma.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Right is free.  Robby is at rooma.  Room rooma Room roomb
+Act 18: think: Balls 1-4 are at roomb. Now at rooma, I'll pick up ball5 with right and ball6 with left.
+Obs 18: Ok. But you should not think too much!
+0.0
+Act 19: pick ball5 rooma right
+Obs 19: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at roomb.  Ball4 is a ball.  Ball4 is at roomb.  Ball5 is a ball.  Ball5 is carrying right.  Ball6 is a ball.  Ball6 is at rooma.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Left is free.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb
+0.0
+Act 20: pick ball6 rooma left
+Obs 20: Ball1 is a ball.  Ball1 is at roomb.  Ball10 is a ball.  Ball10 is at rooma.  Ball2 is a ball.  Ball2 is at roomb.  Ball3 is a ball.  Ball3 is at roomb.  Ball4 is a ball.  Ball4 is at roomb.  Ball5 is a ball.  Ball5 is carrying right.  Ball6 is a ball.  Ball6 is carrying left.  Ball7 is a ball.  Ball7 is at rooma.  Ball8 is a ball.  Ball8 is at rooma.  Ball9 is a ball.  Ball9 is at rooma.  Left is a gripper.  Right is a gripper.  Robby is at rooma.  Room rooma Room roomb

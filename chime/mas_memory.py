@@ -167,7 +167,8 @@ class ChimeMAS:
         if self.steps and not self.steps[-1].entries and not self.steps[-1].action:
             self.steps.pop()
         rec = {"task_id": task_id, "success": success, "mode": self.mode, "frozen": self.frozen,
-               "retrieved": {r: [m.id for m in v] for r, v in self.retrieved.items()}}
+               "retrieved": {r: [m.id for m in v] for r, v in self.retrieved.items()},
+               "steps": steps_to_json(self.steps)}  # 保存完整团队轨迹，供离线对比归因
         if self.frozen:
             self.log.append(rec)
             return rec
@@ -223,6 +224,97 @@ def _num(x) -> float:
         return max(0.0, min(1.0, float(x)))
     except (TypeError, ValueError):
         return 0.0
+
+
+def steps_to_json(steps: list[TraceStep]) -> list[dict]:
+    return [{"idx": s.idx, "entries": [list(e) for e in s.entries], "action": s.action, "observation": s.observation}
+            for s in steps]
+
+
+def steps_from_json(data: list[dict]) -> list[TraceStep]:
+    return [TraceStep(d["idx"], [tuple(e) for e in d["entries"]], d["action"], d["observation"]) for d in data]
+
+
+PLANNER_PDDL = """You are the PLANNER of an agent that solves a step-by-step planning task in a text environment.
+You do not act. Given the goal and the initial observation, write a short numbered plan for the executor:
+the subgoals in order, the preconditions each action needs (e.g. a free hand, a clean container), and the
+ordering constraints between subgoals. Keep it under 12 lines.
+
+# Goal
+{task}
+
+# Initial observation
+{context}
+
+# Planning experience from past tasks
+{memories}
+
+Write the plan now. Use the experience only where its situation matches."""
+
+
+class ChimeSingle:
+    """单智能体 CHIME（论文原版结构）：一个 agent，任务开始时先规划，再逐步执行；
+    plan / exec 两个记忆库；任务结束后由同一骨干的归因门判断功劳在计划还是执行。
+    接口与 ChimeMAS 一致，挂在 DyLAN 1×1 上：proposer 位置拿到"计划 + 执行经验"。"""
+
+    def __init__(self, mode: str, embed, llm_call, merger=None, config: Config | None = None):
+        assert mode in ("single_nomem", "single_chime")
+        self.mode = mode
+        self.use_memory = mode == "single_chime"
+        self.llm_call = llm_call
+        kw = {"merger": merger} if merger else {}
+        self.mem = HierarchicalMemory(embed, config or Config(), **kw)  # 默认两库 plan / exec
+        self.frozen = False
+        self.context = ""
+        self.log: list[dict] = []
+        self.reset("")
+
+    def reset(self, task: str):
+        self.task = task
+        self.plan = ""
+        self.steps: list[TraceStep] = [TraceStep(1)]
+        self.retrieved: list[MemoryItem] = []
+
+    def insights(self, role: str, query: str) -> list[str]:
+        if role != "proposer":
+            return []
+        plan_mem = [m for m, _, _ in self.mem.retrieve("plan", query)] if self.use_memory else []
+        self.plan = self.llm_call([{"role": "user", "content": PLANNER_PDDL.format(
+            task=query, context=self.context, memories=format_memories(plan_mem))}]).strip()
+        exec_mem = [m for m, _, _ in self.mem.retrieve("exec", query + "\n" + self.plan)] if self.use_memory else []
+        self.retrieved = plan_mem + exec_mem
+        return ["Plan for this task (follow it unless observations show it is wrong):\n" + self.plan] + \
+               [f"When {m.scenario}: {m.experience}" for m in exec_mem]
+
+    def record(self, role: str, agent: str, text: str):
+        if text:
+            self.steps[-1].entries.append(("executor", agent, str(text)))
+
+    def step_done(self, action: str, observation: str):
+        self.steps[-1].action, self.steps[-1].observation = str(action), str(observation)
+        self.steps.append(TraceStep(len(self.steps) + 1))
+
+    def finish(self, success: bool, task_id: str = "") -> dict:
+        from .gate import gate_messages, parse_gate
+        if self.steps and not self.steps[-1].entries and not self.steps[-1].action:
+            self.steps.pop()
+        rec = {"task_id": task_id, "success": success, "mode": self.mode, "frozen": self.frozen, "plan": self.plan,
+               "retrieved": [m.id for m in self.retrieved], "steps": steps_to_json(self.steps)}
+        if self.frozen or not self.use_memory:
+            self.log.append(rec)
+            return rec
+        traj = "\n".join(f"[step {s.idx}] executed: {_clip(s.action, 200)} | observation: {_clip(s.observation, 200)}"
+                         for s in self.steps)
+        msgs = gate_messages(self.task, self.plan, traj, success, 1.0 if success else 0.0, self.retrieved)
+        try:
+            d = parse_json(self.llm_call(msgs))
+        except Exception:
+            d = {}
+        g = parse_gate(d, self.retrieved)
+        rec.update(gate=d, update=self.mem.update(g, success, self.retrieved, task_id),
+                   memory_size={r: len(b) for r, b in self.mem.banks.items()})
+        self.log.append(rec)
+        return rec
 
 
 def dumps(obj) -> str:

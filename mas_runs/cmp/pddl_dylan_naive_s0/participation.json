@@ -1,0 +1,1351 @@
+{
+ "summary": {
+  "episodes": 42,
+  "steps": 1028,
+  "debate_step_pct": 33.9,
+  "finalizer_override_pct_of_debate": 38.1,
+  "checker_support_pct": 89.4,
+  "checker_supports_on_wasted_step_pct": 56.0,
+  "wasted_step_pct": 42.9,
+  "wasted_steps_in_debate_pct": 44.2,
+  "debate_step_pct_by_game": {
+   "barman": 35.4,
+   "blockworld": 30.7,
+   "gripper": 37.1,
+   "tyreworld": 26.4
+  },
+  "mean_participation_share": {
+   "proposer": 1.0,
+   "checker": 0.328,
+   "finalizer": 0.328
+  },
+  "episodes_role_has_key_part": {
+   "proposer": 42,
+   "checker": 39,
+   "finalizer": 39
+  },
+  "local_claims": {
+   "proposer": 42,
+   "checker": 42,
+   "finalizer": 42
+  },
+  "central_attributed": {
+   "proposer": 41,
+   "checker": 7,
+   "finalizer": 41
+  },
+  "agreement_pct": {
+   "rule_vs_local": 92.9,
+   "rule_vs_central": 16.7,
+   "local_vs_central": 16.7
+  },
+  "checker_low_participation_episodes": 7,
+  "checker_memories": {
+   "n": 33,
+   "written_from_episodes_with_participation_below_20pct": 4,
+   "median_participation_at_write": 0.3
+  }
+ },
+ "episodes": [
+  {
+   "k": 0,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.267,
+    "finalizer": 0.267
+   },
+   "key_steps": 27,
+   "key_participation": {
+    "proposer": 27,
+    "checker": 5,
+    "finalizer": 5
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 1,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.133,
+    "finalizer": 0.133
+   },
+   "key_steps": 4,
+   "key_participation": {
+    "proposer": 4,
+    "checker": 2,
+    "finalizer": 2
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 2,
+   "game": "blockworld",
+   "success": true,
+   "n_steps": 18,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.278,
+    "finalizer": 0.278
+   },
+   "key_steps": 15,
+   "key_participation": {
+    "proposer": 15,
+    "checker": 3,
+    "finalizer": 3
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 3,
+   "game": "gripper",
+   "success": true,
+   "n_steps": 25,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.32,
+    "finalizer": 0.32
+   },
+   "key_steps": 19,
+   "key_participation": {
+    "proposer": 19,
+    "checker": 4,
+    "finalizer": 4
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 4,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.233,
+    "finalizer": 0.233
+   },
+   "key_steps": 2,
+   "key_participation": {
+    "proposer": 2,
+    "checker": 1,
+    "finalizer": 1
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 5,
+   "game": "gripper",
+   "success": true,
+   "n_steps": 15,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.6,
+    "finalizer": 0.6
+   },
+   "key_steps": 11,
+   "key_participation": {
+    "proposer": 11,
+    "checker": 5,
+    "finalizer": 5
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 6,
+   "game": "gripper",
+   "success": true,
+   "n_steps": 21,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.571,
+    "finalizer": 0.571
+   },
+   "key_steps": 18,
+   "key_participation": {
+    "proposer": 18,
+    "checker": 9,
+    "finalizer": 9
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 7,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.3,
+    "finalizer": 0.3
+   },
+   "key_steps": 17,
+   "key_participation": {
+    "proposer": 17,
+    "checker": 6,
+    "finalizer": 6
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 8,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.467,
+    "finalizer": 0.467
+   },
+   "key_steps": 23,
+   "key_participation": {
+    "proposer": 23,
+    "checker": 9,
+    "finalizer": 9
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 9,
+   "game": "tyreworld",
+   "success": true,
+   "n_steps": 17,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.118,
+    "finalizer": 0.118
+   },
+   "key_steps": 13,
+   "key_participation": {
+    "proposer": 13,
+    "checker": 0,
+    "finalizer": 0
+   },
+   "rule": [
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 10,
+   "game": "tyreworld",
+   "success": true,
+   "n_steps": 11,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.273,
+    "finalizer": 0.273
+   },
+   "key_steps": 10,
+   "key_participation": {
+    "proposer": 10,
+    "checker": 2,
+    "finalizer": 2
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 11,
+   "game": "tyreworld",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.267,
+    "finalizer": 0.267
+   },
+   "key_steps": 11,
+   "key_participation": {
+    "proposer": 11,
+    "checker": 6,
+    "finalizer": 6
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": []
+  },
+  {
+   "k": 12,
+   "game": "blockworld",
+   "success": true,
+   "n_steps": 11,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.182,
+    "finalizer": 0.182
+   },
+   "key_steps": 7,
+   "key_participation": {
+    "proposer": 7,
+    "checker": 1,
+    "finalizer": 1
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 13,
+   "game": "blockworld",
+   "success": true,
+   "n_steps": 12,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.417,
+    "finalizer": 0.417
+   },
+   "key_steps": 8,
+   "key_participation": {
+    "proposer": 8,
+    "checker": 2,
+    "finalizer": 2
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 14,
+   "game": "blockworld",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.333,
+    "finalizer": 0.333
+   },
+   "key_steps": 14,
+   "key_participation": {
+    "proposer": 14,
+    "checker": 7,
+    "finalizer": 7
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 15,
+   "game": "tyreworld",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.3,
+    "finalizer": 0.3
+   },
+   "key_steps": 23,
+   "key_participation": {
+    "proposer": 23,
+    "checker": 7,
+    "finalizer": 7
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 16,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.367,
+    "finalizer": 0.367
+   },
+   "key_steps": 14,
+   "key_participation": {
+    "proposer": 14,
+    "checker": 9,
+    "finalizer": 9
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 17,
+   "game": "barman",
+   "success": true,
+   "n_steps": 20,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.1,
+    "finalizer": 0.1
+   },
+   "key_steps": 13,
+   "key_participation": {
+    "proposer": 13,
+    "checker": 0,
+    "finalizer": 0
+   },
+   "rule": [
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 18,
+   "game": "gripper",
+   "success": true,
+   "n_steps": 14,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.286,
+    "finalizer": 0.286
+   },
+   "key_steps": 12,
+   "key_participation": {
+    "proposer": 12,
+    "checker": 3,
+    "finalizer": 3
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 19,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.467,
+    "finalizer": 0.467
+   },
+   "key_steps": 15,
+   "key_participation": {
+    "proposer": 15,
+    "checker": 8,
+    "finalizer": 8
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 20,
+   "game": "barman",
+   "success": true,
+   "n_steps": 6,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.167,
+    "finalizer": 0.167
+   },
+   "key_steps": 5,
+   "key_participation": {
+    "proposer": 5,
+    "checker": 0,
+    "finalizer": 0
+   },
+   "rule": [
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 21,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.433,
+    "finalizer": 0.433
+   },
+   "key_steps": 20,
+   "key_participation": {
+    "proposer": 20,
+    "checker": 9,
+    "finalizer": 9
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 22,
+   "game": "tyreworld",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.3,
+    "finalizer": 0.3
+   },
+   "key_steps": 15,
+   "key_participation": {
+    "proposer": 15,
+    "checker": 7,
+    "finalizer": 7
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 23,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.4,
+    "finalizer": 0.4
+   },
+   "key_steps": 5,
+   "key_participation": {
+    "proposer": 5,
+    "checker": 4,
+    "finalizer": 4
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 24,
+   "game": "blockworld",
+   "success": true,
+   "n_steps": 16,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.125,
+    "finalizer": 0.125
+   },
+   "key_steps": 13,
+   "key_participation": {
+    "proposer": 13,
+    "checker": 1,
+    "finalizer": 1
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 25,
+   "game": "gripper",
+   "success": true,
+   "n_steps": 12,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.25,
+    "finalizer": 0.25
+   },
+   "key_steps": 10,
+   "key_participation": {
+    "proposer": 10,
+    "checker": 2,
+    "finalizer": 2
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 26,
+   "game": "barman",
+   "success": true,
+   "n_steps": 28,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.5,
+    "finalizer": 0.5
+   },
+   "key_steps": 14,
+   "key_participation": {
+    "proposer": 14,
+    "checker": 7,
+    "finalizer": 7
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 27,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.433,
+    "finalizer": 0.433
+   },
+   "key_steps": 12,
+   "key_participation": {
+    "proposer": 12,
+    "checker": 5,
+    "finalizer": 5
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 28,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.367,
+    "finalizer": 0.367
+   },
+   "key_steps": 14,
+   "key_participation": {
+    "proposer": 14,
+    "checker": 7,
+    "finalizer": 7
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 29,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.367,
+    "finalizer": 0.367
+   },
+   "key_steps": 20,
+   "key_participation": {
+    "proposer": 20,
+    "checker": 8,
+    "finalizer": 8
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 30,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.4,
+    "finalizer": 0.4
+   },
+   "key_steps": 22,
+   "key_participation": {
+    "proposer": 22,
+    "checker": 10,
+    "finalizer": 10
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 31,
+   "game": "tyreworld",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.4,
+    "finalizer": 0.4
+   },
+   "key_steps": 20,
+   "key_participation": {
+    "proposer": 20,
+    "checker": 11,
+    "finalizer": 11
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 32,
+   "game": "blockworld",
+   "success": true,
+   "n_steps": 27,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.407,
+    "finalizer": 0.407
+   },
+   "key_steps": 21,
+   "key_participation": {
+    "proposer": 21,
+    "checker": 7,
+    "finalizer": 7
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 33,
+   "game": "barman",
+   "success": true,
+   "n_steps": 25,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.36,
+    "finalizer": 0.36
+   },
+   "key_steps": 11,
+   "key_participation": {
+    "proposer": 11,
+    "checker": 6,
+    "finalizer": 6
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 34,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.267,
+    "finalizer": 0.267
+   },
+   "key_steps": 11,
+   "key_participation": {
+    "proposer": 11,
+    "checker": 5,
+    "finalizer": 5
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 35,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.3,
+    "finalizer": 0.3
+   },
+   "key_steps": 8,
+   "key_participation": {
+    "proposer": 8,
+    "checker": 6,
+    "finalizer": 6
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 36,
+   "game": "barman",
+   "success": true,
+   "n_steps": 15,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.2,
+    "finalizer": 0.2
+   },
+   "key_steps": 12,
+   "key_participation": {
+    "proposer": 12,
+    "checker": 2,
+    "finalizer": 2
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 37,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.533,
+    "finalizer": 0.533
+   },
+   "key_steps": 7,
+   "key_participation": {
+    "proposer": 7,
+    "checker": 4,
+    "finalizer": 4
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 38,
+   "game": "tyreworld",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.133,
+    "finalizer": 0.133
+   },
+   "key_steps": 24,
+   "key_participation": {
+    "proposer": 24,
+    "checker": 3,
+    "finalizer": 3
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 39,
+   "game": "gripper",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.467,
+    "finalizer": 0.467
+   },
+   "key_steps": 13,
+   "key_participation": {
+    "proposer": 13,
+    "checker": 5,
+    "finalizer": 5
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 40,
+   "game": "barman",
+   "success": false,
+   "n_steps": 30,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.367,
+    "finalizer": 0.367
+   },
+   "key_steps": 16,
+   "key_participation": {
+    "proposer": 16,
+    "checker": 9,
+    "finalizer": 9
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  },
+  {
+   "k": 41,
+   "game": "gripper",
+   "success": true,
+   "n_steps": 15,
+   "participation_share": {
+    "proposer": 1.0,
+    "checker": 0.333,
+    "finalizer": 0.333
+   },
+   "key_steps": 12,
+   "key_participation": {
+    "proposer": 12,
+    "checker": 4,
+    "finalizer": 4
+   },
+   "rule": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "local": [
+    "checker",
+    "finalizer",
+    "proposer"
+   ],
+   "central": [
+    "finalizer",
+    "proposer"
+   ]
+  }
+ ]
+}

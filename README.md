@@ -100,6 +100,14 @@ python run_stream.py --domain airline --variant chime --order-seed 0 --limit 4
 | checker 被认定次数 | 42 | 7 |
 | finalizer 被认定次数 | 42 | 41 |
 
-分歧几乎全部落在 checker：35 次只有它自己认领、集中式不认（成功时 15 次多记功，失败时 20 次多写教训）。1408 步中有 65.3% 由第一层两个 proposer 意见一致直接执行，checker 根本没有参与，但它在每一题都给自己记功或写教训。集中式视角本身也区分不开 proposer 与 finalizer（两者几乎总被同时认定），因为多数步骤里 finalizer 只是照搬一致的提议。
+分歧几乎全部落在 checker：35 次只有它自己认领、集中式不认（成功时 15 次多记功，失败时 20 次多写教训）。集中式视角也区分不开 proposer 与 finalizer（两者几乎总被同时认定）。
+
+参与度离线统计（`participation_stats.py`，不调用 API，训练段 42 题 1028 步）：
+- 分歧步（两个 proposer 不一致、checker 和 finalizer 才介入）占 33.9%（各游戏 26–37%）；分歧步中 finalizer 改写提议 38.1%。
+- 平均参与比例：proposer 1.0，checker 0.328，finalizer 0.328。
+- checker 回答 Support 占 89.4%，其中 56.0% 支持的是浪费步（think 或无效动作）。
+- 规则归因（角色参与了至少一个关键步才算：失败题看浪费步、成功题看推进步）下，checker 在 39/42 题都有份；规则与局部自认一致 92.9%，与集中式一致 16.7%。
+- 修正：此前"checker 没参与却记功"的说法夸大了。16.7% 的不一致主要来自集中式归因门忽略 checker，而不是局部自认过度。更稳的现象是：checker、finalizer 只参与约三分之一的步骤，但 CHIME 的 ±γ 是全有或全无，参与 10% 和 100% 拿到同样的更新；checker 多数时候只是附和。
+- 局限：1 个框架（DyLAN）、1 个环境（PDDL）、1 个任务顺序、42 题。
 
 累计花费：多智能体 pilot 16.41 元 + 本次对比 5.38 元 + 离线归因 0.21 元 = 22.0 元（空闲价）。

@@ -1,0 +1,404 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires making cocktails in a shaker from ingredients in dispensers and serving them in shot glasses.",
+   "experience": "Every cocktail in this domain is defined by exactly two ingredients, listed as its part 1 and part 2.",
+   "value": 0.13157894736842107,
+   "n": 19,
+   "id": "PLANT_INERT",
+   "origin_task": "planted"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a container holds a measured ingredient and the next required step is a concrete transfer action (pour into a vessel), and the environment warns against over-thinking.",
+   "experience": "After confirming a container holds the needed ingredient, immediately execute the transfer action rather than emitting repeated 'think' steps; reserve thinking for choosing the action, then act.",
+   "value": 0.37,
+   "n": 5,
+   "id": "e1442667",
+   "origin_task": "10"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires specific containers to each hold a specific pure ingredient, and the environment warns against over-thinking.",
+   "experience": "Grasp the target container, fill it directly from the dispenser holding the required ingredient, then release it; skip redundant think steps and ignore memories suggesting intermediate vessels when the goal specifies direct container-to-ingredient assignments.",
+   "value": 0.0166666666666667,
+   "n": 6,
+   "id": "aa4742de",
+   "origin_task": "18"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal assigns each of several distinct containers a specific pure ingredient to hold, and the environment discourages over-thinking.",
+   "experience": "For each target container, grasp it, fill it directly from the dispenser holding the required ingredient, then release it; skip redundant think steps, avoid intermediate vessels, and act immediately once the action is chosen.",
+   "value": 0.08000000000000002,
+   "n": 10,
+   "id": "68bea00c",
+   "origin_task": "16"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step recipe requires building a mixture in an intermediate vessel and then transferring it back to a serving container, and the environment warns against over-thinking.",
+   "experience": "After each successful action, immediately execute the next concrete action (pour, clean, fill, shake) rather than emitting repeated think steps; track the recipe state and act without deliberation loops.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3b843455",
+   "origin_task": "0"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires filling multiple containers with specific contents and the environment warns against over-thinking.",
+   "experience": "After deciding the next concrete action, execute it immediately rather than emitting repeated 'think' steps; alternate one brief decision with one real action to conserve steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "127f0f90",
+   "origin_task": "17"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shaker holds a completed cocktail and it must be poured into a shot glass to serve it.",
+   "experience": "After shaking, immediately run 'check valid actions' and copy the exact pour-shaker-to-shot action string verbatim (including the correct shot glass and level arguments) rather than guessing the format; avoid repeated think steps and act on the confirmed valid action.",
+   "value": -0.01499999999999998,
+   "n": 10,
+   "id": "98c30fbb",
+   "origin_task": "11"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shaker already contains all required ingredients and only needs to be shaken and poured into a serving container.",
+   "experience": "Stop issuing think steps once the plan is clear; immediately execute the shake action and then the pour-to-serving action, using 'check valid actions' only if the exact action string is unknown.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5ad4ac6b",
+   "origin_task": "2"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shaker holds combined ingredients and must be shaken, then poured into a target container to serve a cocktail.",
+   "experience": "After combining ingredients in the shaker, grasp the shaker, then run 'check valid actions' to copy the exact shake action string verbatim instead of guessing; after shaking, again check valid actions to get the exact pour-shaker-to-shot format. Avoid repeated think steps and act immediately on confirmed valid actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "199d18a3",
+   "origin_task": "3"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shaker must be grasped and shaken to combine ingredients into a cocktail, but the hand is still holding another container.",
+   "experience": "Before shaking, release any held container so the hand is free, then grasp the shaker and execute the shake; avoid repeated think steps and verify the action is valid rather than guessing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "63dec2e8",
+   "origin_task": "9"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shaker holds all required ingredients for a cocktail and needs to be shaken before serving.",
+   "experience": "Immediately run 'check valid actions' to obtain the exact shake action string and execute it verbatim; never repeat think steps or guess the shake format.",
+   "value": 0.0,
+   "n": 3,
+   "id": "846a4cc9",
+   "origin_task": "5"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a recipe's missing ingredient information must be discovered and the environment discourages over-thinking, and a multi-step build sequence (grasp, fill, pour, combine) is required.",
+   "experience": "After discovering the needed recipe info via a single look-around, immediately execute the concrete action sequence (grasp, fill, pour into vessel) rather than emitting repeated think steps; treat each think as consuming a step and act as soon as the plan is known.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8e6d5095",
+   "origin_task": "4"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shaker already holds all required ingredients and the next step is to shake it and serve into a shot glass.",
+   "experience": "Stop repeating think steps: after confirming the shaker contents, immediately run 'check valid actions' once, then execute the exact shake action verbatim, then check valid actions again and execute the exact pour-shaker-to-shot action verbatim to serve the cocktail.",
+   "value": -0.9,
+   "n": 1,
+   "id": "3855c41d",
+   "origin_task": "19"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When the environment repeatedly responds 'you should not think too much' or when a think action yields no new state information.",
+   "experience": "Stop issuing think actions after the first warning; immediately run 'check valid actions' and execute a concrete manipulation (grasp, fill, pour, shake) rather than re-thinking the same plan.",
+   "value": 0.0,
+   "n": 0,
+   "id": "13569c9c",
+   "origin_task": "6"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step assembly task requires a sequence of concrete manipulation actions (grasp, fill, shake, pour) after an initial sub-goal is already satisfied.",
+   "experience": "After confirming a sub-goal is done, stop emitting think steps and immediately run 'check valid actions' once, then execute the exact next manipulation action verbatim; repeat check-then-act until the remaining goal is complete.",
+   "value": 0.0,
+   "n": 0,
+   "id": "27af218b",
+   "origin_task": "15"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a plan requires transferring a held ingredient from a container into a target vessel, and the environment warns against over-thinking.",
+   "experience": "Once the next action is decided, execute it immediately as a concrete action (e.g., pour) rather than emitting repeated think steps; never re-issue the same think more than once, and treat 'do not think too much' as a signal to act.",
+   "value": 0.0,
+   "n": 0,
+   "id": "df9a0a07",
+   "origin_task": "8"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shot glass needs to be filled with a specific ingredient from a dispenser and the action format is already known or confirmable via check valid actions.",
+   "experience": "After confirming the action format once, immediately execute the fill-shot action verbatim instead of looping on think steps; if unsure of the format, run 'check valid actions' once and then act.",
+   "value": 0.025000000000000022,
+   "n": 2,
+   "id": "3cc9a303",
+   "origin_task": "1"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires a specific container to hold a specific pure ingredient and the fill action format is known or confirmable.",
+   "experience": "Grasp the target container, fill it directly from the dispenser holding the required ingredient, and act immediately once the action is chosen rather than looping on think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "52fe72f2",
+   "origin_task": "13"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a container must be grasped and filled with multiple ingredients to build a mixture, and the action format is already known.",
+   "experience": "Stop looping on think steps: after deciding the next concrete action, execute it immediately (grasp, fill, release) rather than re-issuing think commands; only use check valid actions once if the format is genuinely unknown.",
+   "value": 0.0,
+   "n": 0,
+   "id": "14c3a75c",
+   "origin_task": "12"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When the proposer emits repeated reasoning-only 'think' steps without executing any concrete action toward the goal.",
+   "experience": "Reject repeated think-only outputs and force the next concrete action (e.g., grasp the container, then shake/pour) instead of allowing further reasoning; ensure the hand is free and the container is grasped before attempting the action.",
+   "value": 0.05666666666666674,
+   "n": 15,
+   "id": "73eea788",
+   "origin_task": "10"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a manipulation action is rejected as invalid and a 'check valid actions' listing is available, the exact action string must be copied from that listing.",
+   "experience": "After any invalid-action rejection, immediately require the proposer to copy the exact valid action syntax from the check-valid-actions output (including correct argument order and hand/level parameters) instead of re-reasoning or re-emitting a guessed command.",
+   "value": 0.17,
+   "n": 10,
+   "id": "7ea9a870",
+   "origin_task": "11"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a manipulation action is rejected as invalid and a check-valid-actions listing is available, and the proposer keeps emitting reasoning-only steps instead of acting.",
+   "experience": "Immediately reject repeated think-only outputs and require the proposer to copy the exact valid action string (correct argument order and hand/level parameters) from the check-valid-actions listing, then execute it rather than re-reasoning.",
+   "value": 0.0,
+   "n": 1,
+   "id": "452aada0",
+   "origin_task": "5"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a manipulation action is rejected as invalid and the agent keeps emitting reasoning-only steps instead of querying valid actions and executing a concrete corrected command.",
+   "experience": "After any invalid-action rejection, immediately reject further think-only outputs and require the exact valid action string from 'check valid actions' to be executed next; do not support repeated reasoning loops.",
+   "value": 0.0,
+   "n": 2,
+   "id": "11f41df3",
+   "origin_task": "7"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the agent must satisfy a recipe-based goal but part of the recipe is unknown and the agent keeps emitting reasoning-only steps instead of gathering information or acting.",
+   "experience": "Reject think-only loops immediately and force a concrete information-gathering action (e.g., look around) to obtain the missing recipe part, then once the recipe is known, force the exact next manipulation action from the valid-actions list and verify each step's observation before supporting further actions.",
+   "value": -0.4,
+   "n": 2,
+   "id": "af280cc9",
+   "origin_task": "4"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When an agent emits reasoning-only 'think' steps instead of concrete actions during a multi-step manipulation task.",
+   "experience": "Reject every think-only output immediately and force the exact next concrete action (grasp, fill, pour, shake) copied from the valid-actions list; never support a think step, and verify each observation before allowing the next action so the step budget is spent on execution, not reasoning.",
+   "value": 0.0,
+   "n": 0,
+   "id": "632f653b",
+   "origin_task": "19"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the recipe is known and the agent must execute a multi-step manipulation sequence (grasp, fill, pour) to build and deliver a drink, but keeps emitting reasoning-only steps between actions.",
+   "experience": "After each successful manipulation observation, immediately require the exact next concrete action (grasp/fill/pour with correct hand and target) rather than supporting further think steps; reject any reasoning-only output once the recipe is known and a valid action is available.",
+   "value": 0.16,
+   "n": 5,
+   "id": "2a3d65f1",
+   "origin_task": "6"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the recipe is known and a valid concrete manipulation action is available, but the proposer keeps emitting reasoning-only steps between actions.",
+   "experience": "Once a valid concrete action exists, reject any reasoning-only output and immediately require the exact next action (grasp/fill/pour with the correct hand and target) copied from the valid-actions listing, rather than allowing further think steps.",
+   "value": 0.2,
+   "n": 4,
+   "id": "9dfee19f",
+   "origin_task": "15"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the recipe is known and a valid concrete manipulation action is available, but the agent keeps emitting reasoning-only steps between actions.",
+   "experience": "Immediately reject any reasoning-only output once a valid concrete action exists, and require the exact next action (grasp/fill/pour with correct hand and target) copied from the valid-actions listing; do not support further think steps.",
+   "value": 0.4,
+   "n": 2,
+   "id": "533f1bef",
+   "origin_task": "1"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the goal requires a multi-step manipulation sequence and a valid concrete action is already available from the valid-actions listing.",
+   "experience": "Reject reasoning-only output once a valid concrete action exists and immediately require the exact next action (grasp/fill/pour with correct hand and target) copied from the valid-actions listing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "00ff9a0d",
+   "origin_task": "13"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When a container holds a filled ingredient and the next required action is a concrete manipulation (pour, fill, clean), and I have already decided what to do.",
+   "experience": "Once the next concrete manipulation is known (e.g., pour-shot-to-clean-shaker, clean-shot, fill-shot), stop issuing 'think' actions and immediately execute it rather than re-deliberating, to avoid exhausting the step limit.",
+   "value": 0.15833333333333333,
+   "n": 12,
+   "id": "acf1825b",
+   "origin_task": "10"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when multiple containers each need to be filled with a specific ingredient from a corresponding dispenser",
+   "experience": "Grasp each target container, fill it from the correct dispenser, and release it before moving to the next, skipping redundant think actions once the next concrete manipulation is known.",
+   "value": 0.25882352941176473,
+   "n": 17,
+   "id": "d64a2111",
+   "origin_task": "18"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When the next concrete manipulation is already known and a second container still needs filling, avoid re-deliberating and execute the action immediately.",
+   "experience": "After confirming a container is filled, immediately grasp and fill the remaining target container from its dispenser without issuing further think actions; only think when the next action is genuinely undecided.",
+   "value": -0.85,
+   "n": 1,
+   "id": "e33e04b6",
+   "origin_task": "17"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a shaker holds a finished cocktail and must be poured into a target shot glass, and the previous pour attempt was rejected as invalid.",
+   "experience": "After a rejected action, immediately run 'check valid actions' and copy the exact argument order/format from the listed valid action (including which hand holds the shaker and correct level arguments), then execute the next concrete manipulation directly instead of re-issuing the malformed command or spending steps on redundant think actions.",
+   "value": 0.14166666666666664,
+   "n": 12,
+   "id": "a1bac61c",
+   "origin_task": "11"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a shaker already contains all required ingredients and the next concrete manipulation (shake, then pour into target container) is known.",
+   "experience": "Stop issuing think actions once the next manipulation is decided; immediately execute the shake action and then the pour-to-target action to finish the cocktail within the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "d12abb66",
+   "origin_task": "2"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a shaker holds all required ingredients for a cocktail and needs to be shaken, but the agent is still holding the target container and shake attempts are being rejected as invalid.",
+   "experience": "Release any held container, grasp the shaker with the correct hand, and run 'check valid actions' to copy the exact shake command format before executing the shake; if rejected, fix the holding state rather than repeating the command or re-deliberating.",
+   "value": 0.0,
+   "n": 4,
+   "id": "828bd670",
+   "origin_task": "9"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a shaker holds all required ingredients for a cocktail and the shake action is rejected as invalid.",
+   "experience": "Immediately run 'check valid actions' after a rejected shake, copy the exact shake argument order/format from the valid list, and execute it directly without further think actions.",
+   "value": 0.0,
+   "n": 1,
+   "id": "b5eb51ea",
+   "origin_task": "5"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When the recipe for a target cocktail is only partially known and the missing part must be discovered by looking around.",
+   "experience": "After one look-around reveals the missing recipe info, immediately proceed to concrete manipulation (grasp, fill, pour) rather than looping on think actions; batch the full plan once and execute it.",
+   "value": 0.0,
+   "n": 2,
+   "id": "07af1484",
+   "origin_task": "4"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step manipulation task has a limited step budget and the next concrete action is already known.",
+   "experience": "Stop emitting repeated think actions once the next action is clear; immediately execute the concrete command (grasp, pour, fill, shake) and only use 'check valid actions' when an action is actually rejected or the exact format is unknown.",
+   "value": 0.0,
+   "n": 0,
+   "id": "af112a72",
+   "origin_task": "19"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When the next concrete manipulation is already known but the agent keeps issuing redundant think actions instead of acting.",
+   "experience": "Once you know the next concrete step, execute it immediately (grasp, fill, pour, etc.) rather than re-deliberating; if you need state info, use 'look around' or 'check valid actions' once, then act.",
+   "value": 0.0,
+   "n": 0,
+   "id": "05db93f1",
+   "origin_task": "6"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step recipe requires building a mixture in a container and pouring it into a target, and the first sub-goal is already satisfied.",
+   "experience": "After confirming a sub-goal is done, immediately execute the next concrete manipulation (grasp the mixing container, fill from each dispenser, then pour into the target) in a single batch rather than re-issuing think actions; never repeat a think action more than once.",
+   "value": 0.0,
+   "n": 2,
+   "id": "13187138",
+   "origin_task": "15"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a container has just been filled with an ingredient and the next concrete manipulation (pour into a target vessel) is already known.",
+   "experience": "Immediately execute the decided concrete manipulation (e.g., pour-shot-to-clean-shaker) after filling, rather than re-issuing think actions; only re-deliberate if an action is rejected or the state is ambiguous.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f82c02b9",
+   "origin_task": "8"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When the next concrete manipulation is already known and its action format is confirmed, but the agent is tempted to keep verifying or thinking before acting.",
+   "experience": "Once the correct action format is known, stop thinking and immediately execute the concrete manipulation; never re-issue think actions in a loop, and batch remaining plan steps to conserve the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "756be882",
+   "origin_task": "1"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a target container must be filled with a specific ingredient from a dispenser and the concrete manipulation is already known.",
+   "experience": "Skip redundant think actions once the next concrete manipulation is clear; immediately grasp the target container and fill it from the correct dispenser.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1b16b643",
+   "origin_task": "13"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a sub-goal is confirmed done and the next concrete manipulation (grasp container, fill from dispenser, pour) is already known.",
+   "experience": "Immediately execute the next concrete manipulation in a single batch instead of re-issuing think actions; never repeat a think action more than once, and after a rejected action run 'check valid actions' to copy the exact valid format.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a85c2439",
+   "origin_task": "12"
+  }
+ ]
+}

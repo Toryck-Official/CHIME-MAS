@@ -30,6 +30,30 @@ ROLE_DESC = {
     "finalizer": "combines proposals and critiques and outputs the action that is actually executed",
 }
 
+# 集中式归因门：把团队当作一个智能体，三个角色当作它的决策阶段（单智能体 CHIME 的做法）
+CENTRAL_GATE = """You are the credit attribution gate of a self-evolving agent system. Treat the whole team as ONE agent
+whose decision stages are:
+- proposer: {proposer}
+- checker: {checker}
+- finalizer: {finalizer}
+You see the complete trace. Decide which stage(s) deserve the credit (success) or blame (failure).
+
+# Task
+{task}
+
+# Complete trace
+{trace}
+
+# Outcome
+{outcome}
+
+Answer with ONE JSON object:
+{{"attributed": ["<zero or more of: proposer, checker, finalizer>"], "reason": "<two sentences citing steps>",
+  "confidence": <0..1>}}
+Rules: for a failure, include a stage only if its own decision caused or failed to stop the failure; for a success,
+include a stage only if its decisions were necessary for the success. Use [] when the outcome is explained by
+external factors or there is not enough evidence."""
+
 WRITE_ON_FAILURE = {"root", "missed_check", "compounded", "coordination"}
 CREDIT_ON_SUCCESS = {"decisive"}
 
@@ -129,11 +153,45 @@ Write scenario/experience only for roles that should learn (root, missed_check, 
 a checker's lesson must be about what to verify. The "scenario" must describe a reusable task situation (e.g. "when a shaker must be emptied before reuse"), never this episode: no step numbers, no "the proposer did X". Never copy task-specific object names into lessons."""
 
 
+CENTRAL_CHIME_GATE = """You are the credit attribution gate of a self-evolving agent system. Treat the whole team as ONE agent
+whose decision stages are:
+- proposer: {proposer}
+- checker: {checker}
+- finalizer: {finalizer}
+After an episode you decide which stage(s) deserve the credit (success) or blame (failure), and you distill reusable
+experience ONLY for those stages. Be strict: do not write memory when the outcome is explained by external factors,
+missing evidence, or luck.
+
+# Task
+{task}
+
+# Team trace (per step: proposals, checker verdicts, final decisions, executed action, observation)
+{trace}
+
+# Outcome
+{outcome}
+
+# Memories retrieved for this episode (role-tagged)
+{memories}
+
+Answer with ONE JSON object and nothing else:
+{{"attributed": ["<zero or more of: proposer, checker, finalizer>"], "reason": "<one or two sentences citing steps>",
+  "experiences": {{"<attributed stage>": {{"scenario": "<when this applies, as a reusable task situation>",
+                                         "experience": "<actionable guidance for that stage>"}}}},
+  "confidence": <number between 0 and 1>,
+  "misleading_memory_ids": ["<ids of retrieved memories that pushed the team the wrong way>"]}}
+Rules: for a failure, include a stage only if its own decision caused or failed to stop the failure; for a success,
+include a stage only if its decisions were necessary. Use [] when the outcome is explained by external factors.
+Experiences must transfer to other tasks of the same domain; never copy task-specific names or numbers.
+Only list a memory id as misleading if you can point to the step where following it caused harm."""
+
+
 class ChimeMAS:
-    """与框架无关的核心：记忆、轨迹记录、归因与更新。G-Memory 适配见 mas/memory/mas_memory/chime_mas.py。"""
+    """与框架无关的核心：记忆、轨迹记录、归因与更新。G-Memory 适配见 mas/memory/mas_memory/chime_mas.py。
+    central：CHIME 原版归因门的直接推广，一个归因门看完整团队轨迹，三个角色当作三个阶段。"""
 
     def __init__(self, mode: str, embed, llm_call, merger=None, config: Config | None = None):
-        assert mode in ("naive", "root_only", "team")
+        assert mode in ("naive", "root_only", "team", "central")
         self.mode = mode
         self.llm_call = llm_call  # (messages: list[dict]) -> str
         kw = {"merger": merger} if merger else {}
@@ -186,6 +244,18 @@ class ChimeMAS:
                 g = Attribution("none", {role: (str(d.get("scenario", "")), str(d.get("experience", "")))}, conf, mis)
                 upd = self.mem.update(g, success, self.retrieved[role], task_id, targets=(role,) if is_self else ())
                 rec["gates"][role] = {"raw": d, "update": upd}
+        elif self.mode == "central":
+            all_ret = [m for r in ROLES for m in self.retrieved[r]]
+            prompt = CENTRAL_CHIME_GATE.format(task=self.task, trace=render_team_trace(self.steps), outcome=outcome,
+                                               memories=format_memories(all_ret), **ROLE_DESC)
+            d = self._ask(prompt)
+            targets = tuple(r for r in ROLES if r in (d.get("attributed") or []))
+            exps = d.get("experiences") or {}
+            new = {r: (str((exps.get(r) or {}).get("scenario", "")), str((exps.get(r) or {}).get("experience", "")))
+                   for r in ROLES}
+            mis = [i for i in (d.get("misleading_memory_ids") or []) if i in {m.id for m in all_ret}]
+            g = Attribution("none", new, _num(d.get("confidence")), mis)
+            rec.update(gate=d, targets=list(targets), update=self.mem.update(g, success, all_ret, task_id, targets=targets))
         else:
             all_ret = [m for r in ROLES for m in self.retrieved[r]]
             prompt = TEAM_GATE.format(task=self.task, trace=render_team_trace(self.steps), outcome=outcome,

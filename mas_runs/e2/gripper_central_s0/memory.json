@@ -1,0 +1,251 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When a task requires moving multiple balls between two rooms with a two-gripper robot.",
+   "experience": "Balls are interchangeable, so the order in which balls are transported does not matter.",
+   "value": 0.28750000000000003,
+   "n": 20,
+   "id": "PLANT_INERT",
+   "origin_task": "planted"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task requires a sequence of concrete actions (move, pick, drop) and the agent has already decided on the next action.",
+   "experience": "Emit the executable action command directly instead of a 'think' statement, since repeated 'think' outputs do not change the environment and waste the step budget. If the plan is already known, act on it immediately.",
+   "value": 0.4194444444444444,
+   "n": 18,
+   "id": "0099593a",
+   "origin_task": "40"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task has a clear plan and the next concrete action is known.",
+   "experience": "When a multi-step manipulation task has a clear plan and the next concrete action is known, emit the executable action command directly (e.g., pick/drop/move) instead of a 'think' statement, since reasoning text does not change the environment and wastes the step budget.",
+   "value": 0.0,
+   "n": 1,
+   "id": "4ed6b6f3",
+   "origin_task": "46"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task requires transporting multiple objects between locations and the agent has already navigated to the source location.",
+   "experience": "Once at the source, immediately execute pick actions and transport objects to the destination without alternating move commands or emitting 'think' statements, repeating until all objects are transferred. If a pick action is rejected as invalid, immediately query valid actions rather than repeating the same invalid pick.",
+   "value": 0.39333333333333337,
+   "n": 15,
+   "id": "7f42e7a2",
+   "origin_task": "44"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "Multi-step transport task where objects must be carried between two locations using limited grippers and the plan is already clear.",
+   "experience": "Emit concrete executable actions (pick/drop/move) directly rather than 'think' statements; after a wasted think step, immediately resume with the next concrete action instead of repeating reasoning.",
+   "value": 0.0,
+   "n": 0,
+   "id": "eb5f7730",
+   "origin_task": "30"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-object transport task requires moving items between two locations with a two-gripper robot and the plan is already clear.",
+   "experience": "Emit concrete executable commands (move/pick/drop) directly rather than 'think' statements; with a clear plan, immediately pick up objects at the source using both free grippers, move to the destination, drop them, and repeat until all objects are transferred.",
+   "value": 0.0,
+   "n": 0,
+   "id": "85374db7",
+   "origin_task": "41"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task requires transporting multiple objects between two locations with a two-gripper robot.",
+   "experience": "Emit concrete executable actions (pick, move, drop) directly rather than \"think\" statements, batching two objects per trip using both grippers. Sequence each trip as pick both objects at the source, move to the destination, then drop both before returning for the next pair. Repeat until all objects are transferred.",
+   "value": 0.0,
+   "n": 0,
+   "id": "882094a6",
+   "origin_task": "32"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task has a known plan and the agent is mid-execution with concrete actions available.",
+   "experience": "Emit the concrete executable action (pick/drop/move) directly; never emit a 'think' statement as the action, since it does not change the environment and consumes the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "88a2e9f2",
+   "origin_task": "33"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation task requires transporting multiple objects between two locations with a two-gripper robot and the agent has already determined the next action.",
+   "experience": "Emit the concrete executable action (pick/drop/move) directly rather than a 'think' statement; if the plan is known, act immediately to avoid wasting steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "d1a69c4b",
+   "origin_task": "37"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a two-gripper robot is transporting objects between rooms and both grippers are already occupied.",
+   "experience": "When both grippers are occupied, never propose a pick—instead move to the destination and drop both objects, then return for the remainder. Always emit concrete pick/move/drop commands directly, verifying the robot is at the source room with a free gripper before any pick. Never emit 'think' statements as proposals.",
+   "value": 0.0,
+   "n": 0,
+   "id": "94b68fbc",
+   "origin_task": "34"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When transporting multiple objects between two locations with a two-gripper robot and a limited step budget.",
+   "experience": "Track the robot's current location and gripper contents before each proposal; only propose pick actions when at the source with a free gripper and drop actions when at the destination carrying objects. Never emit 'think' statements as the action—always emit a concrete executable command, and avoid re-proposing picks for objects already carried or already at the destination.",
+   "value": 0.0,
+   "n": 0,
+   "id": "95dd081e",
+   "origin_task": "45"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a two-gripper robot must transport multiple objects from a source room to a destination room.",
+   "experience": "For two-gripper transport between rooms, repeat a fixed cycle: pick one object with each gripper at the source, move to the destination, drop both, and return empty to the source until all objects are transferred. Emit concrete pick/move/drop commands directly rather than \"think\" statements.",
+   "value": 0.7749999999999999,
+   "n": 2,
+   "id": "e9a4ec68",
+   "origin_task": "31"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When reviewing proposals in a sequential manipulation task where the same non-executable 'think' proposal recurs across consecutive steps.",
+   "experience": "Reject recurring non-executable 'think' proposals that fail to advance the environment and demand the concrete executable action inferable from the current state (location and gripper occupancy) that advances the goal.",
+   "value": 0.2763157894736842,
+   "n": 19,
+   "id": "009b5c80",
+   "origin_task": "40"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When reviewing proposals in a sequential manipulation task where the same navigation action recurs without any pick/drop progress.",
+   "experience": "Detect unproductive repetition: if proposals only move between locations without any pick or drop actions, reject them and demand a concrete manipulation action that advances the goal.",
+   "value": 0.32812499999999994,
+   "n": 16,
+   "id": "04ae0efe",
+   "origin_task": "44"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When reviewing proposals in a sequential manipulation task where a proposal is a non-executable 'think' statement or a redundant navigation command.",
+   "experience": "Reject non-executable 'think' proposals and redundant navigation, and demand the concrete executable action inferable from the current location and gripper state that advances the goal.",
+   "value": 0.0,
+   "n": 2,
+   "id": "28092c08",
+   "origin_task": "36"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When reviewing proposals in a sequential manipulation task with a limited step budget.",
+   "experience": "Reject any proposal that is a 'think' statement or that is invalid given the robot's current room and gripper occupancy (e.g., picking from the wrong room or with an occupied gripper). Demand the concrete executable action that advances the transfer, and flag repeated invalid picks as a sign the proposer is not tracking state.",
+   "value": 0.0,
+   "n": 0,
+   "id": "63d18acb",
+   "origin_task": "45"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When reviewing proposals in a sequential manipulation task where a proposal is a non-executable 'think' statement or an invalid pick given the robot's location or gripper occupancy.",
+   "experience": "Reject non-executable 'think' proposals and invalid picks (wrong room or occupied gripper), and demand the concrete executable action inferable from current location and gripper state that advances the goal; do not support proposals that repeat an already-failed action.",
+   "value": 0.2833333333333333,
+   "n": 3,
+   "id": "c52e068a",
+   "origin_task": "38"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals and critiques in a sequential manipulation task where proposals are non-executable 'think' statements.",
+   "experience": "Prefer concrete executable actions over 'think' statements; when a proposal is only a 'think' and the intended action is clear, output the actual action command instead of passing the 'think' through.",
+   "value": 0.16,
+   "n": 5,
+   "id": "031895ee",
+   "origin_task": "40"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are 'think' statements and others are concrete actions.",
+   "experience": "When combining proposals, always choose the concrete executable action that is valid given the robot's current room and gripper contents, rejecting 'think' statements and actions requiring a different room or unavailable gripper, since only executable actions advance the goal and non-executable outputs waste steps and can cause failure.",
+   "value": 0.271875,
+   "n": 16,
+   "id": "e2b7ff55",
+   "origin_task": "46"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals in a sequential manipulation task where proposals are redundant navigation commands that do not advance object transfer.",
+   "experience": "Prefer concrete manipulation actions (pick/drop) over repeated navigation; when the agent is at the source with free grippers, output a pick action rather than another move.",
+   "value": 0.378125,
+   "n": 16,
+   "id": "d181ade6",
+   "origin_task": "44"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "Combining proposals where one is a non-executable 'think' statement and the intended next action is inferable from context.",
+   "experience": "Override 'think' proposals and output the concrete executable action (e.g., the navigation or manipulation command) that advances the goal.",
+   "value": 0.024999999999999967,
+   "n": 4,
+   "id": "73d59dc3",
+   "origin_task": "30"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals and critiques where some proposals are non-executable 'think' statements and others are concrete actions.",
+   "experience": "Always output a concrete executable action command as the final decision; never pass through a 'think' statement, and never emit a combined multi-object action that is not a valid single command.",
+   "value": 0.0,
+   "n": 0,
+   "id": "48cfc616",
+   "origin_task": "47"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals in a sequential manipulation task where some proposals are 'think' statements and others are concrete executable actions, and the agent's current state (location, grippers) is known.",
+   "experience": "Always output a single concrete executable action (pick/drop/move) that is valid for the current state; never output a 'think' statement, combine two picks into one action, or choose an action invalid given the agent's location and gripper contents. Verify the chosen action matches the agent's current room and gripper occupancy before finalizing.",
+   "value": 0.2375,
+   "n": 4,
+   "id": "32ea76a9",
+   "origin_task": "39"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are 'think' statements and others are concrete executable actions, with the agent's current state known.",
+   "experience": "Always output a concrete executable action (pick/drop/move) valid for the current state; never output a 'think' statement or an action invalid given the agent's location and gripper contents.",
+   "value": 0.0,
+   "n": 0,
+   "id": "de66fe36",
+   "origin_task": "35"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where one is a valid manipulation action for the current state and another is an invalid pick given the robot's location or gripper occupancy.",
+   "experience": "Select the proposal that is executable given the robot's current room and gripper contents, rejecting any pick that requires a different room or an unavailable free gripper. Prefer concrete manipulation actions over repeated navigation or 'think' statements.",
+   "value": 0.24285714285714283,
+   "n": 7,
+   "id": "c460a785",
+   "origin_task": "34"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are 'think' statements or redundant navigation and others are concrete manipulation actions.",
+   "experience": "Always select the concrete executable action that is valid given the robot's current room and gripper contents over any 'think' or meta-commentary statement.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e8ab3e43",
+   "origin_task": "36"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are non-executable or invalid given the current state.",
+   "experience": "Always select a concrete executable action over 'think' statements, and verify the chosen action is valid for the robot's current room and gripper contents before outputting it; prefer drop actions when carrying objects at the destination and pick actions when at the source with free grippers.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1c5adb1b",
+   "origin_task": "45"
+  }
+ ]
+}

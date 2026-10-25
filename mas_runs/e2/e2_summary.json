@@ -1,0 +1,2242 @@
+{
+ "barman_central_s0": {
+  "n": 20,
+  "success_pct": 50.0,
+  "bad_retrieved_eps": 3,
+  "bad_flagged_eps": 3,
+  "inert_flagged_eps": 1,
+  "pruned_at_episode": {
+   "BAD": 7
+  },
+  "final_bad": null,
+  "final_inert": {
+   "v": 0.375,
+   "n": 20,
+   "text": "For each cocktail, use the target shot glass to measure and transfer each ingredient from its dispenser into the shaker, cleaning the glass between ingredients, then shake and pour back into that glass. Emit concrete executable actions rather than think-only statements."
+  },
+  "compensating_memories": 0,
+  "compensating_by_stage": {},
+  "cost": 1.2425,
+  "timeline": [
+   {
+    "k": 0,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     1
+    ],
+    "inert": [
+     0.0,
+     1
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 1,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     2
+    ],
+    "inert": [
+     0.425,
+     2
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 2,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     2
+    ],
+    "inert": [
+     0.567,
+     3
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 3,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     2
+    ],
+    "inert": [
+     0.65,
+     4
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 4,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     2
+    ],
+    "inert": [
+     0.52,
+     5
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 5,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     2
+    ],
+    "inert": [
+     0.433,
+     6
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 6,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     2
+    ],
+    "inert": [
+     0.371,
+     7
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 7,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.431,
+     8
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 8,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.472,
+     9
+    ],
+    "targets": [
+     "proposer"
+    ]
+   },
+   {
+    "k": 9,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.51,
+     10
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 10,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.464,
+     11
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 11,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.425,
+     12
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 12,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     0.331,
+     13
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 13,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.364,
+     14
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 14,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.34,
+     15
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 15,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.369,
+     16
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 16,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.347,
+     17
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 17,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.378,
+     18
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 18,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.395,
+     19
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 19,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.375,
+     20
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   }
+  ],
+  "compensating_examples": []
+ },
+ "barman_naive_s0": {
+  "n": 20,
+  "success_pct": 30.0,
+  "bad_retrieved_eps": 3,
+  "bad_flagged_eps": 3,
+  "inert_flagged_eps": 1,
+  "pruned_at_episode": {
+   "BAD": 6
+  },
+  "final_bad": null,
+  "final_inert": {
+   "v": 0.132,
+   "n": 19,
+   "text": "Every cocktail in this domain is defined by exactly two ingredients, listed as its part 1 and part 2."
+  },
+  "compensating_memories": 0,
+  "compensating_by_stage": {},
+  "cost": 1.1029,
+  "timeline": [
+   {
+    "k": 0,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "proposer"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     1
+    ],
+    "inert": [
+     0.0,
+     1
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 1,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "proposer"
+    ],
+    "inert_flagged_by": [
+     "proposer"
+    ],
+    "bad": [
+     -0.875,
+     2
+    ],
+    "inert": [
+     -0.45,
+     2
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 2,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.875,
+     2
+    ],
+    "inert": [
+     0.0,
+     3
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 3,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.875,
+     2
+    ],
+    "inert": [
+     0.0,
+     3
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 4,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.875,
+     2
+    ],
+    "inert": [
+     0.0,
+     4
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 5,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.875,
+     2
+    ],
+    "inert": [
+     0.0,
+     5
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 6,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "proposer"
+    ],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.0,
+     6
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 7,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.0,
+     7
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 8,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.1,
+     8
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 9,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.178,
+     9
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 10,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.16,
+     10
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 11,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.145,
+     11
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 12,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.133,
+     12
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 13,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.123,
+     13
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 14,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.114,
+     14
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 15,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.107,
+     15
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 16,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.1,
+     16
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 17,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.094,
+     17
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 18,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.139,
+     18
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 19,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.132,
+     19
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   }
+  ],
+  "compensating_examples": []
+ },
+ "barman_single_chime_s0": {
+  "n": 20,
+  "success_pct": 35.0,
+  "bad_retrieved_eps": 3,
+  "bad_flagged_eps": 2,
+  "inert_flagged_eps": 2,
+  "pruned_at_episode": {
+   "BAD": 2
+  },
+  "final_bad": null,
+  "final_inert": {
+   "v": 0.193,
+   "n": 20,
+   "text": "Every cocktail in this domain is defined by exactly two ingredients, listed as its part 1 and part 2."
+  },
+  "compensating_memories": 1,
+  "compensating_by_stage": {
+   "exec": 1
+  },
+  "cost": 0.2706,
+  "timeline": [
+   {
+    "k": 0,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.9,
+     1
+    ],
+    "inert": [
+     0.0,
+     1
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 1,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": true,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.45,
+     2
+    ],
+    "inert": [
+     0.0,
+     2
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 2,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.317,
+     3
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 3,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.475,
+     4
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 4,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.38,
+     5
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 5,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.317,
+     6
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 6,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.271,
+     7
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 7,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.35,
+     8
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 8,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.417,
+     9
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 9,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.465,
+     10
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 10,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.423,
+     11
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 11,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.388,
+     12
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 12,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     0.296,
+     13
+    ],
+    "targets": "planning"
+   },
+   {
+    "k": 13,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.275,
+     14
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 14,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.257,
+     15
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 15,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.241,
+     16
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 16,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.226,
+     17
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 17,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.264,
+     18
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 18,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.25,
+     19
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 19,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     0.193,
+     20
+    ],
+    "targets": "planning"
+   }
+  ],
+  "compensating_examples": [
+   {
+    "k": 13,
+    "stage": "exec",
+    "experience": "Do not repeat the same invalid fill command or loop on 'think'. Check valid actions to learn the required hand configuration; if both hands are occupied, leave the non-essential object (e.g., the shaker) to free a hand, then retry the fill "
+   }
+  ]
+ },
+ "gripper_central_s0": {
+  "n": 20,
+  "success_pct": 50.0,
+  "bad_retrieved_eps": 3,
+  "bad_flagged_eps": 3,
+  "inert_flagged_eps": 3,
+  "pruned_at_episode": {
+   "BAD": 2
+  },
+  "final_bad": null,
+  "final_inert": {
+   "v": 0.288,
+   "n": 20,
+   "text": "Balls are interchangeable, so the order in which balls are transported does not matter."
+  },
+  "compensating_memories": 4,
+  "compensating_by_stage": {
+   "proposer": 4
+  },
+  "cost": 1.2887,
+  "timeline": [
+   {
+    "k": 0,
+    "success": false,
+    "progress": 0.1,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.85,
+     1
+    ],
+    "inert": [
+     0.0,
+     1
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 1,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.775,
+     2
+    ],
+    "inert": [
+     0.35,
+     2
+    ],
+    "targets": [
+     "proposer"
+    ]
+   },
+   {
+    "k": 2,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.233,
+     3
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 3,
+    "success": false,
+    "progress": 0.08,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     -0.038,
+     4
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 4,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.13,
+     5
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 5,
+    "success": false,
+    "progress": 0.83,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.108,
+     6
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 6,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.221,
+     7
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 7,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.306,
+     8
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 8,
+    "success": false,
+    "progress": 0.9,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.272,
+     9
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 9,
+    "success": false,
+    "progress": 0.8,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.245,
+     10
+    ],
+    "targets": [
+     "finalizer"
+    ]
+   },
+   {
+    "k": 10,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.3,
+     11
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 11,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.35,
+     12
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 12,
+    "success": false,
+    "progress": 0.67,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.323,
+     13
+    ],
+    "targets": [
+     "proposer",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 13,
+    "success": false,
+    "progress": 0.83,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.3,
+     14
+    ],
+    "targets": [
+     "finalizer"
+    ]
+   },
+   {
+    "k": 14,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.337,
+     15
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 15,
+    "success": false,
+    "progress": 0.67,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     0.266,
+     16
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 16,
+    "success": false,
+    "progress": 0.9,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     0.2,
+     17
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 17,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.233,
+     18
+    ],
+    "targets": [
+     "proposer"
+    ]
+   },
+   {
+    "k": 18,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.258,
+     19
+    ],
+    "targets": [
+     "proposer"
+    ]
+   },
+   {
+    "k": 19,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.288,
+     20
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   }
+  ],
+  "compensating_examples": [
+   {
+    "k": 6,
+    "stage": "proposer",
+    "experience": "Emit concrete executable commands (move/pick/drop) directly rather than 'think' statements; pick up objects at the source with both grippers, move to the destination, drop them, and repeat until all objects are transferred."
+   },
+   {
+    "k": 7,
+    "stage": "proposer",
+    "experience": "Emit concrete executable actions (pick, move, drop) directly rather than 'think' statements; batch two objects per trip using both grippers, then move and drop both before returning for the next pair."
+   },
+   {
+    "k": 12,
+    "stage": "proposer",
+    "experience": "Before proposing a pick, verify the robot is at the source room and has a free gripper; if both grippers are occupied, propose a drop at the current room or a move, never a pick."
+   },
+   {
+    "k": 17,
+    "stage": "proposer",
+    "experience": "Use a repeatable cycle: pick one object with each gripper at the source, move to the destination, drop both, then return empty to the source; repeat until all objects are transferred. Emit concrete pick/move/drop commands directly rather th"
+   }
+  ]
+ },
+ "gripper_naive_s0": {
+  "n": 20,
+  "success_pct": 50.0,
+  "bad_retrieved_eps": 3,
+  "bad_flagged_eps": 3,
+  "inert_flagged_eps": 3,
+  "pruned_at_episode": {
+   "BAD": 2,
+   "INERT": 2
+  },
+  "final_bad": null,
+  "final_inert": null,
+  "compensating_memories": 9,
+  "compensating_by_stage": {
+   "checker": 1,
+   "finalizer": 4,
+   "proposer": 4
+  },
+  "cost": 1.6982,
+  "timeline": [
+   {
+    "k": 0,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "proposer"
+    ],
+    "inert_flagged_by": [
+     "proposer"
+    ],
+    "bad": [
+     -0.9,
+     1
+    ],
+    "inert": [
+     -0.9,
+     1
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 1,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "proposer"
+    ],
+    "inert_flagged_by": [
+     "proposer"
+    ],
+    "bad": [
+     -0.875,
+     2
+    ],
+    "inert": [
+     -0.875,
+     2
+    ],
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 2,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "proposer"
+    ],
+    "inert_flagged_by": [
+     "proposer"
+    ],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 3,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 4,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 5,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 6,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 7,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 8,
+    "success": false,
+    "progress": 0.8,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 9,
+    "success": false,
+    "progress": 0.6,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 10,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 11,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 12,
+    "success": false,
+    "progress": 0.67,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 13,
+    "success": false,
+    "progress": 0.83,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 14,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 15,
+    "success": false,
+    "progress": 0.75,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 16,
+    "success": false,
+    "progress": 0.8,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 17,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 18,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   },
+   {
+    "k": 19,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": null,
+    "targets": [
+     "proposer",
+     "checker",
+     "finalizer"
+    ]
+   }
+  ],
+  "compensating_examples": [
+   {
+    "k": 0,
+    "stage": "proposer",
+    "experience": "After deciding on a plan, immediately emit the concrete action (pick/move/drop) rather than re-issuing 'think' steps; each step must advance the task, and use both grippers to carry two objects per trip to minimize trips."
+   },
+   {
+    "k": 4,
+    "stage": "finalizer",
+    "experience": "Form a plan, then immediately alternate brief thoughts with concrete pick/move/drop actions; use both grippers to carry two objects per trip and verify location before picking to minimize trips and wasted steps."
+   },
+   {
+    "k": 8,
+    "stage": "checker",
+    "experience": "Reject 'think' actions as before, but also actively verify each proposed concrete action against the current observation: confirm the robot is in the correct room and the target gripper is empty before supporting a pick, and confirm the rob"
+   },
+   {
+    "k": 9,
+    "stage": "finalizer",
+    "experience": "Plan once, then execute concrete pick/move/drop actions immediately without redundant 'think' steps; use both grippers to carry two objects per trip, verify the robot's location before picking, and ensure every object—including ones already"
+   },
+   {
+    "k": 12,
+    "stage": "proposer",
+    "experience": "Emit only concrete pick/move/drop commands, avoid think-only or duplicate steps, carry two objects per trip, and after the last drop verify all objects are at the target before assuming completion."
+   },
+   {
+    "k": 13,
+    "stage": "proposer",
+    "experience": "Emit only concrete pick/move/drop commands, never think-only or duplicated steps; before each trip, track the current location of every object and pick two objects whose destination is the other room, carrying reverse-direction objects on t"
+   }
+  ]
+ },
+ "gripper_single_chime_s0": {
+  "n": 20,
+  "success_pct": 35.0,
+  "bad_retrieved_eps": 3,
+  "bad_flagged_eps": 2,
+  "inert_flagged_eps": 1,
+  "pruned_at_episode": {
+   "BAD": 2
+  },
+  "final_bad": null,
+  "final_inert": {
+   "v": 0.287,
+   "n": 20,
+   "text": "Balls are interchangeable, so the order in which balls are transported does not matter."
+  },
+  "compensating_memories": 2,
+  "compensating_by_stage": {
+   "plan": 2
+  },
+  "cost": 0.3079,
+  "timeline": [
+   {
+    "k": 0,
+    "success": false,
+    "progress": 0.0,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.9,
+     1
+    ],
+    "inert": [
+     0.0,
+     1
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 1,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": true,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": [
+     -0.45,
+     2
+    ],
+    "inert": [
+     0.0,
+     2
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 2,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": true,
+    "bad_flagged_by": [
+     "gate"
+    ],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.0,
+     3
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 3,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.0,
+     4
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 4,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.18,
+     5
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 5,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.308,
+     6
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 6,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.4,
+     7
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 7,
+    "success": false,
+    "progress": 0.75,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.35,
+     8
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 8,
+    "success": false,
+    "progress": 0.6,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.311,
+     9
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 9,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.28,
+     10
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 10,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.341,
+     11
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 11,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.392,
+     12
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 12,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.362,
+     13
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 13,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.336,
+     14
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 14,
+    "success": false,
+    "progress": 0.67,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.313,
+     15
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 15,
+    "success": false,
+    "progress": 0.42,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.294,
+     16
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 16,
+    "success": false,
+    "progress": 0.5,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [
+     "gate"
+    ],
+    "bad": null,
+    "inert": [
+     0.229,
+     17
+    ],
+    "targets": "planning"
+   },
+   {
+    "k": 17,
+    "success": false,
+    "progress": 0.33,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.217,
+     18
+    ],
+    "targets": "execution"
+   },
+   {
+    "k": 18,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.253,
+     19
+    ],
+    "targets": "both"
+   },
+   {
+    "k": 19,
+    "success": true,
+    "progress": 1.0,
+    "bad_retrieved": false,
+    "bad_flagged_by": [],
+    "inert_flagged_by": [],
+    "bad": null,
+    "inert": [
+     0.287,
+     20
+    ],
+    "targets": "both"
+   }
+  ],
+  "compensating_examples": [
+   {
+    "k": 4,
+    "stage": "plan",
+    "experience": "Decompose into round trips: pick up to two objects at the source, move to the destination, drop both, then return for the next batch. Verify gripper capacity and location preconditions for each pick/move/drop."
+   },
+   {
+    "k": 18,
+    "stage": "plan",
+    "experience": "Partition objects by required final location, then plan round trips that carry only objects whose destination matches the trip direction; use both grippers to batch up to two objects per trip and verify each pick/move/drop precondition."
+   }
+  ]
+ }
+}

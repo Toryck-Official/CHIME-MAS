@@ -1,0 +1,534 @@
+{
+ "single": {
+  "exec_view": {
+   "n": 4,
+   "exact_acc": 0.0,
+   "by_kind": {
+    "mem": {
+     "n": 4,
+     "exact": 0.0,
+     "labels": {
+      "execution": 4
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "execution": 4
+    },
+    "execution": {},
+    "none": {}
+   },
+   "label_dist": {
+    "execution": 4
+   },
+   "mis_recall_on_mem": 0.0,
+   "calibration": {
+    ">=0.9": {
+     "n": 4,
+     "acc": 0.0
+    }
+   },
+   "n_nonstrict_excluded": 11
+  },
+  "global": {
+   "n": 46,
+   "exact_acc": 26.1,
+   "by_kind": {
+    "env": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "planning": 1,
+      "execution": 12
+     }
+    },
+    "exec": {
+     "n": 11,
+     "exact": 100.0,
+     "labels": {
+      "execution": 11
+     }
+    },
+    "mem": {
+     "n": 4,
+     "exact": 0.0,
+     "labels": {
+      "execution": 4
+     }
+    },
+    "natural": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "execution": 12,
+      "both": 1
+     }
+    },
+    "plan": {
+     "n": 5,
+     "exact": 20.0,
+     "labels": {
+      "execution": 4,
+      "planning": 1
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "execution": 16,
+     "planning": 1,
+     "both": 1
+    },
+    "execution": {
+     "execution": 11
+    },
+    "none": {
+     "planning": 1,
+     "execution": 16
+    }
+   },
+   "label_dist": {
+    "execution": 43,
+    "planning": 2,
+    "both": 1
+   },
+   "mis_recall_on_mem": 50.0,
+   "calibration": {
+    "0.8-0.89": {
+     "n": 8,
+     "acc": 0.0
+    },
+    ">=0.9": {
+     "n": 38,
+     "acc": 31.6
+    }
+   },
+   "n_nonstrict_excluded": 36
+  },
+  "global_rep": {
+   "n": 46,
+   "exact_acc": 26.1,
+   "by_kind": {
+    "env": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "execution": 13
+     }
+    },
+    "exec": {
+     "n": 11,
+     "exact": 100.0,
+     "labels": {
+      "execution": 11
+     }
+    },
+    "mem": {
+     "n": 4,
+     "exact": 0.0,
+     "labels": {
+      "execution": 4
+     }
+    },
+    "natural": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "execution": 12,
+      "both": 1
+     }
+    },
+    "plan": {
+     "n": 5,
+     "exact": 20.0,
+     "labels": {
+      "execution": 4,
+      "planning": 1
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "execution": 16,
+     "planning": 1,
+     "both": 1
+    },
+    "execution": {
+     "execution": 11
+    },
+    "none": {
+     "execution": 17
+    }
+   },
+   "label_dist": {
+    "execution": 44,
+    "planning": 1,
+    "both": 1
+   },
+   "mis_recall_on_mem": 25.0,
+   "calibration": {
+    "0.8-0.89": {
+     "n": 5,
+     "acc": 0.0
+    },
+    "<0.8": {
+     "n": 1,
+     "acc": 0.0
+    },
+    ">=0.9": {
+     "n": 40,
+     "acc": 30.0
+    }
+   },
+   "n_nonstrict_excluded": 0
+  },
+  "grounded": {
+   "n": 46,
+   "exact_acc": 26.1,
+   "by_kind": {
+    "env": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "both": 3,
+      "planning": 5,
+      "execution": 5
+     }
+    },
+    "exec": {
+     "n": 11,
+     "exact": 100.0,
+     "labels": {
+      "execution": 11
+     }
+    },
+    "mem": {
+     "n": 4,
+     "exact": 0.0,
+     "labels": {
+      "execution": 4
+     }
+    },
+    "natural": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "execution": 8,
+      "both": 3,
+      "planning": 2
+     }
+    },
+    "plan": {
+     "n": 5,
+     "exact": 20.0,
+     "labels": {
+      "execution": 4,
+      "planning": 1
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "execution": 16,
+     "planning": 1,
+     "both": 1
+    },
+    "execution": {
+     "execution": 11
+    },
+    "none": {
+     "both": 5,
+     "planning": 7,
+     "execution": 5
+    }
+   },
+   "label_dist": {
+    "execution": 32,
+    "planning": 8,
+    "both": 6
+   },
+   "mis_recall_on_mem": 25.0,
+   "calibration": {
+    "0.8-0.89": {
+     "n": 3,
+     "acc": 0.0
+    },
+    ">=0.9": {
+     "n": 43,
+     "acc": 27.9
+    }
+   },
+   "n_nonstrict_excluded": 36
+  },
+  "plan_view": {
+   "n": 46,
+   "exact_acc": 37.0,
+   "by_kind": {
+    "env": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "planning": 13
+     }
+    },
+    "exec": {
+     "n": 11,
+     "exact": 0.0,
+     "labels": {
+      "planning": 10,
+      "none": 1
+     }
+    },
+    "mem": {
+     "n": 4,
+     "exact": 100.0,
+     "labels": {
+      "planning": 4
+     }
+    },
+    "natural": {
+     "n": 13,
+     "exact": 61.5,
+     "labels": {
+      "planning": 12,
+      "execution": 1
+     }
+    },
+    "plan": {
+     "n": 5,
+     "exact": 100.0,
+     "labels": {
+      "planning": 5
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "planning": 17,
+     "execution": 1
+    },
+    "execution": {
+     "planning": 10,
+     "none": 1
+    },
+    "none": {
+     "planning": 17
+    }
+   },
+   "label_dist": {
+    "planning": 44,
+    "none": 1,
+    "execution": 1
+   },
+   "mis_recall_on_mem": 100.0,
+   "calibration": {
+    "0.8-0.89": {
+     "n": 22,
+     "acc": 45.5
+    },
+    "<0.8": {
+     "n": 23,
+     "acc": 30.4
+    },
+    ">=0.9": {
+     "n": 1,
+     "acc": 0.0
+    }
+   },
+   "n_nonstrict_excluded": 36
+  },
+  "pro": {
+   "n": 38,
+   "exact_acc": 21.1,
+   "by_kind": {
+    "env": {
+     "n": 12,
+     "exact": 0.0,
+     "labels": {
+      "execution": 10,
+      "both": 1,
+      "planning": 1
+     }
+    },
+    "exec": {
+     "n": 9,
+     "exact": 77.8,
+     "labels": {
+      "execution": 7,
+      "both": 2
+     }
+    },
+    "mem": {
+     "n": 3,
+     "exact": 0.0,
+     "labels": {
+      "execution": 3
+     }
+    },
+    "natural": {
+     "n": 10,
+     "exact": 0.0,
+     "labels": {
+      "execution": 10
+     }
+    },
+    "plan": {
+     "n": 4,
+     "exact": 25.0,
+     "labels": {
+      "execution": 2,
+      "planning": 1,
+      "both": 1
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "execution": 12,
+     "planning": 1,
+     "both": 1
+    },
+    "execution": {
+     "execution": 7,
+     "both": 2
+    },
+    "none": {
+     "execution": 13,
+     "both": 1,
+     "planning": 1
+    }
+   },
+   "label_dist": {
+    "execution": 32,
+    "planning": 2,
+    "both": 4
+   },
+   "mis_recall_on_mem": 0.0,
+   "calibration": {
+    "0.8-0.89": {
+     "n": 10,
+     "acc": 10.0
+    },
+    "<0.8": {
+     "n": 2,
+     "acc": 0.0
+    },
+    ">=0.9": {
+     "n": 26,
+     "acc": 26.9
+    }
+   },
+   "n_nonstrict_excluded": 0
+  },
+  "self": {
+   "n": 46,
+   "exact_acc": 0.0,
+   "by_kind": {
+    "env": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "both": 13
+     }
+    },
+    "exec": {
+     "n": 11,
+     "exact": 0.0,
+     "labels": {
+      "both": 11
+     }
+    },
+    "mem": {
+     "n": 4,
+     "exact": 0.0,
+     "labels": {
+      "both": 4
+     }
+    },
+    "natural": {
+     "n": 13,
+     "exact": 0.0,
+     "labels": {
+      "both": 13
+     }
+    },
+    "plan": {
+     "n": 5,
+     "exact": 0.0,
+     "labels": {
+      "both": 5
+     }
+    }
+   },
+   "confusion_truth_to_label": {
+    "planning": {
+     "both": 18
+    },
+    "execution": {
+     "both": 11
+    },
+    "none": {
+     "both": 17
+    }
+   },
+   "label_dist": {
+    "both": 46
+   },
+   "mis_recall_on_mem": 75.0,
+   "calibration": {
+    "0.8-0.89": {
+     "n": 27,
+     "acc": 0.0
+    },
+    "<0.8": {
+     "n": 3,
+     "acc": 0.0
+    },
+    ">=0.9": {
+     "n": 16,
+     "acc": 0.0
+    }
+   },
+   "n_nonstrict_excluded": 36
+  }
+ },
+ "mas": {
+  "central": {
+   "n": 34,
+   "correct_no_role_blamed_pct": 0.0,
+   "mean_roles_blamed": 2.18,
+   "lessons_written": 74,
+   "role_blamed_counts": {
+    "finalizer": 34,
+    "proposer": 34,
+    "checker": 6
+   }
+  },
+  "central_grounded": {
+   "n": 34,
+   "correct_no_role_blamed_pct": 0.0,
+   "mean_roles_blamed": 1.97,
+   "lessons_written": 67,
+   "role_blamed_counts": {
+    "finalizer": 31,
+    "proposer": 33,
+    "checker": 3
+   }
+  },
+  "local": {
+   "n": 34,
+   "correct_no_role_blamed_pct": 0.0,
+   "mean_roles_blamed": 3.0,
+   "lessons_written": 102,
+   "role_blamed_counts": {
+    "checker": 34,
+    "finalizer": 34,
+    "proposer": 34
+   }
+  }
+ },
+ "unparsed_excluded": {
+  "pro": 8
+ }
+}

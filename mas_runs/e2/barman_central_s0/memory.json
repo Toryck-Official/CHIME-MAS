@@ -1,0 +1,233 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires making cocktails in a shaker from ingredients in dispensers and serving them in shot glasses.",
+   "experience": "For each cocktail, use the target shot glass to measure and transfer each ingredient from its dispenser into the shaker, cleaning the glass between ingredients, then shake and pour back into that glass. Emit concrete executable actions rather than think-only statements.",
+   "value": 0.375,
+   "n": 20,
+   "id": "PLANT_INERT",
+   "origin_task": "planted"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a plan requires transferring ingredients via an intermediate container and the direct fill action is invalid.",
+   "experience": "Do not emit repeated 'think' statements; after diagnosing an invalid action, immediately issue a concrete valid action (e.g., leave a held object to free a hand, then grasp the needed container) rather than restating the plan.",
+   "value": 0.2833333333333334,
+   "n": 6,
+   "id": "1ad57d0f",
+   "origin_task": "10"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires filling multiple containers with specific ingredients from dispensers in sequence.",
+   "experience": "After completing one container, immediately issue the concrete grasp action for the next target container rather than emitting a 'think' statement; if a grasp fails because the hand already holds the object, leave it first then re-grasp before filling.",
+   "value": 0.36388888888888893,
+   "n": 18,
+   "id": "325b539e",
+   "origin_task": "18"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-container filling goal requires sequential grasp/fill/leave actions across several target containers.",
+   "experience": "Emit concrete executable actions (grasp, fill-shot, leave) one per step rather than 'think' statements, and after filling a container, immediately leave it and grasp the next target container in sequence before filling it.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7240a804",
+   "origin_task": "16"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step plan requires a sequence of concrete manipulation actions (grasp, fill, pour, shake) and the next action is known.",
+   "experience": "Immediately emit the concrete valid action for the next step instead of a 'think' statement; if the action is invalid, diagnose and issue an alternative concrete action (e.g., leave a held object, then grasp the needed container) rather than restating the plan.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7ec5d69d",
+   "origin_task": "0"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation plan requires a sequence of concrete actions (grasp, fill, pour, shake) to satisfy a goal.",
+   "experience": "Never emit a think-only proposal; every proposal must be a concrete executable action from the current valid-actions list. If unsure of the next action, immediately issue 'check valid actions.' and act on the result rather than restating the plan or repeating an action that already succeeded.",
+   "value": 0.440909090909091,
+   "n": 11,
+   "id": "eabbc0ff",
+   "origin_task": "17"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation plan requires a sequence of concrete actions to build and serve items.",
+   "experience": "Never emit a 'think' statement as the proposal; always output a concrete executable action from the valid-actions list, even if it is just 'check valid actions.' to re-query, so the episode advances.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ee1ed100",
+   "origin_task": "11"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires combining multiple ingredients into a container and serving the result into a target vessel.",
+   "experience": "Use the target vessel to measure each ingredient from its dispenser, transfer it into the mixing container, clean the vessel between ingredients, then shake and pour the mixture back into the target vessel; always emit concrete executable actions rather than think-only statements.",
+   "value": 0.0,
+   "n": 0,
+   "id": "cb414cb5",
+   "origin_task": "9"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When executing a multi-step manipulation plan where each step must advance the environment state.",
+   "experience": "Never emit a think-only proposal; always output a concrete executable action from the valid-actions list, and if unsure, issue 'check valid actions.' and then act on the result.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3f860999",
+   "origin_task": "5"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a manipulation action fails as invalid or the environment reports the action took no effect.",
+   "experience": "Immediately issue 'check valid actions.' and select a concrete action from the returned list; do not repeat the same invalid action or emit think-only statements, and verify preconditions (e.g., hand state, container contents) before acting.",
+   "value": 0.0,
+   "n": 0,
+   "id": "dee40c67",
+   "origin_task": "7"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a required ingredient or parameter of the target recipe is not given in the observation and must be discovered.",
+   "experience": "Do not guess unknown recipe components by trial-and-error pouring; instead systematically probe the environment (e.g., check valid actions, inspect dispensers/containers) to determine the missing component before committing ingredients to the shaker, and always emit a concrete executable action rather than a think-only statement.",
+   "value": 0.0,
+   "n": 0,
+   "id": "75598c89",
+   "origin_task": "4"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires preparing a mixed drink in a shaker and serving it in a specific target glass.",
+   "experience": "Use the target glass to measure each ingredient from its dispenser, pour into the shaker, clean the glass between ingredients, then shake and pour the mixture back into the target glass; emit concrete executable actions rather than think-only statements.",
+   "value": 0.0,
+   "n": 1,
+   "id": "e6ae5f5f",
+   "origin_task": "19"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a subgoal has been achieved and the next subgoal requires preparing another container, but the required next action is not immediately obvious from the current state.",
+   "experience": "Never emit repeated think-only statements; if unsure of the next valid action, immediately issue 'check valid actions' to obtain the current valid-actions list, then select a concrete manipulation action from it.",
+   "value": 0.0,
+   "n": 0,
+   "id": "9f3bb814",
+   "origin_task": "6"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step plan requires building a mixed drink in a shaker and serving it into a target glass.",
+   "experience": "Emit concrete executable actions from the valid-actions list at every step rather than think-only statements; use the target shot glass to measure each ingredient into the shaker, clean the glass between ingredients, then shake and pour back into that glass.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1baf7cbc",
+   "origin_task": "15"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step manipulation plan requires a sequence of concrete actions and the next step is uncertain.",
+   "experience": "Never emit a think-only proposal; always output a concrete executable action from the valid-actions list, and if unsure, immediately issue 'check valid actions.' and then act on the result.",
+   "value": 0.0,
+   "n": 0,
+   "id": "63bbb55b",
+   "origin_task": "8"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires building a mixed drink in a shaker from dispenser ingredients and serving it in a target shot glass.",
+   "experience": "Use the target shot glass to measure each ingredient from its dispenser, pour it into the shaker, clean the glass between ingredients, then shake the shaker and pour the finished cocktail back into the target glass; emit concrete executable actions rather than think-only statements.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5ffaccb3",
+   "origin_task": "1"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires manipulating an object with a dispenser to fill a target container.",
+   "experience": "Emit concrete executable actions from the valid-actions list rather than think-only statements; first check valid actions, then grasp the target container, then issue the fill action combining the held container with the dispenser.",
+   "value": 0.0,
+   "n": 0,
+   "id": "0ba762a0",
+   "origin_task": "13"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When proposals consist only of 'think' statements with no executable action.",
+   "experience": "Reject proposals that contain only reasoning without an executable action, and require the proposer to output a concrete valid action from the valid-actions list so the episode can advance.",
+   "value": 0.18421052631578946,
+   "n": 19,
+   "id": "a82cbe4f",
+   "origin_task": "10"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When proposer outputs are reasoning-only 'think' statements with no executable action.",
+   "experience": "Reject think-only proposals and require a concrete valid action from the valid-actions list so the episode advances.",
+   "value": 0.0,
+   "n": 2,
+   "id": "00dc6c68",
+   "origin_task": "1"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are only 'think' statements and others are concrete actions.",
+   "experience": "Always select or construct a concrete executable action as the final decision, never a 'think' statement, so the episode advances instead of stalling. If proposals are think-only or lack a valid concrete action, issue 'check valid actions' and select or construct the next valid manipulation action (e.g., grasp or shake).",
+   "value": 0.39473684210526316,
+   "n": 19,
+   "id": "80d3e9ec",
+   "origin_task": "10"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposer outputs where some are reasoning-only 'think' statements and others are concrete actions.",
+   "experience": "Always output a concrete executable action from the current valid-actions list; if proposals are think-only, invalid, or have unmet preconditions, issue 'check valid actions' and select a valid alternative rather than propagating think statements or repeating invalid actions.",
+   "value": 0.35000000000000003,
+   "n": 14,
+   "id": "986c431f",
+   "origin_task": "17"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are think-only or when a proposed action was previously rejected as invalid.",
+   "experience": "Always output a concrete executable action from the current valid-actions list; if proposals are think-only, the action is invalid, or preconditions are unmet, issue 'check valid actions.' and select a valid alternative rather than propagating think statements or repeating invalid actions.",
+   "value": 0.4,
+   "n": 8,
+   "id": "55d524ee",
+   "origin_task": "7"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals where some are think-only and the current plan depends on an unknown recipe component.",
+   "experience": "Never propagate a think-only statement as the final decision; if the plan hinges on an unknown parameter, issue a concrete information-gathering action (e.g., check valid actions) and avoid repeating actions that were previously rejected as invalid.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ba2a1bca",
+   "origin_task": "4"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When all proposer outputs are think-only statements and the checker has rejected them, especially after a subgoal is completed.",
+   "experience": "Always output a concrete executable action; if proposals are think-only, issue 'check valid actions' to refresh the valid-actions list and then select a valid manipulation action, rather than propagating a think statement that stalls the episode.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4261b75c",
+   "origin_task": "6"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When combining proposals that are already concrete executable actions.",
+   "experience": "Select the concrete executable action as the final decision and avoid propagating think-only statements so the episode advances toward the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "0b67f0bb",
+   "origin_task": "13"
+  }
+ ]
+}

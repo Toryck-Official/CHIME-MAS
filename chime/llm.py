@@ -23,16 +23,22 @@ def _load_env():
 
 _load_env()
 
-USAGE = {"calls": 0, "prompt_tokens": 0, "completion_tokens": 0}
+USAGE = {"calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "cache_hit": 0, "cost_cny_offpeak": 0.0}
+# 闲时价（元 / 百万 token）：缓存命中输入、未命中输入、输出；按官网美元价 × 6.67 折算
+PRICE_OFFPEAK = {"deepseek-chat": (0.02, 1.0, 4.0), "deepseek-flash": (0.02, 1.0, 4.0),
+                 "deepseek-v4-pro": (0.15, 4.4, 13.2)}
 
 
 def chat(messages: list[dict], model: str = "deepseek-chat", temperature: float = 0.0,
-         max_tokens: int = 4096, json_mode: bool = False, retries: int = 6) -> str:
+         max_tokens: int = 4096, json_mode: bool = False, retries: int = 6,
+         reasoning_effort: str | None = None) -> str:
     """论文 Table 7：temperature 0，失败重试。"""
     url = os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com") + "/chat/completions"
     body = {"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
     if json_mode:
         body["response_format"] = {"type": "json_object"}
+    if reasoning_effort:
+        body["reasoning_effort"] = reasoning_effort
     headers = {"Authorization": f"Bearer {os.environ['DEEPSEEK_API_KEY']}"}
     for i in range(retries):
         try:
@@ -43,6 +49,11 @@ def chat(messages: list[dict], model: str = "deepseek-chat", temperature: float 
                 USAGE["calls"] += 1
                 USAGE["prompt_tokens"] += u.get("prompt_tokens", 0)
                 USAGE["completion_tokens"] += u.get("completion_tokens", 0)
+                hit = u.get("prompt_cache_hit_tokens", 0)
+                miss = u.get("prompt_tokens", 0) - hit
+                ph, pm, po = PRICE_OFFPEAK.get(model, PRICE_OFFPEAK["deepseek-v4-pro"])
+                USAGE["cache_hit"] += hit
+                USAGE["cost_cny_offpeak"] += (hit * ph + miss * pm + u.get("completion_tokens", 0) * po) / 1e6
                 return d["choices"][0]["message"]["content"] or ""
             if r.status_code in (400, 401, 402, 403):
                 raise RuntimeError(f"DeepSeek {r.status_code}: {r.text[:300]}")

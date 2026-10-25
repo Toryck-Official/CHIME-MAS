@@ -15,31 +15,7 @@ sys.path.insert(0, "/home/claude/chime")
 from mas.llm import GPTChat, Message, get_usage
 
 from chime.llm import parse_json
-from chime.mas_memory import ROLE_DESC, ROLES, render_team_trace, steps_from_json
-
-CENTRAL_GATE = """You are the credit attribution gate of a self-evolving agent system. Treat the whole team as ONE agent
-whose decision stages are:
-- proposer: {proposer}
-- checker: {checker}
-- finalizer: {finalizer}
-You see the complete trace. Decide which stage(s) deserve the credit (success) or blame (failure).
-
-# Task
-{task}
-
-# Complete trace
-{trace}
-
-# Outcome
-{outcome}
-
-Answer with ONE JSON object:
-{{"attributed": ["<zero or more of: proposer, checker, finalizer>"], "reason": "<two sentences citing steps>",
-  "confidence": <0..1>}}
-Rules: for a failure, include a stage only if its own decision caused or failed to stop the failure; for a success,
-include a stage only if its decisions were necessary for the success. Use [] when the outcome is explained by
-external factors or there is not enough evidence."""
-
+from chime.mas_memory import CENTRAL_GATE, ROLE_DESC, ROLES, render_team_trace, steps_from_json
 
 def task_goals() -> dict:
     """按题号取回每道题的目标描述（与运行时 set_env 返回的 task_main 相同）。"""

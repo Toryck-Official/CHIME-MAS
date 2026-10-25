@@ -1,0 +1,152 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When operating a two-gripper robot that must relocate multiple objects between two rooms within a limited step budget.",
+   "experience": "Emit concrete pick/move/drop commands immediately—never think-only or duplicated steps—and use both grippers to carry two objects per trip, planning reverse-direction objects into the return leg to minimize trips within the limited budget. Verify only when an action's validity is genuinely uncertain, and after the final drop confirm all objects match the goal before assuming completion.",
+   "value": 0.15526315789473685,
+   "n": 19,
+   "id": "bc335ad2",
+   "origin_task": "40"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When swapping the positions of many objects between two locations with a two-gripper robot under a limited step budget.",
+   "experience": "Emit concrete pick/move/drop commands immediately (no think-only or duplicated steps), and before each trip track every object's current location to pick two objects whose destination is the other room, carrying reverse-direction objects on the return leg. Only check action validity when genuinely uncertain. After the final drop, verify all objects match the goal before assuming completion.",
+   "value": 0.44999999999999996,
+   "n": 6,
+   "id": "2ae3be41",
+   "origin_task": "49"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When relocating multiple objects between two locations with a two-gripper robot under a limited step budget, including some objects that must move in the opposite direction.",
+   "experience": "Emit concrete pick/move/drop commands immediately without think-only or duplicated steps; use both grippers to carry two objects per trip, and fold reverse-direction objects into the return leg to minimize trips; verify only when an action's validity is genuinely uncertain, and after the final drop confirm all objects match the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "6a0d92c0",
+   "origin_task": "42"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When an agent proposes repeated no-op 'think' actions instead of concrete executable actions toward the goal.",
+   "experience": "Reject any 'think' proposal that repeats a prior thought without a new concrete action; require the agent to emit the actual next executable action (e.g., pick/move/drop) and only support proposals that advance the task state.",
+   "value": 0.3684210526315789,
+   "n": 19,
+   "id": "b5327796",
+   "origin_task": "40"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When an agent proposes a no-op planning or 'think' action instead of a concrete executable action that advances the task state.",
+   "experience": "Reject any 'think' or planning proposal that does not immediately precede a concrete executable action (pick/move/drop); require the agent to emit the actual next executable action so the task state advances, and never let repeated planning chatter—even if it restates a correct plan—consume the step budget.",
+   "value": 0.334375,
+   "n": 16,
+   "id": "4ca9558c",
+   "origin_task": "48"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When an agent proposes a planning or 'think' action instead of a concrete executable action that advances the task state.",
+   "experience": "Reject any 'think'/planning proposal and require the immediate concrete next action (pick/move/drop) so the task state advances; never let planning chatter—even if it restates a correct plan—consume the step budget.",
+   "value": 0.28076923076923077,
+   "n": 13,
+   "id": "0141d510",
+   "origin_task": "47"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When an agent is carrying objects in both grippers or is in the wrong room and proposes a pick action, or when the step budget is limited and planning chatter competes with concrete actions.",
+   "experience": "Reject 'think' actions as before, but also actively verify each proposed concrete action against the current observation: confirm the robot is in the correct room and the target gripper is empty before supporting a pick, and confirm the robot is at the drop location before supporting a drop. Flag invalid picks (wrong room or occupied gripper) immediately rather than letting them execute and waste steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7a5ee23f",
+   "origin_task": "33"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When an agent interleaves brief planning with correct concrete pick/move/drop actions toward a multi-step transport goal under a limited step budget.",
+   "experience": "Allow occasional brief planning steps when the surrounding concrete actions are correct and advancing the task; reserve rejections for repeated no-op planning that blocks the next executable action, and verify valid actions when a pick fails.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e083b308",
+   "origin_task": "36"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step transport task has a limited step budget and the agent interleaves planning/think actions with concrete pick/move/drop actions.",
+   "experience": "Reject 'think' proposals that merely restate the plan without a new concrete action; require the agent to emit the next executable pick/move/drop so every step advances the task state and preserves budget for remaining items.",
+   "value": 0.0,
+   "n": 0,
+   "id": "840165b7",
+   "origin_task": "45"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When an agent interleaves planning/'think' actions with concrete executable actions toward a multi-step goal under a limited step budget.",
+   "experience": "Reject repeated no-op planning that restates an already-known plan; only allow a brief think when it introduces genuinely new information, and otherwise require the immediate concrete next action (pick/move/drop) to preserve step budget for executable progress.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1029b371",
+   "origin_task": "38"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step transport task requires moving objects between locations with limited step budget",
+   "experience": "After forming a plan, immediately execute concrete pick/move/drop actions rather than emitting repeated 'think' actions, since each think consumes a step. Alternate one brief thought with one real action, and verify the robot's current location before attempting a pick.",
+   "value": 0.2394736842105263,
+   "n": 19,
+   "id": "2a5bfd19",
+   "origin_task": "40"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step transport task must be completed within a limited step budget",
+   "experience": "After forming a plan, immediately execute concrete pick/move/drop actions and never emit repeated 'think' actions, since each consumes a step. Alternate one brief thought with one real action, and verify location before picking.",
+   "value": 0.10999999999999992,
+   "n": 10,
+   "id": "0d7efb7b",
+   "origin_task": "44"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step transport task requires moving multiple objects between locations with limited grippers and a step budget",
+   "experience": "Plan once, then execute concrete pick/move/drop actions without redundant \"think\" steps, using both grippers to carry two objects per trip and verifying locations before picking. After the final move, immediately drop all carried objects and confirm every target is at its destination before the step budget expires.",
+   "value": 0.019999999999999952,
+   "n": 5,
+   "id": "3db7d7fa",
+   "origin_task": "30"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step transport task must be completed within a limited step budget and multiple objects need to be relocated between locations.",
+   "experience": "Commit to one plan and execute concrete pick/move/drop actions with at most one brief think step between real actions, using both grippers to carry two objects per trip after verifying each object's current location. Track every remaining object—including those already at a target or needing a reverse move—and avoid duplicate actions so all deliveries complete before the step budget expires.",
+   "value": 0.265,
+   "n": 10,
+   "id": "57c57fd0",
+   "origin_task": "39"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step transport task requires swapping or relocating many objects between two locations under a limited step budget.",
+   "experience": "Commit to one plan and execute only concrete pick/move/drop actions with minimal think steps, using both grippers to carry two objects per trip. Before each pick, verify the object's current location against the goal and track all remaining objects to avoid redundant or invalid moves.",
+   "value": 0.425,
+   "n": 6,
+   "id": "1eb888e5",
+   "origin_task": "49"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step transport task requires relocating several objects between two locations under a limited step budget, including at least one object that must be moved in the reverse direction.",
+   "experience": "Commit to one plan and immediately execute concrete pick/move/drop actions, alternating at most one brief think with each real action; use both grippers to carry two objects per trip, verify each object's current location before picking, and track every remaining object including reverse-move ones to avoid redundant actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "aa18c4e2",
+   "origin_task": "42"
+  }
+ ]
+}

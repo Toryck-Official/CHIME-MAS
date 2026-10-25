@@ -1,0 +1,96 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a task requires moving multiple balls between two rooms with a two-gripper robot.",
+   "experience": "Balls are interchangeable, so the order in which balls are transported does not matter.",
+   "value": 0.2875,
+   "n": 20,
+   "id": "PLANT_INERT",
+   "origin_task": "planted"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a two-gripper robot must transport multiple objects between two locations with limited carrying capacity.",
+   "experience": "Decompose the transport task into round trips: pick up to two objects at the source, move to the destination, drop both, then return for the next batch, verifying gripper capacity and location preconditions for each pick, move, and drop.",
+   "value": 0.37666666666666665,
+   "n": 15,
+   "id": "56a73036",
+   "origin_task": "30"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When planning multi-object transport with a two-gripper robot where some objects must end at the opposite location from others.",
+   "experience": "Partition objects by required final location before batching, and plan round trips that only carry objects whose destination matches the trip's destination. Batch up to two objects per trip, and never pick up an object that must stay at its current location.",
+   "value": 0.6166666666666667,
+   "n": 3,
+   "id": "de84a402",
+   "origin_task": "38"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a two-gripper robot must move multiple objects between two locations with some objects needing to end at the opposite location.",
+   "experience": "Partition objects by required final location, then plan round trips that carry only objects whose destination matches the trip direction; use both grippers to batch up to two objects per trip and verify each pick/move/drop precondition.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f1f3605f",
+   "origin_task": "43"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step pick-and-place plan and the next action is a concrete tool call (pick, move, drop) after the robot's location and gripper state are already known.",
+   "experience": "Immediately emit the next concrete tool action (pick, move, drop) instead of repeating internal reasoning when the robot's location and gripper state are already known; if you notice consecutive think-only steps with no tool call, break the loop by executing the next planned action and continue through all batches until the goal is verified.",
+   "value": 0.3194444444444445,
+   "n": 18,
+   "id": "bbda61a0",
+   "origin_task": "48"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step pick-and-place plan and consecutive think-only steps occur without tool calls.",
+   "experience": "When consecutive think-only steps occur during a multi-step pick-and-place plan, break the loop by immediately emitting the next concrete tool action (pick, move, or drop) based on the known robot location and gripper state, then continue through all remaining steps until the goal is verified.",
+   "value": 0.3333333333333333,
+   "n": 9,
+   "id": "5f162874",
+   "origin_task": "30"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-batch pick-and-place plan and the final batch has been reached.",
+   "experience": "Continue executing all remaining planned actions (pick, move, drop) until the goal is verified; do not stop after intermediate think steps or after completing only some batches.",
+   "value": 0.2714285714285714,
+   "n": 7,
+   "id": "6c6b9054",
+   "origin_task": "32"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-batch pick-and-place plan with a two-gripper robot.",
+   "experience": "Once the robot's location and gripper state are known, immediately emit the next concrete tool action (pick, move, drop) instead of repeating internal reasoning, and continue through all planned batches until every goal condition is verified.",
+   "value": -0.8,
+   "n": 1,
+   "id": "05dd07b2",
+   "origin_task": "37"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-batch pick-and-place plan with a two-gripper robot and the next action is a concrete tool call after state is known.",
+   "experience": "Immediately emit the next concrete tool action (pick, move, drop) instead of repeating internal reasoning; if consecutive think-only steps occur, break the loop by executing the next planned step, and continue through all batches until the goal is verified.",
+   "value": 0.2642857142857143,
+   "n": 7,
+   "id": "51685a01",
+   "origin_task": "34"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-batch pick-and-place plan with a two-gripper robot and the trajectory ends before all planned batches are completed.",
+   "experience": "Continue executing all remaining planned pick, move, and drop actions until every goal condition is verified; do not stop after intermediate think steps or after completing only some batches.",
+   "value": 0.6166666666666667,
+   "n": 3,
+   "id": "793198b2",
+   "origin_task": "45"
+  }
+ ]
+}

@@ -1,0 +1,213 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a goal requires making cocktails in a shaker from ingredients in dispensers and serving them in shot glasses.",
+   "experience": "Every cocktail in this domain is defined by exactly two ingredients, listed as its part 1 and part 2.",
+   "value": 0.19250000000000006,
+   "n": 20,
+   "id": "PLANT_INERT",
+   "origin_task": "planted"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires filling multiple containers with different ingredients in a specific order.",
+   "experience": "Plan to handle each container one at a time: grasp the container, fill it at the correct dispenser, then place it down before moving to the next. Verify the order of fills matches the goal constraints.",
+   "value": 0.20555555555555557,
+   "n": 9,
+   "id": "d526c30a",
+   "origin_task": "16"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires filling multiple containers with different ingredients, each from a matching dispenser.",
+   "experience": "Plan to handle each container independently: grasp it, fill it at the correct dispenser, then place it down before moving to the next. Ensure the fill order satisfies any goal constraints.",
+   "value": 0.0,
+   "n": 1,
+   "id": "a184a90e",
+   "origin_task": "14"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a plan requires making a cocktail in a shaker from ingredients in dispensers.",
+   "experience": "Do not plan to fill the shaker directly from dispensers. Instead, plan to use shot glasses to measure each ingredient from its dispenser and pour it into the shaker, then shake and pour into the serving glass.",
+   "value": 0.22916666666666666,
+   "n": 12,
+   "id": "6db4eb48",
+   "origin_task": "0"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a task requires making a cocktail in a shaker from dispenser ingredients and serving it in a shot glass.",
+   "experience": "Measure each ingredient by filling a shot glass at its dispenser and pouring it into the shaker, cleaning the shot glass between reuses, then shake and pour into the serving shot glass while ensuring the serving glass is grasped before the final pour.",
+   "value": 0.09545454545454546,
+   "n": 11,
+   "id": "a6e8706a",
+   "origin_task": "2"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a cocktail's ingredient list is incomplete in the given facts (e.g., only one part is specified).",
+   "experience": "Do not assume the missing ingredient can be inferred or guessed. First check whether the cocktail is fully defined; if not, plan to query valid actions or domain facts to discover the missing part before committing to any ingredient. If the missing part cannot be determined, the task may be impossible—plan to report that rather than guessing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a9f29e82",
+   "origin_task": "4"
+  },
+  {
+   "stage": "plan",
+   "scenario": "When a plan requires making a cocktail from multiple ingredients and serving it in a shot glass.",
+   "experience": "Do not plan to pour multiple ingredients directly into a shot glass. Plan to measure each ingredient into a shot glass, pour them into a clean shaker, shake, and then pour the mixed cocktail into the serving shot glass.",
+   "value": 0.0,
+   "n": 0,
+   "id": "276f4af2",
+   "origin_task": "12"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When an action is reported as invalid and 'check valid actions' shows only leave/grasp/clean actions, indicating a hand is occupied and must be freed before proceeding.",
+   "experience": "If a fill or pour action is invalid because a hand is occupied, immediately execute the valid 'leave' action to free the hand, then retry the intended action; do not repeat the same thought without acting.",
+   "value": 0.31666666666666665,
+   "n": 6,
+   "id": "bb8f17a8",
+   "origin_task": "10"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When an intended grasp action is invalid and 'check valid actions' does not list the target object, indicating the object may be unavailable or the hand is occupied.",
+   "experience": "After checking valid actions, only attempt actions that appear in the list; if the target object is not listed, free the hand with a leave action or choose an available alternative rather than repeating the same invalid grasp.",
+   "value": 0.5599999999999999,
+   "n": 5,
+   "id": "8cf80301",
+   "origin_task": "18"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a sequence of grasp, fill, and place actions for multiple objects.",
+   "experience": "After each fill, immediately place the object down to free the hand before grasping the next object, and use the correct dispenser for each ingredient as specified in the plan.",
+   "value": 0.016666666666666646,
+   "n": 3,
+   "id": "0365d008",
+   "origin_task": "16"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When an intended fill action on a shaker is invalid and valid actions show only grasp/leave/clean options.",
+   "experience": "Recognize that filling a shaker requires using a shot glass as an intermediate: grasp a shot glass, fill it at the dispenser, then pour into the shaker. Do not repeat the same thought without acting; immediately execute the next valid action from the list.",
+   "value": 0.325,
+   "n": 6,
+   "id": "907c50a5",
+   "origin_task": "0"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step plan and the next action is unclear or requires checking available actions.",
+   "experience": "Do not repeat 'think' observations; immediately issue a concrete tool call such as 'check valid actions' or the next planned action. After pouring ingredients into a shaker, proceed to shake it and pour into the serving glass, then complete remaining goal containers.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a865e695",
+   "origin_task": "17"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When the agent has a filled shaker in hand and needs to pour its contents into a serving glass that is not yet held.",
+   "experience": "Do not repeat the same 'think' action; immediately execute the next concrete tool action: grasp the serving glass with the free hand, then pour the shaker contents into it.",
+   "value": 0.20384615384615387,
+   "n": 13,
+   "id": "b8697807",
+   "origin_task": "11"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a pour-shaker-to-shot action is rejected as invalid despite the shaker being held and the target shot glass being held.",
+   "experience": "Check valid actions to see the required hand parameter; the pour may need to be executed with the hand holding the shaker (e.g., right) rather than the hand holding the target glass. Then retry the pour with the correct hand argument.",
+   "value": 0.3227272727272727,
+   "n": 11,
+   "id": "5497a8bf",
+   "origin_task": "2"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that involves using a shot glass to measure multiple ingredients into a shaker and then serving the cocktail.",
+   "experience": "After pouring each ingredient from the shot glass into the shaker, clean the shot glass before refilling it with the next ingredient, and if a fill action is rejected, check valid actions to find the correct refill or clean command. Before shaking, ensure the shaker is grasped with one hand and the other hand is free by leaving any held object first, then execute the shake action.",
+   "value": -1.2335811384723961e-17,
+   "n": 9,
+   "id": "c8fc33d5",
+   "origin_task": "3"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that involves measuring ingredients into a shaker and serving the cocktail, and an action is rejected as invalid.",
+   "experience": "After a grasp or pour is rejected, use the check valid actions command to see the required hand or parameters, then retry with the correct arguments; avoid repeating the same invalid action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "bac0dc23",
+   "origin_task": "9"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a two-handed action (e.g., shaking a shaker) is rejected as invalid because one hand is still holding an object.",
+   "experience": "Immediately free the occupied hand by leaving the held object, then retry the two-handed action; do not repeat 'think' actions or re-check valid actions multiple times.",
+   "value": 0.0,
+   "n": 0,
+   "id": "16fec442",
+   "origin_task": "5"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a fill-shot action is rejected as invalid while both hands are occupied (e.g., holding a shaker and a shot glass).",
+   "experience": "Do not repeat the same invalid fill command or loop on 'think'. Check valid actions to learn the required hand configuration; if both hands are occupied, leave the non-essential object (e.g., the shaker) to free a hand, then retry the fill with the correct hand arguments.",
+   "value": 0.0,
+   "n": 0,
+   "id": "37a8632e",
+   "origin_task": "19"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step plan and the agent finds itself repeatedly issuing 'think' actions without making progress.",
+   "experience": "Do not repeat 'think' actions; immediately execute the next concrete tool action from the plan. If stuck, use 'check valid actions' to identify the correct next step and proceed.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b21f297d",
+   "origin_task": "6"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a plan requires one shot glass to be a serving glass for a single ingredient and another shot glass to receive a mixed cocktail from a shaker.",
+   "experience": "Do not use the serving shot glass as a measuring glass for the shaker; use a separate clean measuring shot glass for each ingredient, pour both into the shaker, shake, and only then pour into the serving shot glass. Verify the serving glass remains empty until the final pour.",
+   "value": 0.0,
+   "n": 1,
+   "id": "a6faf353",
+   "origin_task": "15"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a fill action is rejected as invalid or the agent is unsure of the correct fill command syntax.",
+   "experience": "Immediately run 'check valid actions' to see the exact fill command format, then execute it without repeated 'think' actions. Do not loop on thinking; use the valid actions list to determine the correct hand and dispenser arguments.",
+   "value": 0.0,
+   "n": 0,
+   "id": "74a9b8f8",
+   "origin_task": "8"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a shake action is rejected as invalid because the shaker is not held in the correct hand.",
+   "experience": "Check valid actions to identify the required hand, then leave any held intermediate glass, grasp the shaker with the appropriate hand, and retry the shake with that hand before pouring into the serving glass.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4fb0e498",
+   "origin_task": "1"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a task requires a container to contain a specific ingredient and a direct fill action from a dispenser is available.",
+   "experience": "Check valid actions early and prefer the simplest direct tool action (e.g., grasp the target container, then fill it directly at the dispenser) rather than following a longer intermediate-container plan when the direct action satisfies the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "871b843f",
+   "origin_task": "13"
+  }
+ ]
+}

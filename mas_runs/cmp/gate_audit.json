@@ -1,0 +1,201 @@
+{
+ "single": {
+  "barman_invalid_plan_failures": [
+   {
+    "k": 0,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan was reasonable, but the executor repeatedly failed to execute the fill-shot action correctly (steps 10-12) and then got stuck in an infinite loop of thinking without acting (steps 13-30), never leaving the shaker to free the hand as needed."
+   },
+   {
+    "k": 7,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan was correct, but the executor repeatedly issued think actions (steps 23-30) instead of the pour action, and earlier misused hands (grasping shot1 before shaker1, then needing to leave and re-grasp), causing an infinite think loop and failure to complete the pour."
+   },
+   {
+    "k": 8,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan was reasonable, but the executor repeatedly issued 'think' actions (steps 12, 14, 16-17, 19, 22-28, 30) and got stuck in a loop instead of leaving held objects and shaking the shaker, never completing cocktail3 or cocktail2."
+   },
+   {
+    "k": 17,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan was sound (add ingredients to shaker, shake, pour into shot), but the executor repeatedly failed to use valid action syntax (steps 3, 7, 21) and got stuck in a loop of think steps (steps 25-30) instead of performing the shake action."
+   },
+   {
+    "k": 26,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan correctly decomposed the cocktail task, but the executor wasted many steps on repeated 'think' actions (steps 12-21, 23-30) and never completed the shake/pour, leaving shot1 without cocktail4."
+   },
+   {
+    "k": 28,
+    "attribution": "execution",
+    "confidence": 0.95,
+    "says_plan_sound": true,
+    "reason": "The plan was correct, but the executor got stuck in a loop of repeated 'think' steps (steps 22–30) instead of performing the concrete action of grasping and cleaning the shaker, causing the episode to fail."
+   },
+   {
+    "k": 29,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan was sound, but the executor repeatedly issued invalid actions (e.g., step 4 'right grasp shot1' while right hand held shaker1, step 20 'fill-shot' with wrong hand assignment) and wasted steps 8-19 on repeated identical think calls instead of acting, preventing completion of the shake/pour sequence."
+   },
+   {
+    "k": 30,
+    "attribution": "planning",
+    "confidence": 0.8,
+    "says_plan_sound": false,
+    "reason": "The plan assumed cocktail1's recipe could be inferred and proceeded to grasp the shaker before resolving the undefined cocktail1, leading to a confused execution with repeated think steps and invalid fill attempts (steps 9-20). The planner failed to first resolve the undefined cocktail1 recipe or check valid actions to discover the correct fill format."
+   },
+   {
+    "k": 40,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "says_plan_sound": true,
+    "reason": "The plan was sound, but the executor wasted steps 7-30 stuck in repeated 'think' loops and failed to clean shot1, never proceeding to make cocktail1 for shot2."
+   }
+  ],
+  "barman_invalid_plan_successes": [
+   {
+    "k": 33,
+    "attribution": "both",
+    "confidence": 0.95,
+    "says_plan_sound": false,
+    "reason": "The planner correctly resolved the cocktail recipe and ordered the steps (fill shaker with both ingredients, shake, pour into shot), and the executor carried out the sequence successfully, including cleaning shot1 between uses and pouring the final cocktail into shot1 at step 18."
+   },
+   {
+    "k": 36,
+    "attribution": "both",
+    "confidence": 0.9,
+    "says_plan_sound": false,
+    "reason": "The planner correctly decomposed the recipe into adding ingredients to a shaker, shaking, and pouring into the target container (steps 1-8), and the executor carried out the plan successfully despite some redundant think steps, achieving the goal at step 26."
+   }
+  ],
+  "gripper_infeasible_failures": [
+   {
+    "k": 4,
+    "optimal_steps": 36,
+    "attribution": "execution",
+    "confidence": 0.8,
+    "reason": "The plan was correct (move to source room, pick two balls per trip, carry and drop), and the executor followed it correctly through step 30, but the episode ended before all 12 balls were delivered, leaving balls 9-12 at rooma. The failure is due to incomplete execution of the planned loop, not a planning flaw."
+   },
+   {
+    "k": 23,
+    "optimal_steps": 34,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "reason": "The plan was correct (move two balls from roomb to rooma, then move the rest from rooma to roomb in pairs), but the executor stalled with repeated think steps (steps 20-26) and never completed the remaining deliveries, leaving balls 7,10,11,12 unmoved."
+   },
+   {
+    "k": 27,
+    "optimal_steps": 35,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "reason": "The plan was correct (move ball4 to rooma first, then batch-transfer the rest two per trip), but the executor wasted steps 1-5 and 7, 11-19 on repeated 'think' actions instead of acting, and the trajectory ends at step 30 with only ball1, ball2, ball3 delivered — ball5 was picked but never dropped, and balls 6-12 were never moved, so the goal was not met."
+   },
+   {
+    "k": 37,
+    "optimal_steps": 35,
+    "attribution": "execution",
+    "confidence": 0.9,
+    "reason": "The plan was adequate (move to roomb, then transport balls in pairs), but the executor stalled at step 30 by emitting a think action instead of picking up ball9 and ball10, leaving the task incomplete."
+   }
+  ]
+ },
+ "mas": {
+  "gripper_infeasible_failures": [
+   {
+    "k": 4,
+    "optimal_steps": 36,
+    "local_self": [
+     "checker",
+     "finalizer",
+     "proposer"
+    ],
+    "central": [
+     "finalizer",
+     "proposer"
+    ],
+    "lessons": {
+     "proposer": "Emit at most one planning think, then execute the pick-move-drop cycle continuously with no further think steps; avoid emitting duplicate actions per step, and verify the step budget (roughly 3*ceil(N/2) plus travel) is sufficient before starting so the final pair is dropped before the limit.",
+     "checker": "Track the remaining step budget against the number of objects left; if the per-object transfer cycle is too slow, push the proposer to optimize (e.g., verify whether more than two objects can be carried or whether travel can be reduced) rather than endorsing the same slow cycle.",
+     "finalizer": "Execute the concrete pick/move/drop actions directly and continuously without any think steps or duplicate commands; track remaining objects and keep cycling until all are delivered, since each redundant action consumes budget needed for the final transfers."
+    }
+   },
+   {
+    "k": 23,
+    "optimal_steps": 34,
+    "local_self": [
+     "checker",
+     "finalizer",
+     "proposer"
+    ],
+    "central": [
+     "finalizer",
+     "proposer"
+    ],
+    "lessons": {
+     "proposer": "Plan once, then execute the pick-move-drop cycle without extra think steps; before each pickup, verify the object's current location matches its target and pick the correct object, not a duplicate already at the destination; if a think is ignored or repeated, immediately switch to the next concrete action.",
+     "checker": "Stop endorsing 'think' proposals; require concrete executable actions each step, and verify each pick matches the plan (correct object and destination) so no steps are wasted on unnecessary objects before the step limit is hit.",
+     "finalizer": "Minimize think steps entirely and batch concrete pick-move-drop cycles back-to-back; track which objects remain and immediately execute the next transfer without pausing to re-plan."
+    }
+   },
+   {
+    "k": 27,
+    "optimal_steps": 35,
+    "local_self": [
+     "checker",
+     "finalizer",
+     "proposer"
+    ],
+    "central": [
+     "finalizer",
+     "proposer"
+    ],
+    "lessons": {
+     "proposer": "Plan once, then immediately execute the pick-move-drop cycle with concrete actions; never emit repeated think steps—if a think is ignored or an action is rejected, switch directly to the next concrete action (or use 'check valid actions') instead of re-thinking, and verify the step budget suffices before starting.",
+     "checker": "Stop endorsing repeated 'think' proposals; require an immediate concrete executable action (pick/move/drop) and, after any rejected or no-op action, query valid actions and proceed with real manipulation rather than looping on planning text.",
+     "finalizer": "Immediately execute the next concrete action (pick, move, or drop) once it is known; never emit repeated think steps or re-plan between actions, and reserve valid-action checks only for when an action actually fails."
+    }
+   },
+   {
+    "k": 37,
+    "optimal_steps": 35,
+    "local_self": [
+     "checker",
+     "finalizer",
+     "proposer"
+    ],
+    "central": [
+     "finalizer",
+     "proposer"
+    ],
+    "lessons": {
+     "proposer": "Plan once, then execute concrete pick/move/drop actions back-to-back without redundant think steps; reserve steps for actions and only re-plan if an action is rejected.",
+     "checker": "Stop endorsing repeated think-only proposals; require concrete executable actions (pick/move/drop) and drive the remaining items to completion rather than allowing planning loops to consume the step budget.",
+     "finalizer": "Execute the concrete pick/move/drop actions directly in a tight loop without inserting think steps or duplicate actions between iterations; only pause to re-plan if an action actually fails."
+    }
+   }
+  ]
+ },
+ "summary": {
+  "single_train_failures": 26,
+  "barman_invalid_plan_failures": 9,
+  "of_which_blamed_on_execution_with_plan_called_sound": 8,
+  "barman_invalid_plan_successes_credited_to_planning": 2,
+  "gripper_infeasible_failures": 4,
+  "of_which_labelled_none": 0,
+  "mas_gripper_infeasible_failures": 4,
+  "mas_local_or_central_none": 0
+ }
+}

@@ -33,11 +33,12 @@ from chime.memory import MemoryItem
 from chime.faults import planted_item
 
 
-E1 = "/home/claude/chime/mas_runs/e1"
+E1 = "/home/claude/chime/mas_runs/e1"  # 最优步数、任务目标等共用文件
+SAMPLES = os.environ.get("E1_SAMPLES", E1)  # 故障样本与评测结果所在目录（干净执行器版本为 mas_runs/e1c）
 SINGLE = "/home/claude/chime/mas_runs/cmp/pddl_single_single_chime_s0/episodes.jsonl"
 MAS = "/home/claude/chime/mas_runs/cmp/pddl_dylan_naive_s0/episodes.jsonl"
 AUDIT = "/home/claude/chime/mas_runs/cmp/gate_audit.json"
-OUT = os.path.join(E1, "gate_results.jsonl")
+OUT = os.path.join(SAMPLES, "gate_results.jsonl")
 LOCK = threading.Lock()
 
 
@@ -76,9 +77,18 @@ def facts(s):
 def single_samples():
     opt = optimal()
     S = []
-    clean = {r["task_index"]: r for r in load(os.path.join(E1, "clean", "episodes.jsonl"))}
+    clean = {r["task_index"]: r for r in load(os.path.join(SAMPLES, "clean", "episodes.jsonl"))}
+    for cond in ("plan", "mem"):  # 故障被执行器补救、任务仍成功：真相是只有执行该记功
+        for r in load(os.path.join(SAMPLES, cond, "episodes.jsonl")):
+            if not r["success"] or os.environ.get("E1_SUCC", "0") != "1":
+                continue
+            S.append({"id": f"{cond}_succ-{r['task_index']}", "kind": f"{cond}_succ", "game": r["game"],
+                      "task": r["task_main"], "plan": r["run"]["plan"], "steps": r["run"]["steps"], "budget": 30,
+                      "optimal": opt[r["game"]].get(r["problem"]), "truth": "execution",
+                      "truth_mis": ["PLANT_BAD"] if cond == "mem" else [],
+                      "retrieved": ["PLANT_BAD"] if cond == "mem" else [], "strict": True, "success": True})
     for cond, truth in (("plan", "planning"), ("exec", "execution"), ("mem", "planning")):
-        for r in load(os.path.join(E1, cond, "episodes.jsonl")):
+        for r in load(os.path.join(SAMPLES, cond, "episodes.jsonl")):
             if r["success"]:
                 continue
             c = clean.get(r["task_index"])
@@ -165,7 +175,7 @@ def num(x):
 
 
 def gate_global(s, cond):
-    outcome = "FAILURE (reward=0.0)"
+    outcome = "SUCCESS (reward=1.0)" if s.get("success") else "FAILURE (reward=0.0)"
     traj = render_traj(s["steps"])
     plan_mem = mems(s)
     if cond == "plan_view":
@@ -192,7 +202,8 @@ def gate_self(s):
         view = (f"Your plan:\n{s['plan']}\n\nExecuted actions and observations:\n" if role == "planner"
                 else f"The plan you received:\n{s['plan']}\n\nYour actions and observations:\n") + render_traj(s["steps"])
         prompt = NAIVE_GATE.format(role=role, role_desc=SELF_ROLE[role], task=s["task"], view=view,
-                                   outcome="FAILURE (goal not reached within the step limit)",
+                                   outcome=("SUCCESS (all goal conditions satisfied)" if s.get("success")
+                                            else "FAILURE (goal not reached within the step limit)"),
                                    memories=format_memories(mems(s) if role == "planner" else []))
         out[role] = ask([{"role": "user", "content": prompt}])
     p = str(out["planner"].get("attribution", "")).lower() == "self"

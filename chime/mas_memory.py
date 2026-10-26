@@ -54,6 +54,10 @@ Rules: for a failure, include a stage only if its own decision caused or failed 
 include a stage only if its decisions were necessary for the success. Use [] when the outcome is explained by
 external factors or there is not enough evidence."""
 
+# 干净执行器的固定提示：压低 think 循环（与记忆无关，每题都给）
+ACT_HINT = ("Act directly: output exactly ONE concrete executable action per turn. Do not output 'think:' "
+            "steps; if you are unsure which actions are valid, output 'check valid actions'.")
+
 WRITE_ON_FAILURE = {"root", "missed_check", "compounded", "coordination"}
 CREDIT_ON_SUCCESS = {"decisive"}
 
@@ -197,6 +201,8 @@ class ChimeMAS:
         kw = {"merger": merger} if merger else {}
         self.mem = HierarchicalMemory(embed, config or Config(), stages=ROLES, **kw)
         self.frozen = False
+        self.act_hint = False     # 干净执行器：给提议者、定稿者加固定提示（与记忆无关）
+        self.skip_update = False  # 危害实验的预言机：本题为无责失败时不调用归因门、不更新记忆
         self.reset("")
         self.log: list[dict] = []
 
@@ -210,7 +216,8 @@ class ChimeMAS:
         items = [m for m, _, _ in self.mem.retrieve(role, query)]
         seen = {m.id for m in self.retrieved[role]}
         self.retrieved[role] += [m for m in items if m.id not in seen]
-        return [f"When {m.scenario}: {m.experience}" for m in items]
+        hint = [ACT_HINT] if self.act_hint and role in ("proposer", "finalizer") else []
+        return [f"When {m.scenario}: {m.experience}" for m in items] + hint
 
     def record(self, role: str, agent: str, text: str):
         if text:
@@ -227,7 +234,8 @@ class ChimeMAS:
         rec = {"task_id": task_id, "success": success, "mode": self.mode, "frozen": self.frozen,
                "retrieved": {r: [m.id for m in v] for r, v in self.retrieved.items()},
                "steps": steps_to_json(self.steps)}  # 保存完整团队轨迹，供离线对比归因
-        if self.frozen:
+        if self.frozen or (self.skip_update and not success):
+            rec["oracle_skipped"] = bool(self.skip_update and not success and not self.frozen)
             self.log.append(rec)
             return rec
         outcome = "SUCCESS (all goal conditions satisfied)" if success else "FAILURE (goal not reached within the step limit)"
@@ -335,6 +343,8 @@ class ChimeSingle:
         kw = {"merger": merger} if merger else {}
         self.mem = HierarchicalMemory(embed, config or Config(), **kw)  # 默认两库 plan / exec
         self.frozen = False
+        self.act_hint = False
+        self.skip_update = False
         self.context = ""
         self.log: list[dict] = []
         self.reset("")
@@ -354,7 +364,7 @@ class ChimeSingle:
         exec_mem = [m for m, _, _ in self.mem.retrieve("exec", query + "\n" + self.plan)] if self.use_memory else []
         self.retrieved = plan_mem + exec_mem
         return ["Plan for this task (follow it unless observations show it is wrong):\n" + self.plan] + \
-               [f"When {m.scenario}: {m.experience}" for m in exec_mem]
+               [f"When {m.scenario}: {m.experience}" for m in exec_mem] + ([ACT_HINT] if self.act_hint else [])
 
     def record(self, role: str, agent: str, text: str):
         if text:
@@ -370,7 +380,8 @@ class ChimeSingle:
             self.steps.pop()
         rec = {"task_id": task_id, "success": success, "mode": self.mode, "frozen": self.frozen, "plan": self.plan,
                "retrieved": [m.id for m in self.retrieved], "steps": steps_to_json(self.steps)}
-        if self.frozen or not self.use_memory:
+        if self.frozen or not self.use_memory or (self.skip_update and not success):
+            rec["oracle_skipped"] = bool(self.skip_update and not success and not self.frozen and self.use_memory)
             self.log.append(rec)
             return rec
         traj = "\n".join(f"[step {s.idx}] executed: {_clip(s.action, 200)} | observation: {_clip(s.observation, 200)}"

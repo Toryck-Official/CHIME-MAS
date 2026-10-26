@@ -1,0 +1,92 @@
+{
+ "mas_runs/cmp/pddl_dylan_naive_s0": {
+  "episodes": 42,
+  "success_eps": 18,
+  "mean_adoption_share": {
+   "proposer": 0.882,
+   "checker": 0.041,
+   "finalizer": 0.118
+  },
+  "success_credits_by_role": {
+   "proposer": 18,
+   "checker": 18,
+   "finalizer": 18
+  },
+  "credits_removed_by_adoption_gate": {
+   "proposer": 0,
+   "checker": 12,
+   "finalizer": 4
+  },
+  "removed_pct": 29.6,
+  "failure_lessons_by_role": {
+   "proposer": 24,
+   "checker": 24,
+   "finalizer": 24
+  },
+  "failure_lessons_from_roles_never_adopted": {
+   "proposer": 0,
+   "checker": 8,
+   "finalizer": 1
+  }
+ },
+ "mas_runs/e2/gripper_naive_s0": {
+  "episodes": 20,
+  "success_eps": 10,
+  "mean_adoption_share": {
+   "proposer": 0.841,
+   "checker": 0.106,
+   "finalizer": 0.159
+  },
+  "success_credits_by_role": {
+   "proposer": 10,
+   "checker": 10,
+   "finalizer": 10
+  },
+  "credits_removed_by_adoption_gate": {
+   "proposer": 0,
+   "checker": 2,
+   "finalizer": 0
+  },
+  "removed_pct": 6.7,
+  "failure_lessons_by_role": {
+   "proposer": 10,
+   "checker": 10,
+   "finalizer": 10
+  },
+  "failure_lessons_from_roles_never_adopted": {
+   "proposer": 0,
+   "checker": 2,
+   "finalizer": 0
+  }
+ },
+ "mas_runs/e2/barman_naive_s0": {
+  "episodes": 20,
+  "success_eps": 6,
+  "mean_adoption_share": {
+   "proposer": 0.896,
+   "checker": 0.033,
+   "finalizer": 0.104
+  },
+  "success_credits_by_role": {
+   "proposer": 6,
+   "checker": 6,
+   "finalizer": 6
+  },
+  "credits_removed_by_adoption_gate": {
+   "proposer": 0,
+   "checker": 6,
+   "finalizer": 2
+  },
+  "removed_pct": 44.4,
+  "failure_lessons_by_role": {
+   "proposer": 14,
+   "checker": 14,
+   "finalizer": 14
+  },
+  "failure_lessons_from_roles_never_adopted": {
+   "proposer": 0,
+   "checker": 5,
+   "finalizer": 1
+  }
+ }
+}

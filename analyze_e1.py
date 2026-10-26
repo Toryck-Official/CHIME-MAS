@@ -5,7 +5,7 @@ import collections
 import json
 import os
 
-E1 = "/home/claude/chime/mas_runs/e1"
+E1 = os.environ.get("E1_SAMPLES", "/home/claude/chime/mas_runs/e1")
 LABELS = ("planning", "execution", "both", "none")
 
 

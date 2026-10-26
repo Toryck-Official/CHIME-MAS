@@ -11,7 +11,7 @@ from __future__ import annotations
 import random
 
 from .gate import format_memories
-from .mas_memory import PLANNER_PDDL, ChimeSingle, TraceStep, steps_to_json
+from .mas_memory import ACT_HINT, PLANNER_PDDL, ChimeSingle, TraceStep, steps_to_json
 from .memory import MemoryItem
 
 # 误导记忆：照做会违反域约束或浪费步数（已对照 pddlgym/pddl 下的域文件）
@@ -55,6 +55,7 @@ class FaultSingle(ChimeSingle):
         self.planted: list[MemoryItem] = []
         self.sabotage: dict | None = None  # {"start": k, "n": m, "seed": s}
         self.sabotage_log: list[dict] = []
+        self.act_hint = False
 
     def configure(self, forced_plan=None, planted=None, sabotage=None):
         self.forced_plan, self.planted, self.sabotage = forced_plan, list(planted or []), sabotage
@@ -69,7 +70,8 @@ class FaultSingle(ChimeSingle):
             self.plan = self.llm_call([{"role": "user", "content": PLANNER_PDDL.format(
                 task=query, context=self.context, memories=format_memories(self.planted))}]).strip()
         self.retrieved = list(self.planted)
-        return ["Plan for this task (follow it unless observations show it is wrong):\n" + self.plan]
+        return ["Plan for this task (follow it unless observations show it is wrong):\n" + self.plan] + \
+               ([ACT_HINT] if self.act_hint else [])
 
     def override_action(self, step_i: int, action: str, env) -> str:
         """DyLAN 在 env.step 之前调用；step_i 从 0 开始。"""

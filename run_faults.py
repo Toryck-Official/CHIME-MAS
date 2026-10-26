@@ -45,6 +45,7 @@ def main():
     ap.add_argument("--budget-cny", type=float, default=2.5)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--out", default="/home/claude/chime/mas_runs/e1")
+    ap.add_argument("--act-hint", action="store_true", help="执行器加固定提示：直接输出动作、不写 think")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     R.WORKING_DIR = os.path.join("./.db", "chime_mas", "e1")
@@ -61,6 +62,7 @@ def main():
         return llm([Message(m["role"], m["content"]) for m in msgs], temperature=0.0, max_tokens=max_tokens)
 
     fs = FaultSingle(embed=qwen_embed, llm_call=llm_call)
+    fs.act_hint = a.act_hint
     tm.mas.chime = fs
 
     tasks = {i: t for i, t in enumerate(tm.tasks)}

@@ -1,0 +1,204 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where goal conditions require one block to support another and supports must be cleared first.",
+   "experience": "Decompose block-stacking tasks by clearing all blocks from required supports, placing the base block, then stacking dependents in dependency order; schedule independent goals as soon as their block is free and their target is clear, and verify each goal condition at the end.",
+   "value": 0.29,
+   "n": 25,
+   "id": "3e57dbb9",
+   "origin_task": "26"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Wheel-replacement tasks where a spare wheel must be inflated and swapped onto a hub while the old wheel is stowed.",
+   "experience": "Plan the full dependency chain: open the boot, fetch tools and wheels, inflate all required wheels, loosen nuts, jack up, undo nuts, remove the old wheel, mount the inflated spare, fasten and tighten nuts, jack down, then stow the old wheel and tools. Include a verification step for each goal condition.",
+   "value": 0.33421052631578946,
+   "n": 19,
+   "id": "4b8116ef",
+   "origin_task": "59"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Cocktail-mixing tasks where the goal specifies named cocktails but the ingredient composition of each cocktail is not given in the plan.",
+   "experience": "Before committing to an ingredient sequence, verify the actual ingredient composition of each target cocktail (e.g., by checking valid shake actions or recipe information); do not assume a mapping from cocktail names to ingredients. If the composition is unknown, probe the environment first and adjust the plan accordingly.",
+   "value": 0.275,
+   "n": 10,
+   "id": "8b1a9dfc",
+   "origin_task": "5"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Wheel-removal/stowage tasks where wheels must be removed from hubs and placed into a container.",
+   "experience": "Plan the full dependency chain: open the container, fetch required tools (wrench, jack), loosen nuts, jack up the hub, undo nuts, remove the wheel, stow it, jack down, and repeat per wheel; include a final verification that each wheel is in the container.",
+   "value": 0.24545454545454543,
+   "n": 11,
+   "id": "3d9ed347",
+   "origin_task": "57"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Cocktail-mixing tasks where the goal specifies a named cocktail and its ingredient composition is known or can be verified.",
+   "experience": "Plan the full sequence: verify ingredient composition, ensure shaker and shot are clean/empty, add each ingredient via shot glass, shake the shaker, then pour into the target shot. Include verification steps for shaker contents and final shot contents.",
+   "value": 0.0,
+   "n": 5,
+   "id": "f4559161",
+   "origin_task": "3"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Multi-object transport tasks where several objects must be relocated between rooms with a single gripper.",
+   "experience": "Decompose the task into per-object pick-move-drop cycles, ordering objects so that each pick occurs in the room where the object currently is, and include a final verification that every object is at its target room.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5fc0c5f8",
+   "origin_task": "35"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When a stack/unstack action is rejected as invalid while holding a block.",
+   "experience": "When a stack/unstack action is rejected while holding a block, use check-valid-actions to identify legal moves; if the target is unclear or not directly graspable, put down the held block first, then clear the target before retrying.",
+   "value": 0.4884615384615385,
+   "n": 13,
+   "id": "4a41755e",
+   "origin_task": "26"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a tighten/fasten action is rejected as invalid after mounting a wheel.",
+   "experience": "Use the check-valid-actions command to discover legal moves; if tightening is invalid while the hub is jacked up, jack the hub down first, then retry tightening the nuts.",
+   "value": 0.33749999999999997,
+   "n": 8,
+   "id": "5aae9312",
+   "origin_task": "59"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a transport task with repeated move-pick-carry-drop cycles between two rooms.",
+   "experience": "After each action, verify the robot's current location from the observation before issuing the next move; avoid issuing a move to the room you are already in. When a drop action is rejected, check valid actions to confirm your current location and the held object's location before retrying.",
+   "value": 0.26071428571428573,
+   "n": 14,
+   "id": "99d6a124",
+   "origin_task": "47"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a jack-up action is rejected as invalid because the jack has not been fetched or the hub state is wrong.",
+   "experience": "If jack-up is rejected, use check-valid-actions to discover legal moves; ensure the jack is fetched before jacking up, and jack the hub down after removing the wheel before moving to the next hub.",
+   "value": -0.45,
+   "n": 2,
+   "id": "da0ca0a7",
+   "origin_task": "57"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When mixing a multi-ingredient cocktail in a shaker using shot glasses and dispensers.",
+   "experience": "Track which ingredient each shot contains and which ingredients are already in the shaker; after pouring a shot into the shaker, refill that shot with the NEXT required ingredient, not the same one. Verify shaker contents before shaking, and avoid repeated grasp/leave loops by checking valid actions when stuck.",
+   "value": 0.011111111111111108,
+   "n": 9,
+   "id": "42bf7706",
+   "origin_task": "19"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-object transport plan that alternates between rooms, especially after a drop in one room.",
+   "experience": "After each drop, re-check the robot's current room from the observation before issuing the next pick; if the next target object is in the other room, move there first. When a pick is rejected, use check valid actions to confirm both your location and the object's location, then move to the correct room before retrying.",
+   "value": 0.22499999999999998,
+   "n": 4,
+   "id": "cb516bb6",
+   "origin_task": "37"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing repeated pick-move-drop transport cycles between rooms, especially after a drop or when a pick is rejected.",
+   "experience": "After each drop, re-check the robot's current room from the observation before the next pick; if the target object is in the other room, move there first. When a pick is rejected, use check valid actions to confirm location and object position, then move to the correct room before retrying.",
+   "value": 0.0,
+   "n": 3,
+   "id": "910fd85a",
+   "origin_task": "35"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Wheel-swap tasks where a hub must be jacked up before the old wheel is removed and the new wheel mounted.",
+   "experience": "After loosening the nuts, verify the hub is actually jacked up before undoing nuts or removing the wheel; if jack-up is rejected, use check-valid-actions to find the correct precondition (e.g., hub on ground, jack fetched) and retry jack-up before proceeding. Mount the new wheel only after the old wheel is removed and the hub is clear, then fasten nuts and jack down.",
+   "value": 0.0,
+   "n": 1,
+   "id": "8558a18f",
+   "origin_task": "52"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Multi-wheel swap tasks where several hubs must each be processed through the full jack-up/remove/mount/fasten/jack-down cycle.",
+   "experience": "After completing one hub, continue the same cycle for every remaining hub without stopping early; track which hubs are done and verify all goal conditions (each inflated wheel on its hub, each old wheel in the boot) before ending the episode.",
+   "value": 0.0,
+   "n": 0,
+   "id": "789b1957",
+   "origin_task": "53"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a block-stacking plan where a block must be placed on a target that is currently supporting another block.",
+   "experience": "Before stacking onto a target block, ensure the target is clear by first removing any block resting on it; if a stack action is rejected, use check-valid-actions to identify the blocking block and clear it before retrying.",
+   "value": 0.45,
+   "n": 2,
+   "id": "3726541b",
+   "origin_task": "21"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing multi-step cocktail-mixing tasks with shot glasses, dispensers, and a shaker where hands may be occupied and actions can be rejected.",
+   "experience": "Before each grasp/fill/pour, check hand occupancy and the current contents of the shot and shaker from the latest observation; when an action is rejected, immediately consult valid actions and pick a valid alternative rather than repeating the same call. Track which ingredients have been added to the shaker and which remain, and do not introduce extra ingredients not in the target recipe. After adding all ingredients, shake and pour into the target shot, then handle independent goals (e.g., filling another shot with a different ingredient) separately.",
+   "value": -0.45,
+   "n": 2,
+   "id": "3d255e33",
+   "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Multi-object transport tasks where the robot alternates between rooms to pick up and drop objects.",
+   "experience": "After each drop, verify the robot's current room and the next target's location from the observation, then pick immediately if the target is in the current room or move to the other room first if it is not. If a pick is rejected, use check valid actions to confirm location and object position, then move to the correct room before retrying. Track robot and remaining object locations to avoid unnecessary moves and complete all required transfers before idling.",
+   "value": -0.45,
+   "n": 2,
+   "id": "23d1161a",
+   "origin_task": "33"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Repeated pick-move-drop transport cycles between two rooms where the robot must return to the source room after each drop.",
+   "experience": "After every drop, explicitly verify the robot's current room from the observation and issue a move back to the source room before attempting the next pick; never assume the robot is already in the source room. If a pick is rejected, use check valid actions to confirm location and object position, then move to the correct room before retrying.",
+   "value": -0.9,
+   "n": 1,
+   "id": "76af1b30",
+   "origin_task": "32"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing multi-step tasks where a shot glass must be filled with a specific ingredient from a dispenser, and the agent has a hand free.",
+   "experience": "To fill a shot glass with an ingredient, pick up the corresponding dispenser (not the shot glass), then use the fill-shot action; if a grasp or fill action is rejected, consult valid actions and switch to the correct object/action instead of repeating the same invalid call.",
+   "value": 0.0,
+   "n": 1,
+   "id": "abc6f7c9",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing cocktail-mixing tasks where a shaker must be cleaned before use and hands may be occupied, with actions frequently rejected.",
+   "experience": "Before filling a shot or shaking, ensure the hand is empty and the target container is clean/empty; if an action is rejected, consult valid actions and switch to a valid alternative instead of repeating the same call. Clean the shaker before adding ingredients, and avoid grasp/leave loops by checking valid actions when stuck.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a64a646c",
+   "origin_task": "17"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-object transport plan that requires moving several objects between two rooms in alternating directions.",
+   "experience": "Track the remaining objects to be moved and continue the pick-move-drop cycle until every goal condition is satisfied; do not stop after a subset of transfers. After each drop, verify the object's new location and the robot's current room before proceeding to the next target.",
+   "value": 0.0,
+   "n": 0,
+   "id": "61e9d0df",
+   "origin_task": "38"
+  }
+ ]
+}

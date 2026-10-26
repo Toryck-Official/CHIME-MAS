@@ -1,0 +1,294 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "When a task requires moving multiple objects from one location to another using an agent with two grippers.",
+   "experience": "Plan to carry two objects per trip: pick up one object with each gripper at the source, move to the destination, and drop both. Repeat until all objects are moved, then verify placement.",
+   "value": 0.2026315789473684,
+   "n": 38,
+   "id": "908aa750",
+   "origin_task": "33"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where the goal is a specific tower configuration and blocks are initially interleaved.",
+   "experience": "Clear all blocks that must move by unstacking them to the table, then build the target tower bottom-up, placing each support block before its dependent block.",
+   "value": 0.23846153846153847,
+   "n": 39,
+   "id": "1fc371b6",
+   "origin_task": "29"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Multi-object transport tasks where objects must be moved between two locations and the agent has two grippers.",
+   "experience": "Verify each object's actual initial and goal locations from the observation, then batch transfers by direction—carrying one object per gripper per trip, completing all transfers in one direction before reversing, and confirming final placements against the goal.",
+   "value": 0.13793103448275862,
+   "n": 29,
+   "id": "bb086cc1",
+   "origin_task": "36"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Wheel/hub repair tasks where a wheel must be removed from a hub and another mounted, with tools like a jack and wrench available.",
+   "experience": "Include jacking up the hub as an explicit prerequisite before removing or mounting wheels, and verify the hub is in a valid state (e.g., on ground vs. jacked) for each action; check valid actions early to confirm preconditions rather than assuming.",
+   "value": -2.2204460492503132e-17,
+   "n": 5,
+   "id": "bf388b27",
+   "origin_task": "59"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Wheel/hub tasks where wheels must be moved into a container (e.g., boot) and hubs require jacking and nut removal.",
+   "experience": "Plan explicit steps for each hub: loosen nut, jack up hub, undo fastening, remove wheel, place wheel in container, then jack down. Verify container is open before placing items.",
+   "value": 0.0,
+   "n": 2,
+   "id": "36bffdb3",
+   "origin_task": "57"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Cocktail-mixing tasks where a shaker must contain a specific cocktail and ingredients are available at dispensers, with shot glasses as intermediate containers.",
+   "experience": "Plan to transfer each ingredient into the shaker via a shot glass: fill the shot glass from the dispenser, pour it into the shaker, and clean the shot glass between ingredients. Then shake the shaker to produce the cocktail and pour it into the target shot glass. Account for hand occupancy by leaving containers when both hands are needed.",
+   "value": 0.31666666666666665,
+   "n": 3,
+   "id": "92fc9300",
+   "origin_task": "4"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Multi-object transport tasks where objects must be moved between rooms and the initial locations of all objects must be verified before planning.",
+   "experience": "Before planning, verify every object’s initial location against the goal rather than assuming it is already at its target or source room. Then plan capacity-respecting trips that move only objects needing room changes, pair two per trip when possible, include explicit steps for misplaced objects, and order trips to minimize back-and-forth while ensuring the agent is in the correct source room before each pick.",
+   "value": 0.95,
+   "n": 1,
+   "id": "e390bb4d",
+   "origin_task": "39"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that requires filling a container from a dispenser while holding multiple objects.",
+   "experience": "Ensure the correct tool syntax and preconditions are met before attempting fill actions; do not grasp additional objects that block the required action, and follow the planned sequence of adding ingredients to the shaker before pouring.",
+   "value": 0.3480769230769231,
+   "n": 26,
+   "id": "d2867f91",
+   "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that involves picking up, moving, and dropping objects with a two-gripper agent.",
+   "experience": "Use both grippers to carry two objects per trip: pick up with left and right grippers at the source, move to the destination, and drop each object with the corresponding gripper. Ensure the agent is at the correct location before picking up or dropping.",
+   "value": 0.08461538461538462,
+   "n": 13,
+   "id": "f76d35c6",
+   "origin_task": "33"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When an unstack/stack action is rejected as invalid during block manipulation.",
+   "experience": "When an unstack/stack action is rejected as invalid, immediately run 'check valid actions' to see which blocks are actually clear and movable, then adapt the order to the reported valid actions instead of retrying the same invalid action.",
+   "value": 0.16999999999999998,
+   "n": 10,
+   "id": "521325e3",
+   "origin_task": "29"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a two-gripper transport plan when an action is rejected as invalid.",
+   "experience": "When a pick or drop action is invalid, immediately run 'check valid actions' to see which objects are actually graspable and which gripper is free, then adapt the next action accordingly instead of retrying the same invalid action.",
+   "value": 0.0,
+   "n": 2,
+   "id": "39ba3010",
+   "origin_task": "36"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a two-gripper transport plan where two objects are carried per trip and must be dropped at the destination.",
+   "experience": "For two-gripper paired transport, pick one object per gripper at the source, track which gripper holds which object, and explicitly drop each at its verified goal location before moving away. Before every pick, confirm at least one gripper is empty and verify the target object's location, dropping carried objects at the destination first if both grippers are full. Never move away while carrying an object, confirm both grippers are empty before starting the next trip or considering the task complete, and if a drop is rejected, check valid actions and correct the location or gripper before proceeding.",
+   "value": 0.18124999999999997,
+   "n": 16,
+   "id": "9cb3bf6f",
+   "origin_task": "44"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-object transport plan where the agent must alternate between locations and grippers, and some objects are at the opposite location from the current one.",
+   "experience": "Before each pick/drop, verify the agent is at the object's location and the target gripper is free; do not attempt to pick an object in another room. Follow the plan's location ordering strictly, and use 'check valid actions' when an action is rejected to re-synchronize.",
+   "value": 0.0,
+   "n": 1,
+   "id": "ab3f52a6",
+   "origin_task": "42"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-step cocktail-mixing plan where ingredients must be added to a shaker via a shot glass and the shaker must be cleaned between cocktails.",
+   "experience": "Before each fill/pour, use 'check valid actions' to confirm the exact action and preconditions, verifying the required hand is free, the target container is available and in the correct state, and the ingredient matches the plan; follow the planned ingredient order exactly without substituting, adding unplanned ingredients, repeating an ingredient, or reusing a dirty shaker, and resolve any missing container before proceeding rather than improvising.",
+   "value": 0.005555555555555573,
+   "n": 9,
+   "id": "076a0c2b",
+   "origin_task": "5"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where each cocktail is defined by a specific set of ingredients that must be added to a shaker.",
+   "experience": "Strictly follow the planned ingredient list for each cocktail; before each fill/pour, confirm the ingredient matches the recipe, and use 'check valid actions' to verify the exact shake action name and required ingredients rather than guessing.",
+   "value": 0.37,
+   "n": 10,
+   "id": "ae1a5768",
+   "origin_task": "7"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that assumes wheels must be removed from hubs before inflation, but the environment allows inflating wheels directly from the boot.",
+   "experience": "Check valid actions early to discover shortcuts; if a wheel can be inflated while held or from the boot, do so directly instead of following unnecessary jack-up/remove/reinstall steps, then verify the goal condition.",
+   "value": 0.36,
+   "n": 5,
+   "id": "7217fda5",
+   "origin_task": "55"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a plan that requires moving a specific object to a container, and the object is not initially in the container or directly listed as fetchable from a known location.",
+   "experience": "Use 'check valid actions' to enumerate all currently legal fetch/put-away actions and identify the exact object-location pair for the target object; do not guess a fetch command for an object that is not listed as valid. If the target object is not directly fetchable, inspect its current location (e.g., look around) and perform prerequisite actions (e.g., remove it from a hub) before placing it in the container.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4fa18bd5",
+   "origin_task": "58"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan where a block must be moved but is still resting on another block.",
+   "experience": "Before picking up a block, verify it is clear (not supporting another block); if it is on another block, unstack the supported block first. If a pickup is rejected as invalid, immediately run 'check valid actions' to identify movable blocks and adapt the order.",
+   "value": 0.4583333333333333,
+   "n": 6,
+   "id": "07a41091",
+   "origin_task": "27"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where ingredients must be added to a shaker and the agent must manage hand occupancy and container states.",
+   "experience": "When a direct grasp or fill action is invalid, use 'check valid actions' to discover the correct action name and preconditions; use a shot glass as an intermediate to transfer ingredients into the shaker, cleaning the shot glass between ingredients, and verify container states after each pour.",
+   "value": 0.012500000000000039,
+   "n": 4,
+   "id": "ec17eae0",
+   "origin_task": "0"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where ingredients must be added to a shaker via a shot glass, with cleaning between ingredients and shaking before pouring.",
+   "experience": "Use a shot glass to measure and transfer each ingredient into the shaker, cleaning it after each use to avoid cross-contamination. After each pour, verify container states, and once all ingredients are added, shake the shaker before pouring into the target shot glass.",
+   "value": 0.4625,
+   "n": 4,
+   "id": "36d03974",
+   "origin_task": "1"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a two-gripper transport plan that batches transfers by direction to minimize travel.",
+   "experience": "When the plan calls for carrying one object per gripper per trip, explicitly pick up two objects (one with each gripper) at the source before moving, then drop both at the destination. Do not use only one gripper for every transfer, and verify both grippers are empty before moving away.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1231f28b",
+   "origin_task": "38"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a plan that fills multiple containers with different ingredients using separate dispensers, where each container must be picked up, filled, and returned.",
+   "experience": "Follow the plan sequentially: grasp the target container with a free hand, invoke the fill action with the correct container, ingredient, hand, and dispenser arguments, then release the container before moving to the next one. Verify each fill result before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4d84d00e",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-step cocktail task where a shaker must be filled, shaken, and poured into a specific target shot glass, with multiple similar shot glasses present.",
+   "experience": "Before pouring from a shaker, explicitly confirm the target shot glass matches the goal (e.g., the one designated for the cocktail), and use 'check valid actions' to verify the exact pour action and target; do not assume the first shot listed is correct. Also, when a fill action is invalid, check valid actions to find the correct action name and required container state before retrying.",
+   "value": 0.0,
+   "n": 1,
+   "id": "bdd72f01",
+   "origin_task": "15"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-step repair/assembly plan where tools and parts must be fetched from a container and used in a specific order.",
+   "experience": "Before attempting an action, verify that the required tool or part is actually in hand; if an action fails, use the check-valid-actions command to discover the correct next step rather than repeating a fetch or assuming a precondition is met.",
+   "value": 0.0,
+   "n": 1,
+   "id": "90592cf4",
+   "origin_task": "51"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-step block-stacking plan where an action has just succeeded and the next planned action must be issued.",
+   "experience": "After a successful action, advance to the next planned step rather than re-issuing the previous action; if an action is rejected, use 'check valid actions' and then follow the plan's remaining steps (e.g., pick up the support block and place it on its target) instead of repeating putdowns or unstacking.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8a54d079",
+   "origin_task": "20"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where ingredients must be transferred via a shot glass into a shaker, with hand occupancy and container state constraints.",
+   "experience": "Before each action, call 'check valid actions' to confirm the exact action name and required hand/container states, and use the exact fill/pour action strings returned rather than guessing. Never attempt to grasp a second object with an occupied hand, and follow the planned order without unnecessary leave/regrasp cycles.",
+   "value": 0.31666666666666665,
+   "n": 9,
+   "id": "6252a060",
+   "origin_task": "10"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where ingredients must be added to a shaker and the agent has two hands/grippers.",
+   "experience": "Follow the planned sequence directly: pick up each ingredient and pour it into the shaker without using the target shot glass as an intermediate container. Before any fill-shot action, ensure the hand performing the fill is free and not already holding the shot glass; use 'check valid actions' when an action is invalid.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3ec3aa4f",
+   "origin_task": "3"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a wheel-removal plan when an action is rejected as invalid.",
+   "experience": "When an action is invalid, immediately use the check valid actions command to discover the correct next action, then continue the planned sequence without unnecessary thinking steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1c632a09",
+   "origin_task": "57"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing cocktail-mixing plans where direct dispenser-to-shaker actions may be unavailable and hand occupancy limits grasping.",
+   "experience": "When a planned action is invalid, call 'check valid actions' to discover the exact available action strings and adapt: use a shot glass as an intermediate to transfer ingredients, clean it between uses, and free a hand by leaving a held object before attempting two-handed actions. Verify container states after each pour.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2071b6b2",
+   "origin_task": "4"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-trip two-gripper transport plan where all objects must be moved to a destination.",
+   "experience": "Execute the planned multi-trip sequence by confirming before each pick that the gripper is free and the object is at its expected source, then dropping each carried object at its verified goal location and confirming both grippers are empty before the next trip. After each drop, track remaining objects and verify the goal condition, continuing until every object is moved rather than stopping early after only some pairs. Explicitly confirm the final state before considering the task complete.",
+   "value": 0.0,
+   "n": 0,
+   "id": "478a1504",
+   "origin_task": "34"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-step wheel/hub repair where hubs must be jacked up before mounting wheels and jacked down only after fastening.",
+   "experience": "Before mounting a wheel, ensure the target hub is still jacked up; do not jack down a hub until its wheel is mounted and fastened. When an action is invalid, use check-valid-actions to confirm the current state and required preconditions rather than repeating the same invalid action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2ee23973",
+   "origin_task": "53"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-cocktail plan where each cocktail must be poured into a specific target shot glass and the shaker must be reused.",
+   "experience": "When pouring a shaken cocktail, verify the target shot glass matches the goal condition before acting; if the intended target is not in the valid action list, check its state (e.g., empty/clean) and clean or empty it first rather than pouring into a different shot. After completing one cocktail, proceed directly to the next planned cocktail instead of repeatedly grasping and releasing containers.",
+   "value": 0.0,
+   "n": 0,
+   "id": "87741649",
+   "origin_task": "6"
+  }
+ ]
+}

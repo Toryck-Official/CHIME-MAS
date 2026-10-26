@@ -1,0 +1,22 @@
+{
+ "tag": "pddl_single_single_chime_oracle_hint_s0",
+ "mode": "single_chime",
+ "order_seed": 0,
+ "n_train": 42,
+ "n_eval": 18,
+ "train_success": 45.24,
+ "eval_success": 77.78,
+ "train_progress": 73.81,
+ "eval_progress": 89.2,
+ "memory_size": {
+  "plan": 7,
+  "exec": 20
+ },
+ "usage": {
+  "calls": 1298,
+  "prompt_tokens": 4227738,
+  "cache_hit_tokens": 3828736,
+  "completion_tokens": 29715,
+  "cost_cny_offpeak": 0.5944
+ }
+}

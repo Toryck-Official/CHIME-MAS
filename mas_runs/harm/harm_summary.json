@@ -1,0 +1,166 @@
+{
+ "pddl_single_single_chime_oracle_hint_s0": {
+  "n_train": 42,
+  "n_eval": 18,
+  "train_success": 45.2,
+  "eval_success": 77.8,
+  "eval_progress": 89.2,
+  "no_fault_failures": 15,
+  "writes_total": 37,
+  "writes_from_no_fault": 0,
+  "writes_from_no_fault_pct": 0.0,
+  "gate_labels_on_no_fault": {},
+  "memory_size": {
+   "plan": 7,
+   "exec": 20
+  },
+  "cost": 0.5944,
+  "eval_by_task": {
+   "18": true,
+   "8": false,
+   "52": false,
+   "13": true,
+   "37": true,
+   "22": true,
+   "30": true,
+   "19": true,
+   "25": true,
+   "31": true,
+   "32": true,
+   "16": true,
+   "2": true,
+   "26": true,
+   "56": false,
+   "48": false,
+   "24": true,
+   "54": true
+  }
+ },
+ "pddl_single_single_chime_oracle_hint_s1": {
+  "n_train": 42,
+  "n_eval": 18,
+  "train_success": 21.4,
+  "eval_success": 66.7,
+  "eval_progress": 80.6,
+  "no_fault_failures": 16,
+  "writes_total": 35,
+  "writes_from_no_fault": 0,
+  "writes_from_no_fault_pct": 0.0,
+  "gate_labels_on_no_fault": {},
+  "memory_size": {
+   "plan": 6,
+   "exec": 16
+  },
+  "cost": 0.6232,
+  "eval_by_task": {
+   "1": true,
+   "56": true,
+   "6": false,
+   "13": true,
+   "24": true,
+   "41": true,
+   "30": true,
+   "28": false,
+   "55": true,
+   "31": true,
+   "7": false,
+   "16": true,
+   "4": false,
+   "48": true,
+   "51": false,
+   "54": true,
+   "36": true,
+   "8": false
+  }
+ },
+ "pddl_single_single_chime_orig_hint_s0": {
+  "n_train": 42,
+  "n_eval": 18,
+  "train_success": 40.5,
+  "eval_success": 72.2,
+  "eval_progress": 81.8,
+  "no_fault_failures": 15,
+  "writes_total": 53,
+  "writes_from_no_fault": 15,
+  "writes_from_no_fault_pct": 28.3,
+  "gate_labels_on_no_fault": {
+   "execution": 13,
+   "planning": 2
+  },
+  "memory_size": {
+   "plan": 7,
+   "exec": 25
+  },
+  "cost": 0.6546,
+  "eval_by_task": {
+   "18": true,
+   "8": false,
+   "52": false,
+   "13": true,
+   "37": true,
+   "22": true,
+   "30": true,
+   "19": false,
+   "25": true,
+   "31": true,
+   "32": true,
+   "16": true,
+   "2": false,
+   "26": true,
+   "56": true,
+   "48": true,
+   "24": false,
+   "54": true
+  },
+  "paired_vs_oracle": {
+   "oracle_wins": 3,
+   "orig_wins": 2,
+   "n": 18
+  }
+ },
+ "pddl_single_single_chime_orig_hint_s1": {
+  "n_train": 42,
+  "n_eval": 18,
+  "train_success": 28.6,
+  "eval_success": 61.1,
+  "eval_progress": 72.2,
+  "no_fault_failures": 16,
+  "writes_total": 50,
+  "writes_from_no_fault": 16,
+  "writes_from_no_fault_pct": 32.0,
+  "gate_labels_on_no_fault": {
+   "planning": 4,
+   "execution": 12
+  },
+  "memory_size": {
+   "plan": 8,
+   "exec": 17
+  },
+  "cost": 0.6843,
+  "eval_by_task": {
+   "1": false,
+   "56": true,
+   "6": false,
+   "13": true,
+   "24": true,
+   "41": true,
+   "30": true,
+   "28": true,
+   "55": true,
+   "31": true,
+   "7": false,
+   "16": false,
+   "4": false,
+   "48": true,
+   "51": false,
+   "54": true,
+   "36": true,
+   "8": false
+  },
+  "paired_vs_oracle": {
+   "oracle_wins": 2,
+   "orig_wins": 1,
+   "n": 18
+  }
+ }
+}

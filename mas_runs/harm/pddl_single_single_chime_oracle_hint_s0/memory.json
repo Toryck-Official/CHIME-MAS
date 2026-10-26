@@ -1,0 +1,249 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "Transporting multiple objects from one location to another with a two-gripper robot, where each round trip is costly.",
+   "experience": "Batch transports by filling both grippers at the source, moving once, and dropping both at the destination to halve the number of moves versus one object per trip, alternating left/right gripper picks and drops. Before dropping, verify each object's final target location.",
+   "value": 0.25454545454545446,
+   "n": 22,
+   "id": "f56b03ce",
+   "origin_task": "33"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where the goal is a specific tower/chain of blocks and some blocks are initially stacked on others.",
+   "experience": "Decompose block-stacking tasks into two phases: first unstack all blocks that must move onto the table in an order that respects which block is clear, then build the target structure bottom-up, placing each block only after its target is clear and the arm is empty. Verify the dependency order so each placement's target is already in place.",
+   "value": 0.3217391304347826,
+   "n": 23,
+   "id": "487d4078",
+   "origin_task": "29"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Multi-container filling tasks where each container must contain a specific ingredient and the containers are independent.",
+   "experience": "Decompose into one fill step per container, each requiring an empty hand and a clean container; order the steps arbitrarily since they are independent, and include a final verification step for each container's contents.",
+   "value": 0.28846153846153844,
+   "n": 13,
+   "id": "723a8748",
+   "origin_task": "14"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Tire-changing tasks where wheels must be inflated, old wheels removed from hubs, and new wheels mounted, with tools stored in a boot.",
+   "experience": "Decompose into: open boot, inflate all wheels, remove old wheels (loosen nuts, jack up hub, undo nuts, remove wheel), mount new wheels (place wheel, do-up nuts, jack down), then return tools and old wheels to boot. Ensure each hub is clear before placing a new wheel and that the jack is available for each hub.",
+   "value": 0.45,
+   "n": 2,
+   "id": "330a24e2",
+   "origin_task": "51"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Tire-changing tasks where wheels must be removed from hubs and placed into a container such as a boot, with tools stored in the boot.",
+   "experience": "Decompose into: open the boot, fetch the needed tools, then for each hub independently loosen nuts, jack up, undo nuts, remove the wheel, and place it in the boot; finish by returning tools and verifying each target wheel is in the boot. Treat hubs as independent so their steps can be interleaved or reordered as needed.",
+   "value": -0.9,
+   "n": 1,
+   "id": "e317ca85",
+   "origin_task": "57"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Transport tasks where multiple objects must end at specified target locations, and some objects may already be at their targets.",
+   "experience": "Before planning moves, compare each object's initial location against its goal location and only plan transport for objects that are not already at their target; never move an object away from its goal.",
+   "value": 0.0,
+   "n": 1,
+   "id": "da0c3615",
+   "origin_task": "39"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Transporting multiple objects between rooms with a two-gripper robot, where some objects have different final destinations.",
+   "experience": "Batch transports by filling both grippers at the source before moving, but handle objects with different destinations separately: transport them in dedicated trips or interleave with other tasks to minimize moves. Verify each object's final target location before dropping.",
+   "value": 0.0,
+   "n": 0,
+   "id": "edc53e20",
+   "origin_task": "43"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When executing a multi-step manipulation plan that requires holding one object while interacting with another (e.g., holding a container and filling it from a dispenser).",
+   "experience": "Before each grasp, ensure the target hand is free; if already holding an object, either use the other hand or release the held object first. Use 'check valid actions' to confirm the intended action is available, and follow the plan's order: pick up the container, then fill it while held, rather than grasping a second object.",
+   "value": 0.7210526315789473,
+   "n": 19,
+   "id": "8299519f",
+   "origin_task": "12"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a repeated pick-carry-drop loop with a two-gripper robot across two rooms.",
+   "experience": "Follow the pick-pick-move-drop-drop-move cycle—fill both grippers at the source before moving, drop both at the destination before returning—and verify gripper occupancy from observations so no pick is attempted with an occupied hand.",
+   "value": 0.4884615384615384,
+   "n": 13,
+   "id": "9dbe520c",
+   "origin_task": "33"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan where an intended unstack/pickup may be invalid because the block is not clear or the arm is occupied.",
+   "experience": "When an action is rejected as invalid, immediately run 'check valid actions' to see what is currently possible, then choose the valid action that advances the plan (e.g., put down the held block or unstack the blocking block first) instead of retrying the same invalid action.",
+   "value": 0.7812500000000001,
+   "n": 8,
+   "id": "8eed78b9",
+   "origin_task": "29"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-step pick-carry-drop plan with a two-gripper robot across rooms, where an action may be invalid due to occupancy or location.",
+   "experience": "Follow the pick-pick-move-drop-drop cycle for objects sharing a destination and single-object trips for unique destinations, dynamically adjusting order to respect destination constraints. When an action is rejected as invalid, immediately check the currently valid actions and choose one that advances the plan. Confirm from observations that each gripper is free before picking and that each object reaches its target room after dropping, correcting any misplacement by re-picking and re-transporting.",
+   "value": 0.38999999999999996,
+   "n": 5,
+   "id": "03f791cf",
+   "origin_task": "36"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a plan that requires mixing multiple ingredients in a shaker before pouring into a shot glass.",
+   "experience": "Do not fill the shot glass directly with individual ingredients; instead, fill the shaker with each ingredient (using the shot glass as an intermediate if needed), then pour the shaker contents into the shot glass. When an action is invalid, immediately check valid actions and choose a valid step that advances the plan rather than retrying or attempting invalid grasps.",
+   "value": -0.9,
+   "n": 1,
+   "id": "460e656f",
+   "origin_task": "5"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-cocktail plan where each shot must contain a specific cocktail and the same shaker is reused sequentially.",
+   "experience": "Follow the plan's ingredient order and target shot for each cocktail exactly: complete and pour the first cocktail into its designated shot before starting the next. Do not reorder ingredients or pour a cocktail into the wrong shot; after pouring, verify the shot's contents match the goal before proceeding.",
+   "value": 0.5944444444444444,
+   "n": 9,
+   "id": "2d2c61c5",
+   "origin_task": "7"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a plan where the goal only requires a property of objects (e.g., inflating wheels) and the objects can be manipulated directly from storage.",
+   "experience": "Check whether the goal condition can be satisfied by acting on the object directly (e.g., inflate the wheel while holding it) before performing unnecessary mounting or assembly steps; use 'check valid actions' to confirm the simpler action is available, and skip plan steps that are not required by the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b4cb0494",
+   "origin_task": "55"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a plan to move wheels into a container in a tire-changing domain, where wheels are mounted on hubs and must be removed before transport.",
+   "experience": "When a wheel is on a hub, do not attempt to fetch it directly; first loosen the hub nuts, jack up the hub, undo the nuts, then remove the wheel. If an action is rejected as invalid, immediately run 'check valid actions' to see the currently available actions and choose the one that advances the plan, rather than retrying the same invalid action.",
+   "value": 0.6166666666666667,
+   "n": 3,
+   "id": "39096b6e",
+   "origin_task": "58"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan where an unstack action has already been performed and the arm is holding the block.",
+   "experience": "After a successful unstack, do not repeat the same unstack; instead put down the held block to free the arm, then proceed to the next planned unstack. If an action is rejected as invalid, check valid actions and choose the next plan-advancing action rather than retrying.",
+   "value": 0.9,
+   "n": 2,
+   "id": "f66bfdc3",
+   "origin_task": "23"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where a container must be filled with ingredients and the direct fill action is unavailable or invalid.",
+   "experience": "When a direct fill action on the held container is invalid, use the shot-glass transfer route: grasp a shot glass, fill it with the ingredient, pour it into the target container, then clean the shot glass before reusing it for the next ingredient. Verify each transfer via observations before proceeding.",
+   "value": 0.6687500000000001,
+   "n": 8,
+   "id": "619c0df1",
+   "origin_task": "0"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where a shaker must receive multiple ingredients and the direct fill action is unavailable, requiring transfer via a shot glass.",
+   "experience": "Use the shot-glass transfer route for each ingredient: grasp the shot, fill it with the ingredient, pour it into the shaker, then clean the shot before reusing it for the next ingredient. After all ingredients are added, shake the shaker, then pour into the target shot and verify the shot contains the cocktail.",
+   "value": 0.52,
+   "n": 5,
+   "id": "ca7c4efd",
+   "origin_task": "1"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a plan that fills multiple containers sequentially, each with a different dispenser.",
+   "experience": "For each container: grasp it with a free hand, move to the correct dispenser, perform the fill action while holding it, then release it back to the table before proceeding to the next container; verify the fill via observation before moving on.",
+   "value": 0.0,
+   "n": 0,
+   "id": "68521d61",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where a shot glass must receive multiple ingredients sequentially, and a direct fill action is invalid because the container already holds a previous ingredient.",
+   "experience": "When a fill action on a container is invalid because it already contains a different ingredient, do not retry the same fill. Instead, transfer the existing contents to the target shaker, clean the container, then fill it with the next ingredient. Verify each transfer via observations before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "82617fa4",
+   "origin_task": "15"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a tire-changing plan where an action like jack-up or put-on-wheel is rejected as invalid.",
+   "experience": "When an action is rejected as invalid, immediately run 'check valid actions' and choose the valid action that advances the plan instead of retrying. Fetch only the items needed for the current step, and if the hand becomes overfull, put away unneeded items before continuing.",
+   "value": 0.0,
+   "n": 1,
+   "id": "795e66f4",
+   "origin_task": "51"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where direct filling of a shaker with ingredients is invalid or unavailable.",
+   "experience": "When direct filling of the target container is invalid or unavailable, use the shot-glass transfer route: fill a shot glass with the ingredient, pour it into the target container, and clean the shot glass before reusing it for the next ingredient. Verify each transfer through observation before proceeding. After all ingredients are added, complete the remaining steps (e.g., shake and pour into the target shot) and verify the final result.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c2b99978",
+   "origin_task": "10"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-cocktail plan where the same shaker is reused sequentially and must be emptied and cleaned between cocktails.",
+   "experience": "After pouring the first cocktail into its target shot, immediately empty and clean the shaker before starting the next cocktail; do not attempt to pour ingredients into a used shaker, as the pour-to-clean-shaker action will be invalid until the shaker is emptied and cleaned.",
+   "value": 0.0,
+   "n": 0,
+   "id": "759bacbc",
+   "origin_task": "11"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-mixing plan where a pour action between containers is rejected as invalid despite seemingly correct arguments.",
+   "experience": "When a pour-shaker-to-shot (or similar transfer) action is rejected, run `check valid actions` to see the exact valid argument form, then retry with the corrected hand/container/level arguments rather than abandoning the transfer; verify the target container's contents afterward.",
+   "value": 0.0,
+   "n": 0,
+   "id": "db0545e2",
+   "origin_task": "4"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a batched pick-carry-drop plan with a two-gripper robot where multiple objects share a source room and must all reach a destination room.",
+   "experience": "Track which specific objects have been transported and verify from observations that every goal object is at the destination; when picking a second object, select the next untransported object rather than an arbitrary one, and after the final drop confirm all objects are at the target room.",
+   "value": -0.9,
+   "n": 1,
+   "id": "37fcfeff",
+   "origin_task": "40"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-hub tire-changing plan where each hub requires jack-up, nut removal, wheel removal, and new wheel mounting.",
+   "experience": "Process each hub fully and sequentially: jack up the hub, undo nuts, remove the old wheel, place the new wheel, do-up nuts, and jack down before moving to the next hub. Do not interleave or abandon hubs; after each action, verify the hub state and use 'check valid actions' to confirm the next step for that hub.",
+   "value": 0.0,
+   "n": 0,
+   "id": "cfb17b67",
+   "origin_task": "53"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing cocktail-mixing tasks where tool actions have strict argument formats and validity constraints.",
+   "experience": "Before invoking an action, use 'check valid actions' to see the exact syntax and preconditions; when an action is invalid, inspect the valid actions list and copy the exact format rather than guessing. For shaking, use the full phrase 'shake a cocktail <name> with ingredient <ing1> and ingredient <ing2> in a shaker <shaker> with hand <hand1> and hand <hand2>'. For pouring, use 'pour-shaker-to-shot to a shot glass <cocktail> the ingredient <shot> with hand <hand> from shaker <shaker> from level <l1> to level <l2>'.",
+   "value": 0.0,
+   "n": 0,
+   "id": "04cff5fe",
+   "origin_task": "6"
+  }
+ ]
+}

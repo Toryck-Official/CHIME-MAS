@@ -1,0 +1,231 @@
+{
+ "plan": [
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where target blocks are buried under other blocks and must be freed before stacking.",
+   "experience": "Decompose the goal into a dependency-respecting order: first clear all blocks that must move or support others, then perform the required stacks so each supporting block is placed before its dependent block, verifying preconditions (clear block, empty arm) before each stack.",
+   "value": 0.19117647058823525,
+   "n": 34,
+   "id": "8715ffc0",
+   "origin_task": "26"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Planning a cocktail-making task where ingredients must be dispensed into a shaker and then poured into a shot glass.",
+   "experience": "Explicitly plan to use the dispenser actions to add each ingredient into the held shaker (e.g., 'fill-shaker shaker1 ingredientX dispenserY') before shaking; do not assume you can fill the shot directly. Verify that the shaker is held and the dispenser is accessible for each ingredient addition.",
+   "value": 0.07,
+   "n": 15,
+   "id": "41d4c096",
+   "origin_task": "9"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Planning multi-object transport tasks where objects must be moved between rooms and the robot's final position matters.",
+   "experience": "Verify the initial location of every object against the goal, and ensure the plan's final steps leave the robot in a position to complete any remaining moves; if an object must be moved from the robot's starting room to another room, schedule that move before leaving that room, or include an explicit return trip.",
+   "value": 0.21153846153846154,
+   "n": 26,
+   "id": "99d42519",
+   "origin_task": "43"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Multi-object transport tasks where several objects must be moved from one room to another and the robot can carry only one object at a time.",
+   "experience": "Enumerate every object's initial and goal room, then plan a repeatable pick-carry-drop cycle from the robot's verified current location that batches moves by room within carrying capacity, including explicit return trips between batches. Ensure every object that must move is included and verify the plan's final state against all goal conditions before execution.",
+   "value": 0.0,
+   "n": 1,
+   "id": "145a88f4",
+   "origin_task": "47"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where the goal requires a block to support another block that itself must be moved onto a third block.",
+   "experience": "Decompose the goal into a dependency-respecting sequence: clear any block covering a support before placing its dependent block, place supporting blocks before the blocks they support, and finally move the assembled stack onto the base block. Before each stack, verify the support block is clear and the arm is empty.",
+   "value": 0.1388888888888889,
+   "n": 27,
+   "id": "89b2428a",
+   "origin_task": "22"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Planning wheel-removal and transport tasks where wheels must be moved from hubs into a container.",
+   "experience": "Decompose the task into: open the container, fetch required tools (wrench, jack), for each hub loosen nuts, jack up the hub, undo nuts, remove the wheel, stow the wheel in the container, and jack down the hub. Ensure the container remains open until all objects are stowed.",
+   "value": 0.0,
+   "n": 3,
+   "id": "877ff906",
+   "origin_task": "57"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where a target block must support another block but is currently covered by a different block that also needs to be moved.",
+   "experience": "Before planning to stack a block onto a support block, verify the support block is clear; if it is covered, schedule unstacking the covering block first, then place the dependent block onto the now-clear support.",
+   "value": 0.2714285714285714,
+   "n": 7,
+   "id": "77681549",
+   "origin_task": "25"
+  },
+  {
+   "stage": "plan",
+   "scenario": "Block-stacking tasks where the goal requires a chain of blocks to be stacked on each other, with some blocks initially buried under others.",
+   "experience": "Decompose the goal into a dependency-respecting sequence: first unstack and put down all blocks that must move or support others, then stack each supporting block before its dependent block, verifying preconditions (clear block, empty arm) before each stack.",
+   "value": 0.0,
+   "n": 0,
+   "id": "236d7b9d",
+   "origin_task": "21"
+  }
+ ],
+ "exec": [
+  {
+   "stage": "exec",
+   "scenario": "When an action is rejected as invalid during block manipulation.",
+   "experience": "When an action is rejected as invalid during block manipulation, do not repeat it; instead, immediately query the valid actions to see what is currently possible, then choose a legal alternative (e.g., put down or unstack the held block) before continuing with the plan.",
+   "value": 0.575,
+   "n": 8,
+   "id": "9db642f9",
+   "origin_task": "26"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When a nut has been done-up and the hub is still jacked up, and the goal requires the nut to be fully tightened.",
+   "experience": "After doing-up a nut, check valid actions; if 'Tighten the nut' is not listed, jack-down the hub first, then tighten the nut, and finally place the removed wheel in the boot before verifying the goal.",
+   "value": 0.22812500000000002,
+   "n": 16,
+   "id": "b78a45d7",
+   "origin_task": "59"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan when the next planned step is temporarily blocked by an unplaced block.",
+   "experience": "If a planned step cannot be executed because a prerequisite block is not yet in place, perform the other independent stack first, then return to the blocked step once its prerequisites are satisfied.",
+   "value": 0.15416666666666665,
+   "n": 24,
+   "id": "bc1806bb",
+   "origin_task": "23"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan when a planned action is rejected as invalid.",
+   "experience": "Do not repeat the invalid action; immediately query valid actions to see what is currently possible, then choose a legal action (e.g., unstack the blocking block or put down the held block) before resuming the plan.",
+   "value": 0.475,
+   "n": 2,
+   "id": "a654a785",
+   "origin_task": "22"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When an action is rejected as invalid during a wheel-removal task.",
+   "experience": "Do not repeat the invalid action; immediately query valid actions to discover missing prerequisites (e.g., a tool not yet fetched), then fetch the needed tool and retry the action.",
+   "value": 0.0,
+   "n": 1,
+   "id": "a058efa8",
+   "origin_task": "57"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail-making plan where ingredients are added to a shaker and the shaker must then be shaken and poured into a target glass.",
+   "experience": "Before every step, consult 'check valid actions' and use only the exact action names and argument order it lists (including correct ingredient lists, hand arguments, and target glass), keeping hands free when holding or shaking the shaker; after any rejected action, immediately re-check valid actions and select a listed legal action rather than repeating or inventing variants, re-checking after each grasp or state change if the expected fill action isn't listed.",
+   "value": 0.08888888888888888,
+   "n": 9,
+   "id": "f86857c2",
+   "origin_task": "3"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a transport plan when an action is rejected as invalid because the robot is not in the required room.",
+   "experience": "After an invalid action, use the check valid actions command to see legal moves, then navigate to the correct room before retrying the pick or drop.",
+   "value": 0.16818181818181815,
+   "n": 11,
+   "id": "29d1ea4d",
+   "origin_task": "37"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When mounting a wheel onto a hub after removing the old wheel, and the hub has been jacked down and re-fastened.",
+   "experience": "Before attempting to put on a wheel, ensure the hub is unfastened (nuts undone) and jacked up; if the hub was re-fastened, loosen and undo the nuts and jack it up again before mounting the wheel.",
+   "value": 0.0,
+   "n": 3,
+   "id": "1a49adee",
+   "origin_task": "52"
+  },
+  {
+   "stage": "exec",
+   "scenario": "When executing a wheel-removal and mounting plan, after removing a wheel from a hub, ensure the hub is jacked down and the wheel is stowed before proceeding to the next hub; then inflate and mount all wheels, fasten nuts, and verify all wheels are in the boot before closing it.",
+   "experience": "Follow the plan step-by-step: after removing a wheel, jack down the hub, stow the wheel, then move to the next hub. Do not skip mounting and fastening steps. Use 'check valid actions' when an action is invalid, and ensure all goal conditions are satisfied before finishing.",
+   "value": -0.8,
+   "n": 1,
+   "id": "f0305c61",
+   "origin_task": "53"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a sequential pick-and-place transport plan where the robot carries one object at a time between rooms.",
+   "experience": "Before each pick, confirm the robot is in the target object's room with a free gripper; after each pick, verify the object is carried before navigating, and after each drop, verify release and return to the source room. After any rejected or ineffective action, consult valid actions to confirm the robot's room and object location, then navigate to the correct room before retrying rather than repeating the invalid action. Track delivered and remaining objects, continuing until all goal conditions are met rather than stopping early.",
+   "value": 0.20384615384615387,
+   "n": 13,
+   "id": "e9655271",
+   "origin_task": "40"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a pick-and-place transport plan where the robot carries an object and must drop it in the room where it was picked up or another specified room.",
+   "experience": "After picking up an object, always drop it in the intended destination room before moving elsewhere; if a drop is rejected, check valid actions and navigate to the correct room before retrying the drop.",
+   "value": 0.1892857142857143,
+   "n": 14,
+   "id": "d5c89510",
+   "origin_task": "45"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan where each step's preconditions (clear block, empty arm) are satisfied by the plan's ordering.",
+   "experience": "Follow the planned sequence exactly, performing unstack/putdown to clear blocks and then pickup/stack in the specified order; no deviations or error recovery were needed.",
+   "value": 0.0,
+   "n": 1,
+   "id": "d3b5ddae",
+   "origin_task": "21"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a wheel-swap plan where a wheel must be inflated, the old wheel removed, the new wheel mounted, and the old wheel stowed.",
+   "experience": "Follow the plan's dependency order: inflate the replacement wheel before mounting it, and remove the old wheel from the hub before attempting to place the new one. Do not re-execute actions that are already satisfied (e.g., opening an already-open container); use 'check valid actions' to confirm the next legal step, and verify all goal conditions (wheel inflated, wheel on hub, old wheel stowed) before finishing.",
+   "value": 0.0,
+   "n": 1,
+   "id": "21c12469",
+   "origin_task": "50"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-wheel removal and stowage task where each wheel must be removed from its hub and placed in a container.",
+   "experience": "For each wheel, follow the full removal sequence: loosen the nut, jack up the hub, undo the nut, remove the wheel, place it in the container, then jack down the hub. Do not stop after loosening the nut; verify all goal conditions (every target wheel in the container) before finishing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "96f6234d",
+   "origin_task": "58"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a multi-object transport plan where the robot can carry two objects (one per gripper) and must shuttle between rooms.",
+   "experience": "Track which objects are held in each gripper and never pick an already-carried object; after each move, immediately drop held objects in the destination room before further pickups, and if an action is rejected, use 'check valid actions' to confirm the correct next step. Continue executing until every carried object has been dropped at the destination and all goal conditions are verified, never stopping while any object remains in a gripper.",
+   "value": -0.9,
+   "n": 1,
+   "id": "a2341848",
+   "origin_task": "33"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a cocktail task where the goal only requires specific shot glasses to contain specific ingredients, and the shaker-based fill action is rejected.",
+   "experience": "When a fill-shaker action is invalid, consult 'check valid actions' and consider filling the target shot glass directly with 'fill-shot <shot> <ingredient> <hand> <other-hand> <dispenser>' if listed; verify the goal condition is met after each fill.",
+   "value": -0.9,
+   "n": 2,
+   "id": "3b2db72e",
+   "origin_task": "14"
+  },
+  {
+   "stage": "exec",
+   "scenario": "Executing a block-stacking plan where the first step is to unstack a specific block from another block.",
+   "experience": "Match the unstack arguments exactly to the planned block pair (the block to move and the block it rests on); do not substitute a different block. If an action is rejected, consult valid actions and correct the arguments rather than performing unrelated pickups/putdowns.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2b566a8a",
+   "origin_task": "27"
+  }
+ ]
+}

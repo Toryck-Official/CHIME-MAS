@@ -1,0 +1,23 @@
+{
+ "tag": "pddl_dylan_naive_orig_hint_s0",
+ "mode": "naive",
+ "order_seed": 0,
+ "n_train": 42,
+ "n_eval": 18,
+ "train_success": 33.33,
+ "eval_success": 77.78,
+ "train_progress": 59.09,
+ "eval_progress": 85.49,
+ "memory_size": {
+  "proposer": 37,
+  "checker": 30,
+  "finalizer": 29
+ },
+ "usage": {
+  "calls": 4229,
+  "prompt_tokens": 12665926,
+  "cache_hit_tokens": 10657059,
+  "completion_tokens": 58112,
+  "cost_cny_offpeak": 2.4545
+ }
+}

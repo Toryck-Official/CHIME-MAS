@@ -1,0 +1,647 @@
+{
+ "proposer": [
+  {
+   "stage": "proposer",
+   "scenario": "When pouring from a shaker into a shot glass and the intended target is rejected as invalid, the valid-action list names the specific shot glass that can receive the pour.",
+   "experience": "After a pour action fails, read the check-valid-actions output carefully and use the exact target object it lists rather than retrying the same intended target; if the listed target differs from my goal, adapt the plan to fill the required container via the allowed target.",
+   "value": 0.4595238095238096,
+   "n": 21,
+   "id": "40113935",
+   "origin_task": "12"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When multiple objects must be relocated from one location to another and the agent can carry one object per hand.",
+   "experience": "Batch the transport: pick one object with each hand at the source, move once to the destination, then drop both before returning, repeating until all objects are relocated; this halves the number of trips versus moving objects one at a time.",
+   "value": -0.007142857142857133,
+   "n": 7,
+   "id": "429da77f",
+   "origin_task": "33"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When relocating multiple objects between two locations with two grippers and an action is rejected as invalid.",
+   "experience": "Before each pick/drop, verify which hand is already holding what and query valid actions after any rejection; never retry the same invalid action, and batch transport by carrying one object per hand per trip, dropping both at the destination before returning.",
+   "value": 0.0,
+   "n": 0,
+   "id": "06200dea",
+   "origin_task": "36"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-container goal requires producing several filled containers from a shared shaker and the shaker must be refilled/reused between batches.",
+   "experience": "After each pour, immediately check valid actions and pour into the exact listed target; track shaker level and remaining contents so you know when to refill, and avoid redundant grasp/leave cycles by keeping the shaker in hand until all target containers are filled.",
+   "value": -0.7,
+   "n": 1,
+   "id": "75aae718",
+   "origin_task": "5"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a shake action is rejected as invalid despite the shaker appearing to hold the needed ingredients.",
+   "experience": "Before shaking, verify the shaker actually contains the exact ingredient set the target cocktail requires (check valid actions and shaker contents); if the shake is invalid, do not retry blindly or cycle grasp/leave—diagnose the missing or wrong ingredient and correct the shaker contents first.",
+   "value": 0.6000000000000001,
+   "n": 13,
+   "id": "76ff808a",
+   "origin_task": "7"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a task requires inflating or servicing multiple objects stored in a container, with a tool needed first.",
+   "experience": "Open the container, fetch the required tool, then for each target object fetch it, apply the action, and put it away before moving to the next; if unsure whether an object is available, check valid actions rather than guessing.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c6a8057b",
+   "origin_task": "55"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When performing a multi-step assembly/disassembly task where each action depends on prior state (e.g., fetching a part before installing it, or using the exact action name the environment expects).",
+   "experience": "Before each action, verify it appears in the check-valid-actions list and that its preconditions are met (part in hand, correct object name/syntax); never retry an invalid action blindly—consult the valid-action list and adapt immediately.",
+   "value": 0.4857142857142857,
+   "n": 7,
+   "id": "16d67839",
+   "origin_task": "58"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step block-stacking task requires rearranging objects whose current positions block the desired configuration, and some attempted actions are rejected as invalid.",
+   "experience": "After any invalid action, immediately query the valid-actions list and choose from it rather than retrying; free a needed object by unstacking it from whatever supports it, place it on its target, then pick up and stack the remaining object onto its target, verifying each action against the valid list before executing.",
+   "value": -0.8,
+   "n": 1,
+   "id": "1e4d596e",
+   "origin_task": "23"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a block-stacking goal requires a specific multi-block tower and the current configuration has blocks interlocked in a different order.",
+   "experience": "Before each move, query valid actions and pick one that directly advances the goal tower bottom-up: place the base block on its target first, then stack each subsequent block onto the growing tower, never re-stacking blocks back onto their original supports or retrying rejected actions.",
+   "value": 0.53125,
+   "n": 8,
+   "id": "cd1e0461",
+   "origin_task": "28"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When assembling a multi-ingredient cocktail that must be poured into a specific target container while a second container needs a separate ingredient.",
+   "experience": "Build the cocktail in the shaker by filling and pouring each ingredient, cleaning the shot glass between uses, shake once the full ingredient set is present, then pour into the target shot glass; afterward fill the remaining required container with its ingredient and verify the goal.",
+   "value": 0.41111111111111115,
+   "n": 9,
+   "id": "d9b5a291",
+   "origin_task": "0"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When building a multi-ingredient cocktail in a shaker and pouring it into a specific target container, with the shot glass needing cleaning between ingredient transfers.",
+   "experience": "Fill the shot glass with each ingredient and pour into the shaker, cleaning the shot glass between uses; once all ingredients are in the shaker, shake to form the cocktail, then pour from the shaker into the target shot glass and verify the goal.",
+   "value": -0.8,
+   "n": 1,
+   "id": "a62d1c38",
+   "origin_task": "1"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a transport goal requires moving multiple objects from one location to another and the agent can carry only a limited number per trip.",
+   "experience": "Before each action, verify it against the valid-action list; when an action is rejected, immediately query valid actions and adapt rather than retrying. Batch objects into carry-capacity-sized trips: pick up as many as arms allow, move to the destination, drop them, then return for the remainder.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5e3f6984",
+   "origin_task": "41"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When each of several target containers must independently contain a specific ingredient, and a dispenser is available to fill them one at a time.",
+   "experience": "Grasp the target container, fill it with the required ingredient using the matching dispenser, then release it before moving to the next container; verify each fill's observation confirms the ingredient is present before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "c0b7da83",
+   "origin_task": "14"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When pouring a finished cocktail from a shaker into a specific target container while another container must hold a separate ingredient.",
+   "experience": "Before pouring from the shaker, explicitly confirm which container is the intended target and pour only into that one; if a pour lands in the wrong container, empty and clean it, then re-pour into the correct target rather than abandoning the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2c3e81d4",
+   "origin_task": "15"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step wheel-replacement task requires completing each hub fully (loosen, jack-up, undo, remove, put-on, do-up, tighten, jack-down) and returning removed parts to storage before the step limit.",
+   "experience": "Follow the canonical per-hub sequence exactly and verify each action against the valid-actions list before executing; after do-up, tighten the nut, jack-down, and put the removed wheel away before moving to the next hub, and budget steps so all hubs and cleanup complete.",
+   "value": 0.0,
+   "n": 1,
+   "id": "6c0a78bf",
+   "origin_task": "51"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a target container must end up holding a multi-ingredient mixture that has to be assembled and shaken in a separate vessel.",
+   "experience": "Fill the target container with each ingredient in turn, pour each into the mixing vessel, clean the target container between ingredients, shake once all ingredients are combined, then pour the mixture back into the target container and verify the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e7e37eb7",
+   "origin_task": "10"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a second container must be filled with a specific ingredient after the main cocktail has been assembled and poured.",
+   "experience": "After assembling and pouring the main cocktail, immediately fill the remaining required container with its ingredient and pour it into the shaker or target as needed; avoid repeated grasp/leave cycles on the same object—each grasp should be followed by a productive fill, pour, or transfer action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "adcbdebd",
+   "origin_task": "11"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step disassembly task requires moving multiple target objects into a container, with each object needing a precondition chain (fetch tool, loosen, jack-up, undo, remove, put-away).",
+   "experience": "Before each action, confirm it is in the check-valid-actions list and that its preconditions are met; never retry a rejected action blindly—consult valid actions and adapt. Process each target object through its full chain before moving to the next, and verify the goal is satisfied after the final put-away.",
+   "value": 0.0,
+   "n": 0,
+   "id": "4807a559",
+   "origin_task": "57"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When building a multi-ingredient cocktail in a shaker and pouring it into a specific target container.",
+   "experience": "Fill the shot glass with each ingredient, pour it into the shaker, clean the shot glass between ingredients, shake once all ingredients are present, then pour the shaker contents into the target container and verify the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "6895f16b",
+   "origin_task": "4"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a target container must end up holding a multi-ingredient mixed drink assembled in a separate vessel.",
+   "experience": "Grasp the target container first, fill and pour each ingredient into the mixing vessel, clean the intermediate container between ingredients, shake once the full ingredient set is present, then pour the mixed drink back into the target container and verify the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b63625bc",
+   "origin_task": "9"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step repair task requires completing each unit fully (loosen, lift, remove, install, secure, lower) and returning removed parts to storage before a step limit.",
+   "experience": "Follow the canonical per-unit sequence exactly and verify each action against the valid-actions list before executing; complete one unit end-to-end (including tightening and lowering) before moving to the next, and avoid retrying rejected actions or unnecessary put-away detours that consume the step budget.",
+   "value": 0.0,
+   "n": 0,
+   "id": "8372aa65",
+   "origin_task": "53"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a goal requires transporting multiple objects between two locations with limited carrying capacity, and some pick/drop actions are rejected as invalid.",
+   "experience": "Before each pick or drop, confirm the object is actually in the room I currently occupy and query valid actions when an action is rejected; never retry the same invalid action, and always complete the final delivery of the last carried object before the step limit.",
+   "value": 0.0,
+   "n": 0,
+   "id": "0535bd83",
+   "origin_task": "39"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When a multi-step assembly task requires filling two target containers and one container is already complete, and subsequent grasp/pour actions are being rejected as invalid.",
+   "experience": "After completing the first target container, immediately check valid actions and follow the exact listed action to fill the remaining container; do not cycle grasp/leave on the shaker or retry rejected pours—diagnose from the valid-action list and execute the single allowed step toward the second goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ade56f9e",
+   "origin_task": "6"
+  },
+  {
+   "stage": "proposer",
+   "scenario": "When transporting multiple objects between rooms to reach a target distribution, and an action is rejected as invalid.",
+   "experience": "Track which room each object currently occupies and only attempt to pick objects in your current room; if a pick is rejected, query valid actions and move to the correct room before retrying rather than repeating the failed action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "5501ebd6",
+   "origin_task": "43"
+  }
+ ],
+ "checker": [
+  {
+   "stage": "checker",
+   "scenario": "When a proposed action has already failed and the check-valid-actions output lists a different valid target or parameter than the one being attempted.",
+   "experience": "Trust the check-valid-actions output over the proposer's repeated attempts: if the listed valid action names a different target or parameter, reject the repeated invalid action and direct the agent to the exact valid action shown.",
+   "value": 0.41000000000000003,
+   "n": 10,
+   "id": "a8f242fd",
+   "origin_task": "12"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposed action is invalid and check-valid-actions lists the actually valid actions, especially when the target block is buried under another block.",
+   "experience": "Trust the check-valid-actions output over repeated invalid attempts: reject the invalid action and direct the agent to the exact valid action shown (e.g., unstack the covering block first), then proceed with the goal build.",
+   "value": 0.0,
+   "n": 3,
+   "id": "e212eb93",
+   "origin_task": "29"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposed action has already failed and check-valid-actions lists different valid actions, especially when the target is blocked by another object.",
+   "experience": "When a proposed action has already failed and check-valid-actions lists different valid actions, reject the repeated invalid action and direct the agent to the exact valid action shown, including the correct target and parameter (e.g., unstack or drop the covering object first), rather than permitting another attempt at the blocked action.",
+   "value": 0.36666666666666664,
+   "n": 9,
+   "id": "07fc964b",
+   "origin_task": "36"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the agent is stuck looping on check-valid-actions or repeating invalid grasp/leave actions while a multi-step goal (e.g., building drinks) still requires concrete progress.",
+   "experience": "Stop endorsing repeated check-valid-actions or invalid retries; force the agent to commit to one concrete valid action from the list that advances the goal, and reject any 'think:' or no-op output.",
+   "value": 0.4033333333333335,
+   "n": 15,
+   "id": "f44f595b",
+   "origin_task": "7"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step goal requires retrieving and processing several items from a container, and each item must be handled and returned before the next.",
+   "experience": "Continue endorsing concrete fetch-process-put-away sequences that advance the goal, and reject think/no-op outputs that stall progress; trust the valid-actions list when a target seems unavailable.",
+   "value": 0.6833333333333335,
+   "n": 9,
+   "id": "eb2e3274",
+   "origin_task": "55"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposed action is invalid or the agent is about to retry an action that previously failed, and a check-valid-actions list is available.",
+   "experience": "Reject any invalid or repeated-failed action and require the agent to pick one concrete action exactly matching the current check-valid-actions output (correct verb, target, and parameter) before proceeding; do not endorse think/no-op or unlisted actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "45ffa1d8",
+   "origin_task": "58"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a proposed action repeatedly fails and check-valid-actions lists alternative valid actions that advance the goal.",
+   "experience": "Reject the repeated invalid action and direct the agent to commit to one concrete valid action from the check-valid-actions list, never endorsing 'think:' or no-op outputs.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ee9fe723",
+   "origin_task": "23"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step rearrangement goal is in progress and the agent proposes an action that is not in the current valid-actions list, or proposes a no-op/think step.",
+   "experience": "Reject any action not present in the latest check-valid-actions output and force the agent to execute exactly one concrete valid action from that list that makes progress toward the goal; do not endorse repeated invalid retries or think steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "7d04e871",
+   "origin_task": "28"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step goal requires building a mixed drink in a container and then transferring it to a target vessel while also preparing a second vessel with a distinct ingredient.",
+   "experience": "Continue endorsing concrete sequences that fill, pour, clean, shake, and transfer between vessels, and reject think/no-op outputs; trust the valid-actions list to confirm each next concrete step.",
+   "value": 0.4090909090909091,
+   "n": 11,
+   "id": "3646a4c6",
+   "origin_task": "0"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step goal requires building a mixture in one container and transferring it to a target vessel, with intermediate cleaning and re-filling steps.",
+   "experience": "Continue endorsing concrete sequences that fill, pour, clean, shake, and transfer between vessels; reject think/no-op outputs and trust the valid-actions list to confirm each next concrete step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "1dcd206c",
+   "origin_task": "1"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step goal requires transporting multiple items from a source location to a destination, handling them in batches with both arms.",
+   "experience": "Endorse concrete pick-carry-drop sequences that advance the goal; when an action is invalid, immediately check valid actions and commit to a listed concrete action rather than repeating the invalid move.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e6151b45",
+   "origin_task": "41"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires multiple distinct target vessels to each contain a specific ingredient, and each vessel must be grasped, filled, and released in turn.",
+   "experience": "Endorse concrete grasp-fill-release sequences that directly satisfy each goal condition, and trust the valid-actions list to confirm each next step; reject think/no-op outputs that stall progress.",
+   "value": 0.033333333333333305,
+   "n": 6,
+   "id": "2a949b47",
+   "origin_task": "14"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires one vessel to hold a single ingredient and another vessel to hold a mixed drink, and a shaker has been prepared with the mixture.",
+   "experience": "Before endorsing a pour, verify the destination vessel matches the goal condition for that specific content (ingredient-only vs. mixed drink); pour the mixture only into the vessel designated for the cocktail, and keep the ingredient-only vessel filled with just that ingredient.",
+   "value": 0.47777777777777775,
+   "n": 9,
+   "id": "db21c598",
+   "origin_task": "15"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step assembly requires fastening a nut after do-up, and the fastening action is only valid after jacking down the hub.",
+   "experience": "After do-up, verify the nut is actually tight by checking valid actions and jacking down the hub first if needed; do not endorse tighten attempts that are invalid, and ensure every target's fastening is completed before ending.",
+   "value": 0.0,
+   "n": 0,
+   "id": "92d19950",
+   "origin_task": "51"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step goal requires relocating several objects between two locations using two grippers, with some objects already at the target and others needing transfer.",
+   "experience": "Endorse concrete pick-carry-move-drop sequences that batch objects by gripper and destination; verify each object's final room against the goal before declaring success, and reject think/no-op outputs that stall progress.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3c94613d",
+   "origin_task": "35"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires building a mixed drink in a shaker from multiple ingredients and then transferring it into a specific target vessel.",
+   "experience": "Endorse concrete grasp-fill-pour-clean-shake-transfer sequences, verify the final pour targets the vessel designated to hold the mixed drink, and trust the valid-actions list to confirm each next step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "fc1ecb78",
+   "origin_task": "10"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires two distinct target vessels to each contain a specific content, and one vessel has already been completed while the other still needs filling.",
+   "experience": "Before endorsing a grasp, confirm the vessel is the one still needing content and that the next action will fill or pour into it; reject redundant grasp/leave loops and drive directly toward completing the unfilled target vessel.",
+   "value": 0.0,
+   "n": 0,
+   "id": "bcabfdc2",
+   "origin_task": "11"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When the agent has a clear next concrete action available and is instead looping on check-valid-actions or think/no-op outputs while the goal is not yet satisfied.",
+   "experience": "Reject repeated check-valid-actions and think/no-op outputs once a valid concrete action is known; direct the agent to execute that specific action to advance the goal.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a1e05c37",
+   "origin_task": "57"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires a target vessel to end up containing a mixed drink built from multiple ingredients in a shaker.",
+   "experience": "Endorse concrete sequences that fill each ingredient into the shaker, clean the target vessel between uses, shake to combine, then pour the mixture into the target vessel; verify the destination matches the goal content before endorsing the final pour.",
+   "value": 0.0,
+   "n": 0,
+   "id": "9fc61064",
+   "origin_task": "4"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires relocating multiple items from one location to another and the agent can carry two items at a time (one per hand).",
+   "experience": "Keep endorsing paired pick-carry-drop cycles that batch two items per trip and return to the source for the next pair; reject no-op or think outputs that stall progress, and trust the valid-actions list when a target seems unavailable.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f8289daf",
+   "origin_task": "40"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires a target vessel to end up holding a mixed drink built in a shaker, while intermediate steps fill, empty, and clean that same vessel.",
+   "experience": "Endorse concrete grasp-fill-pour-clean-shake-transfer sequences that build the mixture in the shaker and then pour it into the designated target vessel; reject think/no-op outputs and trust the valid-actions list to confirm each next step.",
+   "value": 0.0,
+   "n": 1,
+   "id": "4526bdce",
+   "origin_task": "9"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step assembly task requires loosening fasteners, jacking up a hub, and mounting a wheel, and the agent proposes an action that may not be in the current valid-actions list.",
+   "experience": "Before endorsing any action, cross-check it against the most recent valid-actions list; reject actions not listed (e.g., wrong verb or object) and force the agent to pick a concrete valid action. Also verify preconditions for physical steps (a hub must be jacked up before a wheel can be mounted, and the wheel must be off the ground) rather than endorsing a sequence that skips them.",
+   "value": 0.0,
+   "n": 0,
+   "id": "ca6730a1",
+   "origin_task": "53"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-object transport goal requires moving items between rooms and the agent proposes a grasp action, verify the target object is actually present in the agent's current room before endorsing it.",
+   "experience": "Before supporting any pick/grasp action, confirm the target object's location matches the agent's current room; if uncertain, require a check-valid-actions call first, and reject picks of objects located elsewhere to avoid wasted invalid steps.",
+   "value": 0.0,
+   "n": 0,
+   "id": "b0a06d53",
+   "origin_task": "39"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a goal requires one vessel to hold a single ingredient and another vessel to hold a mixed drink already prepared in a shaker, and the agent stalls by repeatedly querying valid actions instead of transferring the mixture.",
+   "experience": "After the mixture is ready in the shaker, actively direct the agent to pour the mixture into the vessel designated for the cocktail (using the valid-actions list to confirm the pour), and reject repeated check-valid-actions/no-op outputs by proposing the concrete pour step.",
+   "value": 0.0,
+   "n": 0,
+   "id": "feafc52b",
+   "origin_task": "6"
+  },
+  {
+   "stage": "checker",
+   "scenario": "When a multi-step transport goal requires moving several objects between two locations and the agent attempts to grasp an object that is not in the arm's current room.",
+   "experience": "Before endorsing a grasp, verify the target object is actually in the same room as the arm being used; if the object is elsewhere, endorse a move to that room first rather than letting an invalid pick occur.",
+   "value": 0.0,
+   "n": 0,
+   "id": "56b088da",
+   "origin_task": "43"
+  }
+ ],
+ "finalizer": [
+  {
+   "stage": "finalizer",
+   "scenario": "When pouring from a shaker into a shot glass and the intended target shot is not listed among valid pour actions",
+   "experience": "After check-valid-actions, only execute pour-shaker-to-shot with the exact target shot and level pair listed as valid; if the desired shot is absent, switch to a listed valid target or free/clean the intended shot first rather than retrying the same invalid action.",
+   "value": 0.42894736842105263,
+   "n": 19,
+   "id": "020f0f3a",
+   "origin_task": "12"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When transporting multiple objects from one location to another with limited carrying capacity per trip",
+   "experience": "Batch objects in pairs per trip: pick one object per hand, move to the destination, drop both, then return for the next pair; before picking, verify the object is not already being carried to avoid invalid actions.",
+   "value": 0.21250000000000002,
+   "n": 4,
+   "id": "096a1419",
+   "origin_task": "33"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a desired block is not directly pickable because it is buried under another block, and a direct pickup action fails as invalid.",
+   "experience": "After an invalid pickup, run check-valid-actions to identify the blocking relationship, then unstack the covering block first (or pick a valid alternative) before retrying; avoid repeating the same invalid pickup.",
+   "value": 0.33999999999999997,
+   "n": 5,
+   "id": "aa624ae4",
+   "origin_task": "29"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When an object is already being carried in one hand and must be relocated to another room, while the other hand holds a second object.",
+   "experience": "After a pickup succeeds, do not retry picking that same object with the same hand; instead move to the destination room and drop it, then return for the remaining object. Run check-valid-actions after any invalid action to confirm the object's carried state before acting.",
+   "value": 0.48181818181818187,
+   "n": 11,
+   "id": "34e4185b",
+   "origin_task": "36"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When pouring a mixed cocktail from a shaker into multiple target shot glasses and one target is not among the valid pour actions.",
+   "experience": "After each pour, run check-valid-actions and only pour into a shot/level pair explicitly listed as valid; if the intended target shot is absent, free or clean that shot first (or pick a listed valid target) instead of retrying the same invalid pour, and track which required shots still need filling before ending.",
+   "value": 0.4600000000000001,
+   "n": 10,
+   "id": "3a855ee9",
+   "origin_task": "5"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a shake action fails because the shaker's contents do not match the required recipe, and the recipe's second component is unknown.",
+   "experience": "After a failed shake, run check-valid-actions and inspect the shaker's actual contents; if the recipe requires an ingredient you have not identified, search for and add that missing ingredient rather than re-pouring the same one or retrying the shake. Never retry an action that just returned 'not valid'—switch to a listed valid action or gather more information first.",
+   "value": 0.6625,
+   "n": 8,
+   "id": "0a84f799",
+   "origin_task": "7"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "when a task requires inflating multiple objects that may be stored in a container, and some objects may not be where expected",
+   "experience": "Open the container, fetch the pump, then process each object one at a time: fetch, inflate, and put it away before moving to the next; if an object's location is uncertain, run check-valid-actions to confirm availability rather than assuming, and avoid redundant think or duplicate put-away actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "f00cf3e4",
+   "origin_task": "55"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step assembly/disassembly task requires fetching a part before installing it and the hub must be lowered before final tightening, and an action returns invalid.",
+   "experience": "After any invalid action, immediately run check-valid-actions and only execute an action whose exact form and arguments appear in the list; fetch required parts before attempting install/fasten actions, and lower the jack before tightening nuts.",
+   "value": -0.8,
+   "n": 1,
+   "id": "22fe5172",
+   "origin_task": "58"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a direct pickup or unstack action is invalid because the target object is covered or already held, and repeated attempts fail.",
+   "experience": "After any invalid action, immediately run check-valid-actions to see the true state and valid options, then unstack the covering object first or pick a listed valid alternative instead of retrying the same action.",
+   "value": 0.0,
+   "n": 0,
+   "id": "83b12c21",
+   "origin_task": "23"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a stacking goal requires rearranging multiple blocks and the current configuration blocks direct placement of a target block.",
+   "experience": "Before each manipulation, run check-valid-actions to confirm the exact source-destination pair is legal; if the desired placement is invalid, identify and clear the blocking block first, and avoid undoing prior progress by re-stacking blocks you just moved.",
+   "value": 0.5142857142857142,
+   "n": 7,
+   "id": "0e517ef1",
+   "origin_task": "28"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a task requires one container to hold a mixed cocktail and another to hold a single ingredient, and the mixing container must be built up from multiple ingredients before shaking.",
+   "experience": "Build the cocktail by pouring each ingredient into the shaker, clean the shot between uses, shake once all ingredients are present, then pour the cocktail into the designated shot; afterward free the shaker and fill the remaining shot with its required ingredient, verifying goal satisfaction.",
+   "value": 0.0,
+   "n": 0,
+   "id": "3244cee0",
+   "origin_task": "0"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When building a mixed cocktail in a shaker and then pouring it into a specific target shot glass.",
+   "experience": "Grasp the target shot, fill and pour each ingredient into the shaker, clean the shot between ingredients, shake the shaker, then pour the mixed cocktail into the target shot; verify the target shot is a valid pour destination before pouring.",
+   "value": 0.0,
+   "n": 0,
+   "id": "e8555264",
+   "origin_task": "1"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When multiple objects must be relocated to a target room and both hands can carry one object each.",
+   "experience": "Before each pick, confirm the object is in the current room and the target hand is free; after any invalid action, run check-valid-actions to confirm legal moves. Then carry one object per hand to the destination, drop only the objects that belong there, and return for the remaining objects until all are relocated.",
+   "value": 0.5833333333333334,
+   "n": 6,
+   "id": "4a2b5e5e",
+   "origin_task": "41"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When filling multiple target containers each with a distinct required ingredient using dispensers.",
+   "experience": "Grasp each target container, fill it with the correct ingredient from the matching dispenser, then release it before moving to the next container; verify each fill observation confirms the ingredient is present before proceeding.",
+   "value": 0.0,
+   "n": 0,
+   "id": "2ba5a699",
+   "origin_task": "14"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a mixed cocktail must be distributed into specific target shot glasses with distinct required contents per shot.",
+   "experience": "Before pouring from a shaker, verify which target shot must receive the cocktail and confirm it is a valid pour target; pour only into the required shot, and if a wrong shot was filled, empty and clean it, then re-pour into the correct target while tracking each shot's required content.",
+   "value": 0.0,
+   "n": 0,
+   "id": "a7fd6578",
+   "origin_task": "15"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a multi-step wheel-replacement task requires loosening, jacking, removing, installing, fastening, tightening, and stowing for each hub in sequence.",
+   "experience": "After any invalid action, immediately run check-valid-actions and only execute an action whose exact form and arguments appear in the list; keep needed tools and the current wheel in hand, jack up a hub before removing/installing its wheel, tighten nuts only after jacking the hub down, and complete each hub's full sequence before moving to the next to avoid running out of steps.",
+   "value": -0.85,
+   "n": 1,
+   "id": "5e386f45",
+   "origin_task": "51"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a target container must end up holding a mixed cocktail that requires combining multiple ingredients in a shaker before pouring into it.",
+   "experience": "Grasp the target shot and pour each required ingredient into the shaker one at a time, cleaning the shot between ingredients, then shake the shaker to form the cocktail and pour it into the target shot. Verify the goal is satisfied after the final pour.",
+   "value": 0.45,
+   "n": 2,
+   "id": "e7ca13fb",
+   "origin_task": "10"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a task requires filling multiple specific target containers with a prepared mixture and some targets are not yet ready or not listed as valid pour destinations.",
+   "experience": "After preparing the mixture, run check-valid-actions before each pour and only pour into explicitly listed valid target/level pairs; if a required target is absent, free or clean it first, and track which required targets still need filling so you don't loop on invalid grasp/leave actions.",
+   "value": 0.0,
+   "n": 0,
+   "id": "6c7664fc",
+   "origin_task": "11"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a container must be opened but the open action is reported invalid because it is already open, and repeated retries waste steps.",
+   "experience": "After an 'open' action returns invalid, immediately run check-valid-actions instead of retrying open; treat the container as already open and proceed to the next needed manipulation (fetch, loosen, jack-up, undo, remove, put-away).",
+   "value": 0.0,
+   "n": 0,
+   "id": "df95db9a",
+   "origin_task": "57"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When building a mixed drink in a shaker and then serving it into a specific target container that must end up holding the finished cocktail.",
+   "experience": "Grasp the target container, add each ingredient to the shaker one at a time (cleaning the container between ingredients), shake the shaker once all ingredients are combined, then pour the shaken cocktail back into the target container and verify the goal is satisfied.",
+   "value": 0.0,
+   "n": 0,
+   "id": "27c701b8",
+   "origin_task": "4"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When many objects scattered in one room must all be relocated to a single target room and each hand can carry one object at a time.",
+   "experience": "Pick one object per hand in the source room, move to the target room, drop both, then return for the next pair; repeat until all objects are relocated, verifying carried state before each move.",
+   "value": 0.0,
+   "n": 1,
+   "id": "3dedf8ba",
+   "origin_task": "40"
+  },
+  {
+   "stage": "finalizer",
+   "scenario": "When a mixed cocktail must be poured into multiple target shot glasses and one target shot still needs filling after the first pour.",
+   "experience": "After each pour, immediately run check-valid-actions and act only on listed valid actions; if the intended target shot cannot receive the pour, free or clean it first, then pour into it, and avoid repeated check-valid-actions or retrying invalid grasps/pours.",
+   "value": 0.0,
+   "n": 0,
+   "id": "72742458",
+   "origin_task": "6"
+  }
+ ]
+}

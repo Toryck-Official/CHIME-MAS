@@ -1,0 +1,64 @@
+{
+ "episodes": 18,
+ "success": 12,
+ "probed_steps": 348,
+ "debate_steps": 55,
+ "noise": {
+  "proposer_regen_changed_pct": 17.8,
+  "downstream_resim_action_changed_pct": 5.2,
+  "critique_regen_changed_pct_debate": 21.8,
+  "finalizer_regen_changed_pct_debate": 56.4
+ },
+ "roles": {
+  "proposer": {
+   "probes": 1044,
+   "with_opportunity": 1044,
+   "local_effect": 413,
+   "local_effect_pct": 39.6,
+   "local_and_reached_action": 252,
+   "local_but_not_reached_pct": 39.0,
+   "reached_action_vs_null_resim": 259,
+   "task_memory_pairs": 54,
+   "pairs_with_local_effect": 52,
+   "pairs_local_never_reached_action": 6,
+   "local_by_step_type": {
+    "consensus": 264,
+    "debate": 149
+   }
+  },
+  "checker": {
+   "probes": 1044,
+   "with_opportunity": 165,
+   "local_effect": 55,
+   "local_effect_pct": 33.3,
+   "local_and_reached_action": 24,
+   "local_but_not_reached_pct": 56.4,
+   "reached_action_vs_null_resim": 25,
+   "task_memory_pairs": 39,
+   "pairs_with_local_effect": 23,
+   "pairs_local_never_reached_action": 7,
+   "local_by_step_type": {
+    "consensus": 0,
+    "debate": 55
+   }
+  },
+  "finalizer": {
+   "probes": 1044,
+   "with_opportunity": 165,
+   "local_effect": 104,
+   "local_effect_pct": 63.0,
+   "local_and_reached_action": 56,
+   "local_but_not_reached_pct": 46.2,
+   "reached_action_vs_null_resim": 60,
+   "task_memory_pairs": 39,
+   "pairs_with_local_effect": 28,
+   "pairs_local_never_reached_action": 2,
+   "local_by_step_type": {
+    "consensus": 0,
+    "debate": 104
+   }
+  }
+ },
+ "cost_cny": 3.1772,
+ "cost_per_probed_step_cny": 0.0091
+}

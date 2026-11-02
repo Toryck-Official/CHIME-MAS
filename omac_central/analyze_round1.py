@@ -11,6 +11,7 @@
     是否加了答案格式要求或提示；以原 dispatch 的重跑（C9）作噪声参照
   - 行为：Mathematician 答案改变率（换 dispatch vs 重跑）、W_new 逐题赢/输集合在新 master 下的保留率、
     选人参与率、汇总采纳率
+  - 敏感性：宽松解析（认 'Final answer: X' 等格式）下重算正确率与增益，区分格式失败与答错
 """
 import difflib
 import json
@@ -45,10 +46,38 @@ data = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "
 items = {it["id"]: it for it in data["test"]}
 
 
+def parse_strict(reply):
+    """与 team.parse_single_choice 相同（OMAC 解析规则扩展到 A–J）。"""
+    m = re.findall(r"\(([A-J])\)", reply or "")
+    if m:
+        return m[-1]
+    m = re.findall(r"([A-J])\)", reply or "")
+    return m[-1] if m else None
+
+
+def parse_lenient(reply):
+    """敏感性分析用：严格规则解析不出时，再认 'Final answer: X' / 'answer is X' / 结尾单独的字母。
+    用来区分"格式没照做"和"真的答错"——优化后的 dispatch 可能要求别的答案格式。"""
+    s = parse_strict(reply)
+    if s:
+        return s
+    m = re.findall(r"(?i:final answer|answer|choice|option)\s*(?:is|:|：|=)?\s*[*\s]*\(?([A-J])\b", reply or "")
+    if m:
+        return m[-1]
+    m = re.findall(r"\b([A-J])\b[\s*.]*$", (reply or "").strip())
+    return m[-1] if m else None
+
+
 def vec(cell, kind="team"):
+    """kind：team / team_lenient / 某个 worker 名 / 某个 worker 名 + '_lenient'。"""
     rs = cells[cell]
     if kind == "team":
         return np.array([rs[i]["correct"] for i in ids], dtype=float)
+    if kind == "team_lenient":
+        return np.array([parse_lenient(rs[i]["agg_out"]) == rs[i]["gold"] for i in ids], dtype=float)
+    if kind.endswith("_lenient"):
+        w = kind[:-len("_lenient")]
+        return np.array([parse_lenient(rs[i]["worker_resp"][w]) == rs[i]["gold"] for i in ids], dtype=float)
     return np.array([rs[i]["worker_correct"][kind] for i in ids], dtype=float)
 
 
@@ -77,11 +106,15 @@ for c in out["cells_present"]:
         acc[c][f"{w}_own_domain"] = round(float(vec(c, w)[sel].mean()), 4)
     acc[c]["final_unparsed"] = sum(cells[c][i]["final"] is None for i in ids)
     acc[c]["worker_unparsed"] = {w: sum(cells[c][i]["worker_ans"][w] is None for i in ids) for w in W}
+    acc[c]["worker_unparsed_lenient"] = {w: sum(parse_lenient(cells[c][i]["worker_resp"][w]) is None for i in ids)
+                                         for w in W}
+    acc[c]["team_lenient"] = round(float(vec(c, "team_lenient").mean()), 4)
+    acc[c][f"{MW}_lenient"] = round(float(vec(c, MW + "_lenient").mean()), 4)
 out["accuracy"] = acc
 
 # ---------- 2. W_new 的增益与交互 ----------
 gains = {}
-for kind in ("team", MW):
+for kind in ("team", MW, "team_lenient", MW + "_lenient"):
     g = {}
     for m, (co, cn) in MASTERS.items():
         if co in cells and cn in cells:

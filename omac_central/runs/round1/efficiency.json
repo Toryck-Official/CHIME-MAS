@@ -1,0 +1,74 @@
+{
+ "C1": {
+  "master_out_tok": 1126,
+  "dispatch_out_tok_per_msg": 226,
+  "math_in_tok": 314,
+  "math_out_tok": 279,
+  "doctor_out_tok": 277,
+  "lawyer_out_tok": 281,
+  "agg_in_tok": 678,
+  "agg_out_tok": 314,
+  "all_tok_per_item": 5270,
+  "offpeak_cny_per_item": 0.011
+ },
+ "C2": {
+  "master_out_tok": 1139,
+  "dispatch_out_tok_per_msg": 226,
+  "math_in_tok": 556,
+  "math_out_tok": 371,
+  "doctor_out_tok": 277,
+  "lawyer_out_tok": 281,
+  "agg_in_tok": 708,
+  "agg_out_tok": 327,
+  "all_tok_per_item": 5647,
+  "offpeak_cny_per_item": 0.0115
+ },
+ "C3": {
+  "master_out_tok": 1412,
+  "dispatch_out_tok_per_msg": 301,
+  "math_in_tok": 396,
+  "math_out_tok": 342,
+  "doctor_out_tok": 331,
+  "lawyer_out_tok": 335,
+  "agg_in_tok": 730,
+  "agg_out_tok": 375,
+  "all_tok_per_item": 6297,
+  "offpeak_cny_per_item": 0.0126
+ },
+ "C4": {
+  "master_out_tok": 1431,
+  "dispatch_out_tok_per_msg": 301,
+  "math_in_tok": 638,
+  "math_out_tok": 351,
+  "doctor_out_tok": 331,
+  "lawyer_out_tok": 335,
+  "agg_in_tok": 737,
+  "agg_out_tok": 394,
+  "all_tok_per_item": 6573,
+  "offpeak_cny_per_item": 0.0128
+ },
+ "C9": {
+  "master_out_tok": 1146,
+  "dispatch_out_tok_per_msg": 226,
+  "math_in_tok": 314,
+  "math_out_tok": 278,
+  "doctor_out_tok": 275,
+  "lawyer_out_tok": 278,
+  "agg_in_tok": 678,
+  "agg_out_tok": 321,
+  "all_tok_per_item": 5285,
+  "offpeak_cny_per_item": 0.0099
+ },
+ "C10": {
+  "master_out_tok": 1126,
+  "dispatch_out_tok_per_msg": 226,
+  "math_in_tok": 556,
+  "math_out_tok": 364,
+  "doctor_out_tok": 275,
+  "lawyer_out_tok": 278,
+  "agg_in_tok": 700,
+  "agg_out_tok": 301,
+  "all_tok_per_item": 5614,
+  "offpeak_cny_per_item": 0.0102
+ }
+}

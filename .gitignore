@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 logs_run_all.txt
+omac_central/cache.sqlite*
+omac_central/runs/round1_dry/

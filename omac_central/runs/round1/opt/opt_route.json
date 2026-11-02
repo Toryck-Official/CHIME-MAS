@@ -1,0 +1,95 @@
+{
+ "component": "route",
+ "role": null,
+ "candidates": [
+  "Take functionality, efficiency, and necessity into consideration, choose the experts best suited for resolving the given problem. You may choose 1 to 3 experts. Think it step by step. Put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.",
+  "Carefully analyze the given problem to determine its core domain, required sub-skills, and the type of reasoning needed for an accurate solution. Then, review all the provided candidate experts and assess how precisely each expert's background, expertise, and problem-solving style align with these requirements. Consider complementary strengths and whether collaboration among multiple experts would improve the quality of the solution. Choose between 1 and 3 experts—only selecting more than one if their combined expertise is genuinely necessary. Explain your reasoning step by step, compare the most relevant candidates, and conclude with your final selection in the format [1], [2], [3], [1,2], [1,3], [2,3], or [1,2,3].",
+  "Evaluate the problem and the list of candidate experts systematically. First, identify the problem's primary discipline and any interdisciplinary aspects, then match these against each expert's stated expertise, experience, and reasoning approach. Prioritize experts whose knowledge directly addresses the problem's central challenges, while also considering whether a secondary expert could cover important peripheral aspects. You may decide the number of experts yourself, using between 1 and 3; choose only 1 if a single expert is clearly sufficient, and choose up to 3 only when multiple perspectives are essential for a complete solution. Provide a concise justification for including or excluding each relevant candidate, and end your response with the selected expert numbers in the form [1], [2], [3], [1,2], [1,3], [2,3], or [1,2,3].",
+  "Assess the given problem's core reasoning demands—such as mathematical derivation, scientific analysis, humanistic interpretation, or social-scientific explanation—and consider any cross-disciplinary overlaps. Weigh each candidate expert by how directly and efficiently their expertise, experience, and reasoning style can address the problem's central difficulty, while avoiding redundant coverage. Choose the smallest sufficient set of experts, from 1 to 3, prioritizing necessity over breadth. Think step by step, briefly state why the selected experts are necessary and why other plausible candidates are not, then put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.",
+  "Identify the problem's core reasoning demands (e.g., mathematical derivation, scientific analysis, humanistic interpretation, social-scientific explanation) and any cross-disciplinary overlap. For each candidate expert, judge how directly their expertise, experience, and reasoning style target the central difficulty, and discard candidates whose contribution would be redundant or marginal. Select the smallest sufficient set of 1 to 3 experts that maximizes problem-solving effectiveness and efficiency, favoring necessity over breadth. Think step by step, briefly justify each selected expert and note why stronger-seeming alternatives were excluded, then put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response."
+ ],
+ "scores": {
+  "0": 0.8333333333333334,
+  "1": 0.8333333333333334,
+  "2": 0.8333333333333334,
+  "3": 0.8333333333333334,
+  "4": 0.8166666666666667
+ },
+ "team_scores": {
+  "0": 0.8333333333333334,
+  "1": 0.8333333333333334,
+  "2": 0.8333333333333334,
+  "3": 0.8333333333333334,
+  "4": 0.8166666666666667
+ },
+ "local_scores": {
+  "0": 0.8666666666666667,
+  "1": 0.8666666666666667,
+  "2": 0.8666666666666667,
+  "3": 0.8666666666666667,
+  "4": 0.8666666666666667
+ },
+ "score_kind": "team train accuracy",
+ "chosen": 0,
+ "chosen_nonbase": 1,
+ "chosen_by_team_score": 0,
+ "log": [
+  {
+   "stage": "init",
+   "dialog": [
+    {
+     "role": "system",
+     "content": "Create 2 distinct prompts for an LLM to choose some experts best suited for resolving some general reasoning problems related to math, hard science, humanities, social sciences, etc.\nEach prompt should decide and specify the number of the chosen experts, or let the LLM decide it. The minimal number is 1 and maximum number is 3.\nDon't directly output all the generated prompts. I will provide you with the sequence number of the prompt. Then you should directly output the content text of the corresponding prompt one by one.\nEach prompt should help to accurately and efficiently identify the experts best suited for problem solving.\nNote that all information about the task and candidate experts has been previously provided as the context. The prompt generated here will be added to the context to form the final prompt for expert selection.\nYou may consider adding more detailed and thorough instructions to help the LLM select the experts better.\nThe following is an example of a prompt (also ensure your output is different from the example prompt):\n\"Take functionality, efficiency, and necessity into consideration, choose the experts best suited for resolving the given problem. You may choose 1 to 3 experts. Think it step by step. Put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.\"."
+    },
+    {
+     "role": "user",
+     "content": "Directly output the 1th prompt without any prefix or explanation."
+    },
+    {
+     "role": "assistant",
+     "content": "Carefully analyze the given problem to determine its core domain, required sub-skills, and the type of reasoning needed for an accurate solution. Then, review all the provided candidate experts and assess how precisely each expert's background, expertise, and problem-solving style align with these requirements. Consider complementary strengths and whether collaboration among multiple experts would improve the quality of the solution. Choose between 1 and 3 experts—only selecting more than one if their combined expertise is genuinely necessary. Explain your reasoning step by step, compare the most relevant candidates, and conclude with your final selection in the format [1], [2], [3], [1,2], [1,3], [2,3], or [1,2,3]."
+    },
+    {
+     "role": "user",
+     "content": "Directly output the 2th prompt without any prefix or explanation."
+    },
+    {
+     "role": "assistant",
+     "content": "Evaluate the problem and the list of candidate experts systematically. First, identify the problem's primary discipline and any interdisciplinary aspects, then match these against each expert's stated expertise, experience, and reasoning approach. Prioritize experts whose knowledge directly addresses the problem's central challenges, while also considering whether a secondary expert could cover important peripheral aspects. You may decide the number of experts yourself, using between 1 and 3; choose only 1 if a single expert is clearly sufficient, and choose up to 3 only when multiple perspectives are essential for a complete solution. Provide a concise justification for including or excluding each relevant candidate, and end your response with the selected expert numbers in the form [1], [2], [3], [1,2], [1,3], [2,3], or [1,2,3]."
+    }
+   ]
+  },
+  {
+   "stage": "fd0",
+   "positive": 0,
+   "negative": 2,
+   "messages": [
+    {
+     "role": "system",
+     "content": "Create and output a child prompt for an LLM to choose some experts best suited for resolving some general reasoning problems related to math, hard science, humanities, social sciences, etc.\nI will provide you with a pair of parent prompts. Then you should only output a child prompt according to the following instructions:\nThe positive parent prompt is proven to be more helpful and efficient to instruct the LLM to select more useful and effective experts for problem resolution.\nYou should carefully compare the two parent prompts, finding the potential reasons why the positive parent prompt is better than the negative parent prompt.\nBased on that, you should generate and output a child prompt that can help to choose experts more effectively and efficiently than the positive parent prompt.\nThe child prompt should follow the format of the parent prompts.\nThe child prompt should be different from the parent prompts. Directly output the content text of the child prompt.\n\nThe positive parent prompt is: \"Take functionality, efficiency, and necessity into consideration, choose the experts best suited for resolving the given problem. You may choose 1 to 3 experts. Think it step by step. Put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.\"\n\nThe negative parent prompt is: \"Evaluate the problem and the list of candidate experts systematically. First, identify the problem's primary discipline and any interdisciplinary aspects, then match these against each expert's stated expertise, experience, and reasoning approach. Prioritize experts whose knowledge directly addresses the problem's central challenges, while also considering whether a secondary expert could cover important peripheral aspects. You may decide the number of experts yourself, using between 1 and 3; choose only 1 if a single expert is clearly sufficient, and choose up to 3 only when multiple perspectives are essential for a complete solution. Provide a concise justification for including or excluding each relevant candidate, and end your response with the selected expert numbers in the form [1], [2], [3], [1,2], [1,3], [2,3], or [1,2,3].\""
+    },
+    {
+     "role": "user",
+     "content": "Directly output the content of the child prompt without any prefix or explanation."
+    }
+   ],
+   "child": "Assess the given problem's core reasoning demands—such as mathematical derivation, scientific analysis, humanistic interpretation, or social-scientific explanation—and consider any cross-disciplinary overlaps. Weigh each candidate expert by how directly and efficiently their expertise, experience, and reasoning style can address the problem's central difficulty, while avoiding redundant coverage. Choose the smallest sufficient set of experts, from 1 to 3, prioritizing necessity over breadth. Think step by step, briefly state why the selected experts are necessary and why other plausible candidates are not, then put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response."
+  },
+  {
+   "stage": "fd1",
+   "positive": 0,
+   "negative": 3,
+   "messages": [
+    {
+     "role": "system",
+     "content": "Create and output a child prompt for an LLM to choose some experts best suited for resolving some general reasoning problems related to math, hard science, humanities, social sciences, etc.\nI will provide you with a pair of parent prompts. Then you should only output a child prompt according to the following instructions:\nThe positive parent prompt is proven to be more helpful and efficient to instruct the LLM to select more useful and effective experts for problem resolution.\nYou should carefully compare the two parent prompts, finding the potential reasons why the positive parent prompt is better than the negative parent prompt.\nBased on that, you should generate and output a child prompt that can help to choose experts more effectively and efficiently than the positive parent prompt.\nThe child prompt should follow the format of the parent prompts.\nThe child prompt should be different from the parent prompts. Directly output the content text of the child prompt.\n\nThe positive parent prompt is: \"Take functionality, efficiency, and necessity into consideration, choose the experts best suited for resolving the given problem. You may choose 1 to 3 experts. Think it step by step. Put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.\"\n\nThe negative parent prompt is: \"Assess the given problem's core reasoning demands—such as mathematical derivation, scientific analysis, humanistic interpretation, or social-scientific explanation—and consider any cross-disciplinary overlaps. Weigh each candidate expert by how directly and efficiently their expertise, experience, and reasoning style can address the problem's central difficulty, while avoiding redundant coverage. Choose the smallest sufficient set of experts, from 1 to 3, prioritizing necessity over breadth. Think step by step, briefly state why the selected experts are necessary and why other plausible candidates are not, then put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.\""
+    },
+    {
+     "role": "user",
+     "content": "Directly output the content of the child prompt without any prefix or explanation."
+    }
+   ],
+   "child": "Identify the problem's core reasoning demands (e.g., mathematical derivation, scientific analysis, humanistic interpretation, social-scientific explanation) and any cross-disciplinary overlap. For each candidate expert, judge how directly their expertise, experience, and reasoning style target the central difficulty, and discard candidates whose contribution would be redundant or marginal. Select the smallest sufficient set of 1 to 3 experts that maximizes problem-solving effectiveness and efficiency, favoring necessity over breadth. Think step by step, briefly justify each selected expert and note why stronger-seeming alternatives were excluded, then put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response."
+  }
+ ]
+}

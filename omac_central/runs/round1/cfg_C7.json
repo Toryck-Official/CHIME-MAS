@@ -1,0 +1,14 @@
+{
+ "cell": "C7",
+ "salt": "",
+ "cfg": {
+  "route": "Take functionality, efficiency, and necessity into consideration, choose the experts best suited for resolving the given problem. You may choose 1 to 3 experts. Think it step by step. Put your answer in the form like [1] or [1,3] or [1,2,3] at the end of your response.",
+  "dispatch": "Write the message that you will send to this expert. The message must contain the complete question and all answer options exactly as given. Ask the expert to solve the question and explain its reasoning.",
+  "aggregate": "Thoroughly review the original problem and each expert solution. Consider the problem carefully from first principles, then evaluate each expert's reasoning step by step, identifying any errors, gaps, or unjustified assumptions in their approaches. Cross-check the experts' conclusions against each other and against your own independent analysis. Weigh the reliability of each expert solution based on the soundness of its reasoning, not on majority vote or confidence alone. If expert solutions conflict, resolve the conflict by determining which reasoning is correct and which is flawed, and explain why. If all expert solutions contain errors, derive the correct answer yourself from scratch. Then decide the single best final answer that correctly and completely resolves the problem, ensuring it addresses every part of the question. Provide your reasoning clearly and concisely, justifying why your chosen answer is superior to the alternatives offered by the experts.",
+  "workers": {
+   "Mathematician": "You are a mathematician. You are good at math games, arithmetic calculation, and long-term planning.",
+   "Doctor": "You are a doctor and come up with creative treatments for illnesses or diseases. You are able to recommend conventional medicines, herbal remedies and other natural alternatives. You also consider the patient's age, lifestyle and medical history when providing your recommendations.",
+   "Lawyer": "You are a lawyer. You are good at law, politics, and history."
+  }
+ }
+}

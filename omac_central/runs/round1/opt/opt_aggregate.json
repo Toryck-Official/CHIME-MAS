@@ -1,0 +1,95 @@
+{
+ "component": "aggregate",
+ "role": null,
+ "candidates": [
+  "Examine the experts' solutions step by step. Notice that their answers might all be wrong. Decide the final answer of the team and explain your reasoning.",
+  "Thoroughly review the original problem and each expert solution. Consider the problem carefully from first principles, then evaluate each expert's reasoning step by step, identifying any errors, gaps, or unjustified assumptions in their approaches. Cross-check the experts' conclusions against each other and against your own independent analysis. Weigh the reliability of each expert solution based on the soundness of its reasoning, not on majority vote or confidence alone. If expert solutions conflict, resolve the conflict by determining which reasoning is correct and which is flawed, and explain why. If all expert solutions contain errors, derive the correct answer yourself from scratch. Then decide the single best final answer that correctly and completely resolves the problem, ensuring it addresses every part of the question. Provide your reasoning clearly and concisely, justifying why your chosen answer is superior to the alternatives offered by the experts.",
+  "Analyze the problem and the provided expert solutions with a critical mindset. For each expert solution, extract the key claims, the chain of reasoning, and the final answer, then assess the validity of each step, flagging computational mistakes, logical fallacies, factual inaccuracies, or hidden assumptions. Compare the solutions to identify points of agreement and disagreement, and determine which solution—or combination of solutions—best addresses the problem. Do not assume that the most detailed or most confident solution is correct; instead, verify claims against established principles of the relevant field (mathematics, hard science, humanities, social sciences, etc.). Where experts disagree, adjudicate the dispute by determining which line of reasoning is sound and which is not, and explain the basis for your judgment. If the expert solutions are incomplete or collectively insufficient, supplement them with your own analysis to reach a correct and well-justified conclusion. Finally, select the final answer that most accurately and comprehensively solves the problem, and explain why it is preferable to the alternatives proposed by the experts.",
+  "Read the original problem closely and restate what it requires, including any constraints, sub-questions, or implicit assumptions. Independently solve the problem from first principles before relying on the expert solutions, so you have a clear benchmark for correctness. Then examine each expert solution by isolating its final answer, its key claims, and the reasoning connecting them, and test every inferential step for validity by checking computations, logic, factual accuracy, definitions, and hidden assumptions. Where experts agree, verify that the agreement is not due to a shared mistake; where they disagree, identify the exact point of divergence and determine which reasoning is sound, correcting or rejecting flawed solutions and explaining the specific error. If the expert solutions are incomplete, ambiguous, or collectively wrong, use your own derivation to fill the gaps or replace them. Finally, choose the single answer that best resolves the entire problem, confirm that it satisfies every part of the question, and present it with concise reasoning that justifies why it is correct and why the competing expert answers are inferior.",
+  "Review the original problem and every expert solution with rigor. First, restate the problem in your own words and identify precisely what a correct and complete answer must establish, including all sub-questions, constraints, and implicit requirements. Then, for each expert solution, reconstruct its full chain of reasoning, isolate its central claims and final answer, and test each step for validity—checking definitions, assumptions, computational steps, logical inferences, factual claims, and whether any relevant principle, edge case, or alternative interpretation has been overlooked. Cross-check the experts against one another and against your own independent derivation from first principles, treating agreement as useful but not decisive and treating confidence or detail as irrelevant to correctness. Where experts conflict, adjudicate by determining which reasoning is sound and which is flawed, and state the basis for that judgment. Where all are flawed or insufficient, derive the correct answer yourself. Then synthesize the strongest valid elements of the expert solutions with your own analysis to construct the single best final answer, ensuring it resolves every part of the problem, avoids unsupported assumptions, and is the most accurate and complete response available. Provide clear, concise reasoning that justifies why this final answer is superior to the alternatives proposed by the experts."
+ ],
+ "scores": {
+  "0": 0.8333333333333334,
+  "1": 0.85,
+  "2": 0.8,
+  "3": 0.8333333333333334,
+  "4": 0.8333333333333334
+ },
+ "team_scores": {
+  "0": 0.8333333333333334,
+  "1": 0.85,
+  "2": 0.8,
+  "3": 0.8333333333333334,
+  "4": 0.8333333333333334
+ },
+ "local_scores": {
+  "0": 0.8666666666666667,
+  "1": 0.8666666666666667,
+  "2": 0.8666666666666667,
+  "3": 0.8666666666666667,
+  "4": 0.8666666666666667
+ },
+ "score_kind": "team train accuracy",
+ "chosen": 1,
+ "chosen_nonbase": 1,
+ "chosen_by_team_score": 1,
+ "log": [
+  {
+   "stage": "init",
+   "dialog": [
+    {
+     "role": "system",
+     "content": "Create 2 different prompts for an LLM to decide the final answer to some general reasoning problems related to math, hard science, humanities, social sciences, etc., by examining the solutions from some expert agents.\nDon't directly output all the generated prompts. I will provide you with the sequence number of the prompt. Then you should directly output the content text of the corresponding prompt one by one.\nThe prompt should help to accurately and efficiently decide the final answer that resolves the given problems best.\nNote that all the solutions and the problem have been previously provided as the context. The prompt generated here will be added to the context to form the final prompt for deciding the final answer.\nYou may consider adding more detailed and thorough instructions to help the LLM decide the final answer better.\nThe instruction on the answer format will be appended after the prompt automatically, so the prompt does not need to specify it.\nThe following is an example of a prompt (also ensure your output is different from the example prompt):\n\"Examine the experts' solutions step by step. Notice that their answers might all be wrong. Decide the final answer of the team and explain your reasoning.\"."
+    },
+    {
+     "role": "user",
+     "content": "Directly output the 1th prompt without any prefix or explanation."
+    },
+    {
+     "role": "assistant",
+     "content": "Thoroughly review the original problem and each expert solution. Consider the problem carefully from first principles, then evaluate each expert's reasoning step by step, identifying any errors, gaps, or unjustified assumptions in their approaches. Cross-check the experts' conclusions against each other and against your own independent analysis. Weigh the reliability of each expert solution based on the soundness of its reasoning, not on majority vote or confidence alone. If expert solutions conflict, resolve the conflict by determining which reasoning is correct and which is flawed, and explain why. If all expert solutions contain errors, derive the correct answer yourself from scratch. Then decide the single best final answer that correctly and completely resolves the problem, ensuring it addresses every part of the question. Provide your reasoning clearly and concisely, justifying why your chosen answer is superior to the alternatives offered by the experts."
+    },
+    {
+     "role": "user",
+     "content": "Directly output the 2th prompt without any prefix or explanation."
+    },
+    {
+     "role": "assistant",
+     "content": "Analyze the problem and the provided expert solutions with a critical mindset. For each expert solution, extract the key claims, the chain of reasoning, and the final answer, then assess the validity of each step, flagging computational mistakes, logical fallacies, factual inaccuracies, or hidden assumptions. Compare the solutions to identify points of agreement and disagreement, and determine which solution—or combination of solutions—best addresses the problem. Do not assume that the most detailed or most confident solution is correct; instead, verify claims against established principles of the relevant field (mathematics, hard science, humanities, social sciences, etc.). Where experts disagree, adjudicate the dispute by determining which line of reasoning is sound and which is not, and explain the basis for your judgment. If the expert solutions are incomplete or collectively insufficient, supplement them with your own analysis to reach a correct and well-justified conclusion. Finally, select the final answer that most accurately and comprehensively solves the problem, and explain why it is preferable to the alternatives proposed by the experts."
+    }
+   ]
+  },
+  {
+   "stage": "fd0",
+   "positive": 1,
+   "negative": 2,
+   "messages": [
+    {
+     "role": "system",
+     "content": "Create and output a child prompt for an LLM to decide the final answer to some general reasoning problems (related to math, hard science, humanities, social sciences, etc.) by examining the solutions from some expert agents.\nI will provide you with a pair of parent prompts. Then you should only output a child prompt according to the following instructions:\nThe positive parent prompt is proven to be more helpful and efficient to instruct the LLM to decide the correct final answer.\nYou should carefully compare the two parent prompts, finding the potential reasons why the positive parent prompt is better than the negative parent prompt.\nBased on that, you should generate and output a child prompt that can help to decide the final answer more effectively and efficiently than the positive parent prompt.\nThe child prompt should follow the format of the parent prompts.\nThe child prompt should be different from the parent prompts. Directly output the content text of the child prompt.\n\nThe positive parent prompt is: \"Thoroughly review the original problem and each expert solution. Consider the problem carefully from first principles, then evaluate each expert's reasoning step by step, identifying any errors, gaps, or unjustified assumptions in their approaches. Cross-check the experts' conclusions against each other and against your own independent analysis. Weigh the reliability of each expert solution based on the soundness of its reasoning, not on majority vote or confidence alone. If expert solutions conflict, resolve the conflict by determining which reasoning is correct and which is flawed, and explain why. If all expert solutions contain errors, derive the correct answer yourself from scratch. Then decide the single best final answer that correctly and completely resolves the problem, ensuring it addresses every part of the question. Provide your reasoning clearly and concisely, justifying why your chosen answer is superior to the alternatives offered by the experts.\"\n\nThe negative parent prompt is: \"Analyze the problem and the provided expert solutions with a critical mindset. For each expert solution, extract the key claims, the chain of reasoning, and the final answer, then assess the validity of each step, flagging computational mistakes, logical fallacies, factual inaccuracies, or hidden assumptions. Compare the solutions to identify points of agreement and disagreement, and determine which solution—or combination of solutions—best addresses the problem. Do not assume that the most detailed or most confident solution is correct; instead, verify claims against established principles of the relevant field (mathematics, hard science, humanities, social sciences, etc.). Where experts disagree, adjudicate the dispute by determining which line of reasoning is sound and which is not, and explain the basis for your judgment. If the expert solutions are incomplete or collectively insufficient, supplement them with your own analysis to reach a correct and well-justified conclusion. Finally, select the final answer that most accurately and comprehensively solves the problem, and explain why it is preferable to the alternatives proposed by the experts.\""
+    },
+    {
+     "role": "user",
+     "content": "Directly output the content of the child prompt without any prefix or explanation."
+    }
+   ],
+   "child": "Read the original problem closely and restate what it requires, including any constraints, sub-questions, or implicit assumptions. Independently solve the problem from first principles before relying on the expert solutions, so you have a clear benchmark for correctness. Then examine each expert solution by isolating its final answer, its key claims, and the reasoning connecting them, and test every inferential step for validity by checking computations, logic, factual accuracy, definitions, and hidden assumptions. Where experts agree, verify that the agreement is not due to a shared mistake; where they disagree, identify the exact point of divergence and determine which reasoning is sound, correcting or rejecting flawed solutions and explaining the specific error. If the expert solutions are incomplete, ambiguous, or collectively wrong, use your own derivation to fill the gaps or replace them. Finally, choose the single answer that best resolves the entire problem, confirm that it satisfies every part of the question, and present it with concise reasoning that justifies why it is correct and why the competing expert answers are inferior."
+  },
+  {
+   "stage": "fd1",
+   "positive": 1,
+   "negative": 2,
+   "messages": [
+    {
+     "role": "system",
+     "content": "Create and output a child prompt for an LLM to decide the final answer to some general reasoning problems (related to math, hard science, humanities, social sciences, etc.) by examining the solutions from some expert agents.\nI will provide you with a pair of parent prompts. Then you should only output a child prompt according to the following instructions:\nThe positive parent prompt is proven to be more helpful and efficient to instruct the LLM to decide the correct final answer.\nYou should carefully compare the two parent prompts, finding the potential reasons why the positive parent prompt is better than the negative parent prompt.\nBased on that, you should generate and output a child prompt that can help to decide the final answer more effectively and efficiently than the positive parent prompt.\nThe child prompt should follow the format of the parent prompts.\nThe child prompt should be different from the parent prompts. Directly output the content text of the child prompt.\n\nThe positive parent prompt is: \"Thoroughly review the original problem and each expert solution. Consider the problem carefully from first principles, then evaluate each expert's reasoning step by step, identifying any errors, gaps, or unjustified assumptions in their approaches. Cross-check the experts' conclusions against each other and against your own independent analysis. Weigh the reliability of each expert solution based on the soundness of its reasoning, not on majority vote or confidence alone. If expert solutions conflict, resolve the conflict by determining which reasoning is correct and which is flawed, and explain why. If all expert solutions contain errors, derive the correct answer yourself from scratch. Then decide the single best final answer that correctly and completely resolves the problem, ensuring it addresses every part of the question. Provide your reasoning clearly and concisely, justifying why your chosen answer is superior to the alternatives offered by the experts.\"\n\nThe negative parent prompt is: \"Analyze the problem and the provided expert solutions with a critical mindset. For each expert solution, extract the key claims, the chain of reasoning, and the final answer, then assess the validity of each step, flagging computational mistakes, logical fallacies, factual inaccuracies, or hidden assumptions. Compare the solutions to identify points of agreement and disagreement, and determine which solution—or combination of solutions—best addresses the problem. Do not assume that the most detailed or most confident solution is correct; instead, verify claims against established principles of the relevant field (mathematics, hard science, humanities, social sciences, etc.). Where experts disagree, adjudicate the dispute by determining which line of reasoning is sound and which is not, and explain the basis for your judgment. If the expert solutions are incomplete or collectively insufficient, supplement them with your own analysis to reach a correct and well-justified conclusion. Finally, select the final answer that most accurately and comprehensively solves the problem, and explain why it is preferable to the alternatives proposed by the experts.\""
+    },
+    {
+     "role": "user",
+     "content": "Directly output the content of the child prompt without any prefix or explanation."
+    }
+   ],
+   "child": "Review the original problem and every expert solution with rigor. First, restate the problem in your own words and identify precisely what a correct and complete answer must establish, including all sub-questions, constraints, and implicit requirements. Then, for each expert solution, reconstruct its full chain of reasoning, isolate its central claims and final answer, and test each step for validity—checking definitions, assumptions, computational steps, logical inferences, factual claims, and whether any relevant principle, edge case, or alternative interpretation has been overlooked. Cross-check the experts against one another and against your own independent derivation from first principles, treating agreement as useful but not decisive and treating confidence or detail as irrelevant to correctness. Where experts conflict, adjudicate by determining which reasoning is sound and which is flawed, and state the basis for that judgment. Where all are flawed or insufficient, derive the correct answer yourself. Then synthesize the strongest valid elements of the expert solutions with your own analysis to construct the single best final answer, ensuring it resolves every part of the problem, avoids unsupported assumptions, and is the most accurate and complete response available. Provide clear, concise reasoning that justifies why this final answer is superior to the alternatives proposed by the experts."
+  }
+ ]
+}

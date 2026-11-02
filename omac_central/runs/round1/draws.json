@@ -1,0 +1,252 @@
+{
+ "Mathematician": {
+  "draws": [
+   {
+    "master": "old",
+    "draw": "r0",
+    "n": 180,
+    "acc_old": 83.88888888888889,
+    "acc_new": 80.0,
+    "effect": -3.888888888888889,
+    "chars_old": 1032.0111111111112,
+    "chars_new": 1410.5166666666667,
+    "unparsed_old": 1,
+    "unparsed_new": 3,
+    "msg_chars": 974.7944444444445
+   },
+   {
+    "master": "old",
+    "draw": "r1",
+    "n": 180,
+    "acc_old": 80.0,
+    "acc_new": 77.77777777777777,
+    "effect": -2.2222222222222223,
+    "chars_old": 1033.25,
+    "chars_new": 1383.1888888888889,
+    "unparsed_old": 4,
+    "unparsed_new": 9,
+    "msg_chars": 974.1
+   },
+   {
+    "master": "old",
+    "draw": "r2",
+    "n": 180,
+    "acc_old": 82.77777777777777,
+    "acc_new": 80.55555555555556,
+    "effect": -2.2222222222222223,
+    "chars_old": 1015.3277777777778,
+    "chars_new": 1348.911111111111,
+    "unparsed_old": 2,
+    "unparsed_new": 3,
+    "msg_chars": 978.4
+   },
+   {
+    "master": "disp",
+    "draw": "r0",
+    "n": 180,
+    "acc_old": 81.11111111111111,
+    "acc_new": 83.88888888888889,
+    "effect": 2.7777777777777777,
+    "chars_old": 1329.6,
+    "chars_new": 1345.3055555555557,
+    "unparsed_old": 1,
+    "unparsed_new": 1,
+    "msg_chars": 1325.6722222222222
+   },
+   {
+    "master": "disp",
+    "draw": "r1",
+    "n": 180,
+    "acc_old": 87.22222222222223,
+    "acc_new": 81.66666666666667,
+    "effect": -5.555555555555555,
+    "chars_old": 1312.1666666666667,
+    "chars_new": 1463.9333333333334,
+    "unparsed_old": 0,
+    "unparsed_new": 1,
+    "msg_chars": 1323.6833333333334
+   }
+  ],
+  "summary": {
+   "old": {
+    "draws": 3,
+    "effect_mean": -2.7777777777777777,
+    "effect_range": [
+     -3.888888888888889,
+     -2.2222222222222223
+    ],
+    "acc_old_mean": 82.22222222222221,
+    "acc_new_mean": 79.44444444444444,
+    "extra_chars_mean": 354.0092592592592,
+    "extra_chars_range": [
+     333.58333333333326,
+     378.5055555555555
+    ]
+   },
+   "disp": {
+    "draws": 2,
+    "effect_mean": -1.3888888888888888,
+    "effect_range": [
+     -5.555555555555555,
+     2.7777777777777777
+    ],
+    "acc_old_mean": 84.16666666666667,
+    "acc_new_mean": 82.77777777777777,
+    "extra_chars_mean": 83.7361111111112,
+    "extra_chars_range": [
+     15.705555555555748,
+     151.76666666666665
+    ]
+   },
+   "effect_change_disp_minus_old": 1.3888888888888888,
+   "extra_chars_change_disp_minus_old": -270.273148148148
+  }
+ },
+ "Lawyer": {
+  "draws": [
+   {
+    "master": "old",
+    "draw": "r0",
+    "n": 180,
+    "acc_old": 83.33333333333333,
+    "acc_new": 83.33333333333333,
+    "effect": 0.0,
+    "chars_old": 1080.9277777777777,
+    "chars_new": 2348.561111111111,
+    "unparsed_old": 3,
+    "unparsed_new": 2,
+    "msg_chars": 978.3
+   },
+   {
+    "master": "old",
+    "draw": "r1",
+    "n": 180,
+    "acc_old": 82.77777777777777,
+    "acc_new": 80.55555555555556,
+    "effect": -2.2222222222222223,
+    "chars_old": 1060.9833333333333,
+    "chars_new": 2363.8944444444446,
+    "unparsed_old": 3,
+    "unparsed_new": 3,
+    "msg_chars": 981.8611111111111
+   },
+   {
+    "master": "old",
+    "draw": "r2",
+    "n": 180,
+    "acc_old": 81.11111111111111,
+    "acc_new": 82.77777777777777,
+    "effect": 1.6666666666666667,
+    "chars_old": 1068.9166666666667,
+    "chars_new": 2292.0666666666666,
+    "unparsed_old": 1,
+    "unparsed_new": 1,
+    "msg_chars": 983.6
+   },
+   {
+    "master": "disp",
+    "draw": "r0",
+    "n": 180,
+    "acc_old": 82.22222222222223,
+    "acc_new": 80.55555555555556,
+    "effect": -1.6666666666666667,
+    "chars_old": 1309.6166666666666,
+    "chars_new": 2281.883333333333,
+    "unparsed_old": 2,
+    "unparsed_new": 1,
+    "msg_chars": 1310.861111111111
+   },
+   {
+    "master": "disp",
+    "draw": "r1",
+    "n": 180,
+    "acc_old": 83.88888888888889,
+    "acc_new": 80.0,
+    "effect": -3.888888888888889,
+    "chars_old": 1323.7166666666667,
+    "chars_new": 2319.1222222222223,
+    "unparsed_old": 1,
+    "unparsed_new": 0,
+    "msg_chars": 1319.9388888888889
+   }
+  ],
+  "summary": {
+   "old": {
+    "draws": 3,
+    "effect_mean": -0.1851851851851852,
+    "effect_range": [
+     -2.2222222222222223,
+     1.6666666666666667
+    ],
+    "acc_old_mean": 82.4074074074074,
+    "acc_new_mean": 82.22222222222221,
+    "extra_chars_mean": 1264.5648148148148,
+    "extra_chars_range": [
+     1223.1499999999999,
+     1302.9111111111113
+    ]
+   },
+   "disp": {
+    "draws": 2,
+    "effect_mean": -2.7777777777777777,
+    "effect_range": [
+     -3.888888888888889,
+     -1.6666666666666667
+    ],
+    "acc_old_mean": 83.05555555555556,
+    "acc_new_mean": 80.27777777777777,
+    "extra_chars_mean": 983.8361111111111,
+    "extra_chars_range": [
+     972.2666666666667,
+     995.4055555555556
+    ]
+   },
+   "effect_change_disp_minus_old": -2.5925925925925926,
+   "extra_chars_change_disp_minus_old": -280.7287037037037
+  }
+ },
+ "lawyer_cells": {
+  "C1": {
+   "team": 84.44444444444444,
+   "Lawyer": 83.33333333333333
+  },
+  "C3": {
+   "team": 84.44444444444444,
+   "Lawyer": 82.22222222222223
+  },
+  "C9": {
+   "team": 84.44444444444444,
+   "Lawyer": 82.77777777777777
+  },
+  "C2L": {
+   "team": 82.77777777777777,
+   "Lawyer": 83.33333333333333
+  },
+  "C4L": {
+   "team": 82.77777777777777,
+   "Lawyer": 80.55555555555556
+  },
+  "C10L": {
+   "team": 83.33333333333333,
+   "Lawyer": 80.55555555555556
+  }
+ },
+ "lawyer_validation": {
+  "scores": {
+   "0": 0.8055555555555556,
+   "1": 0.7777777777777778,
+   "2": 0.8,
+   "3": 0.8,
+   "4": 0.7777777777777778
+  },
+  "own_domain_scores": {
+   "0": 0.6,
+   "1": 0.55,
+   "2": 0.6,
+   "3": 0.5666666666666667,
+   "4": 0.5666666666666667
+  },
+  "chosen": 0,
+  "chosen_nonbase": 2
+ }
+}

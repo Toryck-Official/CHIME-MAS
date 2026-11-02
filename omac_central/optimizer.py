@@ -123,8 +123,10 @@ def optimize(component: str, base_cfg: dict, train: list[dict], out_dir: str, ro
              seed: int = 0, threads: int = 60) -> dict:
     """返回 {"candidates", "scores", "team_scores", "local_scores", "chosen", "chosen_nonbase", ...}，并写日志。"""
     os.makedirs(out_dir, exist_ok=True)
-    rng = random.Random(f"{component}-{seed}")
-    salt = f"opt-{component}-{seed}"
+    # 文件名与 salt 用 tag：Mathematician 沿用 "worker"（与第一轮已有结果一致），其他 worker 用 "worker_<角色>"
+    tag = component if (component != "worker" or role == "Mathematician") else f"worker_{role}"
+    rng = random.Random(f"{tag}-{seed}")
+    salt = f"opt-{tag}-{seed}"
     example = base_cfg["workers"][role] if component == "worker" else base_cfg[component]
     init_sys, fd_sys = templates(component, example, role)
     cands, scores, team_scores, local_scores, log = [], {}, {}, {}, []
@@ -132,13 +134,13 @@ def optimize(component: str, base_cfg: dict, train: list[dict], out_dir: str, ro
     def evaluate(pid: int):
         cfg = with_candidate(base_cfg, component, cands[pid], role)
         recs = team.evaluate(train, cfg, threads=threads)
-        with open(os.path.join(out_dir, f"train_{component}_{pid}.jsonl"), "w") as f:
+        with open(os.path.join(out_dir, f"train_{tag}_{pid}.jsonl"), "w") as f:
             for r in recs:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
         team_scores[pid] = team.accuracy(recs)
         local_scores[pid] = sum(r["worker_correct"][role] for r in recs) / len(recs)
         scores[pid] = local_scores[pid] if component == "worker" else team_scores[pid]
-        print(f"[{component}] cand {pid}: score={scores[pid]:.4f} team={team_scores[pid]:.4f} "
+        print(f"[{tag}] cand {pid}: score={scores[pid]:.4f} team={team_scores[pid]:.4f} "
               f"local={local_scores[pid]:.4f}", flush=True)
 
     # Semantic Initializer
@@ -179,10 +181,10 @@ def optimize(component: str, base_cfg: dict, train: list[dict], out_dir: str, ro
 
     ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
     ranked_team = sorted(team_scores.items(), key=lambda x: x[1], reverse=True)
-    res = {"component": component, "role": role if component == "worker" else None,
+    res = {"component": component, "tag": tag, "role": role if component == "worker" else None,
            "candidates": cands, "scores": scores, "team_scores": team_scores, "local_scores": local_scores,
            "score_kind": "local (worker's own train accuracy)" if component == "worker" else "team train accuracy",
            "chosen": ranked[0][0], "chosen_nonbase": next(pid for pid, _ in ranked if pid != 0),
            "chosen_by_team_score": ranked_team[0][0], "log": log}
-    json.dump(res, open(os.path.join(out_dir, f"opt_{component}.json"), "w"), ensure_ascii=False, indent=1)
+    json.dump(res, open(os.path.join(out_dir, f"opt_{tag}.json"), "w"), ensure_ascii=False, indent=1)
     return res

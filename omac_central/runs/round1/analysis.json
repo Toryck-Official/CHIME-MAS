@@ -5,6 +5,10 @@
   "C2",
   "C3",
   "C4",
+  "C5",
+  "C6",
+  "C7",
+  "C8",
   "C9",
   "C10"
  ],
@@ -121,6 +125,118 @@
    "team_lenient": 0.8611,
    "Mathematician_lenient": 0.8444
   },
+  "C5": {
+   "team": {
+    "est": 0.8389,
+    "ci95": [
+     0.7833,
+     0.8944
+    ]
+   },
+   "Mathematician": 0.8389,
+   "Doctor": 0.8111,
+   "Lawyer": 0.8333,
+   "Mathematician_own_domain": 0.95,
+   "Doctor_own_domain": 0.8333,
+   "Lawyer_own_domain": 0.7,
+   "final_unparsed": 0,
+   "worker_unparsed": {
+    "Mathematician": 1,
+    "Doctor": 6,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 0,
+    "Doctor": 0,
+    "Lawyer": 0
+   },
+   "team_lenient": 0.8389,
+   "Mathematician_lenient": 0.8444
+  },
+  "C6": {
+   "team": {
+    "est": 0.8222,
+    "ci95": [
+     0.7667,
+     0.8778
+    ]
+   },
+   "Mathematician": 0.8,
+   "Doctor": 0.8111,
+   "Lawyer": 0.8333,
+   "Mathematician_own_domain": 0.9,
+   "Doctor_own_domain": 0.8333,
+   "Lawyer_own_domain": 0.7,
+   "final_unparsed": 2,
+   "worker_unparsed": {
+    "Mathematician": 3,
+    "Doctor": 6,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 1,
+    "Doctor": 0,
+    "Lawyer": 0
+   },
+   "team_lenient": 0.8333,
+   "Mathematician_lenient": 0.8111
+  },
+  "C7": {
+   "team": {
+    "est": 0.8556,
+    "ci95": [
+     0.8,
+     0.9056
+    ]
+   },
+   "Mathematician": 0.8389,
+   "Doctor": 0.8111,
+   "Lawyer": 0.8333,
+   "Mathematician_own_domain": 0.95,
+   "Doctor_own_domain": 0.8333,
+   "Lawyer_own_domain": 0.7,
+   "final_unparsed": 0,
+   "worker_unparsed": {
+    "Mathematician": 1,
+    "Doctor": 6,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 0,
+    "Doctor": 0,
+    "Lawyer": 0
+   },
+   "team_lenient": 0.8556,
+   "Mathematician_lenient": 0.8444
+  },
+  "C8": {
+   "team": {
+    "est": 0.8444,
+    "ci95": [
+     0.7889,
+     0.8944
+    ]
+   },
+   "Mathematician": 0.8,
+   "Doctor": 0.8111,
+   "Lawyer": 0.8333,
+   "Mathematician_own_domain": 0.9,
+   "Doctor_own_domain": 0.8333,
+   "Lawyer_own_domain": 0.7,
+   "final_unparsed": 1,
+   "worker_unparsed": {
+    "Mathematician": 3,
+    "Doctor": 6,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 1,
+    "Doctor": 0,
+    "Lawyer": 0
+   },
+   "team_lenient": 0.85,
+   "Mathematician_lenient": 0.8111
+  },
   "C9": {
    "team": {
     "est": 0.8444,
@@ -194,6 +310,20 @@
      0.0333
     ]
    },
+   "route": {
+    "est": -0.0167,
+    "ci95": [
+     -0.0389,
+     0.0
+    ]
+   },
+   "agg": {
+    "est": -0.0111,
+    "ci95": [
+     -0.0278,
+     0.0
+    ]
+   },
    "rerun": {
     "est": 0.0111,
     "ci95": [
@@ -206,6 +336,20 @@
     "ci95": [
      0.0,
      0.0722
+    ]
+   },
+   "interaction_route": {
+    "est": 0.0056,
+    "ci95": [
+     0.0,
+     0.0167
+    ]
+   },
+   "interaction_agg": {
+    "est": 0.0111,
+    "ci95": [
+     -0.0111,
+     0.0333
     ]
    },
    "interaction_rerun": {
@@ -231,6 +375,20 @@
      0.0722
     ]
    },
+   "route": {
+    "est": -0.0389,
+    "ci95": [
+     -0.0778,
+     0.0
+    ]
+   },
+   "agg": {
+    "est": -0.0389,
+    "ci95": [
+     -0.0778,
+     0.0
+    ]
+   },
    "rerun": {
     "est": -0.0222,
     "ci95": [
@@ -243,6 +401,20 @@
     "ci95": [
      0.0056,
      0.1278
+    ]
+   },
+   "interaction_route": {
+    "est": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   "interaction_agg": {
+    "est": 0.0,
+    "ci95": [
+     0.0,
+     0.0
     ]
    },
    "interaction_rerun": {
@@ -268,6 +440,20 @@
      0.0278
     ]
    },
+   "route": {
+    "est": -0.0056,
+    "ci95": [
+     -0.0167,
+     0.0
+    ]
+   },
+   "agg": {
+    "est": -0.0056,
+    "ci95": [
+     -0.0167,
+     0.0
+    ]
+   },
    "rerun": {
     "est": 0.0167,
     "ci95": [
@@ -280,6 +466,20 @@
     "ci95": [
      0.0,
      0.0556
+    ]
+   },
+   "interaction_route": {
+    "est": 0.0056,
+    "ci95": [
+     0.0,
+     0.0167
+    ]
+   },
+   "interaction_agg": {
+    "est": 0.0056,
+    "ci95": [
+     0.0,
+     0.0167
     ]
    },
    "interaction_rerun": {
@@ -305,6 +505,20 @@
      0.0778
     ]
    },
+   "route": {
+    "est": -0.0333,
+    "ci95": [
+     -0.0722,
+     0.0056
+    ]
+   },
+   "agg": {
+    "est": -0.0333,
+    "ci95": [
+     -0.0722,
+     0.0056
+    ]
+   },
    "rerun": {
     "est": 0.0111,
     "ci95": [
@@ -317,6 +531,20 @@
     "ci95": [
      0.0111,
      0.1278
+    ]
+   },
+   "interaction_route": {
+    "est": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   "interaction_agg": {
+    "est": 0.0,
+    "ci95": [
+     0.0,
+     0.0
     ]
    },
    "interaction_rerun": {
@@ -472,6 +700,18 @@
     "wins_kept": 0,
     "losses_kept": 0
    },
+   "route": {
+    "wins": 0,
+    "losses": 3,
+    "wins_kept": 0,
+    "losses_kept": 3
+   },
+   "agg": {
+    "wins": 0,
+    "losses": 2,
+    "wins_kept": 0,
+    "losses_kept": 1
+   },
    "rerun": {
     "wins": 3,
     "losses": 1,
@@ -489,6 +729,18 @@
     "losses": 6,
     "wins_kept": 0,
     "losses_kept": 0
+   },
+   "route": {
+    "wins": 3,
+    "losses": 10,
+    "wins_kept": 3,
+    "losses_kept": 10
+   },
+   "agg": {
+    "wins": 3,
+    "losses": 10,
+    "wins_kept": 3,
+    "losses_kept": 10
    },
    "rerun": {
     "wins": 10,
@@ -521,6 +773,34 @@
    "fallback": 1
   },
   "C4": {
+   "Mathematician": 0.422,
+   "Doctor": 0.289,
+   "Lawyer": 0.344,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C5": {
+   "Mathematician": 0.406,
+   "Doctor": 0.272,
+   "Lawyer": 0.333,
+   "mean_experts": 1.01,
+   "fallback": 0
+  },
+  "C6": {
+   "Mathematician": 0.406,
+   "Doctor": 0.272,
+   "Lawyer": 0.333,
+   "mean_experts": 1.01,
+   "fallback": 0
+  },
+  "C7": {
+   "Mathematician": 0.422,
+   "Doctor": 0.289,
+   "Lawyer": 0.344,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C8": {
    "Mathematician": 0.422,
    "Doctor": 0.289,
    "Lawyer": 0.344,
@@ -578,6 +858,42 @@
    },
    "final_not_any_routed_answer": 24,
    "override_of_unanimous_routed": 23
+  },
+  "C5": {
+   "adoption_given_routed": {
+    "Mathematician": 0.986,
+    "Doctor": 0.917,
+    "Lawyer": 0.881
+   },
+   "final_not_any_routed_answer": 15,
+   "override_of_unanimous_routed": 12
+  },
+  "C6": {
+   "adoption_given_routed": {
+    "Mathematician": 0.929,
+    "Doctor": 0.917,
+    "Lawyer": 0.881
+   },
+   "final_not_any_routed_answer": 20,
+   "override_of_unanimous_routed": 16
+  },
+  "C7": {
+   "adoption_given_routed": {
+    "Mathematician": 0.973,
+    "Doctor": 0.923,
+    "Lawyer": 0.918
+   },
+   "final_not_any_routed_answer": 11,
+   "override_of_unanimous_routed": 9
+  },
+  "C8": {
+   "adoption_given_routed": {
+    "Mathematician": 0.932,
+    "Doctor": 0.904,
+    "Lawyer": 0.902
+   },
+   "final_not_any_routed_answer": 16,
+   "override_of_unanimous_routed": 11
   },
   "C9": {
    "adoption_given_routed": {
@@ -654,6 +970,62 @@
     "4": 0.85
    },
    "prompt_chars": 694
+  },
+  "route": {
+   "chosen": 0,
+   "used": 1,
+   "fallback_nonbase": true,
+   "chosen_by_team_score": 0,
+   "scores": {
+    "0": 0.8333333333333334,
+    "1": 0.8333333333333334,
+    "2": 0.8333333333333334,
+    "3": 0.8333333333333334,
+    "4": 0.8166666666666667
+   },
+   "team_scores": {
+    "0": 0.8333333333333334,
+    "1": 0.8333333333333334,
+    "2": 0.8333333333333334,
+    "3": 0.8333333333333334,
+    "4": 0.8166666666666667
+   },
+   "local_scores": {
+    "0": 0.8666666666666667,
+    "1": 0.8666666666666667,
+    "2": 0.8666666666666667,
+    "3": 0.8666666666666667,
+    "4": 0.8666666666666667
+   },
+   "prompt_chars": 725
+  },
+  "aggregate": {
+   "chosen": 1,
+   "used": 1,
+   "fallback_nonbase": false,
+   "chosen_by_team_score": 1,
+   "scores": {
+    "0": 0.8333333333333334,
+    "1": 0.85,
+    "2": 0.8,
+    "3": 0.8333333333333334,
+    "4": 0.8333333333333334
+   },
+   "team_scores": {
+    "0": 0.8333333333333334,
+    "1": 0.85,
+    "2": 0.8,
+    "3": 0.8333333333333334,
+    "4": 0.8333333333333334
+   },
+   "local_scores": {
+    "0": 0.8666666666666667,
+    "1": 0.8666666666666667,
+    "2": 0.8666666666666667,
+    "3": 0.8666666666666667,
+    "4": 0.8666666666666667
+   },
+   "prompt_chars": 975
   }
  },
  "cost_runs": [
@@ -722,6 +1094,58 @@
    "calls": 1674,
    "cached": 1206,
    "cny": 4.412724480000005
+  },
+  {
+   "units": [
+    "wcell:old:",
+    "wcell:old:r1",
+    "wcell:disp:"
+   ],
+   "finished": "2026-11-02 01:40:42",
+   "calls": 0,
+   "cached": 1620,
+   "cny": 0.0
+  },
+  {
+   "units": [
+    "opt:route",
+    "opt:aggregate"
+   ],
+   "finished": "2026-11-02 02:23:43",
+   "calls": 504,
+   "cached": 4304,
+   "cny": 1.5571073600000012
+  },
+  {
+   "units": [
+    "wcell:old:"
+   ],
+   "finished": "2026-11-02 02:23:46",
+   "calls": 0,
+   "cached": 540,
+   "cny": 0.0
+  },
+  {
+   "units": [
+    "wcell:old:r2",
+    "wcell:disp:r1"
+   ],
+   "finished": "2026-11-02 02:23:48",
+   "calls": 1080,
+   "cached": 0,
+   "cny": 3.279700799999999
+  },
+  {
+   "units": [
+    "cell:C5",
+    "cell:C6",
+    "cell:C7",
+    "cell:C8"
+   ],
+   "finished": "2026-11-02 02:24:09",
+   "calls": 457,
+   "cached": 5303,
+   "cny": 1.34464232
   }
  ]
 }

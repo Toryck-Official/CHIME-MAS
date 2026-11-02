@@ -1,0 +1,29 @@
+{
+ "component": "aggregate",
+ "chosen": 1,
+ "used": 1,
+ "fallback_nonbase": false,
+ "chosen_by_team_score": 1,
+ "scores": {
+  "0": 0.8333333333333334,
+  "1": 0.85,
+  "2": 0.8,
+  "3": 0.8333333333333334,
+  "4": 0.8333333333333334
+ },
+ "team_scores": {
+  "0": 0.8333333333333334,
+  "1": 0.85,
+  "2": 0.8,
+  "3": 0.8333333333333334,
+  "4": 0.8333333333333334
+ },
+ "local_scores": {
+  "0": 0.8666666666666667,
+  "1": 0.8666666666666667,
+  "2": 0.8666666666666667,
+  "3": 0.8666666666666667,
+  "4": 0.8666666666666667
+ },
+ "prompt": "Thoroughly review the original problem and each expert solution. Consider the problem carefully from first principles, then evaluate each expert's reasoning step by step, identifying any errors, gaps, or unjustified assumptions in their approaches. Cross-check the experts' conclusions against each other and against your own independent analysis. Weigh the reliability of each expert solution based on the soundness of its reasoning, not on majority vote or confidence alone. If expert solutions conflict, resolve the conflict by determining which reasoning is correct and which is flawed, and explain why. If all expert solutions contain errors, derive the correct answer yourself from scratch. Then decide the single best final answer that correctly and completely resolves the problem, ensuring it addresses every part of the question. Provide your reasoning clearly and concisely, justifying why your chosen answer is superior to the alternatives offered by the experts."
+}

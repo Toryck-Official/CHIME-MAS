@@ -6,3 +6,11 @@
 {"units": ["cell:C4"], "finished": "2026-11-02 01:36:57", "calls": 109, "cached": 1331, "cny": 0.4566422400000001}
 {"units": ["cell:C9", "cell:C10"], "finished": "2026-11-02 01:39:03", "calls": 1674, "cached": 1206, "cny": 4.412724480000005}
 {"units": ["wcell:old:", "wcell:old:r1", "wcell:disp:"], "finished": "2026-11-02 01:40:42", "calls": 0, "cached": 1620, "cny": 0.0}
+{"units": ["opt:route", "opt:aggregate"], "finished": "2026-11-02 02:23:43", "calls": 504, "cached": 4304, "cny": 1.5571073600000012}
+{"units": ["wcell:old:"], "finished": "2026-11-02 02:23:46", "calls": 0, "cached": 540, "cny": 0.0}
+{"units": ["wcell:old:r2", "wcell:disp:r1"], "finished": "2026-11-02 02:23:48", "calls": 1080, "cached": 0, "cny": 3.279700799999999}
+{"units": ["cell:C5", "cell:C6", "cell:C7", "cell:C8"], "finished": "2026-11-02 02:24:09", "calls": 457, "cached": 5303, "cny": 1.34464232}
+{"units": ["opt:worker_Lawyer"], "finished": "2026-11-02 02:25:18", "calls": 355, "cached": 2049, "cny": 2.0691491999999982}
+{"units": ["val:worker_Lawyer"], "finished": "2026-11-02 02:26:22", "calls": 1080, "cached": 720, "cny": 5.368127199999994}
+{"units": ["cell:C2L", "cell:C4L", "cell:C10L"], "finished": "2026-11-02 02:27:54", "calls": 728, "cached": 3592, "cny": 3.788636399999998}
+{"units": ["wcell:old::Lawyer", "wcell:old:r1:Lawyer", "wcell:disp::Lawyer", "wcell:old:r2:Lawyer", "wcell:disp:r1:Lawyer"], "finished": "2026-11-02 02:28:42", "calls": 1080, "cached": 1620, "cny": 3.8978967200000003}

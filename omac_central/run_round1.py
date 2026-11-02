@@ -10,7 +10,9 @@
        cell:C5 M_route+W_old  cell:C6 M_route+W_new
        cell:C7 M_agg+W_old    cell:C8 M_agg+W_new
        cell:C9 = C1 不走缓存重跑   cell:C10 = C2 不走缓存重跑（两者共用 salt r1，C10 只重跑 Mathematician 和汇总）
-  wcell:old:r2 / wcell:disp:r1 …   只重跑 Mathematician 一条链（W_old、W_new 同一条消息各答一次），给 worker 层增益多采样
+  wcell:old:r2 / wcell:disp:r1[:Lawyer] …  只重跑一个 worker 一条链（原/优化后提示词对同一条消息各答一次），给 worker 层增益多采样
+  opt:worker_Lawyer → val:worker_Lawyer → cell:C2L cell:C4L cell:C10L
+                 Lawyer 线：原 master 下按 OMAC 生成候选，在验证集（每类第 31–60 道）上挑选，再在测试集上测
 依赖：C2/C10 与 opt:dispatch/route/aggregate 需要 opt:worker 先完成；C3/C4 需要 opt:dispatch；C5/C6 需要 opt:route；
       C7/C8 需要 opt:aggregate。
 选中规则：按 OMAC 取训练分数最高者；若最高的是原提示词（即 OMAC 不会改动这个部件），改用分数最高的非原提示词，
@@ -33,10 +35,15 @@ SEED = 0
 os.makedirs(OPT, exist_ok=True)
 data = team.load_data(n_test=30)
 train, test = data["train"], data["test"]
-# cell → (被优化的 master 部件或 None, 是否用 W_new, salt)
-CELLS = {"C1": (None, False, ""), "C2": (None, True, ""), "C3": ("dispatch", False, ""), "C4": ("dispatch", True, ""),
-         "C5": ("route", False, ""), "C6": ("route", True, ""), "C7": ("aggregate", False, ""),
-         "C8": ("aggregate", True, ""), "C9": (None, False, "r1"), "C10": (None, True, "r1")}
+# 验证集：每类第 31–60 道（测试集只用每类前 30 道），只用于挑选 Lawyer 候选，不碰测试集
+VAL = [it for it in json.load(open(os.path.join(team.ROOT, "data", "mmlu_pro_central.json")))["test"] if it["idx"] >= 30]
+# cell → (被优化的 master 部件或 None, 换成优化后提示词的 worker 或 None, salt)
+CELLS = {"C1": (None, None, ""), "C2": (None, "Mathematician", ""), "C3": ("dispatch", None, ""),
+         "C4": ("dispatch", "Mathematician", ""), "C5": ("route", None, ""), "C6": ("route", "Mathematician", ""),
+         "C7": ("aggregate", None, ""), "C8": ("aggregate", "Mathematician", ""), "C9": (None, None, "r1"),
+         "C10": (None, "Mathematician", "r1"),
+         # Lawyer 线：Lawyer 在原 master 下优化、用验证集挑选；master 的改动沿用同一个新分派
+         "C2L": (None, "Lawyer", ""), "C4L": ("dispatch", "Lawyer", ""), "C10L": (None, "Lawyer", "r1")}
 
 
 def log(msg):
@@ -55,21 +62,68 @@ def choice(component):
     return pid, res["candidates"][pid]
 
 
-def cfg_for(component, use_w_new):
+def choice_val(tag):
+    """按验证集分数选（同分取 id 小的；最高的若是原提示词，改用最高的非原提示词并标出），写 choice_{tag}.json。"""
+    v = json.load(open(os.path.join(OPT, f"val_{tag}.json")))
+    res = json.load(open(os.path.join(OPT, f"opt_{tag}.json")))
+    pid = v["chosen"] if v["chosen"] != 0 else v["chosen_nonbase"]
+    json.dump({"component": tag, "chosen": v["chosen"], "used": pid, "fallback_nonbase": v["chosen"] == 0,
+               "selected_on": "validation (180 unused items)", "val_scores": v["scores"], "scores": res["scores"],
+               "team_scores": res["team_scores"], "local_scores": res["local_scores"], "prompt": res["candidates"][pid]},
+              open(os.path.join(OPT, f"choice_{tag}.json"), "w"), ensure_ascii=False, indent=1)
+    return pid, res["candidates"][pid]
+
+
+def worker_prompt(role):
+    return choice("worker")[1] if role == "Mathematician" else choice_val(f"worker_{role}")[1]
+
+
+def cfg_for(component, role):
+    """role：None（三个 worker 都用原提示词）或某个 worker 名（该 worker 换成优化后的提示词）。"""
     cfg = team.base_config()
-    if use_w_new:
-        cfg = optimizer.with_candidate(cfg, "worker", choice("worker")[1])
+    if role is True:
+        role = "Mathematician"
+    if role:
+        cfg = optimizer.with_candidate(cfg, "worker", worker_prompt(role), role)
     if component:
         cfg = optimizer.with_candidate(cfg, component, choice(component)[1])
     return cfg
 
 
-def run_wcell(master, salt):
-    """只重跑 Mathematician 这一条链（分派给它的消息 + W_old、W_new 各答一次），给 worker 层的增益多采几次样。
+def run_val(tag):
+    """在验证集上只跑该 worker 一条链（原分派），每个候选答一遍，按它自己的正确率挑选。"""
+    role = tag.split("_", 1)[1]
+    res = json.load(open(os.path.join(OPT, f"opt_{tag}.json")))
+    base = team.base_config()
+
+    def one(args):
+        pid, item = args
+        m = team.dispatch(item, base, role, "")
+        r = team.work(item, optimizer.with_candidate(base, "worker", res["candidates"][pid], role), role, m, "")
+        return pid, item["id"], item["domain"], team.parse_single_choice(r) == item["answer"]
+    jobs = [(pid, it) for pid in range(len(res["candidates"])) for it in VAL]
+    with ThreadPoolExecutor(80) as ex:
+        out = list(ex.map(one, jobs))
+    scores, per_item, own = {}, {}, {}
+    dom = {"Mathematician": "math", "Doctor": "med", "Lawyer": "law"}[role]
+    for pid in range(len(res["candidates"])):
+        rows = [o for o in out if o[0] == pid]
+        scores[pid] = sum(o[3] for o in rows) / len(rows)
+        own[pid] = sum(o[3] for o in rows if o[2] == dom) / max(1, sum(o[2] == dom for o in rows))
+        per_item[pid] = {o[1]: o[3] for o in rows}
+    ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    json.dump({"tag": tag, "n_val": len(VAL), "scores": scores, "own_domain_scores": own,
+               "chosen": ranked[0][0], "chosen_nonbase": next(p for p, _ in ranked if p != 0), "per_item": per_item},
+              open(os.path.join(OPT, f"val_{tag}.json"), "w"), ensure_ascii=False, indent=1)
+    log(f"val:{tag}: " + ", ".join(f"cand {p} {100 * sc:.1f} (own {100 * own[p]:.1f})" for p, sc in scores.items()))
+
+
+def run_wcell(master, salt, role="Mathematician"):
+    """只重跑一个 worker 的一条链（分派给它的消息 + 原提示词、优化后提示词各答一次），给 worker 层的增益多采几次样。
     master：old 或 disp；salt 换一个就是一次新的独立重跑（分派消息和作答都重新生成）。"""
     comp = None if master == "old" else "dispatch"
-    cfg_old, cfg_new = cfg_for(comp, False), cfg_for(comp, True)
-    W = "Mathematician"
+    cfg_old, cfg_new = cfg_for(comp, None), cfg_for(comp, role)
+    W = role
 
     def one(item):
         m = team.dispatch(item, cfg_old, W, salt)  # 分派不依赖 worker 提示词
@@ -80,29 +134,39 @@ def run_wcell(master, salt):
                 "correct_old": a_old == item["answer"], "correct_new": a_new == item["answer"]}
     with ThreadPoolExecutor(60) as ex:
         recs = list(ex.map(one, test))
-    with open(os.path.join(OUT, f"wtest_{master}_{salt or 'r0'}.jsonl"), "w") as f:
+    prefix = "wtest" if role == "Mathematician" else f"wtest_{role}"
+    with open(os.path.join(OUT, f"{prefix}_{master}_{salt or 'r0'}.jsonl"), "w") as f:
         for r in recs:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
     g = (sum(r["correct_new"] for r in recs) - sum(r["correct_old"] for r in recs)) / len(recs)
-    log(f"wcell:{master}:{salt}: W_old {sum(r['correct_old'] for r in recs)}/{len(recs)}, "
-        f"W_new {sum(r['correct_new'] for r in recs)}/{len(recs)}, gain {100 * g:+.1f}")
+    log(f"wcell:{role}:{master}:{salt}: old {sum(r['correct_old'] for r in recs)}/{len(recs)}, "
+        f"new {sum(r['correct_new'] for r in recs)}/{len(recs)}, gain {100 * g:+.1f}")
 
 
 def run_unit(unit):
     kind, name = unit.split(":", 1)
     t0 = time.time()
-    if kind == "wcell":
-        master, salt = name.split(":")
-        run_wcell(master, salt)
+    if kind == "wcell":  # wcell:<old|disp>:<salt>[:<worker>]
+        parts = name.split(":")
+        run_wcell(parts[0], parts[1], parts[2] if len(parts) > 2 else "Mathematician")
+        return
+    if kind == "val":
+        run_val(name)
         return
     if kind == "opt":
-        base = team.base_config() if name == "worker" else cfg_for(None, True)
-        optimizer.optimize(name, base, train, OPT, "Mathematician", SEED)
-        pid, _ = choice(name)
-        log(f"opt:{name} done in {(time.time() - t0) / 60:.1f} min, used candidate {pid}")
+        if name.startswith("worker"):
+            role = "Mathematician" if name == "worker" else name.split("_", 1)[1]
+            optimizer.optimize("worker", team.base_config(), train, OPT, role, SEED)
+            if role == "Mathematician":
+                log(f"opt:{name} done in {(time.time() - t0) / 60:.1f} min, used candidate {choice(name)[0]}")
+            else:
+                log(f"opt:{name} done in {(time.time() - t0) / 60:.1f} min (selection on validation set next)")
+        else:
+            optimizer.optimize(name, cfg_for(None, "Mathematician"), train, OPT, "Mathematician", SEED)
+            log(f"opt:{name} done in {(time.time() - t0) / 60:.1f} min, used candidate {choice(name)[0]}")
     else:
-        comp, use_w, salt = CELLS[name]
-        cfg = cfg_for(comp, use_w)
+        comp, role, salt = CELLS[name]
+        cfg = cfg_for(comp, role)
         recs = team.evaluate(test, cfg, salt=salt, threads=60)
         with open(os.path.join(OUT, f"test_{name}.jsonl"), "w") as f:
             for r in recs:

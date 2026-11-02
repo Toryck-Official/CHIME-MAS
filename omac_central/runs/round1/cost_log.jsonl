@@ -1,0 +1,8 @@
+{"units": ["opt:worker", "cell:C1"], "finished": "2026-11-02 01:30:34", "calls": 2401, "cached": 1443, "cny": 7.443125079999991}
+{"units": ["cell:C2"], "finished": "2026-11-02 01:31:29", "calls": 256, "cached": 1184, "cny": 1.0257467999999994}
+{"units": ["opt:dispatch"], "finished": "2026-11-02 01:32:53", "calls": 1697, "cached": 707, "cny": 8.552901160000006}
+{"units": ["cell:C3", "cell:C4"], "finished": "2026-11-02 01:34:16", "calls": 2490, "cached": 390, "cny": 8.252371280000002}
+{"units": ["cell:C3"], "finished": "2026-11-02 01:36:43", "calls": 87, "cached": 1353, "cny": 0.38418359999999996}
+{"units": ["cell:C4"], "finished": "2026-11-02 01:36:57", "calls": 109, "cached": 1331, "cny": 0.4566422400000001}
+{"units": ["cell:C9", "cell:C10"], "finished": "2026-11-02 01:39:03", "calls": 1674, "cached": 1206, "cny": 4.412724480000005}
+{"units": ["wcell:old:", "wcell:old:r1", "wcell:disp:"], "finished": "2026-11-02 01:40:42", "calls": 0, "cached": 1620, "cny": 0.0}

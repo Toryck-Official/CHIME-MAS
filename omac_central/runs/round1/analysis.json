@@ -1,0 +1,727 @@
+{
+ "n_test": 180,
+ "cells_present": [
+  "C1",
+  "C2",
+  "C3",
+  "C4",
+  "C9",
+  "C10"
+ ],
+ "accuracy": {
+  "C1": {
+   "team": {
+    "est": 0.8444,
+    "ci95": [
+     0.7889,
+     0.8944
+    ]
+   },
+   "Mathematician": 0.8389,
+   "Doctor": 0.8111,
+   "Lawyer": 0.8333,
+   "Mathematician_own_domain": 0.95,
+   "Doctor_own_domain": 0.8333,
+   "Lawyer_own_domain": 0.7,
+   "final_unparsed": 0,
+   "worker_unparsed": {
+    "Mathematician": 1,
+    "Doctor": 6,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 0,
+    "Doctor": 0,
+    "Lawyer": 0
+   },
+   "team_lenient": 0.8444,
+   "Mathematician_lenient": 0.8444
+  },
+  "C2": {
+   "team": {
+    "est": 0.8222,
+    "ci95": [
+     0.7667,
+     0.8778
+    ]
+   },
+   "Mathematician": 0.8,
+   "Doctor": 0.8111,
+   "Lawyer": 0.8333,
+   "Mathematician_own_domain": 0.9,
+   "Doctor_own_domain": 0.8333,
+   "Lawyer_own_domain": 0.7,
+   "final_unparsed": 2,
+   "worker_unparsed": {
+    "Mathematician": 3,
+    "Doctor": 6,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 1,
+    "Doctor": 0,
+    "Lawyer": 0
+   },
+   "team_lenient": 0.8333,
+   "Mathematician_lenient": 0.8111
+  },
+  "C3": {
+   "team": {
+    "est": 0.8444,
+    "ci95": [
+     0.7889,
+     0.8944
+    ]
+   },
+   "Mathematician": 0.8111,
+   "Doctor": 0.8389,
+   "Lawyer": 0.8222,
+   "Mathematician_own_domain": 0.95,
+   "Doctor_own_domain": 0.85,
+   "Lawyer_own_domain": 0.6833,
+   "final_unparsed": 2,
+   "worker_unparsed": {
+    "Mathematician": 1,
+    "Doctor": 2,
+    "Lawyer": 2
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 1,
+    "Doctor": 0,
+    "Lawyer": 1
+   },
+   "team_lenient": 0.85,
+   "Mathematician_lenient": 0.8111
+  },
+  "C4": {
+   "team": {
+    "est": 0.8556,
+    "ci95": [
+     0.8,
+     0.9056
+    ]
+   },
+   "Mathematician": 0.8389,
+   "Doctor": 0.8389,
+   "Lawyer": 0.8222,
+   "Mathematician_own_domain": 0.95,
+   "Doctor_own_domain": 0.85,
+   "Lawyer_own_domain": 0.6833,
+   "final_unparsed": 1,
+   "worker_unparsed": {
+    "Mathematician": 1,
+    "Doctor": 2,
+    "Lawyer": 2
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 0,
+    "Doctor": 0,
+    "Lawyer": 1
+   },
+   "team_lenient": 0.8611,
+   "Mathematician_lenient": 0.8444
+  },
+  "C9": {
+   "team": {
+    "est": 0.8444,
+    "ci95": [
+     0.7889,
+     0.8944
+    ]
+   },
+   "Mathematician": 0.8,
+   "Doctor": 0.8278,
+   "Lawyer": 0.8278,
+   "Mathematician_own_domain": 0.9167,
+   "Doctor_own_domain": 0.85,
+   "Lawyer_own_domain": 0.7167,
+   "final_unparsed": 1,
+   "worker_unparsed": {
+    "Mathematician": 4,
+    "Doctor": 2,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 3,
+    "Doctor": 2,
+    "Lawyer": 1
+   },
+   "team_lenient": 0.8444,
+   "Mathematician_lenient": 0.8056
+  },
+  "C10": {
+   "team": {
+    "est": 0.8556,
+    "ci95": [
+     0.8,
+     0.9056
+    ]
+   },
+   "Mathematician": 0.7778,
+   "Doctor": 0.8278,
+   "Lawyer": 0.8278,
+   "Mathematician_own_domain": 0.8,
+   "Doctor_own_domain": 0.85,
+   "Lawyer_own_domain": 0.7167,
+   "final_unparsed": 1,
+   "worker_unparsed": {
+    "Mathematician": 9,
+    "Doctor": 2,
+    "Lawyer": 3
+   },
+   "worker_unparsed_lenient": {
+    "Mathematician": 2,
+    "Doctor": 2,
+    "Lawyer": 1
+   },
+   "team_lenient": 0.8611,
+   "Mathematician_lenient": 0.8167
+  }
+ },
+ "gain_of_W_new": {
+  "team": {
+   "old": {
+    "est": -0.0222,
+    "ci95": [
+     -0.0444,
+     -0.0056
+    ]
+   },
+   "disp": {
+    "est": 0.0111,
+    "ci95": [
+     -0.0111,
+     0.0333
+    ]
+   },
+   "rerun": {
+    "est": 0.0111,
+    "ci95": [
+     -0.0111,
+     0.0333
+    ]
+   },
+   "interaction_disp": {
+    "est": 0.0333,
+    "ci95": [
+     0.0,
+     0.0722
+    ]
+   },
+   "interaction_rerun": {
+    "est": 0.0333,
+    "ci95": [
+     0.0,
+     0.0722
+    ]
+   }
+  },
+  "Mathematician": {
+   "old": {
+    "est": -0.0389,
+    "ci95": [
+     -0.0778,
+     0.0
+    ]
+   },
+   "disp": {
+    "est": 0.0278,
+    "ci95": [
+     -0.0167,
+     0.0722
+    ]
+   },
+   "rerun": {
+    "est": -0.0222,
+    "ci95": [
+     -0.0778,
+     0.0278
+    ]
+   },
+   "interaction_disp": {
+    "est": 0.0667,
+    "ci95": [
+     0.0056,
+     0.1278
+    ]
+   },
+   "interaction_rerun": {
+    "est": 0.0167,
+    "ci95": [
+     -0.05,
+     0.0833
+    ]
+   }
+  },
+  "team_lenient": {
+   "old": {
+    "est": -0.0111,
+    "ci95": [
+     -0.0278,
+     0.0
+    ]
+   },
+   "disp": {
+    "est": 0.0111,
+    "ci95": [
+     0.0,
+     0.0278
+    ]
+   },
+   "rerun": {
+    "est": 0.0167,
+    "ci95": [
+     0.0,
+     0.0389
+    ]
+   },
+   "interaction_disp": {
+    "est": 0.0222,
+    "ci95": [
+     0.0,
+     0.0556
+    ]
+   },
+   "interaction_rerun": {
+    "est": 0.0278,
+    "ci95": [
+     0.0056,
+     0.0611
+    ]
+   }
+  },
+  "Mathematician_lenient": {
+   "old": {
+    "est": -0.0333,
+    "ci95": [
+     -0.0722,
+     0.0056
+    ]
+   },
+   "disp": {
+    "est": 0.0333,
+    "ci95": [
+     -0.0111,
+     0.0778
+    ]
+   },
+   "rerun": {
+    "est": 0.0111,
+    "ci95": [
+     -0.0333,
+     0.0556
+    ]
+   },
+   "interaction_disp": {
+    "est": 0.0667,
+    "ci95": [
+     0.0111,
+     0.1278
+    ]
+   },
+   "interaction_rerun": {
+    "est": 0.0444,
+    "ci95": [
+     -0.0111,
+     0.1
+    ]
+   }
+  }
+ },
+ "phase0_messages": {
+  "Mathematician": {
+   "disp0_vs_disp1": {
+    "similarity_median": 0.72,
+    "similarity_mean": 0.728,
+    "share_similarity_below_0.8": 0.583,
+    "length_ratio_median": 1.41,
+    "stem_verbatim": [
+     170,
+     170
+    ],
+    "all_options_verbatim": [
+     176,
+     177
+    ],
+    "new_msgs_with_format_instruction": 0,
+    "new_msgs_with_hint_or_answer": 0,
+    "new_msgs_with_step_or_verify": 174
+   },
+   "disp0_vs_rerun": {
+    "similarity_median": 1.0,
+    "similarity_mean": 0.99,
+    "share_similarity_below_0.8": 0.006,
+    "length_ratio_median": 1.0,
+    "stem_verbatim": [
+     170,
+     171
+    ],
+    "all_options_verbatim": [
+     176,
+     177
+    ],
+    "new_msgs_with_format_instruction": 0,
+    "new_msgs_with_hint_or_answer": 0,
+    "new_msgs_with_step_or_verify": 1
+   }
+  },
+  "Doctor": {
+   "disp0_vs_disp1": {
+    "similarity_median": 0.728,
+    "similarity_mean": 0.732,
+    "share_similarity_below_0.8": 0.583,
+    "length_ratio_median": 1.36,
+    "stem_verbatim": [
+     174,
+     166
+    ],
+    "all_options_verbatim": [
+     180,
+     174
+    ],
+    "new_msgs_with_format_instruction": 3,
+    "new_msgs_with_hint_or_answer": 1,
+    "new_msgs_with_step_or_verify": 173
+   },
+   "disp0_vs_rerun": {
+    "similarity_median": 1.0,
+    "similarity_mean": 0.991,
+    "share_similarity_below_0.8": 0.011,
+    "length_ratio_median": 1.0,
+    "stem_verbatim": [
+     174,
+     175
+    ],
+    "all_options_verbatim": [
+     180,
+     179
+    ],
+    "new_msgs_with_format_instruction": 0,
+    "new_msgs_with_hint_or_answer": 1,
+    "new_msgs_with_step_or_verify": 0
+   }
+  },
+  "Lawyer": {
+   "disp0_vs_disp1": {
+    "similarity_median": 0.746,
+    "similarity_mean": 0.734,
+    "share_similarity_below_0.8": 0.556,
+    "length_ratio_median": 1.38,
+    "stem_verbatim": [
+     170,
+     164
+    ],
+    "all_options_verbatim": [
+     178,
+     177
+    ],
+    "new_msgs_with_format_instruction": 1,
+    "new_msgs_with_hint_or_answer": 0,
+    "new_msgs_with_step_or_verify": 177
+   },
+   "disp0_vs_rerun": {
+    "similarity_median": 1.0,
+    "similarity_mean": 0.99,
+    "share_similarity_below_0.8": 0.0,
+    "length_ratio_median": 1.0,
+    "stem_verbatim": [
+     170,
+     171
+    ],
+    "all_options_verbatim": [
+     178,
+     179
+    ],
+    "new_msgs_with_format_instruction": 0,
+    "new_msgs_with_hint_or_answer": 0,
+    "new_msgs_with_step_or_verify": 0
+   }
+  }
+ },
+ "worker_answer_changes": {
+  "W_old: disp change (C1→C3)": {
+   "Mathematician": 24,
+   "Doctor": 25,
+   "Lawyer": 26
+  },
+  "W_old: rerun (C1→C9)": {
+   "Mathematician": 21,
+   "Doctor": 19,
+   "Lawyer": 20
+  },
+  "W_new: disp change (C2→C4)": {
+   "Mathematician": 24,
+   "Doctor": 25,
+   "Lawyer": 26
+  },
+  "W_new: rerun (C2→C10)": {
+   "Mathematician": 24,
+   "Doctor": 19,
+   "Lawyer": 20
+  }
+ },
+ "item_level_retention": {
+  "team": {
+   "old": {
+    "wins": 0,
+    "losses": 4
+   },
+   "disp": {
+    "wins": 3,
+    "losses": 1,
+    "wins_kept": 0,
+    "losses_kept": 0
+   },
+   "rerun": {
+    "wins": 3,
+    "losses": 1,
+    "wins_kept": 0,
+    "losses_kept": 0
+   }
+  },
+  "Mathematician": {
+   "old": {
+    "wins": 3,
+    "losses": 10
+   },
+   "disp": {
+    "wins": 11,
+    "losses": 6,
+    "wins_kept": 0,
+    "losses_kept": 0
+   },
+   "rerun": {
+    "wins": 10,
+    "losses": 14,
+    "wins_kept": 1,
+    "losses_kept": 2
+   }
+  }
+ },
+ "routing": {
+  "C1": {
+   "Mathematician": 0.422,
+   "Doctor": 0.289,
+   "Lawyer": 0.344,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C2": {
+   "Mathematician": 0.422,
+   "Doctor": 0.289,
+   "Lawyer": 0.344,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C3": {
+   "Mathematician": 0.422,
+   "Doctor": 0.289,
+   "Lawyer": 0.344,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C4": {
+   "Mathematician": 0.422,
+   "Doctor": 0.289,
+   "Lawyer": 0.344,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C9": {
+   "Mathematician": 0.433,
+   "Doctor": 0.272,
+   "Lawyer": 0.356,
+   "mean_experts": 1.06,
+   "fallback": 1
+  },
+  "C10": {
+   "Mathematician": 0.433,
+   "Doctor": 0.272,
+   "Lawyer": 0.356,
+   "mean_experts": 1.06,
+   "fallback": 1
+  }
+ },
+ "aggregation": {
+  "C1": {
+   "adoption_given_routed": {
+    "Mathematician": 0.973,
+    "Doctor": 0.904,
+    "Lawyer": 0.869
+   },
+   "final_not_any_routed_answer": 15,
+   "override_of_unanimous_routed": 13
+  },
+  "C2": {
+   "adoption_given_routed": {
+    "Mathematician": 0.918,
+    "Doctor": 0.904,
+    "Lawyer": 0.869
+   },
+   "final_not_any_routed_answer": 19,
+   "override_of_unanimous_routed": 15
+  },
+  "C3": {
+   "adoption_given_routed": {
+    "Mathematician": 0.933,
+    "Doctor": 0.843,
+    "Lawyer": 0.774
+   },
+   "final_not_any_routed_answer": 25,
+   "override_of_unanimous_routed": 23
+  },
+  "C4": {
+   "adoption_given_routed": {
+    "Mathematician": 0.947,
+    "Doctor": 0.863,
+    "Lawyer": 0.774
+   },
+   "final_not_any_routed_answer": 24,
+   "override_of_unanimous_routed": 23
+  },
+  "C9": {
+   "adoption_given_routed": {
+    "Mathematician": 0.921,
+    "Doctor": 0.98,
+    "Lawyer": 0.841
+   },
+   "final_not_any_routed_answer": 20,
+   "override_of_unanimous_routed": 17
+  },
+  "C10": {
+   "adoption_given_routed": {
+    "Mathematician": 0.942,
+    "Doctor": 0.98,
+    "Lawyer": 0.841
+   },
+   "final_not_any_routed_answer": 24,
+   "override_of_unanimous_routed": 15
+  }
+ },
+ "optimization": {
+  "worker": {
+   "chosen": 2,
+   "used": 2,
+   "fallback_nonbase": false,
+   "chosen_by_team_score": 2,
+   "scores": {
+    "1": 0.7666666666666667,
+    "2": 0.85,
+    "0": 0.8166666666666667,
+    "3": 0.7833333333333333,
+    "4": 0.8
+   },
+   "team_scores": {
+    "1": 0.8,
+    "2": 0.8333333333333334,
+    "0": 0.7666666666666667,
+    "3": 0.7833333333333333,
+    "4": 0.8166666666666667
+   },
+   "local_scores": {
+    "1": 0.7666666666666667,
+    "2": 0.85,
+    "0": 0.8166666666666667,
+    "3": 0.7833333333333333,
+    "4": 0.8
+   },
+   "prompt_chars": 1570
+  },
+  "dispatch": {
+   "chosen": 0,
+   "used": 4,
+   "fallback_nonbase": true,
+   "chosen_by_team_score": 0,
+   "scores": {
+    "0": 0.8333333333333334,
+    "2": 0.8,
+    "1": 0.7666666666666667,
+    "3": 0.8,
+    "4": 0.8333333333333334
+   },
+   "team_scores": {
+    "0": 0.8333333333333334,
+    "2": 0.8,
+    "1": 0.7666666666666667,
+    "3": 0.8,
+    "4": 0.8333333333333334
+   },
+   "local_scores": {
+    "0": 0.8666666666666667,
+    "2": 0.8166666666666667,
+    "1": 0.7833333333333333,
+    "3": 0.7666666666666667,
+    "4": 0.85
+   },
+   "prompt_chars": 694
+  }
+ },
+ "cost_runs": [
+  {
+   "units": [
+    "opt:worker",
+    "cell:C1"
+   ],
+   "finished": "2026-11-02 01:30:34",
+   "calls": 2401,
+   "cached": 1443,
+   "cny": 7.443125079999991
+  },
+  {
+   "units": [
+    "cell:C2"
+   ],
+   "finished": "2026-11-02 01:31:29",
+   "calls": 256,
+   "cached": 1184,
+   "cny": 1.0257467999999994
+  },
+  {
+   "units": [
+    "opt:dispatch"
+   ],
+   "finished": "2026-11-02 01:32:53",
+   "calls": 1697,
+   "cached": 707,
+   "cny": 8.552901160000006
+  },
+  {
+   "units": [
+    "cell:C3",
+    "cell:C4"
+   ],
+   "finished": "2026-11-02 01:34:16",
+   "calls": 2490,
+   "cached": 390,
+   "cny": 8.252371280000002
+  },
+  {
+   "units": [
+    "cell:C3"
+   ],
+   "finished": "2026-11-02 01:36:43",
+   "calls": 87,
+   "cached": 1353,
+   "cny": 0.38418359999999996
+  },
+  {
+   "units": [
+    "cell:C4"
+   ],
+   "finished": "2026-11-02 01:36:57",
+   "calls": 109,
+   "cached": 1331,
+   "cny": 0.4566422400000001
+  },
+  {
+   "units": [
+    "cell:C9",
+    "cell:C10"
+   ],
+   "finished": "2026-11-02 01:39:03",
+   "calls": 1674,
+   "cached": 1206,
+   "cny": 4.412724480000005
+  }
+ ]
+}

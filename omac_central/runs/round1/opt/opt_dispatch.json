@@ -1,0 +1,95 @@
+{
+ "component": "dispatch",
+ "role": null,
+ "candidates": [
+  "Write the message that you will send to this expert. The message must contain the complete question and all answer options exactly as given. Ask the expert to solve the question and explain its reasoning.",
+  "Compose the exact message that will be delivered to the expert. This message is the expert's only source of information, so it must be fully self-contained: include the entire problem statement verbatim, along with every relevant detail, constraint, data point, definition, and answer option exactly as provided—without summarizing, paraphrasing, omitting, or adding anything that was not originally given. Do not assume the expert has any prior context about the problem, the team, or the surrounding discussion.\n\nStructure the message so the expert can work efficiently and accurately:\n- Begin with a clear, direct statement of the task and what the expert is being asked to produce (e.g., a final answer, a proof, a derivation, a recommendation, or a structured explanation).\n- Present the full problem and all its parts in an organized way, preserving exact wording, notation, units, and formatting where relevant.\n- Explicitly list any assumptions the expert should make, any constraints to respect, and any conventions to follow.\n- Specify the required output format in detail (e.g., state the final answer first, then show step-by-step reasoning; label each sub-question; give units; justify each claim).\n- Instruct the expert to verify the result, check for edge cases or common pitfalls, and flag any ambiguity or missing information rather than guessing.\n- Ask the expert to show its reasoning clearly enough that each step can be followed and checked.\n\nKeep the message focused and unambiguous, avoid unnecessary commentary, and make sure nothing essential is left implicit. The message should be polished and ready to send as-is.",
+  "Draft the message that will be sent to the expert. Keep in mind that this message is the sole input the expert will receive, so it must stand entirely on its own and contain everything needed to solve the problem without any external context.\n\nYour message should accomplish the following:\n1. State the problem in full, using the original wording, all given values, conditions, definitions, notation, and any answer choices exactly as provided. Do not compress, reinterpret, or leave out any part of the problem.\n2. Clarify the expert's role and the precise deliverable expected—for example, a final answer, a complete derivation, a reasoned judgment, or a structured analysis—and describe the format the response should take.\n3. Surface any assumptions, constraints, conventions, or edge cases the expert must take into account, and note any parts of the problem that are ambiguous so the expert can address them explicitly.\n4. Direct the expert to reason step by step, justify each conclusion with sound reasoning or evidence, double-check the final result, and avoid unsupported guesses.\n5. Keep the message clear, well-organized, and free of irrelevant material so the expert can focus on solving the problem accurately and efficiently.\n\nWrite the message as a finished, ready-to-send text that the expert can act on immediately.",
+  "Write the message that you will send to this expert. The message must contain the complete problem statement and all answer options exactly as given, without summarizing, paraphrasing, omitting, or inventing anything. Begin by telling the expert precisely what to produce (a final answer, proof, derivation, recommendation, or structured explanation), then present the full problem and every sub-question in an organized, self-contained form, preserving exact wording, notation, units, constraints, and formatting. State any assumptions or conventions the expert should follow, and specify the required output format, including that the final answer should be stated first and then justified with clear, checkable step-by-step reasoning. Ask the expert to solve the problem, explain the reasoning, verify the result, consider edge cases or common pitfalls, and explicitly flag any ambiguity or missing information rather than guessing. Keep the message focused and unambiguous so that it is ready to send as-is and remains the expert's only source of information.",
+  "Write the message that you will send to this expert. Open with a concise, self-contained statement of the task and the exact deliverable, then provide the complete question or problem and all answer options exactly as given, preserving all wording, notation, units, constraints, and formatting without summarizing, paraphrasing, omitting, or inventing anything. Ask the expert to solve the problem, explain the reasoning clearly and checkably, state the final answer first, verify the result, and note any edge cases, common pitfalls, or ambiguities rather than guessing. Keep the message focused and unambiguous so it is ready to send as-is and remains the expert's only source of information."
+ ],
+ "scores": {
+  "0": 0.8333333333333334,
+  "2": 0.8,
+  "1": 0.7666666666666667,
+  "3": 0.8,
+  "4": 0.8333333333333334
+ },
+ "team_scores": {
+  "0": 0.8333333333333334,
+  "2": 0.8,
+  "1": 0.7666666666666667,
+  "3": 0.8,
+  "4": 0.8333333333333334
+ },
+ "local_scores": {
+  "0": 0.8666666666666667,
+  "2": 0.8166666666666667,
+  "1": 0.7833333333333333,
+  "3": 0.7666666666666667,
+  "4": 0.85
+ },
+ "score_kind": "team train accuracy",
+ "chosen": 0,
+ "chosen_nonbase": 4,
+ "chosen_by_team_score": 0,
+ "log": [
+  {
+   "stage": "init",
+   "dialog": [
+    {
+     "role": "system",
+     "content": "Create 2 distinct prompts for an LLM that coordinates a team of expert agents. For some general reasoning problems related to math, hard science, humanities, social sciences, etc., the LLM writes the message sent to one expert. The expert only sees this message and must resolve the problem from it.\nDon't directly output all the generated prompts. I will provide you with the sequence number of the prompt. Then you should directly output the content text of the corresponding prompt one by one.\nEach prompt should help the LLM write a message that leads the expert to resolve the problem accurately and efficiently.\nNote that the problem and the name and function description of the expert have been previously provided as the context. The prompt generated here will be added to the context to form the final prompt for writing the message.\nYou may consider adding more detailed and thorough instructions to help the LLM write better messages.\nThe following is an example of a prompt (also ensure your output is different from the example prompt):\n\"Write the message that you will send to this expert. The message must contain the complete question and all answer options exactly as given. Ask the expert to solve the question and explain its reasoning.\"."
+    },
+    {
+     "role": "user",
+     "content": "Directly output the 1th prompt without any prefix or explanation."
+    },
+    {
+     "role": "assistant",
+     "content": "Compose the exact message that will be delivered to the expert. This message is the expert's only source of information, so it must be fully self-contained: include the entire problem statement verbatim, along with every relevant detail, constraint, data point, definition, and answer option exactly as provided—without summarizing, paraphrasing, omitting, or adding anything that was not originally given. Do not assume the expert has any prior context about the problem, the team, or the surrounding discussion.\n\nStructure the message so the expert can work efficiently and accurately:\n- Begin with a clear, direct statement of the task and what the expert is being asked to produce (e.g., a final answer, a proof, a derivation, a recommendation, or a structured explanation).\n- Present the full problem and all its parts in an organized way, preserving exact wording, notation, units, and formatting where relevant.\n- Explicitly list any assumptions the expert should make, any constraints to respect, and any conventions to follow.\n- Specify the required output format in detail (e.g., state the final answer first, then show step-by-step reasoning; label each sub-question; give units; justify each claim).\n- Instruct the expert to verify the result, check for edge cases or common pitfalls, and flag any ambiguity or missing information rather than guessing.\n- Ask the expert to show its reasoning clearly enough that each step can be followed and checked.\n\nKeep the message focused and unambiguous, avoid unnecessary commentary, and make sure nothing essential is left implicit. The message should be polished and ready to send as-is."
+    },
+    {
+     "role": "user",
+     "content": "Directly output the 2th prompt without any prefix or explanation."
+    },
+    {
+     "role": "assistant",
+     "content": "Draft the message that will be sent to the expert. Keep in mind that this message is the sole input the expert will receive, so it must stand entirely on its own and contain everything needed to solve the problem without any external context.\n\nYour message should accomplish the following:\n1. State the problem in full, using the original wording, all given values, conditions, definitions, notation, and any answer choices exactly as provided. Do not compress, reinterpret, or leave out any part of the problem.\n2. Clarify the expert's role and the precise deliverable expected—for example, a final answer, a complete derivation, a reasoned judgment, or a structured analysis—and describe the format the response should take.\n3. Surface any assumptions, constraints, conventions, or edge cases the expert must take into account, and note any parts of the problem that are ambiguous so the expert can address them explicitly.\n4. Direct the expert to reason step by step, justify each conclusion with sound reasoning or evidence, double-check the final result, and avoid unsupported guesses.\n5. Keep the message clear, well-organized, and free of irrelevant material so the expert can focus on solving the problem accurately and efficiently.\n\nWrite the message as a finished, ready-to-send text that the expert can act on immediately."
+    }
+   ]
+  },
+  {
+   "stage": "fd0",
+   "positive": 0,
+   "negative": 1,
+   "messages": [
+    {
+     "role": "system",
+     "content": "Create and output a child prompt for an LLM that coordinates a team of expert agents and writes the message sent to one expert for resolving some general reasoning problems related to math, hard science, humanities, social sciences, etc. The expert only sees this message.\nI will provide you with a pair of parent prompts. Then you should only output a child prompt according to the following instructions:\nThe positive parent prompt is proven to be more helpful and efficient to instruct the LLM to write messages that lead the experts to resolve the problems.\nYou should carefully compare the two parent prompts, finding the potential reasons why the positive parent prompt is better than the negative parent prompt.\nBased on that, you should generate and output a child prompt that can help to write messages more effectively and efficiently than the positive parent prompt.\nThe child prompt should follow the format of the parent prompts.\nThe child prompt should be different from the parent prompts. Directly output the content text of the child prompt.\n\nThe positive parent prompt is: \"Write the message that you will send to this expert. The message must contain the complete question and all answer options exactly as given. Ask the expert to solve the question and explain its reasoning.\"\n\nThe negative parent prompt is: \"Compose the exact message that will be delivered to the expert. This message is the expert's only source of information, so it must be fully self-contained: include the entire problem statement verbatim, along with every relevant detail, constraint, data point, definition, and answer option exactly as provided—without summarizing, paraphrasing, omitting, or adding anything that was not originally given. Do not assume the expert has any prior context about the problem, the team, or the surrounding discussion.\n\nStructure the message so the expert can work efficiently and accurately:\n- Begin with a clear, direct statement of the task and what the expert is being asked to produce (e.g., a final answer, a proof, a derivation, a recommendation, or a structured explanation).\n- Present the full problem and all its parts in an organized way, preserving exact wording, notation, units, and formatting where relevant.\n- Explicitly list any assumptions the expert should make, any constraints to respect, and any conventions to follow.\n- Specify the required output format in detail (e.g., state the final answer first, then show step-by-step reasoning; label each sub-question; give units; justify each claim).\n- Instruct the expert to verify the result, check for edge cases or common pitfalls, and flag any ambiguity or missing information rather than guessing.\n- Ask the expert to show its reasoning clearly enough that each step can be followed and checked.\n\nKeep the message focused and unambiguous, avoid unnecessary commentary, and make sure nothing essential is left implicit. The message should be polished and ready to send as-is.\""
+    },
+    {
+     "role": "user",
+     "content": "Directly output the content of the child prompt without any prefix or explanation."
+    }
+   ],
+   "child": "Write the message that you will send to this expert. The message must contain the complete problem statement and all answer options exactly as given, without summarizing, paraphrasing, omitting, or inventing anything. Begin by telling the expert precisely what to produce (a final answer, proof, derivation, recommendation, or structured explanation), then present the full problem and every sub-question in an organized, self-contained form, preserving exact wording, notation, units, constraints, and formatting. State any assumptions or conventions the expert should follow, and specify the required output format, including that the final answer should be stated first and then justified with clear, checkable step-by-step reasoning. Ask the expert to solve the problem, explain the reasoning, verify the result, consider edge cases or common pitfalls, and explicitly flag any ambiguity or missing information rather than guessing. Keep the message focused and unambiguous so that it is ready to send as-is and remains the expert's only source of information."
+  },
+  {
+   "stage": "fd1",
+   "positive": 0,
+   "negative": 3,
+   "messages": [
+    {
+     "role": "system",
+     "content": "Create and output a child prompt for an LLM that coordinates a team of expert agents and writes the message sent to one expert for resolving some general reasoning problems related to math, hard science, humanities, social sciences, etc. The expert only sees this message.\nI will provide you with a pair of parent prompts. Then you should only output a child prompt according to the following instructions:\nThe positive parent prompt is proven to be more helpful and efficient to instruct the LLM to write messages that lead the experts to resolve the problems.\nYou should carefully compare the two parent prompts, finding the potential reasons why the positive parent prompt is better than the negative parent prompt.\nBased on that, you should generate and output a child prompt that can help to write messages more effectively and efficiently than the positive parent prompt.\nThe child prompt should follow the format of the parent prompts.\nThe child prompt should be different from the parent prompts. Directly output the content text of the child prompt.\n\nThe positive parent prompt is: \"Write the message that you will send to this expert. The message must contain the complete question and all answer options exactly as given. Ask the expert to solve the question and explain its reasoning.\"\n\nThe negative parent prompt is: \"Write the message that you will send to this expert. The message must contain the complete problem statement and all answer options exactly as given, without summarizing, paraphrasing, omitting, or inventing anything. Begin by telling the expert precisely what to produce (a final answer, proof, derivation, recommendation, or structured explanation), then present the full problem and every sub-question in an organized, self-contained form, preserving exact wording, notation, units, constraints, and formatting. State any assumptions or conventions the expert should follow, and specify the required output format, including that the final answer should be stated first and then justified with clear, checkable step-by-step reasoning. Ask the expert to solve the problem, explain the reasoning, verify the result, consider edge cases or common pitfalls, and explicitly flag any ambiguity or missing information rather than guessing. Keep the message focused and unambiguous so that it is ready to send as-is and remains the expert's only source of information.\""
+    },
+    {
+     "role": "user",
+     "content": "Directly output the content of the child prompt without any prefix or explanation."
+    }
+   ],
+   "child": "Write the message that you will send to this expert. Open with a concise, self-contained statement of the task and the exact deliverable, then provide the complete question or problem and all answer options exactly as given, preserving all wording, notation, units, constraints, and formatting without summarizing, paraphrasing, omitting, or inventing anything. Ask the expert to solve the problem, explain the reasoning clearly and checkably, state the final answer first, verify the result, and note any edge cases, common pitfalls, or ambiguities rather than guessing. Keep the message focused and unambiguous so it is ready to send as-is and remains the expert's only source of information."
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "component": "dispatch",
+ "chosen": 0,
+ "used": 4,
+ "fallback_nonbase": true,
+ "chosen_by_team_score": 0,
+ "scores": {
+  "0": 0.8333333333333334,
+  "2": 0.8,
+  "1": 0.7666666666666667,
+  "3": 0.8,
+  "4": 0.8333333333333334
+ },
+ "team_scores": {
+  "0": 0.8333333333333334,
+  "2": 0.8,
+  "1": 0.7666666666666667,
+  "3": 0.8,
+  "4": 0.8333333333333334
+ },
+ "local_scores": {
+  "0": 0.8666666666666667,
+  "2": 0.8166666666666667,
+  "1": 0.7833333333333333,
+  "3": 0.7666666666666667,
+  "4": 0.85
+ },
+ "prompt": "Write the message that you will send to this expert. Open with a concise, self-contained statement of the task and the exact deliverable, then provide the complete question or problem and all answer options exactly as given, preserving all wording, notation, units, constraints, and formatting without summarizing, paraphrasing, omitting, or inventing anything. Ask the expert to solve the problem, explain the reasoning clearly and checkably, state the final answer first, verify the result, and note any edge cases, common pitfalls, or ambiguities rather than guessing. Keep the message focused and unambiguous so it is ready to send as-is and remains the expert's only source of information."
+}

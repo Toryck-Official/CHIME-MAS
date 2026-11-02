@@ -236,14 +236,18 @@ out["routing"] = {c: route_stats(c) for c in out["cells_present"]}
 out["aggregation"] = {c: agg_stats(c) for c in out["cells_present"]}
 
 # ---------- 6. 优化过程 ----------
-sp = os.path.join(D, "summary.json")
-if os.path.exists(sp):
-    s = json.load(open(sp))
-    out["optimization"] = {k: {kk: v.get(kk) for kk in ("chosen", "used", "fallback_nonbase", "scores", "team_scores",
-                                                           "local_scores", "chosen_by_team_score")}
-                           for k, v in s.items() if isinstance(v, dict) and "chosen" in v}
-    out["cost"] = s.get("cost")
-    out["minutes"] = s.get("minutes")
+opt = {}
+for comp in ("worker", "dispatch", "route", "aggregate"):
+    p = os.path.join(D, "opt", f"choice_{comp}.json")
+    if os.path.exists(p):
+        c = json.load(open(p))
+        opt[comp] = {k: c.get(k) for k in ("chosen", "used", "fallback_nonbase", "chosen_by_team_score", "scores",
+                                            "team_scores", "local_scores")}
+        opt[comp]["prompt_chars"] = len(c["prompt"])
+out["optimization"] = opt
+cl = os.path.join(D, "cost_log.jsonl")
+if os.path.exists(cl):
+    out["cost_runs"] = [json.loads(l) for l in open(cl)]
 
 json.dump(out, open(os.path.join(D, "analysis.json"), "w"), ensure_ascii=False, indent=1)
 

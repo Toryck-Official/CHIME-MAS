@@ -25,6 +25,7 @@ from __future__ import annotations
 import json
 import os
 import random
+from concurrent.futures import ThreadPoolExecutor
 
 import team
 
@@ -119,7 +120,7 @@ def with_candidate(cfg: dict, component: str, prompt: str, role: str = "Mathemat
 
 
 def optimize(component: str, base_cfg: dict, train: list[dict], out_dir: str, role: str = "Mathematician",
-             seed: int = 0, threads: int = 20) -> dict:
+             seed: int = 0, threads: int = 60) -> dict:
     """返回 {"candidates", "scores", "team_scores", "local_scores", "chosen", "chosen_nonbase", ...}，并写日志。"""
     os.makedirs(out_dir, exist_ok=True)
     rng = random.Random(f"{component}-{seed}")
@@ -149,8 +150,8 @@ def optimize(component: str, base_cfg: dict, train: list[dict], out_dir: str, ro
         dialog.append({"role": "assistant", "content": out})
         cands.append(out)
     log.append({"stage": "init", "dialog": dialog})
-    for pid in range(len(cands)):
-        evaluate(pid)
+    with ThreadPoolExecutor(len(cands)) as ex:  # 初始候选互不依赖，并行评估（不影响结果）
+        list(ex.map(evaluate, range(len(cands))))
 
     # Contrastive Comparator（FD）
     tolerance, max_score = 0, max(scores.values())

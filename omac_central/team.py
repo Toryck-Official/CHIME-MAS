@@ -48,13 +48,15 @@ def is_peak(now: datetime | None = None) -> bool:
     return bj.isoweekday() <= 5 and (900 <= hm < 1200 or 1400 <= hm < 1800)
 
 
+_PEAK_WARNED = []
+
+
 def wait_offpeak():
     """高峰时段（且未设 ALLOW_PEAK=1）时阻塞，直到闲时。长任务跨入高峰时会自动暂停。"""
-    warned = False
     while is_peak() and os.environ.get("ALLOW_PEAK") != "1":
-        if not warned:
+        if not _PEAK_WARNED:
+            _PEAK_WARNED.append(1)
             print(f"[{datetime.now().isoformat(timespec='seconds')}] peak hours: pausing new API calls", flush=True)
-            warned = True
         time.sleep(60)
 
 
@@ -66,23 +68,39 @@ _CONN.execute("PRAGMA journal_mode=WAL")
 _CONN.execute("CREATE TABLE IF NOT EXISTS c (k TEXT PRIMARY KEY, content TEXT, usage TEXT, ts REAL)")
 _CONN.commit()
 COST = {"calls": 0, "cached": 0, "cny": 0.0}
-_INFLIGHT = threading.BoundedSemaphore(int(os.environ.get("MAX_INFLIGHT", "64")))  # 同时在途的 API 请求上限
+_PENDING: dict = {}  # 正在请求中的输入 → Event
+_INFLIGHT = threading.BoundedSemaphore(int(os.environ.get("MAX_INFLIGHT", "128")))  # 同时在途的 API 请求上限
 
 
 def call(messages: list[dict], temperature: float = 0.0, max_tokens: int = 1500, salt: str = "") -> str:
     key = hashlib.sha256(json.dumps([MODEL, temperature, max_tokens, messages, salt], ensure_ascii=False)
                          .encode()).hexdigest()
-    with _LOCK:
-        row = _CONN.execute("SELECT content FROM c WHERE k=?", (key,)).fetchone()
-        if row is not None:
-            COST["cached"] += 1
-            return row[0]
+    while True:  # 同一进程内同一输入只发一个请求，其余线程等它写进缓存（保证并行的格子共用同一份输出）
+        with _LOCK:
+            row = _CONN.execute("SELECT content FROM c WHERE k=?", (key,)).fetchone()
+            if row is not None:
+                COST["cached"] += 1
+                return row[0]
+            ev = _PENDING.get(key)
+            if ev is None:
+                ev = _PENDING[key] = threading.Event()
+                break
+        ev.wait()
+    try:
+        return _request(key, messages, temperature, max_tokens)
+    finally:
+        with _LOCK:
+            _PENDING.pop(key, None)
+        ev.set()
+
+
+def _request(key, messages, temperature, max_tokens):
     wait_offpeak()
     url = os.environ["DEEPSEEK_BASE_URL"].rstrip("/") + "/chat/completions"
     body = {"model": MODEL, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
     headers = {"Authorization": f"Bearer {os.environ['DEEPSEEK_API_KEY']}"}
-    last = None
-    for i in range(8):
+    last, attempt, warned = None, 0, False
+    while attempt < 8:
         try:
             with _INFLIGHT:
                 r = requests.post(url, json=body, headers=headers, timeout=300)
@@ -97,18 +115,26 @@ def call(messages: list[dict], temperature: float = 0.0, max_tokens: int = 1500,
                 cny = (2.0 if u["peak"] else 1.0) * (hit * PRICE[0] + miss * PRICE[1]
                                                      + u.get("completion_tokens", 0) * PRICE[2]) / 1e6
                 u["cny"] = cny
-                with _LOCK:
-                    _CONN.execute("INSERT OR REPLACE INTO c VALUES (?,?,?,?)", (key, content, json.dumps(u), time.time()))
+                with _LOCK:  # 先写入者为准：别的进程若已写入同一输入，就用那一份
+                    _CONN.execute("INSERT OR IGNORE INTO c VALUES (?,?,?,?)", (key, content, json.dumps(u), time.time()))
                     _CONN.commit()
                     COST["calls"] += 1
                     COST["cny"] += cny
-                return content
+                    return _CONN.execute("SELECT content FROM c WHERE k=?", (key,)).fetchone()[0]
             last = f"{r.status_code} {r.text[:200]}"
-            if r.status_code in (400, 401, 402, 403):
+            if r.status_code == 402:  # 余额不足：暂停等充值，不算重试次数，不让整轮崩掉
+                if not warned:
+                    print(f"[{datetime.now().isoformat(timespec='seconds')}] INSUFFICIENT_BALANCE: paused, "
+                          f"waiting for top-up", flush=True)
+                    warned = True
+                time.sleep(60)
+                continue
+            if r.status_code in (400, 401, 403):
                 raise RuntimeError(f"DeepSeek {last}")
         except requests.RequestException as e:
             last = repr(e)
-        time.sleep(min(3 * 2 ** i, 60))
+        time.sleep(min(3 * 2 ** attempt, 60))
+        attempt += 1
     raise RuntimeError(f"DeepSeek request failed: {last}")
 
 
